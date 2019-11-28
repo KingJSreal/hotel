@@ -6,8 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	@import url("<c:url value="/css/section.css"/>");
 	/* 섹션 타이틀 */
@@ -167,16 +170,17 @@
 	
 </style>
 <script>
-var alert = function(msg, type) {
-	swal({
-		  title: "",
-		  text: msg,
-		  icon: type,
-		  button: "확인",
-		}).then((value) => {
-			return;
-		});
-}
+	var alert = function(msg, type) {
+		swal({
+			  title: "",
+			  text: msg,
+			  icon: type,
+			  button: "확인",
+			}).then((value) => {
+				return;
+			});
+	}
+	
 	function allcheck(ckb){
 		var s = 0;
 		if(ckb.checked) s = 0;
@@ -187,32 +191,48 @@ var alert = function(msg, type) {
 			radios[s].checked = true;
 		}
 	}
-		
+	
 	function check(){
-		var cnt = 0;
+		var tmp = 4;
+		
 		for(var i = 1; i < 4; i++){
-			var radios = document.getElementsByName("termRadio" + i);
-			if(radios[0].checked) cnt++;
-			else break;
+			var radio = $("input[name='termRadio" + i + "']:radio:checked").val();
+			if(radio == "no" || !radio){
+				tmp = i;
+				break;
+			}
 		}
-		switch (cnt) {
-   			case 0:
+		
+		switch (tmp) {
+   			case 1:
    				alert("서비스 이용약관에 대한 동의는 필수입니다.");
-       			break;
-       		case 1:
-   				alert("개인정보 수집, 이용에 대한 동의는 필수입니다.");
-       			break;
+   				return;
        		case 2:
-   				alert("개인정보 제3자 제공에 대한 동의는 필수입니다.");
-       			break;
+   				alert("개인정보 수집, 이용에 대한 동의는 필수입니다.");
+   				return;
        		case 3:
-       			location.href = "/hotel/user/userJoin";
+   				alert("개인정보 제3자 제공에 대한 동의는 필수입니다.");
+   				return;
+       		case 4:
+       			break;
    		}
+
+		if(!$("input[name='termRadio4']:radio:checked").val()){
+			alert("개인정보 마케팅 활용 동의에 대해 동의 선택눌러주세요.");
+			return;
+		}else{
+			location.href = "/hotel/user/userJoin";
+		}
 	}
 	
-	function cancle(){
-		location.href = "/hotel/";
-	}
+	$(function(){
+		$("#nextBtn").click(function(){
+			check()
+			});
+		$("#cancleBtn").click(function(){
+			location.href = "/hotel/";
+			});
+	});
 </script>
 </head>
 <body>
@@ -251,9 +271,9 @@ var alert = function(msg, type) {
 					</div>
 					<div class="term-footer">
 						<label>동의함</label>
-						<input type="radio" name="termRadio1" id="ytermRadio"/>
+						<input type="radio" name="termRadio1" value="yes"/>
 						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio1" id="ntermRadio"/>
+						<input type="radio" name="termRadio1" value="no"/>
 					</div>
 				</div>
 				<div class="terms" id="userdataTerm">
@@ -268,9 +288,9 @@ var alert = function(msg, type) {
 					</div>
 					<div class="term-footer">
 						<label>동의함</label>
-						<input type="radio" name="termRadio2" id="ytermRadio"/>
+						<input type="radio" name="termRadio2" value="yes"/>
 						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio2" id="ntermRadio"/>
+						<input type="radio" name="termRadio2" value="no"/>
 					</div>
 				</div>
 				<div class="terms" id="datashareTerm">
@@ -285,9 +305,9 @@ var alert = function(msg, type) {
 					</div>
 					<div class="term-footer">
 						<label>동의함</label>
-						<input type="radio" name="termRadio3" id="ytermRadio"/>
+						<input type="radio" name="termRadio3" value="yes"/>
 						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio3" id="ntermRadio"/>
+						<input type="radio" name="termRadio3" value="no"/>
 					</div>
 				</div>
 				<div class="terms" id="marketingTerm">
@@ -302,9 +322,9 @@ var alert = function(msg, type) {
 					</div>
 					<div class="term-footer">
 						<label>동의함</label>
-						<input type="radio" name="termRadio4" id="ytermRadio"/>
+						<input type="radio" name="termRadio4" value="yes"/>
 						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio4" id="ntermRadio"/>
+						<input type="radio" name="termRadio4" value="no"/>
 					</div>
 				</div>				
 				<div class="allcheck">
@@ -316,8 +336,8 @@ var alert = function(msg, type) {
 					</div>
 				</div>
 				<div class="Btns">
-					<button class="btn btn-default" type="button" name="submitBtn" style="padding:10px 70px" onclick="check()">다음</button>
-					<button class="btn btn-default" type="button" name="submitBtn" style="padding:10px 70px" onclick="cancle()">취소</button>
+					<button class="btn btn-default" type="button" id="nextBtn" style="padding:10px 70px">다음</button>
+					<button class="btn btn-default" type="button" id="cancleBtn" style="padding:10px 70px">취소</button>
 				</div>
 			</div>
 		</section>

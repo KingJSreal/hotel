@@ -138,6 +138,7 @@ var alert = function(msg, type) {
 			return;
 		});
 }
+
 function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -156,10 +157,10 @@ function execDaumPostcode() {
             }
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             $("#userAddressCode").val(data.zonecode);
-            $("#userAddressCode").attr("readonly",true);
             $("#userAddress1").val(addr);
-            $("#userAddress1").attr("readonly",true);
+            $("#userAddress2").attr("readonly",false);
             // 커서를 상세주소 필드로 이동한다.
+            $("#userAddress2").attr("required", "required");
             $("#userAddress2").focus();
         }
     }).open();
@@ -170,40 +171,67 @@ function check_pw(){
 	var password = $("#userPassword").val();
 	var password2 = $("#userPassword2").val();
 	
-	if(password != password2) {
-	    alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-		return false;
-	}else if(!reg.test(password)) {
+	if(!reg.test(password)) {
 	    alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
 		return false;
-	}
+	}else if(password != password2) {
+	    alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+		return false;
+	} 
 	return true;
 }
+
+function regCall(){
+	var call2test = true;
+	var call3test = true;
+	if($("#userCall1 option:selected").val() != ""){
+		var call2test = /[0-9]{3,4}/.test($("#userCall2").val());
+		var call3test = /[0-9]{4}/.test($("#userCall3").val());
+	}
+	
+	if(!call2test) {
+		alert("자택 전화번호의 가운데 숫자는 3~4글자의 숫자로만 작성해 주세요."); 
+		return false;
+		}
+	else if(!call3test){
+		alert("자택 전화번호의  끝 숫자는 4글자의 숫자로만 작성해 주세요.");
+		return false;
+		}
+	else return true;
+}
+
+function regtest(){
+	var formdata = ["userName",
+	                "userEngFirstName",
+	                "userEngLastName",
+	                "userPhone2",
+	                "userPhone3",];
+	var reg = [ /[가-힣ㄱ-ㅎ]{2,5}/,
+                /[a-z]{2,20}/gi,
+                /[a-z]{2,10}/gi,
+                /[0-9]{3,4}/,
+                /[0-9]{4}/,];
+	var msg = ["이름[국문]은 2~5글자의 한글로만 작성해 주세요.",
+                "이름[영문]은 2~20글자의 영어로만 작성해 주세요.",
+                "이름[영문]은 2~20글자의 영어로만 작성해 주세요.",
+                "핸드폰 번호의 가운데 숫자는 3~4글자의 숫자로만 작성해 주세요.",
+                "핸드폰 번호의 끝 숫자는 4글자의 숫자로만 작성해 주세요."];
+	
+	for(var i = 0; i < formdata.length; i++){
+		if(!reg[i].test($("#" + formdata[i]).val())) {
+			alert(msg[i]);
+			$("#" + formdata[i]).focus();
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
 var validateEmail = false;
 
 $(function(){
-	//한글이름
-	$("#userName").keyup(function() {
-		$(this).val($(this).val().replace(/[^가-힣ㄱ-ㅎ]/gi, '')); //한글만 가능
-	});
-
-	//영어이름
-	$("#userEngFirstName, #userEngLastName").keyup(function() {
-		$(this).val($(this).val().replace(/[^a-z]/gi, '')); //영어만 가능
-	});
-
-	//생년월일, 연락처, 계좌비밀번호, 주민등록번호
-	$("#userCall2, #userCall3, #userPhone2, #userPhone3").keyup(function() {
-		$(this).val($(this).val().replace(/[^0-9]/gi, '')); //숫자만 가능
-	});
-	//이메일
-	$("#userEmail1").keyup(function() {
-		$(this).val($(this).val().replace(/[^a-z0-9-_]/gi, ''));
-	});
-	$("#userEmail2").keyup(function() {
-		$(this).val($(this).val().replace(/[^a-z0-9\.]/gi, ''));
-	});
-	
 	$("#emailDomainCd").bind("change",function(){
 		var domain=$("#emailDomainCd").val();
 		if(domain == "") $("#userEmail2").attr("readonly", false);
@@ -217,7 +245,8 @@ $(function(){
 		if(!$("#userEmail1").val() || !$("#userEmail2").val())
 			alert("이메일을 입력해주세요.");
 		else if(!reg.test($("#userEmail2").val())){
-			alert("이메일 도메인이 잘못 입력되었습니다.");
+			alert("도메인은 영어와 사이 '.'으로만 작성해주세요.");
+			$("#userEmail2").focus();
 		}
 		else {
 			$.ajax({
@@ -242,20 +271,22 @@ $(function(){
 			})
 		}
 	});
-	$("#joinForm").bind("submit", function(e){
+	
+	$("#joinForm").bind("submit", function(e){		
 		e.preventDefault();
-		
 		var userCall = null;
 		var userAddressCode = null;
 		var userAddress = null;
-		var valid = this.checkValidity();
+		var validinput = this.checkValidity();
+		var validform = regtest();
+		var validcall = regCall();
+		var validpw = check_pw();
 		
-		console.log(valid);
 		if(!validateEmail) {
 			alert("이메일 중복 검사를 해주세요.");
 			return;
 			};
-		if(valid && check_pw()) {
+		if(validinput && validcall && validform && validpw) {
 			if($("#userCall1").val() && $("#userCall2").val() && $("#userCall3").val()) 
 				userCall = $("#userCall1").val()+"-"+$("#userCall2").val()+"-"+$("#userCall3").val();
 			if($("#userAddress1").val() && $("#userAddress2").val()) 
@@ -274,8 +305,7 @@ $(function(){
 					userPhone:($("#userPhone1").val()+"-"+$("#userPhone2").val()+"-"+$("#userPhone3").val()),
 					userCall: userCall,
 					userAddressCode:$("#userAddressCode").val(),
-					userAddress: userAddress,
-					userPromotion:$("#userPromotion").val(),
+					userAddress: userAddress
 				},
 				success:function(){
 	       			location.href = "/hotel/user/userComplete";
@@ -357,7 +387,7 @@ $(function(){
 									<td>
   										<div class="form-group">	
 											<span class="" id="uniform-birthYear" style="width: 74px;">
-												<select class="form-control" id="birthYear" name="birthYear"  required="required">
+												<select class="form-control" id="birthYear" name="birthYear" required="required">
 													<option value="">선택</option>
 													<option value="2000" title="2000">2000</option>
 													<option value="1999" title="1999">1999</option>
@@ -543,7 +573,7 @@ $(function(){
   										<div class="form-group">	
 											<label for="userPhone1" class="control-label"></label>
 											<span class="" id="uniform-userPhone1" style="width: 67px;">
-												<select class="form-control" id="userPhone1" name="userPhone1">
+												<select class="form-control" id="userPhone1" name="userPhone1" required="required">
 													<option value="010" title="010">010</option>
 													<option value="011" title="011">011</option>
 													<option value="016" title="016">016</option>
@@ -611,14 +641,14 @@ $(function(){
 									<th scope="row" class="last">자택주소</th>
 									<td class="last">	
 										<div class="form-group col-sm-10"> 
-											<input type="text" class="form-control" id="userAddressCode" name="userAddressCode">
+											<input type="text" class="form-control" id="userAddressCode" name="userAddressCode"  readonly="readonly">
 											<button type="button" class="btn btn-default" id="addsearch">주소찾기</button>
 										</div>
 										<div class="form-group col-sm-10" style="margin: 10px 0 10px 0">
-											<input type="text" class="form-control" id="userAddress1" name="userAddress1" maxlength="100" size="80">
+											<input type="text" class="form-control" id="userAddress1" name="userAddress1" maxlength="100" size="80"  readonly="readonly">
 										</div>
 										<div class="form-group col-sm-10" >
-											<input type="text" class="form-control" id="userAddress2" name="userAddress2" maxlength="100" size="80">
+											<input type="text" class="form-control" id="userAddress2" name="userAddress2" maxlength="100" size="80"  readonly="readonly">
 										</div>
 									</td>
 								</tr>
