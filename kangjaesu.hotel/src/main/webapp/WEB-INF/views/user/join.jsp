@@ -185,11 +185,11 @@ function regCall(){
 	var call2test = true;
 	var call3test = true;
 	if($("#userCall1 option:selected").val() != ""){
-		if(!/[0-9]{3,4}/.test($("#userCall2").val()) {
+		if(!/[0-9]{3,4}/.test($("#userCall2").val())) {
 			alert("자택 전화번호의 가운데 숫자는 3~4글자의 숫자로만 작성해 주세요."); 
 			return false;
 			}
-		else if(!/[0-9]{4}/.test($("#userCall3").val()){
+		else if(!/[0-9]{4}/.test($("#userCall3").val())){
 			alert("자택 전화번호의  끝 숫자는 4글자의 숫자로만 작성해 주세요.");
 			return false;
 			}
