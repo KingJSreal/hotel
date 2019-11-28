@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kangjaesu.hotel.user.dao.mapper.UserMapper">
+	<resultMap type="user" id="userMap">
+		<id property="userNo" column="user_no"/>
+		<result property="userRegDate" column="user_regdate"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userLevel" column="user_level"/>
+		<result property="userPassword" column="user_password"/>
+		<result property="userBirthDay" column="user_birthDay"/>
+		<result property="userPoint" column="user_point"/>
+		<result property="userName" column="user_name"/>
+		<result property="userEngFirstName" column="user_name_en_f"/>
+		<result property="userEngLastName" column="user_name_en_l"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="userCall" column="user_call"/>
+		<result property="userAddressCode" column="user_add_code"/>
+		<result property="userAddress" column="user_add"/>
+	</resultMap>
+	
+	<select id="loginUser" parameterType="user" resultMap="userMap">
+		select *
+		from users
+		<where>
+			<if test="userEmail != null">
+				user_email=#{userEmail}
+			</if>
+			<if test="userPassword != null">
+				and user_password=#{userPassword}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getUsers" resultMap="userMap">
+		select *
+		from users
+		order by user_no
+	</select>
+	
+	<select id="getUser" parameterType="user" resultMap="userMap">
+		select *
+		from users
+		<where>
+			<if test="userEmail != null">
+				user_email=#{userEmail}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="addUser" parameterType="user">
+		INSERT INTO users
+			(user_no, user_email, user_password, user_birthDay, 
+			user_name, user_name_en_f, user_name_en_l, user_phone, 
+			user_call, user_add_code, user_add) 
+		VALUES
+			(User_Seq.NEXTVAL, #{userEmail}, #{userPassword}, #{userBirthDay},  
+			#{userName}, #{userEngFirstName}, #{userEngLastName}, #{userPhone}, 
+			#{userCall}, #{userAddressCode}, #{userAddress})
+	</insert>
+	<!-- 
+	<update id="updateUser" parameterType="user">
+		update users 
+		set user_name=#{userName}, reg_date=SYSDATE
+		where user_no=#{userNo}
+	</update>
+	
+	<delete id="delUser" parameterType="int">
+		delete from users 
+		where user_no=#{userNo}
+	</delete> 
+	-->
+</mapper>
