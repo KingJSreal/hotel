@@ -238,6 +238,9 @@ $(function(){
 	$("#userEmail1").keyup(function(){
 		validateEmail = false;
 	});
+	$("#userEmail2").keyup(function(){
+		validateEmail = false;
+	});
 	$("#emailDomainCd").bind("change",function(){
 		var domain=$("#emailDomainCd").val();
 		if(domain == "") $("#userEmail2").attr("readonly", false);
