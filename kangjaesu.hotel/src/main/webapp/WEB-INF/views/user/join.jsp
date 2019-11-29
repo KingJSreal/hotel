@@ -235,6 +235,9 @@ function regtest(){
 var validateEmail = false;
 
 $(function(){
+	$("#userEmail1").keyup(function(){
+		validateEmail = false;
+	});
 	$("#emailDomainCd").bind("change",function(){
 		var domain=$("#emailDomainCd").val();
 		if(domain == "") $("#userEmail2").attr("readonly", false);

@@ -29,7 +29,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation"
-			value="classpath:kangjaesu/hotel/config/SqlMapConfig.xml" />
+			value="classpath:kangjaesu/hotel/config/sqlMapConfig.xml" />
 		<property name="mapperLocations" >
 			<array>
 				<value>classpath:kangjaesu/hotel/**/dao/mapper/**/*.xml</value>
