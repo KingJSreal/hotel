@@ -308,12 +308,12 @@ $(function(){
 					userName:$("#userName").val(),
 					userEngFirstName:$("#userEngFirstName").val(),
 					userEngLastName:$("#userEngLastName").val(),
-					userBirthDay:($("#birthYear").val() + $("#birthMonth").val() + $("#birthDay").val()),
-					userCall:($("#userCall1").val() + $("#userCall2").val() + $("#userCall3").val()),
+					userBirth:($("#birthYear").val() +"-"+ $("#birthMonth").val() +"-"+ $("#birthDay").val()),
 					userPhone:($("#userPhone1").val() + $("#userPhone2").val() + $("#userPhone3").val()),
-					userCall: userCall,
-					userAddressCode:$("#userAddressCode").val(),
-					userAddress: userAddress
+					userTel:($("#userCall1").val() + $("#userCall2").val() + $("#userCall3").val()),
+					userZip: ($("#userAddressCode").val()),
+					userAdd: ($("#userAddress1").val()),
+					userAddDetail: ($("#userAddress2").val())
 				},
 				success:function(){
 	       			location.href = "/hotel/user/userComplete";

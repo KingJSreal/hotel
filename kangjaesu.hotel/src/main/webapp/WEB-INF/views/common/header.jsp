@@ -47,7 +47,7 @@
 						  	<li><a href="/hotel/user/loginForm" class="header_a">로그인</a></li>
 						  	<li><a href="/hotel/user/userTerms" class="header_a">회원가입</a></li>
 						</c:when>
-						<c:when test="${(sessionScope.user.userLevel == '3' || sessionScope.user.userLevel == '4') && param.page == 'admin'}">
+						<c:when test="${(sessionScope.user.userGrade == '3' || sessionScope.user.userGrade == '4') && param.page == 'admin'}">
 						  	<li><a href="/hotel/user/logout" class="header_a">로그아웃</a></li>
 						  	<li><a href="/hotel/" class="header_a">이용자 화면 보기</a></li>	
 						</c:when>

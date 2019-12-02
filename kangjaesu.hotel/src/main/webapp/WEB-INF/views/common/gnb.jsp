@@ -64,7 +64,7 @@
 <body>
 	<nav>
 		<c:choose>
-			<c:when test="${(sessionScope.user.userLevel == '3' || sessionScope.user.userLevel == '4') && param.page == 'admin'}">
+			<c:when test="${(sessionScope.user.userGrade == '3' || sessionScope.user.userGrade == '4') && param.page == 'admin'}">
 				<div class ="navi-admin">
 					<ul class="mainMenu">
 						<li><a href="#">회원관리</a></li>

@@ -4,20 +4,20 @@
 
 <mapper namespace="kangjaesu.hotel.user.dao.mapper.UserMapper">
 	<resultMap type="user" id="userMap">
-		<id property="userNo" column="user_no"/>
-		<result property="userRegDate" column="user_regdate"/>
+		<id property="userNum" column="user_num"/>
 		<result property="userEmail" column="user_email"/>
-		<result property="userLevel" column="user_level"/>
-		<result property="userPassword" column="user_password"/>
-		<result property="userBirthDay" column="user_birthDay"/>
-		<result property="userPoint" column="user_point"/>
-		<result property="userName" column="user_name"/>
-		<result property="userEngFirstName" column="user_name_en_f"/>
-		<result property="userEngLastName" column="user_name_en_l"/>
+		<result property="userPassword" column="user_pwd"/>
+		<result property="userName" column="user_korname"/>
+		<result property="userEngFirstName" column="user_firstname"/>
+		<result property="userEngLastName" column="user_lastname"/>
+		<result property="userBirth" column="user_birth"/>
 		<result property="userPhone" column="user_phone"/>
-		<result property="userCall" column="user_call"/>
-		<result property="userAddressCode" column="user_add_code"/>
-		<result property="userAddress" column="user_add"/>
+		<result property="userTel" column="tel"/>
+		<result property="userZip" column="zip"/>
+		<result property="userAdd" column="address"/>
+		<result property="userAddDetail" column="add_detail"/>
+		<result property="userRegDate" column="user_reg_date"/>
+		<result property="userGrade" column="grade"/>
 	</resultMap>
 	
 	<select id="loginUser" parameterType="user" resultMap="userMap">
@@ -28,7 +28,7 @@
 				user_email=#{userEmail}
 			</if>
 			<if test="userPassword != null">
-				and user_password=#{userPassword}
+				and user_pwd=#{userPassword}
 			</if>
 		</where>
 	</select>
@@ -36,7 +36,7 @@
 	<select id="getUsers" resultMap="userMap">
 		select *
 		from users
-		order by user_no
+		order by user_num
 	</select>
 	
 	<select id="getUser" parameterType="user" resultMap="userMap">
@@ -51,13 +51,13 @@
 	
 	<insert id="addUser" parameterType="user">
 		INSERT INTO users
-			(user_no, user_email, user_password, user_birthDay, 
-			user_name, user_name_en_f, user_name_en_l, user_phone, 
-			user_call, user_add_code, user_add) 
+			(user_num, user_email, user_pwd, user_korname,
+			 user_firstname, user_lastname, user_birth, user_phone, 
+			 tel, zip, address,  add_detail, user_reg_date, grade) 
 		VALUES
-			(User_Seq.NEXTVAL, #{userEmail}, #{userPassword}, #{userBirthDay},  
-			#{userName}, #{userEngFirstName}, #{userEngLastName}, #{userPhone}, 
-			#{userCall}, #{userAddressCode}, #{userAddress})
+			(User_Seq.NEXTVAL,  #{userEmail}, #{userPassword}, #{userName},
+			#{userEngFirstName}, #{userEngLastName}, #{userBirth}, #{userPhone}, 
+			#{userTel}, #{userZip}, #{userAdd}, #{userAddDetail}, SYSDATE, 1)
 	</insert>
 	<!-- 
 	<update id="updateUser" parameterType="user">

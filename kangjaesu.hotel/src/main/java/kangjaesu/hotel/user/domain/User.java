@@ -4,42 +4,43 @@ import java.sql.Date;
 
 public class User {
 	/*
-	  user_no         number(5)   NOT NULL,
-	  user_regdate    date        DEFAULT SYSDATE,
-	  user_email      varchar(50) UNIQUE NOT NULL,
-	  user_level      number(1)   DEFAULT 1,
-	  user_password   varchar(30) NOT NULL,
-	  user_birthDay   Date        NOT NULL;
-	  user_point      number(5)   DEFAULT 0,
-	  user_name       varchar(20) NOT NULL,
-	  user_name_en_f  varchar(20) NOT NULL,
-	  user_name_en_l  varchar(10) NOT NULL,
-	  user_phone      varchar(13) NOT NULL,
-	  user_call       varchar(14),
-	  user_add_code   varchar(10),
-	  user_add        varchar(100),
+
+	1"USER_NUM"       NUMBER        NOT NULL, -- 회원번호
+	1"USER_EMAIL"     VARCHAR2(255) NULL,     -- 이메일
+	1"USER_PWD"       VARCHAR2(50)  NULL,     -- 비밀번호
+	1"USER_KORNAME"   VARCHAR2(50)  NULL,     -- 한글이름
+	1"USER_LASTNAME"  VARCHAR2(50)  NULL,     -- 영문성
+	1"USER_FIRSTNAME" VARCHAR2(50)  NULL,     -- 영문이름
+	1"USER_BIRTH"     DATE          NULL,     -- 생년월일
+	1"USER_PHONE"     NUMBER        NULL,     -- 핸드폰번호
+	1"TEL"            VARCHAR2(12)  NULL,     -- 자택전화번호
+	"ZIP"            NUMBER        NULL,     -- 우편번호
+	"ADD"            VARCHAR2(255) NULL,     -- 주소
+	"ADD_DETAIL"     VARCHAR2(255) NULL,     -- 상세주소
+	1"USER_REG_DATE"  DATE          NULL,     -- 회원등록일
+	1"GRADE"          NUMBER        NULL      -- 등급
 	*/
 	
-	private int userNo;
-	private Date userRegDate;
+	private int userNum;
 	private String userEmail;
-	private int userLevel;
 	private String userPassword;
-	private int userPoint;
 	private String userName;
 	private String userEngFirstName;
 	private String userEngLastName;
-	private Date userBirthDay;
+	private Date userBirth;
 	private String userPhone;
-	private String userCall;
-	private String userAddressCode;
-	private String userAddress;
+	private String userTel;
+	private String userZip;
+	private String userAdd;
+	private String userAddDetail;
+	private Date userRegDate;
+	private int userGrade;
 	
-	public int getUserNo() {
-		return userNo;
+	public int getUserNum() {
+		return userNum;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
 	}
 	public Date getUserRegDate() {
 		return userRegDate;
@@ -53,23 +54,17 @@ public class User {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public int getUserLevel() {
-		return userLevel;
+	public int getUserGrade() {
+		return userGrade;
 	}
-	public void setUserLevel(int userLevel) {
-		this.userLevel = userLevel;
+	public void setUserGrade(int userGrade) {
+		this.userGrade = userGrade;
 	}
 	public String getUserPassword() {
 		return userPassword;
 	}
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
-	}
-	public int getUserPoint() {
-		return userPoint;
-	}
-	public void setUserPoint(int userPoint) {
-		this.userPoint = userPoint;
 	}
 	public String getUserName() {
 		return userName;
@@ -89,11 +84,11 @@ public class User {
 	public void setUserEngLastName(String userEngLastName) {
 		this.userEngLastName = userEngLastName;
 	}
-	public Date getUserBirthDay() {
-		return userBirthDay;
+	public Date getUserBirth() {
+		return userBirth;
 	}
-	public void setUserBirthDay(Date userBirthDay) {
-		this.userBirthDay = userBirthDay;
+	public void setUserBirth(Date userBirth) {
+		this.userBirth = userBirth;
 	}
 	public String getUserPhone() {
 		return userPhone;
@@ -101,32 +96,38 @@ public class User {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
-	public String getUserCall() {
-		return userCall;
+	public String getUserTel() {
+		return userTel;
 	}
-	public void setUserCall(String userCall) {
-		this.userCall = userCall;
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
 	}
-	public String getUserAddressCode() {
-		return userAddressCode;
+	public String getUserZip() {
+		return userZip;
 	}
-	public void setUserAddressCode(String userAddressCode) {
-		this.userAddressCode = userAddressCode;
+	public void setUserZip(String userZip) {
+		this.userZip = userZip;
 	}
-	public String getUserAddress() {
-		return userAddress;
+	public String getUserAdd() {
+		return userAdd;
 	}
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
+	public void setUserAdd(String userAdd) {
+		this.userAdd = userAdd;
+	}
+	public String getUserAddDetail() {
+		return userAddDetail;
+	}
+	public void setUserAddDetail(String userAddDetail) {
+		this.userAddDetail = userAddDetail;
 	}
 	
 	@Override
 	public String toString() {
 		return String
-				.format("User [userNo=%s, userRegDate=%s, userEmail=%s, userLevel=%s, userPassword=%s, userPoint=%s, userName=%s, userEngFirstName=%s, userEngLastName=%s, userbirthDay=%s, userPhone=%s, userCall=%s, userAddressCode=%s, userAddress=%s]",
-						userNo, userRegDate, userEmail, userLevel,
-						userPassword, userPoint, userName, userEngFirstName,
-						userEngLastName, userBirthDay, userPhone, userCall,
-						userAddressCode, userAddress);
+				.format("User [userNum=%s, userRegDate=%s, userEmail=%s, userGrade=%s, userPassword=%s, userName=%s, userEngFirstName=%s, userEngLastName=%s, userBirth=%s, userPhone=%s, userTel=%s, userZip=%s, userAdd=%s, userAddDetail=%s]",
+						userNum, userRegDate, userEmail, userGrade,
+						userPassword, userName, userEngFirstName,
+						userEngLastName, userBirth, userPhone, userTel,
+						userZip, userAdd, userAddDetail);
 	}
 }
