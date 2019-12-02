@@ -296,8 +296,6 @@ $(function(){
 			return;
 			};
 		if(validinput && validcall && validform && validpw) {
-			if($("#userCall1").val() && $("#userCall2").val() && $("#userCall3").val()) 
-				userCall = $("#userCall1").val()+"-"+$("#userCall2").val()+"-"+$("#userCall3").val();
 			if($("#userAddress1").val() && $("#userAddress2").val()) 
 				userAddress = $("#userAddress1").val()+" "+$("#userAddress2").val();
 			
@@ -310,8 +308,9 @@ $(function(){
 					userName:$("#userName").val(),
 					userEngFirstName:$("#userEngFirstName").val(),
 					userEngLastName:$("#userEngLastName").val(),
-					userBirthDay:($("#birthYear").val()+"-"+$("#birthMonth").val()+"-"+$("#birthDay").val()),
-					userPhone:($("#userPhone1").val()+"-"+$("#userPhone2").val()+"-"+$("#userPhone3").val()),
+					userBirthDay:($("#birthYear").val() + $("#birthMonth").val() + $("#birthDay").val()),
+					userCall:($("#userCall1").val() + $("#userCall2").val() + $("#userCall3").val()),
+					userPhone:($("#userPhone1").val() + $("#userPhone2").val() + $("#userPhone3").val()),
 					userCall: userCall,
 					userAddressCode:$("#userAddressCode").val(),
 					userAddress: userAddress
