@@ -6,13 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<jsp:include page="common/import.jsp"></jsp:include>
 <style>
 	@import url("<c:url value="/css/section.css" />");
+	
 	.today_status{
 		width:40%;
 		float:left;
