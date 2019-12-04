@@ -53,7 +53,7 @@
 						  	<li><a href="/hotel/" class="header_a">이용자 화면 보기</a></li>	
 						</c:when>
 						<c:otherwise>			
-				   	  		<li><a href="/hotel/admin" style="font-size: 9px; color: gray;">관리자 로그인</a></li>
+				   	  		<li><a href="/hotel/admin/?page=admin" style="font-size: 9px; color: gray;">관리자 화면으로</a></li>
 						  	<li><a href="#" class="header_a">예약조회</a></li>
 						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
 						  	<li><a href="#" class="header_a">마이페이지</a></li>	

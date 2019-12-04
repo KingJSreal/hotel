@@ -1,5 +1,7 @@
 package kangjaesu.hotel.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,5 +17,15 @@ public class LoginServiceImpl implements LoginService{
 	@Transactional
 	public User logInVaildate(User user) {
 		return userDao.loginUser(user);
+	}
+
+	@Override
+	public List<User> findId(User user) {
+		return userDao.findId(user);
+	}
+
+	@Override
+	public User findPw(User user) {
+		return userDao.findPw(user);
 	}
 }
