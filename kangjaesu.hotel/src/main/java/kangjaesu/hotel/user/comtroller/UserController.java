@@ -26,10 +26,6 @@ public class UserController {
 	public String userComplete() {
 		return "user/complete";
 	}
-	@RequestMapping("/searchIdNPw")
-	public String userSearchIdPw() {
-		return "user/searchIdNPw";
-	}
 	
 	
 	@Transactional

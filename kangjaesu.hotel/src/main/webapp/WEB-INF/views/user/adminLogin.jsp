@@ -35,7 +35,7 @@ $(function(){
 				userPassword:$("#userPassword").val()
 			},
 			success:function(result){
-				if(result == true)  location.href = "/hotel/admin/";
+				if(result == true)  location.href = "/hotel/admin/?page=admin";
 				else alert("이메일 및 비밀번호가 정확하지 않습니다. \n다시 입력해 주세요")
 			},
 			error:function(a, b, errMsg){

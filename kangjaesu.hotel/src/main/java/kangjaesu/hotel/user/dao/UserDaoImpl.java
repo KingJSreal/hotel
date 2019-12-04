@@ -11,7 +11,22 @@ import kangjaesu.hotel.user.domain.User;
 @Repository
 public class UserDaoImpl implements UserDao{
 	@Autowired private UserMapper mapper = null;
+	
+	@Override
+	public User loginUser(User user) {
+		return mapper.loginUser(user);
+	}
 
+	@Override
+	public List<User> findId(User user) {
+		return mapper.findId(user);
+	}
+
+	@Override
+	public User findPw(User user) {
+		return mapper.findPw(user);
+	}
+	
 	@Override
 	public List<User> getUsers() {
 		return mapper.getUsers();
@@ -26,11 +41,8 @@ public class UserDaoImpl implements UserDao{
 	public int addUser(User user) {
 		return mapper.addUser(user);
 	}
+
 	
-	@Override
-	public User loginUser(User user) {
-		return mapper.loginUser(user);
-	}
 //
 //	@Override
 //	public int updateUser(User user) {
