@@ -73,15 +73,7 @@ var confirm = function(msg, type) {
 	   	document.getElementById(x.id.concat("member")).style.display = "initial";
 	}
 	
-	$(function(){
-		$(".searchIdPw").bind("click", function(e){
-			location.href = "/hotel/user/searchIdNPw";
-		});
-
-		$(".joinUser").bind("click", function(){
-			location.href = "/hotel/user/userTerms";
-		});
-		
+	$(function(){		
 		$("#ymemlogin").bind("click", function(e){
 			e.preventDefault();
 
@@ -152,7 +144,7 @@ var confirm = function(msg, type) {
 				         	<input type="email" class="form-control login-input" id="userEmail" placeholder="이메일">
 							<input type="password" class="form-control login-input" id="userPassword" placeholder="비밀번호 입력">
 				         	<br>
-					        <a href="/hotel/user/searchIdNPw" class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
+					        <a href="/hotel/searchIdNPw" class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
 				         	<a href="/hotel/user/userTerms"  class="joinUser">회원가입</a>
 				      	</div>
 				
@@ -162,7 +154,7 @@ var confirm = function(msg, type) {
 					        <input type="text" class="form-control login-name" id="fname" style="display: inline-block;" placeholder="First Name(이름)">
 					        <input type="text" class="form-control login-name" id="lname" style="display: inline-block;" placeholder="Last Name(성)">
 					       	<br><br>
-					        <a href="/hotel/user/searchIdNPw"  class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
+					        <a href="/hotel/searchIdNPw"  class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
 				         	<a href="/hotel/user/userTerms" class="joinUser">회원가입</a>
 					    </div>
 					</fieldset>

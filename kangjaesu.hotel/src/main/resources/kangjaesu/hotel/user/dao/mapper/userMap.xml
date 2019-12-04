@@ -37,22 +37,22 @@
 		select user_email
 		from users
 		where
-			user_korname == #{userName}
-			and user_firstname == #{userEngFirstName}
-			and user_lastname == #{userEngLastName}
-			and user_birth == #{userBirth}
+			user_korname = #{userName}
+			and user_firstname = #{userEngFirstName}
+			and user_lastname = #{userEngLastName}
+			and user_birth = #{userBirth}
 	</select>
 	
 	<select id="findPw" parameterType="user" resultMap="userMap">
 		select user_pwd
 		from users
 		where
-			user_korname == #{userName}
-			and user_firstname == #{userEngFirstName}
-			and user_lastname == #{userEngLastName}
-			and user_birth == #{userBirth}
-			and user_email == #{userEmail}
-			and user_phone == #{userPhone}
+			user_korname = #{userName}
+			and user_firstname = #{userEngFirstName}
+			and user_lastname = #{userEngLastName}
+			and user_birth = #{userBirth}
+			and user_email = #{userEmail}
+			and user_phone = #{userPhone}
 	</select>
 	
 	<select id="getUsers" resultMap="userMap">

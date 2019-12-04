@@ -1,4 +1,4 @@
-package kangjaesu.hotel.inquiry.comtroller;
+package kangjaesu.hotel.inquiry.controller;
 
 import java.util.List;
 

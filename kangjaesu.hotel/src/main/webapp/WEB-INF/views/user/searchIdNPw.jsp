@@ -8,7 +8,6 @@
 <title>로그인</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
-	/* 섹션 타이틀 끝 */	
 	div.hTitS{
 		margin-top: 50px;
 	}
@@ -30,7 +29,12 @@
 		font-size: 16;
 		font-weight: 800;
 	}
-    /*메인 섹션 끝*/
+	#msg{
+		height: 150px;
+		text-align: center;
+		font-size: 18px;
+		
+	}
 </style>
 <script>
 var alert = function(msg, type) {
@@ -55,22 +59,75 @@ var confirm = function(msg, type) {
 }
 
 $(function(){	
+	$("#emailDomainCd").bind("change",function(){
+		if($(this).val() == "") $("#userEmail2").attr("readonly", false);
+		else $("#userEmail2").attr("readonly", true);
+		
+		$("#userEmail2").val($(this).val());
+	});
+	
 	$("#idsearch").bind("submit", function(e){
 		e.preventDefault();
-		if(check_idsearch()){
-			$("#modal #msgTitle").text("아이디 찾기");
-			$("#modal #msg").text("귀하의 아이디는: User /n 입니다.");
-			$("#modal").modal("show");
-		}
+		$.ajax({
+			url:"user/findId",
+			method:"GET",
+			data: {
+				userName: $("#idsearch #userName").val(),
+				userEngFirstName:	$("#idsearch #userEngFirstName").val(),
+				userEngLastName:	$("#idsearch #userEngLastName").val(),
+				userBirth:			($("#idsearch #birthYear").val() +"-"
+									+ $("#idsearch #birthMonth").val() +"-"
+									+ $("#idsearch #birthDay").val())
+				},
+			success:function(users){
+				$("#modal #msgTitle").text("아이디 찾기");
+				if(users.length > 0 ){
+					var userList = [];
+					$(users).each(function(idx, user){
+						userList.push("<tr><td>" + user.userEmail + "</td></tr>");
+					});
+					
+					$('#modal #msg').append("<table class='table table-bordered'>" + userList.join('') + "</table>");
+					
+				}else $('#modal #msg').append("<p>입력하신 정보로 가입된 회원이 없습니다.<p>");
+				
+				$("#modal").modal("show");
+			},
+			error:function(a, b, errMsg){
+				alert("아이디 찾기에 실패하였습니다.");
+			}
+		});
 	});
 	
 	$("#pwsearch").bind("submit", function(e){
 		e.preventDefault();
-		if(check_pwsearch()){
-			$("#modal #msgTitle").text("비밀번호 찾기");
-			$("#modal #msg").text("귀하의 비밀번호는: User /n 입니다.");
-			$("#modal").modal("show");
-		}
+		$.ajax({
+			url:"user/findPw",
+			method:"GET",
+			data: {
+				userName: $("#pwsearch #userName").val(),
+				userEngFirstName:	$("#pwsearch #userEngFirstName").val(),
+				userEngLastName:	$("#pwsearch #userEngLastName").val(),
+				userBirth:			($("#pwsearch #birthYear").val() +"-"
+									+ $("#pwsearch #birthMonth").val() +"-"
+									+ $("#pwsearch #birthDay").val()),
+				userPhone:			($("#pwsearch #userPhone1").val() 
+									+ $("#pwsearch #userPhone2").val() 
+									+ $("#pwsearch #userPhone3").val()),
+				userEmail:			($("#pwsearch #userEmail1").val()+"@"
+									+$("#pwsearch #userEmail2").val())
+				},
+			success:function(user){
+				$("#modal #msgTitle").text("비밀번호 찾기");
+				if(user != "") $('#modal #msg').append("<p>입력하신 이메일로 비밀번호를 전송했습니다.</p>");
+				else $('#modal #msg').append("<p>입력하신 정보로 가입된 회원이 없습니다.<p>");
+				
+				$("#modal").modal("show");
+			},
+			error:function(a, b, errMsg){
+				alert("비밀번호 찾기에 실패하였습니다.");
+			}
+		});
 	});
 	
 	$("#msgModal-close").bind("click", function(){
@@ -297,7 +354,9 @@ $(function(){
 					
 					<form class="form-inline" id="pwsearch" name="pwsearch" method="POST">
 						<div class="hTitS">
-							<h4>패스워드 찾기</h4>
+							<h4>패스워드 찾기%nbsp;
+								<span style="font-size: 13px;color: dimgray;">(입력하신 정보가 맞을시 패스워드를 메일로 보내드립니다.)</span>
+							</h4>
 						</div>
 						<table class="table table-bordered">
 							<colgroup>
@@ -505,7 +564,6 @@ $(function(){
 													<option value="">직접입력</option>
 												</select>
 											</span>
-											<span class=""><button type="button" class="btn btn-default" id="emailcheck">이메일 중복확인</button></span>
 										</div>
 									</td>
 								</tr>
@@ -547,7 +605,7 @@ $(function(){
 		<jsp:include page="../common/footer.jsp" />
 	</div>
 	<div id="modal" class="modal fade">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -555,7 +613,7 @@ $(function(){
 				</div>
 				<!-- 모달 바디 -->
 				<div class="modal-body">
-					<p id="msg"></p>
+					<div id="msg"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="close" id="msgModal-close" data-dismiss="modal">확인</button>
