@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -72,17 +72,17 @@ var confirm = function(msg, type) {
 	}
 
 	$(function() {
-		//확인 버튼 클릭시 호출
-		$("#confirmModalButton").click(function() {
+		//보기 버튼 클릭시 호출
+		$(".confirmModalButton").click(function() {
 			$("#confirmModal").modal({
-				remote : "05.html"
+				remote : "viewInquiry"
 			});
 		});
 
 		//답변 버튼 클릭시 호출
 		$("#inquiryModalButton").click(function() {
 			$("#inquiryModal").modal({
-				remote : "06.html"
+				remote : "inquiryAnswer"
 			});
 		});
 
@@ -94,7 +94,7 @@ var confirm = function(msg, type) {
 </script>
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<jsp:include page="../common/header.jsp" />
 		<jsp:include page="../common/gnb.jsp" />
 		<!-- 섹션 타이틀 -->
@@ -110,79 +110,74 @@ var confirm = function(msg, type) {
 			<br> <br>
 		</div>
 		<!-- 섹션 타이틀 끝-->
-			<!-- inquirymain 시작 -->
-			<div class="container bodymain">
-				<p class="pull-right">미처리 문의: 1건</p>
-				
-				<table class="table table-hover table-bordered table-condensed">
-					<tr class="success">
-						<th>번호</th>
-						<th>문의제목</th>
-						<th>등록일자</th>
-						<th>처리상태</th>
-						<th></th>
-					</tr>
-					<c:forEach var="list" items="${inquiry}">
-				
+		<!-- inquirymain 시작 -->
+		<div class="container bodymain">
+			<p class="pull-right">미처리 문의: 1건</p>
+
+			<table class="table table-hover table-bordered table-condensed">
+				<tr class="success">
+					<th>번호</th>
+					<th>문의제목</th>
+					<th>등록일자</th>
+					<th>처리상태</th>
+					<th></th>
+				</tr>
+				<c:forEach var="list" items="${inquiryList}">
+
 					<tr>
 						<td>${list.inqNum}</td>
 						<td>${list.inqTitle}</td>
 						<td>${list.inqDate}</td>
 						<td>${list.status}</td>
-						<td class="td5"><button type="button" class="btn btn-default"
-								id="confirmModalButton">보기</button>
+						<td class="td5"><button type="button" class="btn btn-default confirmModalButton"
+								id="${list.inqNum}">보기</button>
 							<button type="button" class="btn btn-default"
 								id="inquiryModalButton">답변</button>
 
 							<button type="button" class="btn btn-danger" id="deleteButton">삭제</button></td>
 					</tr>
-					</c:forEach>
-				</table>
-			</div>
-			<!-- inquirymain 끝 -->
-			<!-- paging -->
-			<div class="paging">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">6</a></li>
-					<li class="page-item"><a class="page-link" href="#">7</a></li>
-					<li class="page-item"><a class="page-link" href="#">8</a></li>
-					<li class="page-item"><a class="page-link" href="#">9</a></li>
-					<li class="page-item"><a class="page-link" href="#">10</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
-				</ul>
-			</div>
-			<!-- paging 끝 -->
+				</c:forEach>
+			</table>
 		</div>
+		<!-- inquirymain 끝 -->
+		<!-- paging -->
+		<div class="paging">
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">4</a></li>
+				<li class="page-item"><a class="page-link" href="#">5</a></li>
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+			</ul>
+		</div>
+		<!-- paging 끝 -->
+	</div>
 
-		<!-- 문의 보기 모달 -->
-		<div class="modal fade" id="confirmModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- remote call이 되는영역 -->
-				</div>
+	<!-- 문의 보기 모달 -->
+	<div class="modal fade" id="confirmModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- remote call이 되는영역 -->
 			</div>
 		</div>
-		<!-- 문의 보기 모달 끝 -->
+	</div>
+	<!-- 문의 보기 모달 끝 -->
 
-		<!-- 답변 모달 -->
-		<div class="modal fade" id="inquiryModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- remote call이 되는영역 -->
-				</div>
+	<!-- 답변 모달 -->
+	<div class="modal fade" id="inquiryModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- remote call이 되는영역 -->
 			</div>
 		</div>
-		<!-- 답변 모달 끝 -->
-<jsp:include page="../common/footer.jsp" />
+	</div>
+	<!-- 답변 모달 끝 -->
+	<jsp:include page="../common/footer.jsp" />
 
 
 </body>

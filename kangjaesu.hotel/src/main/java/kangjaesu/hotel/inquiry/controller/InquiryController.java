@@ -1,13 +1,12 @@
-package kangjaesu.hotel.user.comtroller;
+package kangjaesu.hotel.inquiry.controller;
 
-import java.util.List;
-
-import kangjaesu.hotel.user.domain.Inquiry;
-import kangjaesu.hotel.user.service.InquiryService;
+import kangjaesu.hotel.inquiry.domain.Inquiry;
+import kangjaesu.hotel.inquiry.service.InquiryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,16 +17,33 @@ public class InquiryController {
 	
 	@Transactional
 	@RequestMapping("/inquiryManage")
-	public String inquiryManage() {
-		inquiryService.getInquirys();
+	public String inquiryManage(Model model) {
+		model.addAttribute("inquiryList", inquiryService.getInquirys());
+		//inquiryService.getInquirys();
 		return "inquiry/manage";
 	}
 	
-	@ResponseBody
+
 	@Transactional
+	@RequestMapping("/viewInquiry")
+	public String viewInquiry(Model model, Inquiry inquiry) {
+	//	model.addAttribute("inq", inquiryService.getInquiry(inquiry));
+		return "inquiry/view";
+	}
+	
+	@Transactional
+	@ResponseBody
 	@RequestMapping("/getInquiry")
 	public Inquiry getInquiry(Inquiry inquiry) {
+		//model.addAttribute("inquiry", inquiryService.getInquiry(inquiry));
 		return inquiryService.getInquiry(inquiry);
+	}
+	
+	@Transactional
+	@RequestMapping("/inquiryAnswer")
+	public String inquiryAnswer(Inquiry inquiry, Model model) {
+		//model.addAttribute("inquiry", inquiryService.getInquiry(inquiry));
+		return "inquiry/answer";
 	}
 	
 	@Transactional

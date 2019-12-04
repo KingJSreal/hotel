@@ -1,4 +1,4 @@
-package kangjaesu.hotel.user.domain;
+package kangjaesu.hotel.booking.domain;
 
 import java.sql.Date;
 public class Booking {

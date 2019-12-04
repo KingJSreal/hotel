@@ -1,12 +1,12 @@
-package kangjaesu.hotel.user.dao;
+package kangjaesu.hotel.inquiry.dao;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kangjaesu.hotel.user.dao.mapper.InquiryMapper;
-import kangjaesu.hotel.user.domain.Inquiry;
+import kangjaesu.hotel.inquiry.dao.mapper.InquiryMapper;
+import kangjaesu.hotel.inquiry.domain.Inquiry;
 
 @Repository
 public class InquiryDaoImpl implements InquiryDao{

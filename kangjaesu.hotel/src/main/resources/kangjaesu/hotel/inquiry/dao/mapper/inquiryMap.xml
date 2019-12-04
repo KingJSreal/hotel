@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kangjaesu.hotel.user.dao.mapper.InquiryMapper">
+<mapper namespace="kangjaesu.hotel.inquiry.dao.mapper.InquiryMapper">
 	<resultMap type="inquiry" id="inquiryMap">
 		<id property="inqNum" column="INQ_NUM"/>
 		<result property="inqTitle" column="INQ_TITLE"/>
@@ -18,7 +18,7 @@
 	<select id="getInquirys" resultMap="inquiryMap">
 		select *
 		from INQUIRYS
-		order by INQ_NUM
+		order by INQ_NUM DESC
 	</select>
 	
 	<select id="getInquiry" parameterType="inquiry" resultMap="inquiryMap">
