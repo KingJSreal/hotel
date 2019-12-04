@@ -8,8 +8,6 @@
 <title>쌍용호텔</title>
 <jsp:include page="common/import.jsp"></jsp:include>
 <style>
-	@import url("<c:url value="/css/section.css" />");
-	
 	div .searchBar {
 		margin-top: 20px;
 		margin-bottom: 20px;

@@ -4,39 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../res/css/common.css">
 <meta charset="EUC-KR">
 <title>로그인</title>
+<jsp:include page="../common/import.jsp"></jsp:include>
 <style>
-	/*메인 섹션*/
-	section {
-		margin: 0px 0 0px 0;
-	}
-	/* 섹션 타이틀 */
-	div.location {
-		float: right;
-	    height: 47px;
-	    padding: 40px 0 0 0;
-	    margin: 0 0 -30px 0;
-	    z-index: 9;
-	    position: relative;
-        text-align: right;
-    }
-    .location a{
-    	text-decoration:none;
-    	color:#4C4A4A;
-    }
-	div.headTit{
-		border-bottom: #432c10 solid 2px;
-	    height: 47px;
-	    margin: 0 auto;
-	    position: relative;
-    	z-index: 8;
-    	font-style:Sans-Serif;
-    } 
 	/* 섹션 타이틀 끝 */	
 	div.hTitS{
 		margin-top: 50px;
@@ -157,6 +128,16 @@ $(function(){
 </script>
 </head>
 <body>
+	<div>
+		<jsp:include page="../common/header.jsp" />
+		<jsp:include page="../common/gnb.jsp" />
+		<!-- 예약정보 검색 -->
+		<div id="contents">
+			<section>
+			</section>
+		</div>
+		<jsp:include page="../common/footer.jsp" />
+	</div>
 	<div class="container">
 		<jsp:include page="../common/header.jsp" />
 		<jsp:include page="../common/gnb.jsp" />

@@ -8,7 +8,6 @@
 <title>회원가입</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style type="text/css">
-	@import url("<c:url value="/css/section.css"/>");
 	@import url("<c:url value="/css/joinstep.css"/>");
 	
 	div.Btns{
@@ -142,109 +141,120 @@
 </script>
 </head>
 <body>
+	<div>
+		<jsp:include page="../common/header.jsp" />
+		<jsp:include page="../common/gnb.jsp" />
+		<!-- 예약정보 검색 -->
+		<div id="contents">
+			<section>
+				<div class="container center-block">
+					<div class="location">
+						<p>
+							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
+							<a>회원가입</a>
+						</p>
+					</div>
+					<div class="headTit">
+						<h3>&nbsp;회원가입</h3>
+					</div>
+				   	<div class="joinStep">
+						<ul class="step">
+							<li class="t1 first on"><span>약관동의</span></li>
+							<li class="t2 second"><span>회원정보 입력</span></li>
+							<li class="t3 last"><span>가입완료</span></li>
+						</ul>
+					</div>
+					<div class="terms" id="serviceTerm">
+						<div class="term-header">
+							서비스 이용약관에 대한 동의(필수)
+							<button type="button" name="termBtn">전체 보기</button>
+						</div>
+						<div class="term-body">
+							<div class="box">
+								<jsp:include page="../terms/service.jsp"></jsp:include>
+							</div>
+						</div>
+						<div class="term-footer">
+							<label>동의함</label>
+							<input type="radio" name="termRadio1" value="yes"/>
+							<label>동의하지 않음</label>
+							<input type="radio" name="termRadio1" value="no"/>
+						</div>
+					</div>
+					<div class="terms" id="userdataTerm">
+						<div class="term-header">
+							개인정보 수집, 이용에 대한 동의(필수)
+							<button type="button" name="termBtn">전체 보기</button>
+						</div>
+						<div class="term-body">
+							<div class="box">
+								<jsp:include page="../terms/userdata.jsp"></jsp:include>
+							</div>
+						</div>
+						<div class="term-footer">
+							<label>동의함</label>
+							<input type="radio" name="termRadio2" value="yes"/>
+							<label>동의하지 않음</label>
+							<input type="radio" name="termRadio2" value="no"/>
+						</div>
+					</div>
+					<div class="terms" id="datashareTerm">
+						<div class="term-header">
+							개인정보 제3자 제공에 대한 동의(필수)
+							<button type="button" name="termBtn">전체 보기</button>
+						</div>
+						<div class="term-body">
+							<div class="box">
+								<jsp:include page="../terms/datashare.jsp"></jsp:include>
+							</div>
+						</div>
+						<div class="term-footer">
+							<label>동의함</label>
+							<input type="radio" name="termRadio3" value="yes"/>
+							<label>동의하지 않음</label>
+							<input type="radio" name="termRadio3" value="no"/>
+						</div>
+					</div>
+					<div class="terms" id="marketingTerm">
+						<div class="term-header">
+							개인정보 마케팅 활용 동의(선택)
+							<button type="button" name="termBtn">전체 보기</button>
+						</div>
+						<div class="term-body">
+							<div class="box">							
+								<jsp:include page="../terms/marketing.jsp"></jsp:include>
+							</div>
+						</div>
+						<div class="term-footer">
+							<label>동의함</label>
+							<input type="radio" name="termRadio4" value="yes"/>
+							<label>동의하지 않음</label>
+							<input type="radio" name="termRadio4" value="no"/>
+						</div>
+					</div>				
+					<div class="allcheck">
+						<input type="checkbox" name="allcheck" onChange="allcheck(this)">
+						<label>가입 약관 전체 동의</label>
+						<br>
+						<div>
+							※ 전체 동의는 선택사항(동의 내용을 확인한 후 개별 동의 가능)이며 전체 동의 버튼을 체크하면 선택적 수집동의도 동시에 진행됩니다.
+						</div>
+					</div>
+					<div class="Btns">
+						<button class="btn btn-default" type="button" id="nextBtn" style="padding:10px 70px">다음</button>
+						<button class="btn btn-default" type="button" id="cancleBtn" style="padding:10px 70px">취소</button>
+					</div>
+				</div>
+			</section>
+		</div>
+		<jsp:include page="../common/footer.jsp" />
+	</div>
 	<div class="container">
 		<jsp:include page="../common/header.jsp" />
 		<jsp:include page="../common/gnb.jsp" />
 		<!-- 로그인 폼 -->
 		<section>
-			<div class="container center-block">
-				<div class="location">
-					<p>
-						<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
-						<a>회원가입</a>
-					</p>
-				</div>
-				<div class="headTit">
-					<h3>&nbsp;회원가입</h3>
-				</div>
-			   	<div class="joinStep">
-					<ul class="step">
-						<li class="t1 first on"><span>약관동의</span></li>
-						<li class="t2 second"><span>회원정보 입력</span></li>
-						<li class="t3 last"><span>가입완료</span></li>
-					</ul>
-				</div>
-				<div class="terms" id="serviceTerm">
-					<div class="term-header">
-						서비스 이용약관에 대한 동의(필수)
-						<button type="button" name="termBtn">전체 보기</button>
-					</div>
-					<div class="term-body">
-						<div class="box">
-							<jsp:include page="../terms/service.jsp"></jsp:include>
-						</div>
-					</div>
-					<div class="term-footer">
-						<label>동의함</label>
-						<input type="radio" name="termRadio1" value="yes"/>
-						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio1" value="no"/>
-					</div>
-				</div>
-				<div class="terms" id="userdataTerm">
-					<div class="term-header">
-						개인정보 수집, 이용에 대한 동의(필수)
-						<button type="button" name="termBtn">전체 보기</button>
-					</div>
-					<div class="term-body">
-						<div class="box">
-							<jsp:include page="../terms/userdata.jsp"></jsp:include>
-						</div>
-					</div>
-					<div class="term-footer">
-						<label>동의함</label>
-						<input type="radio" name="termRadio2" value="yes"/>
-						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio2" value="no"/>
-					</div>
-				</div>
-				<div class="terms" id="datashareTerm">
-					<div class="term-header">
-						개인정보 제3자 제공에 대한 동의(필수)
-						<button type="button" name="termBtn">전체 보기</button>
-					</div>
-					<div class="term-body">
-						<div class="box">
-							<jsp:include page="../terms/datashare.jsp"></jsp:include>
-						</div>
-					</div>
-					<div class="term-footer">
-						<label>동의함</label>
-						<input type="radio" name="termRadio3" value="yes"/>
-						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio3" value="no"/>
-					</div>
-				</div>
-				<div class="terms" id="marketingTerm">
-					<div class="term-header">
-						개인정보 마케팅 활용 동의(선택)
-						<button type="button" name="termBtn">전체 보기</button>
-					</div>
-					<div class="term-body">
-						<div class="box">							
-							<jsp:include page="../terms/marketing.jsp"></jsp:include>
-						</div>
-					</div>
-					<div class="term-footer">
-						<label>동의함</label>
-						<input type="radio" name="termRadio4" value="yes"/>
-						<label>동의하지 않음</label>
-						<input type="radio" name="termRadio4" value="no"/>
-					</div>
-				</div>				
-				<div class="allcheck">
-					<input type="checkbox" name="allcheck" onChange="allcheck(this)">
-					<label>가입 약관 전체 동의</label>
-					<br>
-					<div>
-						※ 전체 동의는 선택사항(동의 내용을 확인한 후 개별 동의 가능)이며 전체 동의 버튼을 체크하면 선택적 수집동의도 동시에 진행됩니다.
-					</div>
-				</div>
-				<div class="Btns">
-					<button class="btn btn-default" type="button" id="nextBtn" style="padding:10px 70px">다음</button>
-					<button class="btn btn-default" type="button" id="cancleBtn" style="padding:10px 70px">취소</button>
-				</div>
-			</div>
+			
 		</section>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
