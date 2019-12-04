@@ -4,34 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<link rel="stylesheet" href="../res/css/common.css">
+<jsp:include page="../common/import.jsp"></jsp:include>
+<link rel="stylesheet" href="../res/css/section.css">
 
 <style>
-/* 섹션 타이틀 */
-.location {
-	float: right;
-	height: 47px;
-	padding: 40px 0 0 0;
-}
-
-.location a {
-	text-decoration: none;
-	color: #4C4A4A;
-}
-
-.headTit {
-	border-bottom: #432c10 solid 2px;
-	height: 47px;
-	font-style: Sans-Serif;
-}
-/* 섹션 타이틀 끝 */
 
 /* 본문 컨테이너 */
 .form-inline {

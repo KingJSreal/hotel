@@ -1,5 +1,7 @@
 package kangjaesu.hotel.user.comtroller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import kangjaesu.hotel.user.domain.User;
@@ -23,6 +25,11 @@ public class UserLoginController {
 	@RequestMapping("/admin")
 	public String admin(){
 		return "admin";
+	}
+	
+	@RequestMapping("/searchIdNPw")
+	public String userSearchIdPw() {
+		return "user/searchIdNPw";
 	}
 	
 	@RequestMapping("user/login")
@@ -50,6 +57,20 @@ public class UserLoginController {
 			}
 		return result;
 	}
+	
+	@RequestMapping("user/findId")
+	@ResponseBody
+	@Transactional
+	public List<User> findId(User user) {
+		return loginService.findId(user);
+	}	
+	
+	@RequestMapping("user/findPw")
+	@ResponseBody
+	@Transactional
+	public User findPw(User user) {
+		return loginService.findPw(user);
+	}		
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {

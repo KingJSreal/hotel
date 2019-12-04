@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>
 		 <package name="kangjaesu.hotel.user.domain" />
+		 <package name="kangjaesu.hotel.room.domain" />
 		 <package name="kangjaesu.hotel.inquiry.domain" />
 	</typeAliases>
 </configuration>

@@ -1,7 +1,3 @@
-function loadContents(url, parameters, callback){
-	$("#contents").load(url, parameters, callback);
-}
-
 var alert = function(msg, type) {
 	swal({
 		  title: "",

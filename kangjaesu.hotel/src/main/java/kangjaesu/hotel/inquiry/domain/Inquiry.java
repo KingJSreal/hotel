@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Inquiry {
 /*	-- 문의
-	CREATE TABLE "INQUIRYS" (
+	TABLE "INQUIRYS" (
 		"INQ_NUM"     NUMBER        NOT NULL, -- 문의번호
 		"INQ_TITLE"   VARCHAR2(50)  NULL,     -- 문의제목
 		"INQ_CONTENT" VARCHAR2(255) NULL,     -- 문의내용

@@ -6,6 +6,8 @@ import kangjaesu.hotel.user.domain.User;
 
 public interface UserMapper {
 	User loginUser(User user);
+	List<User> findId(User user);
+	User findPw(User user);
 	List<User> getUsers();
 	User getUser(User user);
 	int addUser(User user);

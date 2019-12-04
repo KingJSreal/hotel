@@ -44,6 +44,27 @@
     /*메인 섹션 끝*/
 </style>
 <script>
+var alert = function(msg, type) {
+	swal({
+		  title: "",
+		  text: msg,
+		  icon: type,
+		  button: "확인",
+		}).then((value) => {
+			return;
+		});
+}
+var confirm = function(msg, type) {
+	   swal(msg, {
+	        buttons: ["취소", "확인"],
+	      }).then((value) => {
+	    	  if(value)
+	    		  return;
+	    	  else
+	    		  return;
+	      });
+}
+
 	function swapConfig(x) {
 		var radioName = document.getElementsByName(x.name);
 	   	for (i = 0; i < radioName.length; i++) {
@@ -131,8 +152,8 @@
 				         	<input type="email" class="form-control login-input" id="userEmail" placeholder="이메일">
 							<input type="password" class="form-control login-input" id="userPassword" placeholder="비밀번호 입력">
 				         	<br>
-					        <a class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
-				         	<a class="joinUser">회원가입</a>
+					        <a href="/hotel/user/searchIdNPw" class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
+				         	<a href="/hotel/user/userTerms"  class="joinUser">회원가입</a>
 				      	</div>
 				
 						<div class="login-panel" id="nmember" style="display: none">
@@ -141,8 +162,8 @@
 					        <input type="text" class="form-control login-name" id="fname" style="display: inline-block;" placeholder="First Name(이름)">
 					        <input type="text" class="form-control login-name" id="lname" style="display: inline-block;" placeholder="Last Name(성)">
 					       	<br><br>
-					        <a class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
-				         	<a class="joinUser">회원가입</a>
+					        <a href="/hotel/user/searchIdNPw"  class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
+				         	<a href="/hotel/user/userTerms" class="joinUser">회원가입</a>
 					    </div>
 					</fieldset>
 				</div>
