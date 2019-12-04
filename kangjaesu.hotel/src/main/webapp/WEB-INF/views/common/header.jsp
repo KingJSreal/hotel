@@ -38,7 +38,12 @@
 		<!-- 타이틀 -->
 		<div class="container">
 			<div class="center-block title">
-				<a class="logo" href="/hotel/" style="margin-left:42%">Seoul HOTEL</a>
+				<c:if test="${param.page != 'admin'}">
+					<a class="logo" href="/hotel/" style="margin-left:42%">Seoul HOTEL</a>
+				</c:if>
+				<c:if test="${param.page == 'admin'}">
+					<a class="logo" href="/hotel/admin?page=admin" style="margin-left:36%">Seoul HOTEL Admin</a>
+				</c:if>
 				<!-- 예약조회, 로그인, 회원가입 -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
@@ -48,7 +53,7 @@
 						  	<li><a href="/hotel/loginUser" class="header_a">로그인</a></li>
 						  	<li><a href="/hotel/user/userTerms" class="header_a">회원가입</a></li>
 						</c:when>
-						<c:when test="${(sessionScope.user.userGrade == '3' || sessionScope.user.userGrade == '4') && param.page == 'admin'}">
+						<c:when test="${((sessionScope.user.userGrade == '3' || sessionScope.user.userGrade == '4') && param.page == 'admin')}">
 						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
 						  	<li><a href="/hotel/" class="header_a">이용자 화면 보기</a></li>	
 						</c:when>

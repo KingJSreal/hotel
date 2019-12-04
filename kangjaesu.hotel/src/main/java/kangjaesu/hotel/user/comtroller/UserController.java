@@ -26,6 +26,10 @@ public class UserController {
 	public String userComplete() {
 		return "user/complete";
 	}
+	@RequestMapping("/userList")
+	public String userList() {
+		return "user/userList";
+	}
 	
 	
 	@Transactional

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>로그인</title>
+<title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
 	div.hTitS{
