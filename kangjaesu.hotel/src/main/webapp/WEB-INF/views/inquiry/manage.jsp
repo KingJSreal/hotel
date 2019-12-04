@@ -47,7 +47,30 @@ var confirm = function(msg, type) {
          });
    }
 
-   $(function() {
+   $(function() {	
+		//보기 버튼 클릭시 호출
+		$(".confirmModalButton").click(function() {
+			var tr = $(".inqTable");
+			var td = tr.children();
+			var inqNumber = td.eq(0).text();
+			alert(inqNumber);
+			
+			 $.ajax({
+				url:"getInquiry",
+				data: {					
+					inqNum:inqNumber
+				},
+				success:function(){
+					$("#confirmModal").modal({
+						remote : "viewInquiry"
+					});
+				},
+				error:function(a, b, errMsg){
+					alert("작성  오류" + errMsg);
+				}
+			 });  
+		});
+			
       //확인 버튼 클릭시 호출
       $("#confirmModalButton").click(function() {
          $("#confirmModal").modal({
