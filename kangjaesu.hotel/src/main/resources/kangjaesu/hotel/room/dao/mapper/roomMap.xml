@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kangjaesu.hotel.room.dao.mapper.RoomMapper">
+	<resultMap type="room" id="roomMap">
+		<id property="roomNum" column="room_num"/>
+		<result property="roomName" column="room_name"/>
+		<result property="guests" column="guests"/>
+		<result property="roomRegDate" column="room_reg_date"/>
+		<result property="roomContent" column="room_content"/>
+		<result property="roomType" column="room_type"/>
+		<result property="roomPrice" column="room_price"/>
+		<result property="roomImage1" column="room_image1"/>
+		<result property="roomImage2" column="room_image2"/>
+		<result property="roomImage3" column="room_image3"/>
+		
+	
+	</resultMap>
+	<select id="getRooms" resultMap="roomMap">
+		select *
+		from rooms
+		order by room_num 
+	</select>
+	
+	
+	<insert id="addRoom" parameterType="room">
+		INSERT INTO rooms
+			(room_num, room_name, guests, room_reg_date, 
+			room_content, room_type, room_price, room_image1, room_image2, room_image3) 
+		VALUES
+			(Room_Seq.NEXTVAL, #{roomName,jdbcType=VARCHAR}, #{guests,jdbcType=NUMERIC},  
+			SYSDATE, #{roomContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR}, #{roomPrice, jdbcType=NUMERIC},
+			#{roomImage1, jdbcType=VARCHAR}, #{roomImage2, jdbcType=VARCHAR}, #{roomImage3, jdbcType=VARCHAR} )
+	</insert>
+	<!-- 
+	<update id="updateUser" parameterType="user">
+		update users 
+		set user_name=#{userName}, reg_date=SYSDATE
+		where user_no=#{userNo}
+	</update>
+	
+	<delete id="delUser" parameterType="int">
+		delete from users 
+		where user_no=#{userNo}
+	</delete> 
+	-->
+</mapper>

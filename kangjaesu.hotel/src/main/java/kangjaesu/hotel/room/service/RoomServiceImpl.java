@@ -19,7 +19,7 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Transactional
-	public List<Room> listRooms() {
+	public List<Room> getRooms() {
 		return roomDao.getRooms();
 	}
 

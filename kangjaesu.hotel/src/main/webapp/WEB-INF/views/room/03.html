@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+<link rel="stylesheet" href="../res/css/common.css">
+<style type="text/css">
+/*메인 섹션*/
+section {
+	margin: 0px 0 50px 0;
+}
+
+div .searchBar {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+div.promotion-title {
+	padding-bottom: 5px;
+}
+
+h4.promotion-title {
+	margin-bottom: 0px;
+}
+
+#more {
+	float: right;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+#more:hover {
+	color: #A0A0A0;
+}
+/*메인 섹션 끝*/
+/*푸터*/
+footer {
+	margin: 0px;
+	border-top: 0px;
+	border-bottom: 0px;
+	padding: 20px 0 20px 0;
+	background-color: black;
+	color: #DCDCDC;
+}
+
+footer table.table-footer {
+	width: 40%;
+	float: left;
+}
+
+footer table.table-footer td {
+	padding: 8px;
+}
+
+footer span.logo {
+	float: left;
+	width: 40%;
+	text-align: right;
+	font-size: 25px;
+	margin-right: 30px;
+}
+/*푸터 끝*/
+.custom-checkbox {
+	float: left;
+}
+
+input[type="checkbox"] {
+	display: none;
+	float: left;
+}
+
+input[type="checkbox"]+label {
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+	padding-left: 25px;
+	padding-right: 15px;
+	font-size: 13px
+}
+
+input[type="checkbox"]+label:BEFORE {
+	content: "";
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	position: absolute;
+	left: 0;
+	bottom: 1px;
+	background-color: #ccc;
+}
+
+input[type="checkbox"]:checked+label:BEFORE {
+	content: "\2713";
+	text-shadow: 1px 1px 1px raba(0, 0, 0 .2);
+	font-size: 18px;
+	font-weight: 800;
+	color: #fff;
+	background: #2187c1;
+	text-align: center;
+	line-height: 18px;
+}
+
+/* 섹션 타이틀 */
+.headTit {
+	border-bottom: #432c10 solid 2px;
+	height: 47px;
+	font-style: Sans-Serif;
+}
+/* 섹션 타이틀 끝 */
+
+/*폼*/
+.tableContainer {
+	width: 90%;
+}
+
+.inputGroup {
+	margin-left: 5%;
+}
+
+.input-group {
+	margin: 20px;
+}
+
+.priceInput {
+	text-align: right;
+	width: 120px;
+}
+/*폼 끝*/
+</style>
+
+<script>
+var confirm = function(msg, type) {
+	   swal(msg, {
+		    icon: type,
+	        buttons: ["취소", "확인"],
+	      }).then((value) => {
+	    	 if(value){ 
+	    		 document.location.href="04.html";
+	    	 }else{
+	    		 alert("취소하였습니다", "warning");
+	    		 return;
+	    	 }
+	         });
+	}
+
+	
+	$(function() {
+	   //취소버튼 클릭시 호출
+	   $("#uppage").click(function() {
+	      confirm("등록하시겠습니까","warning")
+	    	  
+	      
+	   });
+	});
+
+
+
+	$(document).ready(function() {
+		$("#header").load("main01.html");
+		$("#nav").load("main04.html");
+		$("#footer").load("main09.html");
+	});
+	var alert = function(msg, type) {
+		swal({
+			title : "",
+			text : msg,
+			icon : type,
+			timer : 1000,
+			customClass : "sweet-size",
+			showConfirmButton : false
+		});
+	}
+
+	
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="container">
+		<!-- 헤더 -->
+		<header>
+			<!-- 타이틀 -->
+			<div class="container">
+				<div class="center-block title">
+				   <a class="logo" href="../main/08.html" style="margin-left:37.5%">Seoul HOTEL Admin</a>
+				   <!-- 관리자 로그인 -->
+				   <ul class="nav navbar-nav navbar-right">
+					  	<li><a href="../main.html" class="header_a">로그아웃</a></li>
+					  	<li><a href="../main.html" class="header_a">이용자 화면 보기</a></li>			
+				   </ul>
+				   <!--관리자 로그인 끝 -->
+				</div>
+			</div>
+			<!--타이틀 끝 -->			
+		</header>
+		<br>
+		<!-- 메인메뉴 -->
+		<nav>
+			<div class ="navi-admin">
+				<ul class="mainMenu">
+					<li><a href="../user/07.html">회원관리</a></li>
+					<li><a href="../room/01.html">객실관리</a></li>
+			 		<li><a href="../booking/07.html">예약관리</a></li>
+			 		<li><a href="../inquiry/04.html">문의관리</a></li>
+					<li><a href="../promotion/03.html">프로모션 관리</a></li>
+				</ul>
+			</div>
+			<hr style="background-color:#B4B4B4; height:1px solid;">
+		</nav>	
+		<!--메인메뉴 끝 -->
+		<!-- 헤더 끝 -->
+	</div>
+	<!-- 섹션 타이틀 -->
+	<div class="container center-block">
+		<div class="headTit">
+			<h3>&nbsp;객실정보</h3>
+		</div>
+		<br> <br>
+	</div>
+	<!-- 섹션 타이틀 끝-->
+	<div class="container">
+		<form id="form" class="form-inline">
+			<div class="container inputGroup">
+				<div class="input-group col-md-3">
+					<img width="300" height="200" class="previewImg"> 
+				</div>
+				<div class="input-group col-md-3">
+					<img width="300" height="200" class="previewImg1"> 
+				</div>
+
+				<div class="input-group col-md-3">
+					<img width="300" height="200" class="previewImg2">
+				</div>
+			</div>
+			<br>
+			<div class="container tableContainer">
+				<table class="table table-hover table-bordered">
+
+					<tbody>
+						<tr>
+							<th>객실명</th>
+							<td>Floor6-604</td>
+						</tr>
+						<tr>
+							<th>방타입</th>
+							<td>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="st"
+										name="rom" checked="checked" disabled> <label
+										class="custom-control-label" for="st">스탠다드</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="dt"
+										name="rom" disabled> <label class="custom-control-label"
+										for="dt">디럭스</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="gt"
+										name="rom" disabled> <label class="custom-control-label"
+										for="gt">그랜드</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>옵션</th>
+							<td>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option1" name="option" disabled> <label
+										class="custom-control-label" for="option1">조식</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option2" name="option" disabled> <label
+										class="custom-control-label" for="option2">스파</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option3" name="option" disabled> <label
+										class="custom-control-label" for="option3">야외수영장</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option4" name="option" checked="checked" disabled> <label
+										class="custom-control-label" for="option4">엑스트라베드</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+
+							<th>가능인원수</th>
+							<td>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count1"
+										name="count" checked="checked" disabled> <label
+										class="custom-control-label" for="count1">1명</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count2"
+										name="count" checked="checked" disabled> <label
+										class="custom-control-label" for="count2">2명</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count3"
+										name="count" checked="checked" disabled> <label
+										class="custom-control-label" for="count3">3명</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count4"
+										name="count" disabled> <label class="custom-control-label"
+										for="count4">4명</label>
+								</div>
+							</td>
+
+						</tr>
+						<tr>
+							<th>금액</th>
+							<td>420000</td>
+						</tr>
+						<tr>
+							<th>상세내용</th>
+							<td><textarea rows="20" cols="100" onfocus="this.blur();">
+- 본 상품은 성인 2인 1실 기준이며, 요금에는 10% 부가가치세 및 10% 봉사료 (합계 21%)가 부과됩니다.
+
+- 본 상품은 Shilla S 멤버십 또는 카드사 할인 등의 중복 할인 혜택이 적용되지 않습니다.
+
+- 본 상품은 체크인 일자 기준 1일 전까지만 예약 가능하며(당일 예약 불가), 홈페이지 및 모바일 앱을 통한 온라인 예약만 가능합니다.
+
+- 기준 인원을 초과하여 투숙 시 추가 인원에 대해서는 별도의 요금이 부과됩니다.
+
+- 객실 1실 당 성인은 최대 3인까지만 투숙 가능하며, 소인(37개월 이상~만 12세 이하)은 최대 2인까지만 동반 투숙 가능합니다.
+
+- 객실 1실 당 성인과 소인 동반 시 최대 4인까지만 투숙 가능합니다.
+
+- Check-in은 오후 3시, Check-out은 정오까지입니다.
+						</textarea></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+			<div class="container center-block" style="text-align: center;">
+				<a class="btn btn-default" href="01.html" role="button">객실목록</a>
+				<a class="btn btn-default" id="uppage" role="button">수정하기</a>
+			</div>
+		</form>
+	</div>
+	<br>
+	<br>
+	<!-- 푸터 -->
+	<footer>
+		<div class="container center-block">
+			<dl>
+				<dd>
+					<span class="logo" style="color: white;">Seoul HOTEL</span>
+				</dd>
+				<dd>
+					<table class="table-footer">
+						<tr>
+							<td>| 상호명: Seoul HOTEL</td>
+							<td>| 대표명: 김철수</td>
+						</tr>
+						<tr>
+							<td colspan="2">| 사업자등록번호: 000-00-0000</td>
+						</tr>
+						<tr>
+							<td colspan="2">| (000-00) 서울시 마포구 OOOO</td>
+						</tr>
+						<tr>
+							<td>| TEL: 070-0000-0000</td>
+							<td>| Email: hotel@hotel.co.kr</td>
+						</tr>
+						<tr>
+							<td colspan="2">Copyright 2020 HOTEL Corp. All Rights
+								Reserved</td>
+						</tr>
+					</table>
+				</dd>
+			</dl>
+		</div>
+	</footer>
+	<!-- 푸터 끝 -->
+</body>
+</html>
