@@ -122,7 +122,7 @@ var confirm = function(msg, type) {
 						<th>처리상태</th>
 						<th></th>
 					</tr>
-					<c:forEach var="list" items="${inquiry}">
+					<c:forEach var="list" items="${inquiryList}">
 				
 					<tr>
 						<td>${list.inqNum}</td>

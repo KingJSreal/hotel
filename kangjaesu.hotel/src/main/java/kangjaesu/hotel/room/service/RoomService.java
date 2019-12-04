@@ -5,7 +5,7 @@ import java.util.List;
 import kangjaesu.hotel.room.domain.Room;
 
 public interface RoomService {
-	List<Room> listRooms();
+	List<Room> getRooms();
 	boolean join(Room room);
 	
 }
