@@ -5,7 +5,7 @@
 <style>
 	/*푸터*/
 	footer {
-		margin: 0px;
+		margin: 60px 0px 0px 0px;
 		border-top: 0px;
 		border-bottom: 0px;
 		padding: 20px 0 20px 0;

@@ -31,6 +31,14 @@ var alert = function(msg, type) {
 	}
 	
 	$(function(){
+		$(".searchIdPw").bind("click", function(e){
+			location.href = "/hotel/user/searchIdNPw";
+		});
+
+		$(".joinUser").bind("click", function(){
+			location.href = "/hotel/user/userTerms";
+		});
+		
 		$("#ymemlogin").bind("click", function(e){
 			e.preventDefault();
 
@@ -44,7 +52,7 @@ var alert = function(msg, type) {
 			}
 			
 			$.ajax({
-				url:"login",
+				url:"user/login",
 				method:"GET",
 				data: {
 					userEmail:$("#userEmail").val(),
@@ -63,11 +71,7 @@ var alert = function(msg, type) {
 		$("#nmemlogin").bind("click", function(e){
 			e.preventDefault();
 		});
-		
-		$("#userjoin").bind("click", function(){
-			
-		})
-	})
+	});
 </script>
 <style>
 	@import url("<c:url value="/css/section.css" />");
@@ -140,7 +144,7 @@ var alert = function(msg, type) {
 			<div class="container center-block">
 				<div class="location">
 					<p>
-						<a>홈 > </a>
+						<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
 						<a>로그인</a>
 					</p>
 				</div>
@@ -165,9 +169,8 @@ var alert = function(msg, type) {
 			         	<input type="email" class="form-control login-input" id="userEmail" placeholder="이메일">
 						<input type="password" class="form-control login-input" id="userPassword" placeholder="비밀번호 입력">
 			         	<br>
-				        <a href="#" style="margin-left:195px">아이디 찾기&nbsp;</a>
-			         	<a href="#">패스워드 찾기&nbsp;</a>
-			         	<a class="/hotel/user/userTerms" href="/hotel/user/userTerms">회원가입</a>
+				        <a class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
+			         	<a class="joinUser">회원가입</a>
 			      	</div>
 			
 					<div class="login-panel" id="nmember" style="display: none">
@@ -176,9 +179,8 @@ var alert = function(msg, type) {
 				        <input type="text" class="form-control login-name" id="fname" style="display: inline-block;" placeholder="First Name(이름)">
 				        <input type="text" class="form-control login-name" id="lname" style="display: inline-block;" placeholder="Last Name(성)">
 				       	<br><br>
-				        <a href="#" style="margin-left:195px">아이디 찾기&nbsp;</a>
-			         	<a href="#">패스워드 찾기&nbsp;</a>
-			         	<a class="/hotel/user/userTerms" href="/hotel/user/userTerms">회원가입</a>
+				        <a class="searchIdPw" style="margin-left:195px">아이디 또는 비밀번호 찾기&nbsp;</a>
+			         	<a class="joinUser">회원가입</a>
 				    </div>
 				</fieldset>
 			</div>

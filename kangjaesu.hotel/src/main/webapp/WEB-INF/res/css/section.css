@@ -1,4 +1,30 @@
 @CHARSET "UTF-8";
-section {
-	margin: 0px 0 50px 0;
+
+/* 섹션 타이틀 */
+div.contents{
+	margin: 20px;
 }
+
+div.location {
+	float: right;
+    height: 47px;
+    padding: 40px 0 0 0;
+    margin: 0 0 -30px 0;
+    z-index: 9;
+    position: relative;
+       text-align: right;
+   }
+   .location a{
+   	text-decoration:none;
+   	color:#4C4A4A;
+   }
+   
+div.headTit{
+	border-bottom: #432c10 solid 2px;
+    height: 47px;
+    margin: 0 auto;
+    position: relative;
+   	z-index: 8;
+   	font-style:Sans-Serif;
+   } 
+

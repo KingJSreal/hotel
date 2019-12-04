@@ -6,92 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<jsp:include page="../common/import.jsp"></jsp:include>
 <style type="text/css">
 	@import url("<c:url value="/css/section.css"/>");
-	/* 섹션 타이틀 */
-	div.location {
-		float: right;
-	    height: 47px;
-	    padding: 40px 0 0 0;
-	    margin: 0 0 -30px 0;
-	    z-index: 9;
-	    position: relative;
-        text-align: right;
-    }
-    .location a{
-    	text-decoration:none;
-    	color:#4C4A4A;
-    }
-	div.headTit{
-		border-bottom: #432c10 solid 2px;
-	    height: 47px;
-	    margin: 0 auto;
-	    position: relative;
-    	z-index: 8;
-    	font-style:Sans-Serif;
-    } 
-	/* 섹션 타이틀 끝 */
-	
-	div.joinStep{
-		height: 51px;
-	    width: 866px;
-	    background: #FFF;
-	    margin: auto;
-	}
-	
-	.joinStep .step {
-	    float: left;
-	    height: 39px;
-	}
-	
-	.joinStep ul, .joinStep li {
-	    list-style: none;
-	    margin: 0;
-	    padding: 0;
-    	float: left;
-	}
-	.joinStep{ 
-    	height: 51px;
-	    width: 866px;
-	    background: #FFF;
-	    margin: auto;
-	}
-	.joinStep .step li { 
-    	float: left;
-	}
-	.joinStep .step li span {    
-		display: block;
-	    zoom: 1;
-	    height: 51px;
-	    overflow: hidden;
-	    text-align: center;
-	    font-size: 17px;
-	    font-weight: 1000;
-	    margin: 10px 0 10px 0;
-	    padding: 10px 0 10px 0;
-	    background-color: #f8f8f8;
-	    border: #432c10 solid 1px;
-	}
-	.joinStep .step li.t1{
-	    background-position: 0px 0px;
-    	width: 288px;
-	}
-	.joinStep .step li.t2{
-	    background-position: -289px 0px;
-	    width: 289px;
-	}
-	.joinStep .step li.t3{
-	    background-position: -577px 0px;
-    	width: 289px;
-	}
-	.joinStep .step li.on span{
-		background-color: lightgray;
-	}
+	@import url("<c:url value="/css/joinstep.css"/>");
 	
 	div.Btns{
 		text-align: center;
@@ -166,21 +84,9 @@
 	    table-layout: fixed;
 	    border-left: 1px solid #eceae1;
     }
-	/*메인 섹션 끝*/
 	
 </style>
 <script>
-	var alert = function(msg, type) {
-		swal({
-			  title: "",
-			  text: msg,
-			  icon: type,
-			  button: "확인",
-			}).then((value) => {
-				return;
-			});
-	}
-	
 	function allcheck(ckb){
 		var s = 0;
 		if(ckb.checked) s = 0;
@@ -244,14 +150,13 @@
 			<div class="container center-block">
 				<div class="location">
 					<p>
-						<a>홈 > </a>
+						<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
 						<a>회원가입</a>
 					</p>
 				</div>
 				<div class="headTit">
 					<h3>&nbsp;회원가입</h3>
 				</div>
-				<br><br>
 			   	<div class="joinStep">
 					<ul class="step">
 						<li class="t1 first on"><span>약관동의</span></li>
@@ -341,8 +246,6 @@
 				</div>
 			</div>
 		</section>
-		<!-- 회원가입 폼 끝 -->
-		<br><br><br>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 </body>

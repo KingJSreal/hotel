@@ -1,40 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<meta charset="EUC-KR">
-<title>로그인</title>
-<style>
-	@import url("<c:url value="/css/section.css" />");
-	/* 섹션 타이틀 */
-	div.location {
-		float: right;
-	    height: 47px;
-	    padding: 40px 0 0 0;
-	    margin: 0 0 -30px 0;
-	    z-index: 9;
-	    position: relative;
-        text-align: right;
-    }
-    .location a{
-    	text-decoration:none;
-    	color:#4C4A4A;
-    }
-	div.headTit{
-		border-bottom: #432c10 solid 2px;
-	    height: 47px;
-	    margin: 0 auto;
-	    position: relative;
-    	z-index: 8;
-    	font-style:Sans-Serif;
-    } 
-	/* 섹션 타이틀 끝 */
+<meta charset="UTF-8">
+<title>회원가입</title>
+<jsp:include page="../common/import.jsp"></jsp:include>
+<style type="text/css">
+	@import url("<c:url value="/css/section.css"/>");
+	@import url("<c:url value="/css/joinstep.css"/>");
+	
 	div.complete{
 	   width: 50%;
 	   text-align: center;
@@ -49,7 +25,6 @@
 		font-size: 16;
 		font-weight: 800;
 	}
-    /*메인 섹션 끝*/
 </style>
 <script>
 $(function(){
@@ -68,14 +43,20 @@ $(function(){
 			<div class="container center-block">
 				<div class="location">
 					<p>
-						<a>홈 > </a>
+						<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
 						<a>회원가입</a>
 					</p>
 				</div>
 				<div class="headTit">
 					<h3>&nbsp;가입완료</h3>
 				</div>
-				<br><br>
+			   	<div class="joinStep">
+					<ul class="step">
+						<li class="t1 first"><span>약관동의</span></li>
+						<li class="t2 second"><span>회원정보 입력</span></li>
+						<li class="t3 last on"><span>가입완료</span></li>
+					</ul>
+				</div>
 			   	<div class="complete">
 					<h3>쌍용 호텔의 회원이 되신 것을 환영합니다.</h3>
 					<br>
@@ -87,7 +68,6 @@ $(function(){
 		      	</div>
 			</div>
 		</section>
-		<br><br><br><br><br>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 </body>

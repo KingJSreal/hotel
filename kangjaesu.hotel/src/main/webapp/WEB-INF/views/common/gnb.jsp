@@ -8,8 +8,8 @@
 /*네비*/
 .navi {
 	text-align: center;
-	width: 40%;
-	margin-left: 32%;
+	width:50%;
+	margin: 0px auto;
 }
 
 .nav li a:hover {
@@ -35,6 +35,7 @@
 
 .mainMenu>li {
 	float: left;
+	width: 20%;
 }
 
 .mainMenu>li>a {
@@ -54,18 +55,14 @@
 /*네비 끝*/
 
 /*어드민 네비*/
-.navi-admin{
-	text-align: center;
-	width:60%;
-	margin-left:30%;
 }
 /*어드민 네비 끝*/
 </style>
 <body>
 	<nav>
-		<c:choose>
-			<c:when test="${(sessionScope.user.userGrade == '3' || sessionScope.user.userGrade == '4') && param.page == 'admin'}">
-				<div class ="navi-admin">
+		<div class ="navi">
+			<c:choose>
+				<c:when test="${(sessionScope.user.userGrade == '3' || sessionScope.user.userGrade == '4') && param.page == 'admin'}">
 					<ul class="mainMenu">
 						<li><a href="#">회원관리</a></li>
 						<li><a href="#">객실관리</a></li>
@@ -73,10 +70,8 @@
 			 			<li><a href="#">문의관리</a></li>
 						<li><a href="#">프로모션 관리</a></li>	
 					</ul>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div class ="navi">
+				</c:when>
+				<c:otherwise>
 					<ul class="mainMenu">
 						<li><a href="">예약</a></li>
 						<li><a href="#">호텔소개</a></li>
@@ -84,9 +79,9 @@
 						<li><a href="#">프로모션</a></li>
 						<li><a href="#">후기게시판</a></li>	
 					</ul>
-				</div>
-			</c:otherwise>	
-	  	</c:choose>
+				</c:otherwise>	
+	  		</c:choose>
+		</div>
 		<hr style="background-color:#B4B4B4; height:1px solid;">
 	</nav>	
 </body>

@@ -6,93 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<jsp:include page="../common/import.jsp"></jsp:include>
+<script src="<c:url value="/js/validationUser.js"/>"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	@import url("<c:url value="/css/section.css"/>");
-	
-	/* 섹션 타이틀 */
-	div.location {
-		float: right;
-	    height: 47px;
-	    padding: 40px 0 0 0;
-	    margin: 0 0 -30px 0;
-	    z-index: 9;
-	    position: relative;
-        text-align: right;
-    }
-    .location a{
-    	text-decoration:none;
-    	color:#4C4A4A;
-    }
-	div.headTit{
-		border-bottom: #432c10 solid 2px;
-	    height: 47px;
-	    margin: 0 auto;
-	    position: relative;
-    	z-index: 8;
-    	font-style:Sans-Serif;
-    } 
-	/* 섹션 타이틀 끝 */
-	
-	div.joinStep{
-		height: 51px;
-	    width: 866px;
-	    background: #FFF;
-	    margin: auto;
-	}
-	
-	.joinStep .step {
-	    float: left;
-	    height: 39px;
-	}
-	
-	.joinStep ul, .joinStep li {
-	    list-style: none;
-	    margin: 0;
-	    padding: 0;
-    	float: left;
-	}
-	.joinStep{ 
-    	height: 51px;
-	    width: 866px;
-	    background: #FFF;
-	    margin: auto;
-	}
-	.joinStep .step li { 
-    	float: left;
-	}
-	.joinStep .step li span {    
-		display: block;
-	    zoom: 1;
-	    height: 51px;
-	    overflow: hidden;
-	    text-align: center;
-	    font-size: 17px;
-	    font-weight: 1000;
-	    margin: 10px 0 10px 0;
-	    padding: 10px 0 10px 0;
-	    background-color: #f8f8f8;
-	    border: #432c10 solid 1px;
-	}
-	.joinStep .step li.t1{
-	    background-position: 0px 0px;
-    	width: 288px;
-	}
-	.joinStep .step li.t2{
-	    background-position: -289px 0px;
-	    width: 289px;
-	}
-	.joinStep .step li.t3{
-	    background-position: -577px 0px;
-    	width: 289px;
-	}
-	.joinStep .step li.on span{
-		background-color: lightgray;
-	}
+	@import url("<c:url value="/css/joinstep.css"/>");
 	
 	div.hTitS{
 		margin-top: 50px;
@@ -124,19 +43,67 @@
 		font-size: 16;
 		font-weight: 800;
 	}
-	/*메인 섹션 끝*/
-	
 </style>
 <script>
-var alert = function(msg, type) {
-	swal({
-		  title: "",
-		  text: msg,
-		  icon: type,
-		  button: "확인",
-		}).then((value) => {
-			return;
-		});
+var validateEmail = false;
+
+function check_pw(){
+	if($("#userPassword").val() != $("#userPassword2").val()) return false;
+	return true;
+}
+
+function regtestCall(){
+	if($("#userCall1 option:selected").val() != ""){
+		if(!regUserCallNumSecond.test($("#userCall2").val())) {
+			alert(msgUserCallNumSecond); 
+			return false;
+			}
+		else if(!regUserCallNumThird.test($("#userCall3").val())){
+			alert(msgUserCallNumThird);
+			return false;
+			}
+	}else {
+		if($("#userCall2").val() != "" || $("#userCall3").val() != ""){
+			alert("자택 전화번호의 지역번호를 선택해주세요.");
+			return false;
+			}
+	}
+	
+	return true;
+}
+
+function regtest(){
+	var result = true;
+	
+	if(!regUserKorName.test($("#userName").val())){
+		alert(msgUserKorName);
+		result = false;
+	}else if(!regUserEngFirst.test($("#userEngFirstName").val())){
+		alert(msgUserEngFirst);
+		result = false;
+	}else if(!regUserEngLast.test($("#userEngLastName").val())){
+		alert(msgUserEngLast);
+		result = false;
+	}else if(!regUserPhoneNumSecond.test($("#userPhone2").val())){
+		alert(msgUserPhoneNumSecond);
+		result = false;
+	}else if(!regUserPhoneNumThird.test($("#userPhone3").val())){
+		alert(msgUserPhoneNumThird);
+		result = false;
+	}else if(!regtestCall()){
+		result = false;
+	}else if(!regUserEmailDomain.test($("#emailDomainCd").val())){
+		alert(msgUserEmailDomain);
+		result = false;
+	}else if(!regUserPw.test($("#userPassword").val())){
+		alert(msgUserPw);
+		result = false;
+	}else if(!check_pw()){
+		alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+		result = false;
+	}
+
+	return result;
 }
 
 function execDaumPostcode() {
@@ -166,154 +133,69 @@ function execDaumPostcode() {
     }).open();
 }
 
-function check_pw(){
-	var reg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z!@#$%^&+=]).*$/;
-	var password = $("#userPassword").val();
-	var password2 = $("#userPassword2").val();
-	
-	if(!reg.test(password)) {
-	    alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
-		return false;
-	}else if(password != password2) {
-	    alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-		return false;
-	} 
-	return true;
-}
-
-function regCall(){
-	var call2test = true;
-	var call3test = true;
-	if($("#userCall1 option:selected").val() != ""){
-		if(!/[0-9]{3,4}/.test($("#userCall2").val())) {
-			alert("자택 전화번호의 가운데 숫자는 3~4글자의 숫자로만 작성해 주세요."); 
-			return false;
-			}
-		else if(!/[0-9]{4}/.test($("#userCall3").val())){
-			alert("자택 전화번호의  끝 숫자는 4글자의 숫자로만 작성해 주세요.");
-			return false;
-			}
-	}else {
-		if($("#userCall2").val() != "" || $("#userCall3").val() != ""){
-			alert("자택 전화번호의 지역번호를 선택해주세요.");
-			return false;
-			}
-	}
-	
-	return true;
-}
-
-function regtest(){
-	var formdata = ["userName",
-	                "userEngFirstName",
-	                "userEngLastName",
-	                "userPhone2",
-	                "userPhone3",];
-	var reg = [ /[가-힣ㄱ-ㅎ]{2,5}/,
-                /[a-z]{2,20}/gi,
-                /[a-z]{2,10}/gi,
-                /[0-9]{3,4}/,
-                /[0-9]{4}/,];
-	var msg = ["이름[국문]은 2~5글자의 한글로만 작성해 주세요.",
-                "이름[영문]은 2~20글자의 영어로만 작성해 주세요.",
-                "이름[영문]은 2~20글자의 영어로만 작성해 주세요.",
-                "핸드폰 번호의 가운데 숫자는 3~4글자의 숫자로만 작성해 주세요.",
-                "핸드폰 번호의 끝 숫자는 4글자의 숫자로만 작성해 주세요."];
-	
-	for(var i = 0; i < formdata.length; i++){
-		if(!reg[i].test($("#" + formdata[i]).val())) {
-			alert(msg[i]);
-			$("#" + formdata[i]).focus();
-			return false;
-		}
-	}
-
-	return true;
-}
-
-
-var validateEmail = false;
-
 $(function(){
-	$("#userEmail1").keyup(function(){
+	$("#userEmail1, #userEmail2").keyup(function(){
 		validateEmail = false;
 	});
-	$("#userEmail2").keyup(function(){
-		validateEmail = false;
-	});
+	
 	$("#emailDomainCd").bind("change",function(){
-		var domain=$("#emailDomainCd").val();
-		if(domain == "") $("#userEmail2").attr("readonly", false);
+		if($(this).val() == "") $("#userEmail2").attr("readonly", false);
 		else $("#userEmail2").attr("readonly", true);
 		
-		$("#userEmail2").val(domain);
+		$("#userEmail2").val($(this).val());
 	});
+	
 	$("#emailcheck").bind("click", function(){
-		var reg = /(?=.*[a-z])\.(?=.*[a-z])/;
-		
-		if(!$("#userEmail1").val() || !$("#userEmail2").val())
-			alert("이메일을 입력해주세요.");
-		else if(!reg.test($("#userEmail2").val())){
-			alert("도메인은 영어와 사이 '.'으로만 작성해주세요.");
-			$("#userEmail2").focus();
-		}
-		else {
-			$.ajax({
-				url:"checkEmail",
-				method:"POST",
-				data: {
-					userEmail:($("#userEmail1").val()+"@"+$("#userEmail2").val())
-					},
-				success:function(result){
-					if(result == true) {
-							alert("가입 가능한 이메일입니다.");
-							validateEmail = true;
-						}
-					else {
-						alert("이미 가입된 이메일입니다.");
-						validateEmail = false;
-					}
+		$.ajax({
+			url:"checkEmail",
+			method:"POST",
+			data: {
+				userEmail:($("#userEmail1").val()+"@"+$("#userEmail2").val())
 				},
-				error:function(a, b, errMsg){
-					alert("이메일 확인에 실패하였습니다.");
+			success:function(result){
+				if(result == true) {
+						alert("가입 가능한 이메일입니다.");
+						validateEmail = true;
+					}
+				else {
+					alert("이미 가입된 이메일입니다.");
+					validateEmail = false;
 				}
-			})
-		}
+			},
+			error:function(a, b, errMsg){
+				alert("이메일 확인에 실패하였습니다.");
+			}
+		});
+	});
+	
+	$("#addsearch").bind("click", function(){
+		execDaumPostcode();
 	});
 	
 	$("#joinForm").bind("submit", function(e){		
 		e.preventDefault();
-		var userCall = null;
-		var userAddressCode = null;
-		var userAddress = null;
-		var validinput = this.checkValidity();
-		var validform = regtest();
-		var validcall = regCall();
-		var validpw = check_pw();
 		
 		if(!validateEmail) {
 			alert("이메일 중복 검사를 해주세요.");
 			return;
-			};
-		if(validinput && validcall && validform && validpw) {
-			if($("#userAddress1").val() && $("#userAddress2").val()) 
-				userAddress = $("#userAddress1").val()+" "+$("#userAddress2").val();
-			
+		}
+		
+		if(regtest()) {
 			$.ajax({
 				url:"join",
 				method:"GET",
 				data: {					
-					userEmail:($("#userEmail1").val()+"@"+$("#userEmail2").val()),
-					userPassword:$("#userPassword").val(),
-					userName:$("#userName").val(),
-					userEngFirstName:$("#userEngFirstName").val(),
-					userEngLastName:$("#userEngLastName").val(),
-					userBirth:($("#birthYear").val() +"-"+ $("#birthMonth").val() +"-"+ $("#birthDay").val()),
-					userPhone:($("#userPhone1").val() + $("#userPhone2").val() + $("#userPhone3").val()),
-					userTel:($("#userCall1").val() + $("#userCall2").val() + $("#userCall3").val()),
-					userZip: ($("#userAddressCode").val()),
-					userAdd: ($("#userAddress1").val()),
-					userAddDetail: ($("#userAddress2").val())
+					userEmail:			($("#userEmail1").val()+"@"+$("#userEmail2").val()),
+					userPassword:		$("#userPassword").val(),
+					userName:			$("#userName").val(),
+					userEngFirstName:	$("#userEngFirstName").val(),
+					userEngLastName:	$("#userEngLastName").val(),
+					userBirth:			($("#birthYear").val() +"-"+ $("#birthMonth").val() +"-"+ $("#birthDay").val()),
+					userPhone:			($("#userPhone1").val() + $("#userPhone2").val() + $("#userPhone3").val()),
+					userTel:			($("#userCall1").val() + $("#userCall2").val() + $("#userCall3").val()),
+					userZip: 			($("#userAddressCode").val()),
+					userAdd: 			($("#userAddress1").val()),
+					userAddDetail: 		($("#userAddress2").val())
 				},
 				success:function(){
 	       			location.href = "/hotel/user/userComplete";
@@ -322,11 +204,8 @@ $(function(){
 					alert("회원가입에 실패하였습니다.");
 				}
 				
-			})
+			});
 		}
-	});
-	$("#addsearch").bind("click", function(){
-		execDaumPostcode()
 	});
 });
 
@@ -340,14 +219,13 @@ $(function(){
 			<div class="container center-block">
 				<div class="location">
 					<p>
-						<a>홈 > </a>
+						<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
 						<a>회원가입</a>
 					</p>
 				</div>
 				<div class="headTit">
 					<h3>&nbsp;회원가입</h3>
 				</div>
-				<br><br>
 			   	<div class="joinStep">
 					<ul class="step">
 						<li class="t1 first"><span>약관동의</span></li>
@@ -356,7 +234,7 @@ $(function(){
 					</ul>
 				</div>
 				<div class="contant">
-					<form class="form-inline" id="joinForm" name="joinForm" action="#" method="POST">
+					<form class="form-inline" id="joinForm" name="joinForm" method="POST">
 						<div class="hTitS">
 							<div class="info">
 								<em class="ast">*</em> 표시 필수입력사항
@@ -382,10 +260,10 @@ $(function(){
 									<td>		
   										<div class="form-group">	
 											<label for="userEngFirstName" class="control-label">First name(이름)</label> 
-											<input id="userEngFirstName" name="userEngFirstName" type="text" class="form-control" value="" maxlength="30" required="required"> 
+											<input id="userEngFirstName" name="userEngFirstName" type="text" class="form-control" maxlength="30" required="required"> 
 											&nbsp;
 											<label for="userEngLastName" class="control-label">Last name(성)</label> 
-											<input id="userEngLastName" name="userEngLastName" type="text" class="form-control" value="" maxlength="30" required="required">
+											<input id="userEngLastName" name="userEngLastName" type="text" class="form-control" maxlength="30" required="required">
 										</div>
 									</td>
 								</tr>
@@ -394,7 +272,7 @@ $(function(){
 									<th scope="row"><em class="ast">*</em> 생년월일</th>
 									<td>
   										<div class="form-group">	
-											<span class="" id="uniform-birthYear" style="width: 74px;">
+											<span style="width: 74px;">
 												<select class="form-control" id="birthYear" name="birthYear" required="required">
 													<option value="">선택</option>
 													<option value="2000" title="2000">2000</option>
@@ -492,7 +370,7 @@ $(function(){
 												</select>
 											</span> 
 											<label for="birthYear" class="control-label">년</label>
-											<span class="" id="uniform-birthMonth" style="width: 71px;">
+											<span style="width: 71px;">
 												<select class="form-control" id="birthMonth" name="birthMonth" required="required">
 													<option value="">선택</option>
 													<option value="1" title="1">1</option>
@@ -510,7 +388,7 @@ $(function(){
 												</select>
 											</span> 
 											<label for="birthMonth" class="control-label">월</label>
-											<span class="" id="uniform-birthDay" style="width: 71px;">
+											<span style="width: 71px;">
 												<select class="form-control" id="birthDay" name="birthDay" required="required">
 													<option value="">선택</option>
 													<option value="1" title="1">1</option>
@@ -555,10 +433,10 @@ $(function(){
 									<th scope="row"><em class="ast">*</em> 이메일</th>
 									<td>		
   										<div class="form-group">	
-											<input id="userEmail1" class="form-control" type="text" size="20" name="email1" value="" maxlength="40" required="required"> 
+											<input id="userEmail1" class="form-control" type="text" size="20" name="email1" maxlength="40" required="required"> 
 											<span class="at">@</span> 
 											<input id="userEmail2" class="form-control" type="text" size="20" name="email2" value="naver.com" maxlength="40" required="required" readonly="readonly">
-											<span class="" id="uniform-emailDomainCd" style="width: 111px;">
+											<span style="width: 111px;">
 												<select id="emailDomainCd" class="form-control">
 													<option value="naver.com" title="naver.com">naver.com</option>
 													<option value="hanmail.net" title="hanmail.net">hanmail.net</option>
@@ -580,7 +458,7 @@ $(function(){
 									<td>		
   										<div class="form-group">	
 											<label for="userPhone1" class="control-label"></label>
-											<span class="" id="uniform-userPhone1" style="width: 67px;">
+											<span style="width: 67px;">
 												<select class="form-control" id="userPhone1" name="userPhone1" required="required">
 													<option value="010" title="010">010</option>
 													<option value="011" title="011">011</option>
@@ -605,7 +483,7 @@ $(function(){
 									<td>		
   										<div class="form-group">	
 											<label for="userCall1" class="control-label"></label>
-											<span class="" id="uniform-userCall1" style="width: 74px;">
+											<span style="width: 74px;">
 												<select class="form-control" id="userCall1" name="userCall1">
 													<option value="">선택</option>
 													<option value="02" title="02">02</option>
@@ -703,8 +581,6 @@ $(function(){
 			</div>	
 		</section>
 		<!-- 회원가입 폼 끝 -->
-		<div class="headTit"></div>
-		<br><br><br>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 </body>

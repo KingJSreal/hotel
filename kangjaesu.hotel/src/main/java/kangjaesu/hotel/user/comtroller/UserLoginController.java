@@ -12,16 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/user")
 public class UserLoginController {
 	@Autowired private LoginService loginService;
 
-	@RequestMapping("/loginForm")
+	@RequestMapping("/loginUser")
 	public String userLogin() {
-		return "user/login";
+		return "user/loginUser";
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping("/admin")
+	public String admin(){
+		return "admin";
+	}
+	
+	@RequestMapping("user/login")
 	@ResponseBody
 	@Transactional
 	public Boolean login(User user, HttpSession session) {
@@ -34,7 +38,7 @@ public class UserLoginController {
 		return result;
 	}
 	
-	@RequestMapping("/adminLogin")
+	@RequestMapping("user/adminLogin")
 	@ResponseBody
 	@Transactional
 	public Boolean adminLogin(User user, HttpSession session) { // && user.getUserLevel() > 3

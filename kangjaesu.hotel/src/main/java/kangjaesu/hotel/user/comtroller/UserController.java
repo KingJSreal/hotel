@@ -14,23 +14,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 	@Autowired private UserService userService;
 	
-	
-	
-	@Transactional
 	@RequestMapping("/userTerms")
 	public String userTerms() {
 		return "user/terms";
 	}
-	@Transactional
 	@RequestMapping("/userJoin")
 	public String userJoin() {
 		return "user/join";
 	}
-	@Transactional
 	@RequestMapping("/userComplete")
 	public String userComplete() {
 		return "user/complete";
 	}
+	@RequestMapping("/searchIdNPw")
+	public String userSearchIdPw() {
+		return "user/searchIdNPw";
+	}
+	
+	
 	@Transactional
 	@RequestMapping("/join")
 	public void join(User user) {

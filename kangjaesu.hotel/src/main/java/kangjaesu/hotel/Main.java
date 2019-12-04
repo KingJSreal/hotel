@@ -9,8 +9,4 @@ public class Main{
 	public String main(){
 		return "main";
 	}
-	@RequestMapping("/admin")
-	public String admin(){
-		return "admin";
-	}
 }
