@@ -1,8 +1,8 @@
-package kangjaesu.hotel.user.service;
+package kangjaesu.hotel.inquiry.service;
 
 import java.util.List;
 
-import kangjaesu.hotel.user.domain.Inquiry;
+import kangjaesu.hotel.inquiry.domain.Inquiry;
 
 public interface InquiryService {
 	List<Inquiry> getInquirys();

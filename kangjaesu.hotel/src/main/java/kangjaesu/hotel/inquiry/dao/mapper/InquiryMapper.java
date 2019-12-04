@@ -1,8 +1,8 @@
-package kangjaesu.hotel.user.dao.mapper;
+package kangjaesu.hotel.inquiry.dao.mapper;
 
 import java.util.List;
 
-import kangjaesu.hotel.user.domain.Inquiry;
+import kangjaesu.hotel.inquiry.domain.Inquiry;
 
 public interface InquiryMapper {
 	Inquiry getInquiry(Inquiry inquiry);

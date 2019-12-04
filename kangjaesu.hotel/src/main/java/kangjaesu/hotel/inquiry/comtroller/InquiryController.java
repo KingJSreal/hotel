@@ -1,9 +1,9 @@
-package kangjaesu.hotel.user.comtroller;
+package kangjaesu.hotel.inquiry.comtroller;
 
 import java.util.List;
 
-import kangjaesu.hotel.user.domain.Inquiry;
-import kangjaesu.hotel.user.service.InquiryService;
+import kangjaesu.hotel.inquiry.domain.Inquiry;
+import kangjaesu.hotel.inquiry.service.InquiryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

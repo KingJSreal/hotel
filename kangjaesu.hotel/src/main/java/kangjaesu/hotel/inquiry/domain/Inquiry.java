@@ -1,4 +1,4 @@
-package kangjaesu.hotel.user.domain;
+package kangjaesu.hotel.inquiry.domain;
 
 import java.sql.Date;
 
