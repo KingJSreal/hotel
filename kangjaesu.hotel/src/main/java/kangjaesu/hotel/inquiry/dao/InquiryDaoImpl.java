@@ -37,4 +37,9 @@ public class InquiryDaoImpl implements InquiryDao{
 	public int addComment(InquiryComment comment) {
 		return mapper.addComment(comment);
 	}
+
+	@Override
+	public Inquiry getCount() {
+		return mapper.getCount();
+	}
 }

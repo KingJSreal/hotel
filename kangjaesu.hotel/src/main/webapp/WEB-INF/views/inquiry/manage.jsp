@@ -184,11 +184,10 @@ function submit(){
 </script>
 </head>
 <body>
-	<div>
+	<div class="container">
 		<jsp:include page="../common/header.jsp" />
 		<jsp:include page="../common/gnb.jsp" />
 		<!-- 섹션 타이틀 -->
-		
 		<div class="container center-block">
 			<div class="location">
 				<p>
@@ -203,7 +202,7 @@ function submit(){
 		<!-- 섹션 타이틀 끝-->
 		<!-- inquirymain 시작 -->
 		<div class="container bodymain">
-			<p class="pull-right">미처리 문의: 1건</p>
+			<p class="pull-right">미처리 문의: ${inquiryCount.count}건</p>
 
 			<table class="table table-hover table-bordered table-condensed">
 				<tr class="success">

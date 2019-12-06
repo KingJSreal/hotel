@@ -40,4 +40,9 @@ public class InquiryServiceImpl implements InquiryService{
 		return inquiryDao.addComment(comment) > 0;
 	}
 
+	@Override
+	public Inquiry getCount() {
+		return inquiryDao.getCount();
+	}
+
 }

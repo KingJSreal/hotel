@@ -13,22 +13,32 @@
 		<result property="inqPhone" column="INQ_PHONE"/>
 		<result property="status" column="STATUS"/>
 		<result property="userNum" column="USER_NUM"/>
+		<result property="count" column="COUNT"/>
+	</resultMap>
+	
+	<resultMap type="inquiryComment" id="commentMap">
+		<id property="inqNum" column="INQ_NUM"/>
+		<result property="inqCmtContent" column="INQ_CMT_CONTENT"/>
+		<result property="inqCmtDate" column="INQ_CMT_DATE"/>
 	</resultMap>
 	
 	<select id="getInquirys" resultMap="inquiryMap">
-		select *
+		select INQ_NUM,INQ_TITLE,INQ_CONTENT,INQ_DATE,INQ_WRITER,INQ_EMAIL,INQ_PHONE,
+			decode(STATUS, 0, '답변 대기', 1,'답변완료') as STATUS, USER_NUM
 		from INQUIRYS
 		order by INQ_NUM DESC
 	</select>
 	
-	<select id="getInquiry" parameterType="inquiry" resultMap="inquiryMap">
-		select *
+	<select id="getCount" resultMap="inquiryMap">
+		select count (*) as count
 		from INQUIRYS
-		<where>
-			<if test="INQ_NUM != null">
-				INQ_NUM=#{inqNum}
-			</if>
-		</where>
+		where status=0
+	</select>
+	
+	<select id="getInquiry" parameterType="int" resultMap="inquiryMap">
+		select * 
+		from INQUIRYS
+		where INQ_NUM=#{inqNum}
 	</select>
 	
 	<insert id="addInquiry" parameterType="inquiry">
@@ -47,4 +57,10 @@
 		where INQ_NUM=#{inqNum}
 	</delete> 
 
+	<insert id="addComment" parameterType="inquiryComment">
+		insert into INQUIRYS_CMT
+			(INQ_NUM, INQ_CMT_CONTENT, INQ_CMT_DATE) 
+		values
+			(#{inqNum}, #{inqCmtContent}, SYSDATE)
+	</insert>
 </mapper>

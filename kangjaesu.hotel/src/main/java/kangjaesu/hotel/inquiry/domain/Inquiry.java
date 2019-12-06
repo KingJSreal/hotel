@@ -25,7 +25,14 @@ public class Inquiry {
 	private String inqPhone;
 	private String status;
 	private String userNum;
+	private int count;
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getInqNum() {
 		return inqNum;
 	}
