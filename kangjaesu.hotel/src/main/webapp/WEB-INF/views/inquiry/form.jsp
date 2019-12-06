@@ -151,57 +151,61 @@ function submit(){
 		<jsp:include page="../common/header.jsp" />
 		<jsp:include page="../common/gnb.jsp" />
 		<!-- 섹션 타이틀 -->
-		<div class="container center-block">
-			<div class="location">
-				<p>
-					<a><span class="glyphicon glyphicon-home">&nbsp;></span></a> <a>고객문의</a>
-				</p>
-			</div>
-			<div class="headTit">
-				<h3>&nbsp;문의하기</h3>
-			</div>
-			<br> <br>
-		</div>
-		<!-- 섹션 타이틀 끝-->
-		<form class="form-inline" id="inquiryForm" method="get">
-			<div class="panel panel-default">
-				<!-- 테이블 -->
-				<div class="table-responsive">
-					<table class="table">
-						<tbody>
-							<tr>
-								<td>제목</td>
-								<td><input type="text" id="inqTitle"
-									class="form-control inputTitle" maxlength="20"></td>
-							</tr>
-							<tr>
-								<td>내용</td>
-								<td><textarea class="form-control" id="inqContent"
-										rows="12" cols="60"></textarea></td>
-							</tr>
-							<tr>
-								<td>이름</td>
-								<td><input type="text" id="inqWriter" class="form-control" maxlength="12"></td>
-							</tr>
-							<tr>
-								<td>이메일</td>
-								<td><input type="email" id="inqEmail" class="form-control" maxlength="30"></td>
-							</tr>
-							<tr>
-								<td>연락처</td>
-								<td><input type="text" id="inqPhone" class="form-control" placeholder="하이픈(-)생략" maxlength="11"></td>
-							</tr>
-						</tbody>
-					</table>
+		<div id="contents">
+			<section>
+				<div class="container center-block">
+					<div class="location">
+						<p>
+							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a> <a>고객문의</a>
+						</p>
+					</div>
+					<div class="headTit">
+						<h3>&nbsp;문의하기</h3>
+					</div>
+					<br> <br>
+					<!-- 섹션 타이틀 끝-->
+					<form class="form-inline" id="inquiryForm" method="get">
+						<div class="panel panel-default">
+							<!-- 테이블 -->
+							<div class="table-responsive">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td>제목</td>
+											<td><input type="text" id="inqTitle"
+												class="form-control inputTitle" maxlength="20"></td>
+										</tr>
+										<tr>
+											<td>내용</td>
+											<td><textarea class="form-control" id="inqContent"
+													rows="12" cols="60"></textarea></td>
+										</tr>
+										<tr>
+											<td>이름</td>
+											<td><input type="text" id="inqWriter" class="form-control" maxlength="12"></td>
+										</tr>
+										<tr>
+											<td>이메일</td>
+											<td><input type="email" id="inqEmail" class="form-control" maxlength="30"></td>
+										</tr>
+										<tr>
+											<td>연락처</td>
+											<td><input type="text" id="inqPhone" class="form-control" placeholder="하이픈(-)생략" maxlength="11"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- 테이블 끝-->
+						<div class="buttongroup pull-right">
+							<a class="btn btn-default" onclick="reset();" role="button">다시쓰기</a>
+							<button class="btn btn-default" type="button" onclick="isValid();">등록하기</button>
+						</div>
+					</form>
 				</div>
-			</div>
-			<!-- 테이블 끝-->
-			<div class="buttongroup pull-right">
-				<a class="btn btn-default" onclick="reset();" role="button">다시쓰기</a>
-				<button class="btn btn-default" type="button" onclick="isValid();">등록하기</button>
-			</div>
-		</form>
+			</section>
+		</div>
+		<jsp:include page="../common/footer.jsp" />
 	</div>
-	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

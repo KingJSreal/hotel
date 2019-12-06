@@ -3,24 +3,6 @@ package kangjaesu.hotel.user.domain;
 import java.sql.Date;
 
 public class User {
-	/*
-
-	1"USER_NUM"       NUMBER        NOT NULL, -- 회원번호
-	1"USER_EMAIL"     VARCHAR2(255) NULL,     -- 이메일
-	1"USER_PWD"       VARCHAR2(50)  NULL,     -- 비밀번호
-	1"USER_KORNAME"   VARCHAR2(50)  NULL,     -- 한글이름
-	1"USER_LASTNAME"  VARCHAR2(50)  NULL,     -- 영문성
-	1"USER_FIRSTNAME" VARCHAR2(50)  NULL,     -- 영문이름
-	1"USER_BIRTH"     DATE          NULL,     -- 생년월일
-	1"USER_PHONE"     NUMBER        NULL,     -- 핸드폰번호
-	1"TEL"            VARCHAR2(12)  NULL,     -- 자택전화번호
-	"ZIP"            NUMBER        NULL,     -- 우편번호
-	"ADD"            VARCHAR2(255) NULL,     -- 주소
-	"ADD_DETAIL"     VARCHAR2(255) NULL,     -- 상세주소
-	1"USER_REG_DATE"  DATE          NULL,     -- 회원등록일
-	1"GRADE"          NUMBER        NULL      -- 등급
-	*/
-	
 	private int userNum;
 	private String userEmail;
 	private String userPassword;

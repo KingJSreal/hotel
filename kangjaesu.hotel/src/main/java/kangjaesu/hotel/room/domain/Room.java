@@ -3,28 +3,6 @@ package kangjaesu.hotel.room.domain;
 import java.sql.Date;
 
 public class Room {
-	/*
-	 * -- 객실정보
-	CREATE TABLE "ROOMS" (
-	"ROOM_NUM"      NUMBER        NOT NULL, -- 객실번호
-	"ROOM_NAME"     VARCHAR2(50)  NULL,     -- 객실이름
-	"GUESTS"        NUMBER        NULL,     -- 투숙인원
-	"ROOM_REG_DATE" DATE          NULL,     -- 객실등록일
-	"ROOM_CONTENT"  VARCHAR2(255) NULL,     -- 상세내용
-	"ROOM_TYPE"     VARCHAR2(50)  NULL,     -- 객실타입
-	"ROOM_PRICE"    NUMBER        NULL      -- 금액
-);
-	-- 옵션
-	CREATE TABLE "OPTIONS" (
-	"OPT_NO"   NUMBER       NOT NULL, -- 옵션번호
-	"OPT_NAME" VARCHAR2(50) NOT NULL  -- 옵션내용
-);
-	-- 옵션포함
-	CREATE TABLE "ROOMOPTIONS" (
-	"ROOM_NUM" NUMBER NOT NULL, -- 객실번호
-	"OPT_NO"   NUMBER NOT NULL  -- 옵션번호
-);
-*/
 	private int roomNum;
 	private String roomName;
 	private int guests;
