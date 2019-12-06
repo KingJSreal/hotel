@@ -7,11 +7,6 @@ import kangjaesu.hotel.room.domain.Room;
 import kangjaesu.hotel.room.service.RoomService;
 
 
-
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +25,12 @@ public class RoomController {
 	  model.addAttribute("roomList", roomService.getRooms());   
 		return "room/manager";
 	}
+	@Transactional
+	@RequestMapping("/roomReservation")
+	public String roomReservation(Model model) {
+	  model.addAttribute("roomList", roomService.getRooms());   
+		return "room/reservation";
+	}
 	
 /*	@Transactional
 	@RequestMapping("/roomData")
@@ -43,11 +44,10 @@ public class RoomController {
 	public String roomData(int roomNum, Model model) {
 		model.addAttribute("room", roomService.getRoom(roomNum));
 		System.out.println(model);
-		 return "model";
+		 return "room/data";
 	}
 	
 	@Transactional
-
 	@RequestMapping("/roomde")
 	public String roomde() {
 			
