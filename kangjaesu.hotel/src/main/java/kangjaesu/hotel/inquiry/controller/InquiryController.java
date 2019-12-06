@@ -1,7 +1,5 @@
 package kangjaesu.hotel.inquiry.controller;
 
-import javax.servlet.http.HttpSession;
-
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
 import kangjaesu.hotel.inquiry.service.InquiryService;
@@ -23,6 +21,7 @@ public class InquiryController {
 	@RequestMapping("/inquiryManage")
 	public String inquiryManage(Model model) {
 		model.addAttribute("inquiryList", inquiryService.getInquirys());
+		model.addAttribute("inquiryCount", inquiryService.getCount());
 		return "inquiry/manage";
 	}
 

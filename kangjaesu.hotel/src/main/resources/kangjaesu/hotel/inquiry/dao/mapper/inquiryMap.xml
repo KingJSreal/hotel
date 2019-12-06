@@ -4,47 +4,59 @@
 
 <mapper namespace="kangjaesu.hotel.inquiry.dao.mapper.InquiryMapper">
 	<resultMap type="inquiry" id="inquiryMap">
-		<id property="inqNum" column="INQ_NUM"/>
-		<result property="inqTitle" column="INQ_TITLE"/>
-		<result property="inqContent" column="INQ_CONTENT"/>
-		<result property="inqDate" column="INQ_DATE"/>
-		<result property="inqWriter" column="INQ_WRITER"/>
-		<result property="inqEmail" column="INQ_EMAIL"/>
-		<result property="inqPhone" column="INQ_PHONE"/>
-		<result property="status" column="STATUS"/>
-		<result property="userNum" column="USER_NUM"/>
+		<id property="inqNum" column="INQ_NUM" />
+		<result property="inqTitle" column="INQ_TITLE" />
+		<result property="inqContent" column="INQ_CONTENT" />
+		<result property="inqDate" column="INQ_DATE" />
+		<result property="inqWriter" column="INQ_WRITER" />
+		<result property="inqEmail" column="INQ_EMAIL" />
+		<result property="inqPhone" column="INQ_PHONE" />
+		<result property="status" column="STATUS" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="count" column="COUNT" />
 	</resultMap>
 	
+	<resultMap id="commentMap" type="inquiryComment">
+		<id column="INQ_NUM" property="inqNum"/>
+		<result column="INQ_CMT_CONTENT" property="inqCmtContent"/>
+		<result column="INQ_CMT_DATE" property="inqCmtDate"/>
+	</resultMap>
+
 	<select id="getInquirys" resultMap="inquiryMap">
+		select INQ_NUM,INQ_TITLE,INQ_CONTENT,INQ_DATE,INQ_WRITER,INQ_EMAIL,INQ_PHONE,
+		decode(STATUS, 0, '답변대기', 1,'처리완료') as STATUS, USER_NUMfrom
+		INQUIRYSorder by INQ_NUM DESC
+	</select>
+
+	<select id="getCount" resultMap="inquiryMap">
+		select count (*) as count
+		from INQUIRYS
+		where status=0
+	</select>
+
+	<select id="getInquiry" resultMap="inquiryMap" parameterType="int">
 		select *
 		from INQUIRYS
-		order by INQ_NUM DESC
-	</select>
-	
-	<select id="getInquiry" parameterType="inquiry" resultMap="inquiryMap">
-		select *
-		from INQUIRYS
-		<where>
-			<if test="INQ_NUM != null">
-				INQ_NUM=#{inqNum}
-			</if>
-		</where>
-	</select>
-	
-	<insert id="addInquiry" parameterType="inquiry">
-		insert into INQUIRYS
-			(INQ_NUM, INQ_TITLE, INQ_CONTENT, INQ_DATE,
-			 INQ_WRITER, INQ_EMAIL, INQ_PHONE, STATUS, 
-			 USER_NUM) 
-		values
-			(INQUIRY_NUM.NEXTVAL,  #{inqTitle}, #{inqContent}, SYSDATE,
-			#{inqWriter}, #{inqEmail}, #{inqPhone}, #{status}, 
-			#{userNum})
-	</insert>
-	
-	<delete id="delInquiry" parameterType="int">
-		delete from INQUIRYS 
 		where INQ_NUM=#{inqNum}
-	</delete> 
+	</select>
+
+	<insert id="addInquiry" parameterType="inquiry">insert into
+		INQUIRYS(INQ_NUM, INQ_TITLE, INQ_CONTENT, INQ_DATE,INQ_WRITER,
+		INQ_EMAIL, INQ_PHONE, STATUS,USER_NUM)
+		values(INQUIRY_NUM.NEXTVAL,
+		#{inqTitle}, #{inqContent}, SYSDATE,#{inqWriter}, #{inqEmail},
+		#{inqPhone}, #{status},#{userNum})
+	</insert>
+
+	<delete id="delInquiry" parameterType="int">
+		delete from INQUIRYS
+		where
+		INQ_NUM=#{inqNum}
+	</delete>
+
+	<insert id="addComment" parameterType="inquiryComment">insert into
+		INQUIRYS_CMT(INQ_NUM, INQ_CMT_CONTENT, INQ_CMT_DATE)
+		values(#{inqNum},#{inqCmtContent}, SYSDATE)
+	</insert>
 
 </mapper>
