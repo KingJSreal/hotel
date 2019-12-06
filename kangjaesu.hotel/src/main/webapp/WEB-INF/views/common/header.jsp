@@ -57,8 +57,10 @@
 						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
 						  	<li><a href="/hotel/switchMain" class="header_a">이용자 화면 보기</a></li>	
 						</c:when>
-						<c:otherwise>			
-				   	  		<li><a href="/hotel/switchAdmin" style="font-size: 9px; color: gray;">관리자 화면으로</a></li>
+						<c:otherwise>		
+							<c:if test="${sessionScope.page == 'admin'}">
+				   	  			<li><a href="/hotel/switchAdmin" style="font-size: 9px; color: gray;">관리자 화면으로</a></li>
+							</c:if>
 						  	<li><a href="#" class="header_a">예약조회</a></li>
 						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
 						  	<li><a href="#" class="header_a">마이페이지</a></li>	

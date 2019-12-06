@@ -7,5 +7,6 @@
 		 <package name="kangjaesu.hotel.user.domain" />
 		 <package name="kangjaesu.hotel.room.domain" />
 		 <package name="kangjaesu.hotel.inquiry.domain" />
+		 <package name="kangjaesu.hotel.promotion.domain" />
 	</typeAliases>
 </configuration>
