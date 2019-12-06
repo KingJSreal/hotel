@@ -33,6 +33,11 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
+	public List<User> searchUser(User user) {
+		return mapper.searchUser(user);
+	}
+	
+	@Override
 	public User getUser(User user){
 		return mapper.getUser(user);
 	}
@@ -41,6 +46,7 @@ public class UserDaoImpl implements UserDao{
 	public int addUser(User user) {
 		return mapper.addUser(user);
 	}
+
 
 	
 //

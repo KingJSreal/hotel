@@ -51,9 +51,10 @@ public class UserLoginController {
 	public Boolean adminLogin(User user, HttpSession session) { // && user.getUserLevel() > 3
 		Boolean result = false;
 		User adminUser = loginService.logInVaildate(user);
-		if(adminUser != null && adminUser.getUserGrade() >= 3) {
+		if(adminUser != null && adminUser.getUserGrade() >= 2) {
 			result = true;
 			session.setAttribute("user", adminUser);
+			session.setAttribute("page", "admin");
 			}
 		return result;
 	}

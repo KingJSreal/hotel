@@ -61,14 +61,25 @@
 		order by user_num
 	</select>
 	
+	<select id="searchUser" resultMap="userMap">
+		select *
+		from users
+		where 
+		<if test="userName != null">
+			user_korname = #{userName}
+		</if>
+		<if test="userEmail != null">
+			or user_email = #{userEmail}
+		</if>
+		<if test="userNum != null">
+			or user_num = #{userNum}
+		</if>
+	</select>
+	
 	<select id="getUser" parameterType="user" resultMap="userMap">
 		select *
 		from users
-		<where>
-			<if test="userEmail != null">
-				user_email=#{userEmail}
-			</if>
-		</where>
+		where user_num = #{userNum}
 	</select>
 	
 	<insert id="addUser" parameterType="user">

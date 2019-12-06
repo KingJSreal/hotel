@@ -26,6 +26,16 @@ public class RoomDaoImpl implements RoomDao{
 		return mapper.getRooms();
 	}
 
+	@Override
+	public int delRoom(int roomNum) {
+		return mapper.delRoom(roomNum);
+	}
+
+	@Override
+	public Room getRoom(int roomNum) {
+		return mapper.getRoom(roomNum);
+	}
+
 	
 
 	

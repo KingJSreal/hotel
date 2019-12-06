@@ -10,6 +10,7 @@ public interface UserDao {
 	User findPw(User user);
 	
 	List<User> getUsers();
+	List<User> searchUser(User user);
 	User getUser(User user);
 	int addUser(User user);
 	//int updateUser(User user);

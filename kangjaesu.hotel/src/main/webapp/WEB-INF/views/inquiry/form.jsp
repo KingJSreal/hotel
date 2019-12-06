@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../common/import.jsp"></jsp:include>
-<link rel="stylesheet" href="../res/css/section.css">
 
 <style>
 
@@ -106,14 +105,14 @@ function confirm(){
 		})
 		.then((willDelete) => {
 		  if (willDelete) {
-			  save();
+			  submit();
 		  }else{
 			  return;
 		  }
 		});
 }
 
-function save(){	
+function submit(){	
 	var status = 0;
 	var userNum = "${user.userNum}";
 
@@ -130,12 +129,12 @@ function save(){
 			userNum: userNum
 		},
 		success:function(){
-			swal("문의가 등록되었습니다.", {
-		    	text: "문의에 대한 답변은 평균 2일 소요됩니다.",
+			swal( {
+				title: "해당 문의가 접수되었습니다.",
+				text: "답변완료까지 평균 2일 소요됩니다.",
 		      icon: "success",
-		      buttons: ["확인"],
+		      buttons: "확인",
 		    }).then((willDelete) => {
-		    	    
 		    	location.href = "/hotel";
 		  });
 		},
@@ -182,15 +181,15 @@ function save(){
 							</tr>
 							<tr>
 								<td>이름</td>
-								<td><input type="text" id="inqWriter" class="form-control"></td>
+								<td><input type="text" id="inqWriter" class="form-control" maxlength="12"></td>
 							</tr>
 							<tr>
 								<td>이메일</td>
-								<td><input type="email" id="inqEmail" class="form-control"></td>
+								<td><input type="email" id="inqEmail" class="form-control" maxlength="30"></td>
 							</tr>
 							<tr>
 								<td>연락처</td>
-								<td><input type="text" id="inqPhone" class="form-control" placeholder="하이픈(-)생략"></td>
+								<td><input type="text" id="inqPhone" class="form-control" placeholder="하이픈(-)생략" maxlength="11"></td>
 							</tr>
 						</tbody>
 					</table>

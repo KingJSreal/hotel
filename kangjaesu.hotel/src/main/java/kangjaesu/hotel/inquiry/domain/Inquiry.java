@@ -23,7 +23,7 @@ public class Inquiry {
 	private String inqWriter;
 	private String inqEmail;
 	private String inqPhone;
-	private int status;
+	private String status;
 	private String userNum;
 	
 	public int getInqNum() {
@@ -68,10 +68,10 @@ public class Inquiry {
 	public void setInqPhone(String inqPhone) {
 		this.inqPhone = inqPhone;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public String getUserNum() {

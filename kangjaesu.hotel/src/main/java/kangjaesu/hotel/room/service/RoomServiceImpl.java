@@ -23,4 +23,14 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.getRooms();
 	}
 
+	@Override
+	public boolean delRoom(int roomNum) {
+		return roomDao.delRoom(roomNum)>0;
+	}
+
+	@Override
+	public Room getRoom(int roomNum) {
+		return roomDao.getRoom(roomNum);
+	}
+
 }

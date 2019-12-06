@@ -1,5 +1,7 @@
 package kangjaesu.hotel.user.comtroller;
 
+import java.util.List;
+
 import kangjaesu.hotel.user.domain.User;
 import kangjaesu.hotel.user.service.UserService;
 
@@ -37,7 +39,6 @@ public class UserController {
 	public void join(User user) {
 		userService.join(user);
 	}
-
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/checkEmail")
@@ -46,19 +47,26 @@ public class UserController {
 		if(userService.findUser(user) == null) result = true;
 		return result;
 	}
-//	@RequestMapping("/listUsers")
-//	@ResponseBody
-//	@Transactional
-//	public List<User> listUsers() {
-//		return userService.listUsers();
-//	}
-//	
-//	@RequestMapping("/find")
-//	@ResponseBody
-//	@Transactional
-//	public User findUser(User user) {
-//		return userService.findUser(user);
-//	}
+	@RequestMapping("/listUsers")
+	@ResponseBody
+	@Transactional
+	public List<User> listUsers() {
+		return userService.listUsers();
+	}
+	@RequestMapping("/searchListUsers")
+	@ResponseBody
+	@Transactional
+	public List<User> searchListUsers(User user) {
+		return userService.searchListUsers(user);
+	}
+	
+	@RequestMapping("/find")
+	@ResponseBody
+	@Transactional
+	public User findUser(User user) {
+		return userService.findUser(user);
+	}
+	
 //	
 //
 //	@RequestMapping("/cerrect")

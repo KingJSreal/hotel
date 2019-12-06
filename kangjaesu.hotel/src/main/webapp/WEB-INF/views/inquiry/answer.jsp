@@ -10,8 +10,35 @@
 	margin-left: 80%;
 }
 </style>
+<script>
+$(function() {
+	$("#submit").click(function() {
+		//var inqNumber = $(this).attr('id').substr(1);
+		alert("z");
+			 /* $.ajax({
+			url:"inquiryMail",
+			method:"GET",
+			data: {					
+				inqCmtContent:inqNumber
+			},
+			success:function(inq){
+				//alert(inq.inqTitle + "/" + inq.inqEmail);
+				//alert("${inquiry}");
+				 sessionStorage.setItem("inqNum", inq.inqNum);
+					 $("#confirmModal").modal({
+					remote : "viewInquiry"
+				});   
+			},
+			error:function(a, b, errMsg){
+				alert("오류" + errMsg);
+			}
+		 });   */ 
+	});
+});
+</script>
 </head>
 <body>
+<form method="post" action="inquiryMail">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close">
@@ -24,16 +51,17 @@
 			<table class="table">
 				<tbody>
 					<tr>
-						<td><textarea class="form-control" rows="12" cols="60"></textarea></td>
+						<td><textarea id="inqCmtContent" class="form-control" rows="12" cols="60"></textarea></td>
 					</tr>
 				</tbody>
 			</table>
 
 		</div>
 		<div class="modalbtngroup">
-			<button class="btn btn-default" data-dismiss="modal" type="submit">제출</button>
+			<button class="btn btn-default" data-dismiss="modal" type="submit" id="submit">제출</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		</div>
 	</div>
+</form>
 </body>
 </html>

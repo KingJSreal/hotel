@@ -190,7 +190,7 @@ $("#addForm").bind("submit", function(e){
 		
 		$.ajax({
 			url:"add",
-			method:"GET",
+			method:"POST",
 			data: {					
 				roomName:$("#roomName").val(),
 			 	guests:$("input[name=guests]:checked").val(),
@@ -230,7 +230,7 @@ $("#addForm").bind("submit", function(e){
 	</div>
 	<!-- 섹션 타이틀 끝-->
 	<div class="container">
-		<form id="addForm" name="addForm" id="add" class="form-inline">
+		<form id="addForm" name="addForm" id="add" method="post" class="form-inline">
 			<div class="container inputGroup">
 
 				<div class="input-group col-md-3">

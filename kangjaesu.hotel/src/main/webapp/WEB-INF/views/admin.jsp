@@ -53,7 +53,7 @@
 		<div id="contents">
 			<section>
 				<c:choose>
-					<c:when test="${sessionScope.user.userGrade == '3' || sessionScope.user.userGrade == '4'}">
+					<c:when test="${(sessionScope.user.userGrade == '2' && sessionScope.page == 'admin')}">
 						<div class="container center-block text-center">
 							<div class="container">
 								<div class="today_status">

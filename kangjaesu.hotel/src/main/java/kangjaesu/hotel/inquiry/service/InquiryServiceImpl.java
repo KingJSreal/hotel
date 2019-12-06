@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kangjaesu.hotel.inquiry.dao.InquiryDao;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
+import kangjaesu.hotel.inquiry.domain.InquiryComment;
 
 @Service
 public class InquiryServiceImpl implements InquiryService{
@@ -20,8 +21,8 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
-	public Inquiry getInquiry(Inquiry inquiry) {
-		return inquiryDao.getInquiry(inquiry);
+	public Inquiry getInquiry(int inqNum) {
+		return inquiryDao.getInquiry(inqNum);
 	}
 
 	@Override
@@ -32,6 +33,11 @@ public class InquiryServiceImpl implements InquiryService{
 	@Override
 	public boolean deleteInquiry(int inqNum) {
 		return inquiryDao.delInquiry(inqNum) > 0;
+	}
+
+	@Override
+	public boolean writeComment(InquiryComment comment) {
+		return inquiryDao.addComment(comment) > 0;
 	}
 
 }

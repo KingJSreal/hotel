@@ -20,9 +20,22 @@
 	<select id="getRooms" resultMap="roomMap">
 		select *
 		from rooms
-		order by room_num 
+	<!-- 	<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+				AND TITLE like CONCAT('%', #{keyword)
+			</if>
+					<if test="searchType=='content' and keyword != null and keyword != '' ">
+
+
+		</trim> -->
+		order by room_num desc
 	</select>
-	
+	<select id="getRoom" parameterType="int"  resultMap="roomMap" resultType="room" >
+		select *
+		from rooms
+		where room_num=#{roomNum}
+	</select>
+		
 	
 	<insert id="addRoom" parameterType="room">
 		INSERT INTO rooms
@@ -33,6 +46,11 @@
 			SYSDATE, #{roomContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR}, #{roomPrice, jdbcType=NUMERIC},
 			#{roomImage1, jdbcType=VARCHAR}, #{roomImage2, jdbcType=VARCHAR}, #{roomImage3, jdbcType=VARCHAR} )
 	</insert>
+	
+	<delete id="delRoom" parameterType="int">
+		delete from rooms
+		where room_num=#{roomNum}
+	</delete>
 	<!-- 
 	<update id="updateUser" parameterType="user">
 		update users 
