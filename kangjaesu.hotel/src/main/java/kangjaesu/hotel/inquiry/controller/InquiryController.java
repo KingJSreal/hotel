@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class InquiryController {
 	@Autowired private InquiryService inquiryService;
 	
+	
 	//문의관리 페이지
 	@Transactional
 	@RequestMapping("/inquiryManage")
