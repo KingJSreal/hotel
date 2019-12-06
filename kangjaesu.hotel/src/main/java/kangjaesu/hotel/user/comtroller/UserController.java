@@ -32,6 +32,10 @@ public class UserController {
 	public String userList() {
 		return "user/userList";
 	}
+	@RequestMapping("/userData")
+	public String userData() {
+		return "user/userData";
+	}
 	
 	
 	@Transactional
@@ -44,7 +48,7 @@ public class UserController {
 	@RequestMapping("/checkEmail")
 	public boolean checkDuplicationUserEmail(User user) {
 		boolean result = false;
-		if(userService.findUser(user) == null) result = true;
+		if(userService.getUser(user) == null) result = true;
 		return result;
 	}
 	@RequestMapping("/listUsers")
@@ -60,11 +64,11 @@ public class UserController {
 		return userService.searchListUsers(user);
 	}
 	
-	@RequestMapping("/find")
+	@RequestMapping("/getUser")
 	@ResponseBody
 	@Transactional
-	public User findUser(User user) {
-		return userService.findUser(user);
+	public User getUser(User user) {
+		return userService.getUser(user);
 	}
 	
 //	
