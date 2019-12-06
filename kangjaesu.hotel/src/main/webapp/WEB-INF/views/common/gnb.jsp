@@ -8,7 +8,7 @@
 /*네비*/
 .navi {
 	text-align: center;
-	width:50%;
+	width:35%;
 	margin: 0px auto;
 }
 
@@ -60,7 +60,7 @@
 </style>
 <body>
 	<nav>
-		<div class ="navi">
+		<div class ="navi container">
 			<c:choose>
 				<c:when test="${(sessionScope.user.userGrade == '2' && sessionScope.page == 'admin')}">
 					<ul class="mainMenu">
