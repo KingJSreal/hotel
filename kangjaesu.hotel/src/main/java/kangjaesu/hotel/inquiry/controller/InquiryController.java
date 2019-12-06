@@ -25,12 +25,12 @@ public class InquiryController {
 		return "inquiry/manage";
 	}
 
-	//문의보기 모달 페이지
+/*	//문의보기 모달 페이지
 	@Transactional
 	@RequestMapping("/viewInquiry")
 	public String viewInquiry(Model model, Inquiry inquiry) {
 		return "inquiry/view";
-	}
+	}*/
 	
 	//문의 보기
 	@RequestMapping("/getInquiry")
@@ -40,20 +40,29 @@ public class InquiryController {
 		return inquiryService.getInquiry(inquiry.getInqNum());
 	}
 	
-	//문의답변 모달 페이지
+/*	//문의답변 모달 페이지
 	@Transactional
 	@RequestMapping("/inquiryAnswer")
 	public String inquiryAnswer(Inquiry inquiry) {
 		return "inquiry/answer";
-	}
+	}*/
 	
-	//답변 등록
+	//답변 등록 페이지
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/writeComment")
-	public boolean writeComment(Inquiry inquiry, InquiryComment comment) {
-		inquiryService.writeComment(comment);
-		return true;
+	public Inquiry writeComment(Inquiry inquiry, Model model) {
+		model.addAttribute("inquiry", inquiryService.getInquiry(inquiry.getInqNum()));
+		return inquiryService.getInquiry(inquiry.getInqNum());
+	}
+		
+	//답변 등록 
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/submitComment")
+	public String submitComment(Inquiry inquiry, InquiryComment comment) {
+		inquiryService.changeStatus(inquiry.getInqNum());
+		return "/inquiryMail";
 	}
 
 	//문의등록 페이지

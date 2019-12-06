@@ -45,4 +45,11 @@ public class InquiryServiceImpl implements InquiryService{
 		return inquiryDao.getCount();
 	}
 
+	@Override
+	public boolean changeStatus(int inqNum) {
+		return inquiryDao.updateStatus(inqNum) > 0;
+	}
+
+
+
 }

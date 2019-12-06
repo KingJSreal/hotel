@@ -59,7 +59,7 @@ $(function() {
 	//보기 버튼 클릭시 호출
 	$(".confirmModalButton").click(function() {
 		var inqNumber = $(this).attr('id').substr(1);
-			 $.ajax({
+		$.ajax({
 			url:"getInquiry",
 			method:"GET",
 			data: {					
@@ -86,15 +86,22 @@ $(function() {
 	//답변 버튼 클릭시 호출
 	$(".inquiryModalButton").click(function() {
 		var inqNumber = $(this).attr('id').substr(1);
+		$(".submitBtn").attr('id',inqNumber);
 		$.ajax({
-			url:"getInquiry",
+			url:"writeComment",
 			method:"GET",
 			data: {					
 				inqNum:inqNumber
 			},
 			success:function(inq){
+				$("#to").val(inq.inqWriter);
+				$("#toEmail").val(inq.inqEmail);
+				$("#inqCmtContent").val("문의 제목: " + inq.inqTitle
+						+ "\n문의내용 :\n" + inq.inqContent
+						+ "\n\n작성일 :" + inq.inqDate
+						+ "\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n"
+						+ "답변 :\n");
 				$("#inquiryModal").modal('show');
-				$('#inquiryModal').modal({backdrop: 'static'});
 			},
 			error:function(a, b, errMsg){
 				alert("오류" + errMsg);
@@ -140,7 +147,6 @@ $(function() {
 });
 
 function submitConfirm(){
-	
 	swal({
 		text: "작성한 내용으로 답변을 등록 하시겠습니까?",
 			icon: "warning",
@@ -157,11 +163,10 @@ function submitConfirm(){
 }
 
 function submit(){	
-	var status = 1;
-	var inqNumber = inq.inqNum;
-
-	 $.ajax({
-		url:"writeComment",
+	var inqNumber = $(".submitBtn").attr("id");
+	
+    $.ajax({
+		url:"submitComment",
 		method:"GET",
 		data: {			
 			inqNum:inqNumber,
@@ -174,12 +179,12 @@ function submit(){
 		    	buttons: "확인",
 		    }).then((willDelete) => {
 		    	location.href = "/hotel/inquiry/inquiryManage";
-		  });
+			});
 		},
 		error:function(a, b, errMsg){
 			alert("작성  오류" + errMsg);
 		}
-	 }); 
+	});    
 }
 </script>
 </head>
@@ -323,17 +328,27 @@ function submit(){
 				<div class="modal-body">
 					<div class="panel panel-default">
 						<table class="table">
-							<tbody>
-								<tr>
-									<td><textarea id="inqCmtContent" class="form-control"
-											rows="12" cols="60"></textarea></td>
-								</tr>
-							</tbody>
-						</table>
+								<tbody>
+									<tr>
+										<td>이름</td>
+										<td><input id="to" type="text"
+											class="form-control" onfocus="this.blur();"></td>
+									</tr>
+									<tr>
+										<td>이메일</td>
+										<td><input id="toEmail" type="text" class="form-control"
+											onfocus="this.blur();"></td>
+									</tr>
+									<tr>
+										<td colspan="2"><textarea class="form-control" rows="12" cols="60"
+												id="inqCmtContent"></textarea></td>
+									</tr>
+								</tbody>
+							</table>
 
 					</div>
 					<div class="modalbtngroup">
-						<button class="btn btn-default"
+						<button id="submitBtn" class="btn btn-default submitBtn"
 							type="button" onclick="submitConfirm();">제출</button>
 						<button type="button" class="btn btn-default"
 							data-dismiss="modal">취소</button>
