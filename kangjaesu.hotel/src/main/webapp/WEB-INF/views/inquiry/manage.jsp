@@ -184,7 +184,7 @@ function submit(){
 </script>
 </head>
 <body>
-	<div class="container">
+	<div>
 		<jsp:include page="../common/header.jsp" />
 		<jsp:include page="../common/gnb.jsp" />
 		<!-- 섹션 타이틀 -->

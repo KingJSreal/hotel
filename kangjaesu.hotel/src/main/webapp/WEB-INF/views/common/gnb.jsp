@@ -68,7 +68,7 @@
 						<li><a href="/hotel/room/roomManager">객실관리</a></li>
 				 		<li><a href="#">예약관리</a></li>
 			 			<li><a href="/hotel/inquiry/inquiryManage">문의관리</a></li>
-						<li><a href="#">프로모션 관리</a></li>	
+						<li><a href="/hotl/promotion/boardProAdmin">프로모션 관리</a></li>	
 					</ul>
 				</c:when>
 				<c:otherwise>

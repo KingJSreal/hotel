@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>쌍용호텔:관리자 페이지</title>
 <jsp:include page="common/import.jsp"></jsp:include>
-<style>00000
+<style>
 	.today_status{
 		width:40%;
 		float:left;

@@ -35,11 +35,12 @@ div.Btns {
 }
 </style>
 <script>
-$(document).ready(function() {
+var loadUserList = function() {
 	$.ajax({
 		url:"listUsers",
 		method:"POST",
 		success:function(users){
+			$('#userList').empty();
 			if(users.length > 0 ){
 				var userList = [];
 				$(users).each(function(idx, user){
@@ -58,7 +59,6 @@ $(document).ready(function() {
 				$('#userList').append(userList.join(''));
 				
 			}else{
-				$('#userList').empty();
 				$('#userList').append(
 					'<tr><td colspan="6"><b>사용자가 없습니다.</b></td></tr>'	);
 			}
@@ -69,65 +69,70 @@ $(document).ready(function() {
 				'<tr><td colspan="6"><b>사용자 목록을 불러오지 못했습니다.</b></td></tr>'	);
 		}
 	});
-});
+}
+$(document).ready(loadUserList());
 
 $(function(){
 	$("#userSearchBtn").bind("click", function(e){	
 		e.preventDefault();
 		
-		var userName = null;	
-		var userEmail = null;
-		var userNum = 0;
-		switch($("#searchSelect :selected").val()){
-			case "userName":
-				userName=$("#userSearch").val();
-				break;
-			case "userEmail":
-				userEmail=$("#userSearch").val();
-				break;
-			case "userNum":
-				userNum=$("#userSearch").val();
-				break;
-		}
-		$.ajax({
-			url:"searchListUsers",
-			method:"POST",
-			data: {
-					userName:userName,
-					userEmail:userEmail,
-					userNum:userNum
-				},
-			success:function(users){
-				$('#userList').empty();
-				if(users.length > 0 ){
-					var userList = [];
-					$(users).each(function(idx, user){
-						userList.push(
-								'<tr>' +
-								'<td>' + user.userNum+'</td>' +
-								'<td>' + user.userEmail+'</td>' +
-								'<td>' + user.userName+'</td>' +
-								'<td>' + user.userEngFirstName + " " + user.userEngFirstName + '</td>' +
-								'<td>' + user.userBirth + '</td>'	+
-								'<td><a href="#">보기</a></td>'	+
-								'</tr>'				
-						);
-							
-					});
-					$('#userList').append(userList.join(''));
-					
-				}else{
-					$('#userList').append(
-						'<tr><td colspan="6"><b>사용자가 없습니다.</b></td></tr>'	);
-				}
-				
-			},
-			error:function(a, b, errMsg){
-				$('#userList').empty();
-				$('#userList').append(
-					'<tr><td colspan="6"><b>검색에 실패했습니다.</b></td></tr>'	);
+		if($("#userSearch").val() == ""){
+			loadUserList()
+		}else{
+			var userName = null;	
+			var userEmail = null;
+			var userNum = 0;
+			switch($("#searchSelect :selected").val()){
+				case "userName":
+					userName=$("#userSearch").val();
+					break;
+				case "userEmail":
+					userEmail=$("#userSearch").val();
+					break;
+				case "userNum":
+					userNum=$("#userSearch").val();
+					break;
 			}
-		});
+			$.ajax({
+				url:"searchListUsers",
+				method:"POST",
+				data: {
+						userName:userName,
+						userEmail:userEmail,
+						userNum:userNum
+					},
+				success:function(users){
+					$('#userList').empty();
+					if(users.length > 0 ){
+						var userList = [];
+						$(users).each(function(idx, user){
+							userList.push(
+									'<tr>' +
+									'<td>' + user.userNum+'</td>' +
+									'<td>' + user.userEmail+'</td>' +
+									'<td>' + user.userName+'</td>' +
+									'<td>' + user.userEngFirstName + " " + user.userEngFirstName + '</td>' +
+									'<td>' + user.userBirth + '</td>'	+
+									'<td><a href="#">보기</a></td>'	+
+									'</tr>'				
+							);
+								
+						});
+						$('#userList').append(userList.join(''));
+						
+					}else{
+						$('#userList').append(
+							'<tr><td colspan="6"><b>사용자가 없습니다.</b></td></tr>'	);
+					}
+					
+				},
+				error:function(a, b, errMsg){
+					$('#userList').empty();
+					$('#userList').append(
+						'<tr><td colspan="6"><b>검색에 실패했습니다.</b></td></tr>'	);
+				}
+			});
+		}
 	});
 })
 </script>
