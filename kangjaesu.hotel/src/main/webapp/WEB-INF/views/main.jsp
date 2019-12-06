@@ -42,7 +42,7 @@
 					<div class="panel panel-default">
 						<form class="form-inline searchBar">
 							<div class="form-group">
-				            	<p class="form-control-static">예약정보를 선택하세요dddddddd</p>
+				            	<p class="form-control-static">예약정보를 선택하세요</p>
 				            	<p class="form-control-static">&nbsp; | &nbsp; 체크인</p>
 				            <div class="input-group date">
 				               	<input type="date" class="form-control" placeholder="체크인"
