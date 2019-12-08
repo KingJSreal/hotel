@@ -31,6 +31,15 @@
 	width: 200px;
 }
 
+.inqTitle{
+	font-size: 15px;
+	color: black;
+}
+.inqTitle:hover{
+	text-decoration: none;
+	color: gray;
+	cursor:pointer;
+}
 /* 페이징 */
 .paging {
 	text-align: center;
@@ -56,9 +65,11 @@ var alert = function(msg, type) {
 }
 
 $(function() {		
-	//보기 버튼 클릭시 호출
-	$(".confirmModalButton").click(function() {
-		var inqNumber = $(this).attr('id').substr(1);
+	//보기 버튼, 제목 클릭시 호출
+	$(".confirmModalButton, .inqTitle").click(function() {
+		var tr = $(this).parent().parent();
+		var inqNumber = tr.children().eq(0).text();
+
 		$.ajax({
 			url:"getInquiry",
 			method:"GET",
@@ -164,8 +175,7 @@ function submitConfirm(){
 
 function submit(){	
 	var inqNumber = $(".submitBtn").attr("id");
-	
-    $.ajax({
+     $.ajax({
 		url:"submitComment",
 		method:"GET",
 		data: {			
@@ -184,7 +194,7 @@ function submit(){
 		error:function(a, b, errMsg){
 			alert("작성  오류" + errMsg);
 		}
-	});    
+	});     
 }
 </script>
 </head>
@@ -223,7 +233,7 @@ function submit(){
 			
 								<tr class="inqTable">
 									<td class="td1">${list.inqNum}</td>
-									<td class="td2">&emsp;${list.inqTitle}</td>
+									<td class="td2"><a class="inqTitle">&emsp;${list.inqTitle}</a></td>
 									<td class="td3">${list.inqDate}</td>
 									<td class="td4">${list.status}</td>
 									<td class="td5"><button type="button"

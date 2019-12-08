@@ -18,9 +18,11 @@ public class InquiryMailController {
 		mailService.send(msg, to);
 		String a = msg.getInqCmtContent();
 		String b = to.getInqEmail();
-	//	return a + b;
+		
+		return "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n" + "내용:"+ a + "\n이메일:"+ b 
+				+"\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n";
 	//	Inquiry to가 null 나옴
-		return "inquiry/manage";
+	//	return "inquiry/manage";
 	}
 	
 }
