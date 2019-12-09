@@ -8,43 +8,10 @@
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
-<!-- 
-	- res/js 추가 시
-	<script src="<c:url value="/js/common.js"/>"></script>  
--->
-<style>
-/*
-	- res/css 추가 시
-	@import url("<c:url value="/css/section.css" />");
-	*/
-/*메인 섹션*/
-section {
-	margin: 0px 0 50px 0;
-}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /><style>
 
-div .searchBar {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-div.promotion-title {
-	padding-bottom: 5px;
-}
-
-h4.promotion-title {
-	margin-bottom: 0px;
-}
-
-#more {
-	float: right;
-	font-size: 15px;
-	text-decoration: none;
-}
-
-#more:hover {
-	color: #A0A0A0;
-}
-/*메인 섹션 끝*/
 div .searchBar {
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -61,11 +28,6 @@ h4.promotion-title {
 #more {
 	float: right;
 	font-size: 18px;
-}
-
-table table-bordered {
-	text-align: cneter;
-	padding-top: 200px;
 }
 
 .panel-defaul button {
@@ -115,12 +77,19 @@ input[type="checkbox"]:checked+label:BEFORE {
 	margin-right: 100px;
 }
 
-table, tr, td {
-	border: 0;
+.isotope-element{
+	width: 100%;
+	 
+}
+
+.table{
+border: 1px solid #dddddd;
 }
 </style>
 <script>
-$(window).load(function() {
+
+
+$(document).ready(function() {
 	var minprice;
 	var maxprice;
 	var selector;
@@ -217,7 +186,7 @@ $(window).load(function() {
 	// debounce so filtering doesn't happen every millisecond
 	function debounce( fn, threshold ) {
 		var timeout;
-		threshold = threshold || 100;
+		threshold = threshold || 300;
 		return function debounced() {
 			clearTimeout( timeout );
 		    var args = arguments;
@@ -229,6 +198,9 @@ $(window).load(function() {
 		};
 	}
 
+	
+	
+	
 });
 </script>
 </head>
@@ -239,6 +211,9 @@ $(window).load(function() {
 		<!-- 예약정보 검색 -->
 		<div id="contents">
 			<section>
+			
+
+
 				<!-- 예약정보 검색 -->
 				<section>
 					<div class="container center-block text-center">
@@ -246,22 +221,15 @@ $(window).load(function() {
 							<form class="form-inline searchBar">
 								<div class="form-group">
 									<p class="form-control-static">예약정보를 선택하세요</p>
-									<p class="form-control-static">&nbsp; | &nbsp; 체크인</p>
+									<p class="form-control-static">&nbsp; | &nbsp; 숙박 기간</p>
 									<div class="input-group date">
-										<input type="date" class="form-control" placeholder="체크인"
-											value="체크인"> <span class="input-group-addon">
-											<i class="glyphicon glyphicon-calendar"></i>
-										</span>
-									</div>
-									<p class="form-control-static">&nbsp; | &nbsp; 체크아웃</p>
-									<div class="input-group date">
-										<input type="date" class="form-control" placeholder="체크아웃">
-										<span class="input-group-addon"> <i
-											class="glyphicon glyphicon-calendar"></i>
-										</span>
+										<input type="text" class="form-control" id="checkin"/>
+										<span class="input-group-addon">
+										<i class="glyphicon glyphicon-calendar"></i></span>
 									</div>
 									<p class="form-control-static">&nbsp; | &nbsp; 성인</p>
 									<select class="form-control" id="adult">
+										<option>선택</option>
 										<option>1</option>
 										<option>2</option>
 										<option>3</option>
@@ -307,8 +275,10 @@ $(window).load(function() {
 								<div class="form-group pull-right priceForm">
 									<p class="form-control-static">&nbsp;금액범위&nbsp;</p>
 
-									<input type="text" class="form-control" id="min"><label>&nbsp;원
-										~&nbsp;</label> <input class="form-control" type="text" id="max"><label>&nbsp;원
+									<input type="text" class="form-control" id="min" placeholder="최소금액">
+									<label>&nbsp;원 ~&nbsp;</label>
+									<input class="form-control" type="text" id="max" placeholder="최대금액">
+									<label>&nbsp;원
 									</label>
 								</div>
 								<br> <br>
@@ -316,12 +286,43 @@ $(window).load(function() {
 						</div>
 					</div>
 				</section>
+<script>
+$(function(){
+	$('#checkin').daterangepicker({
+		 autoUpdateInput: false,
+	    "locale": {
+	    	"format": "YYYY/MM/DD",
+	    	"separator": " ~ ",
+	        "applyLabel": "확인",
+	        "cancelLabel": "취소",
+	        "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+	        "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월",
+	            		   "7월", "8월", "9월", "10월", "11월", "12월"],
+	        "firstDay": 1,
+	        "toLabel": "To"
+	    }, 	
+	    "minDate": "2019/12/09",	//오늘 날짜
+	   
+	}, function(start, end) {
+			alert('--날짜 선택--\n ' + start.format('YYYY-MM-DD') + ' ~ '
+					+ end.format('YYYY-MM-DD'));
+	});
+	
+	$('#checkin').on('apply.daterangepicker', function(ev, picker) {
+	      $(this).val(picker.startDate.format('YYYY/MM/DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
+	  });
 
+	  $('#checkin').on('cancel.daterangepicker', function(ev, picker) {
+	      $(this).val('');
+	  });
+	  
+});
+</script>
 				<div class="container center-block" id="isotope-items">
 					<c:forEach var="list" items="${roomList}">
-						<div class="span2 isotope-element" id="isotope-filter0">
+						<div class="isotope-element" id="isotope-filter0">
 							<div class="thumb-isotope">
-								<table class="table table-hover" style="vertical-align: middle;">
+								<table class="table table-hover">
 									<tr id="confirmModalButton">
 										<td><img width="300" height="200"></td>
 

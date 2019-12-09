@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kangjaesu.hotel.inquiry.domain.Inquiry;
@@ -31,16 +32,20 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/myInquiry")
-	public String myInquiry(Model model, HttpServletRequest request) throws Exception {
-		int inqNum = Integer.parseInt(request.getParameter("inqNumber"));
-		model.addAttribute("inq", myInqService.getInquiry(inqNum));
+	public String myInquiry(@RequestParam("inqNumber")int inqNum,
+			Model model, HttpSession session) throws Exception {
+		User user = (User) session.getAttribute("user");
+		int userNum = user.getUserNum();
+		model.addAttribute("inq", myInqService.getInquiry(inqNum, userNum));
 		return "mypage/myInq";
 	}
 	
 	@RequestMapping("/modifyInquiry")
-	public String modifyInquiry(Model model, HttpServletRequest request) throws Exception {
-		int inqNum = Integer.parseInt(request.getParameter("inqNumber"));
-		model.addAttribute("inq", myInqService.getInquiry(inqNum));
+	public String modifyInquiry(@RequestParam("inqNumber")int inqNum,
+			Model model, HttpSession session) throws Exception {
+		User user = (User) session.getAttribute("user");
+		int userNum = user.getUserNum();
+		model.addAttribute("inq", myInqService.getInquiry(inqNum, userNum));
 		return "mypage/modInq";
 	}
 	
