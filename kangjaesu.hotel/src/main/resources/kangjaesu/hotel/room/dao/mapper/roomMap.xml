@@ -17,6 +17,11 @@
 		
 	
 	</resultMap>
+	<resultMap type="option" id="optionMap">
+		<id property="optNo" column="opt_no"/>
+		<result property="roomNum" column="room_num"/>
+		
+	</resultMap>
 	<select id="getRooms" resultMap="roomMap">
 		select *
 		from rooms
@@ -47,6 +52,13 @@
 			#{roomImage1, jdbcType=VARCHAR}, #{roomImage2, jdbcType=VARCHAR}, #{roomImage3, jdbcType=VARCHAR} )
 	</insert>
 	
+	<insert id="addOption" parameterType="option">
+ 		INSERT INTO ROOMOPTIONS
+ 		(room_num, opt_no)
+ 		VALUES 
+ 		(Room_Seq.currval, #{optNo , jdbcType=NUMERIC})
+		
+	</insert>
 	<delete id="delRoom" parameterType="int">
 		delete from rooms
 		where room_num=#{roomNum}

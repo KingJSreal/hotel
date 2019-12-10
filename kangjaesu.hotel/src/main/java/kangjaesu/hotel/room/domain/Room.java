@@ -1,6 +1,9 @@
 package kangjaesu.hotel.room.domain;
 
 import java.sql.Date;
+import java.util.List;
+
+import kangjaesu.hotel.promotion.domain.PromotionDetail;
 
 public class Room {
 	private int roomNum;
@@ -14,6 +17,14 @@ public class Room {
 	private String roomImage2;
 	private String roomImage3;
 	
+	private List<Option> option;
+	
+	public List<Option> getOption() {
+		return option;
+	}
+	public void setOption(List<Option> option) {
+		this.option = option;
+	}
 	private int optNo;
 	private String optName;
 	
