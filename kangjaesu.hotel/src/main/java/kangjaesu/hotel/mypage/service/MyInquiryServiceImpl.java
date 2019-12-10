@@ -21,8 +21,8 @@ public class MyInquiryServiceImpl implements MyInquiryService{
 	}
 
 	@Override
-	public Inquiry getInquiry(int inqNum) {
-		return inquiryDao.getInquiry(inqNum);
+	public Inquiry getInquiry(int inqNum, int userNum) {
+		return inquiryDao.getInquiry(inqNum, userNum);
 	}
 
 	@Override

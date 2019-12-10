@@ -95,16 +95,18 @@
 		$(".myInquiryButton, .inqTitle").click(function() {
 			var tr = $(this).parent().parent();
 			var inqNumber = tr.children().children().val();
-
-			location.href = "myInquiry?inqNumber=" + inqNumber;
+ 			$("#inqNumParam").val(inqNumber);
+			document.form.setAttribute("action", "myInquiry");
+			document.form.submit();
 		});
 
 		//수정 버튼
 		$(".modifyButton").click(function() {
 			var tr = $(this).parent().parent();
 			var inqNumber = tr.children().children().val();
-
-			location.href = "modifyInquiry?inqNumber=" + inqNumber;
+			$("#inqNumParam").val(inqNumber);
+			document.form.setAttribute("action", "modifyInquiry");
+			document.form.submit();
 		});
 
 		//답변보기 버튼
@@ -209,12 +211,12 @@
 														<td>${list.inqDate}</td>
 														<td>${list.status}</td>
 														<td>
-															<button class="btn btn-default myInquiryButton">보기</button>
+															<button class="btn btn-default myInquiryButton" type="button">보기</button>
 															<c:if test="${list.status eq '답변 대기'}">
-																<button class="btn btn-default modifyButton">수정</button>
+																<button class="btn btn-default modifyButton" type="button">수정</button>
 															</c:if>
 															<c:if test="${list.status eq '답변완료'}">
-																<button class="btn btn-default answerModalButton">답변 보기</button>
+																<button class="btn btn-default answerModalButton" type="button">답변 보기</button>
 															</c:if>
 														</td>
 
@@ -248,7 +250,9 @@
 				</div>
 			</section>
 		</div>
-
+<form name="form" method="post">
+	<input id=inqNumParam name="inqNumber" type="hidden" value="">
+</form>
 		<!-- 답변 모달 -->
 		<div class="modal fade" id="answerModal">
 			<div class="modal-dialog">

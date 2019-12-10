@@ -19,8 +19,8 @@ public class MypageDaoImpl implements MypageDao{
 	}
 
 	@Override
-	public Inquiry getInquiry(int inqNum) {
-		return mapper.getInquiry(inqNum);
+	public Inquiry getInquiry(int inqNum, int userNum) {
+		return mapper.getInquiry(inqNum, userNum);
 	}
 
 	@Override

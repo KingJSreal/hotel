@@ -39,7 +39,7 @@
    <select id="getInquiry" resultMap="inquiryMap" parameterType="int">
       select *
       from INQUIRYS
-      where INQ_NUM=#{inqNum}
+      where INQ_NUM=#{inqNum} and USER_NUM=#{userNum}
    </select>
    
    <select id="getComment" resultMap="commentMap" parameterType="int">
