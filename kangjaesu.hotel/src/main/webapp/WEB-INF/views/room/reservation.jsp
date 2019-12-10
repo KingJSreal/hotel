@@ -10,8 +10,9 @@
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /><style>
-
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script src="<c:url value="/js/common.js"/>"></script>
+<style>
 div .searchBar {
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -77,7 +78,7 @@ border: 1px solid #dddddd;
 	padding: 3px 10px;
 }
 .col1{
-	width: 150px;
+	width: 148px;
 	text-align: right;
 }
 .col2{
@@ -95,9 +96,9 @@ $(document).ready(function() {
 	var checkOut;
 	var minprice;
 	var maxprice;
-	var selector;
-	var check = new Array();
+	var optionList;
 	var selectbox;
+	var checkList;
 	var $optionSet = $('#isotope-options'), 
   		$optionSets = $('#isotope-filters'), 
   		$optionLinks = $optionSets.find('a'); 
@@ -107,20 +108,14 @@ $(document).ready(function() {
 		layoutMode: 'fitRows',
 		filter: function() {
 			var $this = $(this); 
-		   
-		    //수정할것///////
-		    var optionResult = $(check).each(function() {
-		    	var pop = check.pop();
-		    	check ? $this.find('.txt1').text().match(pop): true;
-			}) 
-			///////////
+			var optionResult;
 			
-			var minResult = minprice ? parseInt($this.find('.txt3').text()) >= parseInt(minprice): true;
-		    var maxResult = maxprice ? parseInt($this.find('.txt3').text()) <= parseInt(maxprice): true;
+			var optionResult = checkList ? $this.find('.txt1').text().match( checkList ) : true;
+			var minResult = minprice ? parseInt($this.find('.txt3').text()) >= parseInt(minprice) : true;
+		    var maxResult = maxprice ? parseInt($this.find('.txt3').text()) <= parseInt(maxprice) : true;
 		    var countResult = selectbox ? $this.find('.txt4').text().match( selectbox ) : true;
-		    
-		    var buttonResult = selector ? $this.is( selector ) : true;
-		    return minResult && maxResult && optionResult && countResult;
+
+		    return minResult && maxResult && countResult && optionResult;
 	  }
 	});
 
@@ -153,14 +148,13 @@ $(document).ready(function() {
 	var $optionboxes = $('.custom-checkbox');
 	$optionboxes.change(function () {
 		check = [];
+		checkList="";
 		$('input:checkbox[name="option"]').each(function() {
 			if(this.checked){
 				var checkId = $(this).attr("id");
-				check.push($("label[for='"+checkId+"']").text());
+				checkList = checkList + ($("label[for='"+checkId+"']").text());
 			}
 		}); 
-		alert(check);
-		
 		$container.isotope();
 	});
 
@@ -264,8 +258,6 @@ function Today(){
 										id="option4" name="option"> <label
 										class="custom-control-label" for="option4">엑스트라베드</label>
 								</div>
-								<button class="btn btn-default pull-right">선택해제</button>
-								
 								</div>
 							</div>
 							
@@ -279,6 +271,7 @@ function Today(){
 									<input class="form-control inputpice" type="text" id="max" placeholder="최대금액">
 									<label>&nbsp;원
 									</label>
+									<button class="btn btn-default pull-right">선택초기화</button>
 								</div>
 							</div>
 							</div>
@@ -340,6 +333,8 @@ function Today(){
 		</div>
 		<script>
 $(function(){
+	var checkInDate;
+	var checkOutDate;
 	$('#date').daterangepicker({
 		 autoUpdateInput: false,
 	    "locale": {
@@ -356,20 +351,19 @@ $(function(){
 	    "minDate": Today(),	//오늘 날짜
 	   
 	},function(start, end) {
-		var checkInDate = start.format('YYYY-MM-DD');
-		var checkOutDate = end.format('YYYY-MM-DD');
+		checkInDate = start.format('YYYY-MM-DD');
+		checkOutDate = end.format('YYYY-MM-DD');
+		//년:checkIn.getFullYear()
+		//월:checkIn.getMonth()
+		//일:checkIn.getDate()
+	});
+	
+	$('#date').on('apply.daterangepicker', function(ev, picker) {
 		var arr1 = checkInDate.split('-');
 		var arr2 = checkInDate.split('-');
 		checkIn = new Date(arr1[0], arr1[1], arr1[2]);
 		checkOut = new Date(arr2[0], arr2[1], arr2[2]);
-		//년:checkIn.getFullYear()
-		//월:checkIn.getMonth()
-		//일:checkIn.getDate()
-
-		alert('체크인: ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate);
-	});
-	
-	$('#date').on('apply.daterangepicker', function(ev, picker) {
+		alert('체크인: ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
 		$('#dateForm').val(picker.startDate.format('YYYY/MM/DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
 	});
 
