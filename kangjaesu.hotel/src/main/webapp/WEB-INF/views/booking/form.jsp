@@ -96,13 +96,9 @@
 		$("#kname").val("${user.userName}");
 		$("#firstName").val("${user.userEngFirstName}");
 		$("#lastName").val("${user.userEngLastName}");
-		var $birth = val("${user.userBirth}").replace("-","");
-		$("#birth").val($birth);
+		$("#birth").val();
 		$("#email").val("${user.userEmail}");
 		$("#phoneNum").val("${user.userPhone}");
-
-		
-		
 	});
 
 	$(document).ready(
@@ -468,7 +464,7 @@
 						<div class="form-inline">
 							<span class="usepoint">포인트 사용:</span> <input type="text"
 								class="form-control point" id="point" value="0"> <span
-								class="mypoint">보유 포인트: <span id="mypoint">1000</span></span>
+								class="mypoint">보유 포인트: <span id="mypoint">${user.}</span></span>
 						</div>
 					</div>
 					<!-- 포인트사용 폼 끝 -->
