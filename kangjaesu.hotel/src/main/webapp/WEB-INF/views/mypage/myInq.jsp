@@ -44,8 +44,10 @@
 	$(document).ready(function() {
 		//수정 버튼
 		$("#modifyButton").click(function() {
-			var inqNumber = $.urlParam('inqNumber');
-			location.href="modifyInquiry?inqNumber=" + inqNumber;
+			var inqNumber = ${inq.inqNum};
+			$("#inqNumParam").val(inqNumber);
+			document.form.setAttribute("action", "modifyInquiry");
+			document.form.submit();
 		});
 
 		//목록 버튼
@@ -121,6 +123,9 @@
 				</div>
 			</section>
 		</div>
+		<form name="form" method="post">
+			<input id=inqNumParam name="inqNumber" type="hidden" value="">
+		</form>
 		<jsp:include page="../common/footer.jsp" />
 	</div>
 </body>

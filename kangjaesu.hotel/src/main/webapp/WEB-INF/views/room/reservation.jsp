@@ -302,7 +302,7 @@ function Today(){
 										<td style="vertical-align: middle;"><button
 												class="btn btn-default" type="button"
 												style="width: 150px; height: 150px;"
-												onclick="location.href='../booking/01.html'">예약</button></td>
+												onclick="location.href='/hotel/booking/bookingForm'">예약</button></td>
 									</tr>
 								</table>
 							</div>
@@ -363,7 +363,7 @@ $(function(){
 		var arr2 = checkInDate.split('-');
 		checkIn = new Date(arr1[0], arr1[1], arr1[2]);
 		checkOut = new Date(arr2[0], arr2[1], arr2[2]);
-		alert('체크인: ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
+		alert('체크인:   ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
 		$('#dateForm').val(picker.startDate.format('YYYY/MM/DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
 	});
 
