@@ -1,10 +1,26 @@
 package kangjaesu.hotel.room.controller;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+
+
+
+
+import kangjaesu.hotel.promotion.domain.PromotionDetail;
+import kangjaesu.hotel.room.domain.Option;
 import kangjaesu.hotel.room.domain.Room;
 import kangjaesu.hotel.room.service.RoomService;
+
+
+
+
+
+
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -38,22 +55,30 @@ public class RoomController {
 		model.addAttribute("roomdata", roomService.getRoom(roomNum));
 	}
 	*/
-	@Transactional
-	@ResponseBody
+/*	@RequestMapping("/myInquiry")
+	public String myInquiry(Model model, HttpServletRequest request) throws Exception {
+		int inqNum = Integer.parseInt(request.getParameter("inqNumber"));
+		model.addAttribute("inq", myInqService.getInquiry(inqNum));
+		return "mypage/myInq";
+	}*/
+
 	@RequestMapping("/roomData")
-	public String roomData(int roomNum, Model model) {
+	public String roomData(@RequestParam("roomNum") int roomNum , Model model) throws Exception{
+		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
 		model.addAttribute("room", roomService.getRoom(roomNum));
-		System.out.println(model);
+		
 		 return "room/data";
 	}
-	
+	//문의 보기
+	@RequestMapping("/getData")
+	@ResponseBody
 	@Transactional
-	@RequestMapping("/roomde")
-	public String roomde() {
-			
-		return "room/data";
+	public Room getData(Room room) {
+		return	roomService.getRoom(room.getRoomNum());
+		
+
 	}
-	
+
 	
 	@Transactional
 	@RequestMapping("/roomAdd")
@@ -62,9 +87,24 @@ public class RoomController {
 	}
 	
 	@Transactional
+	@ResponseBody
 	@RequestMapping("/add")
-	public void join(Room room) {
-		roomService.join(room);
+	public boolean join(Room room , HttpServletRequest request) {
+		String optNoReq =  request.getParameter("optNo");
+		List<String> optNo = new ArrayList<String>();
+		
+		for(String option:optNoReq.split("&")){
+			optNo.add(option.replace("option=", ""));
+		}
+		
+		 List<Option> options = new ArrayList<Option>();
+		 for(int i = 0; i< optNo.size(); i++){
+		 Option option = new Option();
+		 option.setOptNo(Integer.parseInt(optNo.get(i)));
+		
+		 options.add(option);}
+		 
+		return roomService.join(room,  options);
 	}
 	
 	@Transactional

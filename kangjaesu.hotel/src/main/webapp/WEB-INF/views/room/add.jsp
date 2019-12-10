@@ -154,9 +154,10 @@ $(document).ready(function() {
 });
 
 $(function() {
+	
 $("#addForm").bind("submit", function(e){		
 	e.preventDefault();
-	
+
 /* 	var userCall = null;
 	var userAddressCode = null;
 	var userAddress = null;
@@ -164,7 +165,11 @@ $("#addForm").bind("submit", function(e){
 	var validform = regtest();
 	var validcall = regCall();
 	var validpw = check_pw(); */
-		
+/* 	var opt = [];
+	$("input[name:option]:checked").each(function(i){
+		opt.push($(this).val());
+	}); */
+	
 		$.ajax({
 			url:"add",
 			method:"POST",
@@ -173,7 +178,7 @@ $("#addForm").bind("submit", function(e){
 			 	guests:$("input[name=guests]:checked").val(),
 				roomType: $("input[name=roomType]:checked").val(),
 				roomContent:$("#roomContent").val(),
-				
+				optNo:$("input[name=option]:checked").serialize(),
 				roomPrice:$("#roomPrice").val(),
 				roomImage1:$("#roomImage1").val(),
 				roomImage2:$("#roomImage2").val(),
@@ -188,7 +193,7 @@ $("#addForm").bind("submit", function(e){
     			location.href = "/hotel/room/roomManager";
 			},
 			error:function(a, b, errMsg){
-				alert($('#roomName').val(), 'warning');
+				alert($('input[name=option]:checked').val(), 'warning');
 			}
 			
 		})
@@ -283,22 +288,22 @@ $("#addForm").bind("submit", function(e){
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option1" name="option"> <label
+													id="option1" value="1" name="option"> <label
 													class="custom-control-label" for="option1">조식</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option2" name="option"> <label
+													id="option2" value="2" name="option"> <label
 													class="custom-control-label" for="option2">스파</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option3" name="option"> <label
+													id="option3" value="3" name="option"> <label
 													class="custom-control-label" for="option3">야외수영장</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option4" name="option"> <label
+													id="option4" value="4" name="option"> <label
 													class="custom-control-label" for="option4">엑스트라베드</label>
 											</div>
 										</td>
@@ -333,7 +338,7 @@ $("#addForm").bind("submit", function(e){
 									<tr>
 										<th>금액</th>
 										<td><input type="number" id="roomPrice" class="form-control priceInput"
-											placeholder="(원)"  min="0" max="1000000"></td>
+											placeholder="(원)"  min="0" max="1000000" required="required"></td>
 									</tr>
 									<tr>
 										<th>상세내용</th>

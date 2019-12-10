@@ -1,6 +1,8 @@
 package kangjaesu.hotel.room.domain;
 
 import java.sql.Date;
+import java.util.List;
+
 
 public class Room {
 	private int roomNum;
@@ -13,10 +15,18 @@ public class Room {
 	private String roomImage1;
 	private String roomImage2;
 	private String roomImage3;
+	private Option option;
+
 	
-	private int optNo;
-	private String optName;
 	
+	
+
+	public Option getOption() {
+		return option;
+	}
+	public void setOption(Option option) {
+		this.option = option;
+	}
 	public int getRoomNum() {
 		return roomNum;
 	}
@@ -79,22 +89,10 @@ public class Room {
 	public void setRoomImage3(String roomImage3) {
 		this.roomImage3 = roomImage3;
 	}
-	public int getOptNo() {
-		return optNo;
-	}
-	public void setOptNo(int optNo) {
-		this.optNo = optNo;
-	}
-	public String getOptName() {
-		return optName;
-	}
-	public void setOptName(String optName) {
-		this.optName = optName;
-	}
 	@Override
 	public String toString() {
-		return String.format("Room [roomNum=%s, roomName=%s, guests=%s, roomRegDate=%s, roomContent=%s, roomType=%s, roomPrice=%s,roomImage1=%s,roomImage2=%s,roomImage3=%s, optNo=%s, optNmae=%s ]", 
-				roomNum, roomName, guests, roomRegDate, roomContent, roomType, roomPrice,roomImage1,roomImage2,roomImage3, optNo, optName  ); 
+		return String.format("Room [roomNum=%s, roomName=%s, guests=%s, roomRegDate=%s, roomContent=%s, roomType=%s, roomPrice=%s,roomImage1=%s,roomImage2=%s,roomImage3=%s,option=%s]", 
+				roomNum, roomName, guests, roomRegDate, roomContent, roomType, roomPrice,roomImage1,roomImage2,roomImage3,option); 
 	}
 	
 	

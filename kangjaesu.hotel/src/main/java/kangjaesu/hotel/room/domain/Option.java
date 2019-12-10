@@ -3,6 +3,7 @@ package kangjaesu.hotel.room.domain;
 public class Option {
 	private int optNo;
 	private String optName;
+	private int roomNum;
 	
 	public int getOptNo() {
 		return optNo;
@@ -16,9 +17,17 @@ public class Option {
 	public void setOptName(String optName) {
 		this.optName = optName;
 	}
+	
+	
+	public int getRoomNum() {
+		return roomNum;
+	}
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
+	}
 	@Override
 	public String toString() {
-		return String.format("option [optNo=%s, optName=%s]", optNo, optName);
+		return String.format("option [optNo=%s, optName=%s, roomNum=%s]", optNo, optName, roomNum);
 
 	}
 	
