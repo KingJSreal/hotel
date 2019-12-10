@@ -250,9 +250,9 @@
 				</div>
 			</section>
 		</div>
-<form name="form" method="post">
-	<input id=inqNumParam name="inqNumber" type="hidden" value="">
-</form>
+		<form name="form" method="post">
+			<input id=inqNumParam name="inqNumber" type="hidden" value="">
+		</form>
 		<!-- 답변 모달 -->
 		<div class="modal fade" id="answerModal">
 			<div class="modal-dialog">

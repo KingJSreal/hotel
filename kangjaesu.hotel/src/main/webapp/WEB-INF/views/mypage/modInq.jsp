@@ -115,8 +115,8 @@ function confirm(){
 }
 
 function submit() {
-	var inqNum = $.urlParam('inqNumber');
-	 $.ajax({
+	var inqNumber = ${inq.inqNum};
+	$.ajax({
 		url:"submitModInq",
 		method:"GET",
 		data: {					
@@ -125,7 +125,7 @@ function submit() {
 			inqWriter:$("#inqWriter").val(),
 			inqEmail:$("#inqEmail").val(),
 			inqPhone:$("#inqPhone").val(),
-			inqNum: inqNum
+			inqNum: inqNumber
 		},
 		success:function(){
 			swal( {

@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
 import kangjaesu.hotel.promotion.domain.PromotionDetail;
 import kangjaesu.hotel.room.domain.Option;
 import kangjaesu.hotel.room.domain.Room;
 import kangjaesu.hotel.room.service.RoomService;
+
 
 
 
@@ -88,18 +90,17 @@ public class RoomController {
 	@ResponseBody
 	@RequestMapping("/add")
 	public boolean join(Room room , HttpServletRequest request) {
-			String[] optNo =  request.getParameterValues("optNo");
-			System.out.println(optNo);
-			System.out.println(room);
-			
-			System.out.println(optNo);
-			System.out.println(optNo);
-			System.out.println(optNo);
-			
+		String optNoReq =  request.getParameter("optNo");
+		List<String> optNo = new ArrayList<String>();
+		
+		for(String option:optNoReq.split("&")){
+			optNo.add(option.replace("option=", ""));
+		}
+		
 		 List<Option> options = new ArrayList<Option>();
-		 for(int i = 0; i< optNo.length; i++){
+		 for(int i = 0; i< optNo.size(); i++){
 		 Option option = new Option();
-		 option.setOptNo(Integer.parseInt(optNo[i]));
+		 option.setOptNo(Integer.parseInt(optNo.get(i)));
 		
 		 options.add(option);}
 		 

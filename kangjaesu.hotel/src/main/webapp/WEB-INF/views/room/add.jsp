@@ -157,7 +157,7 @@ $(function() {
 	
 $("#addForm").bind("submit", function(e){		
 	e.preventDefault();
-	
+
 /* 	var userCall = null;
 	var userAddressCode = null;
 	var userAddress = null;
@@ -338,7 +338,7 @@ $("#addForm").bind("submit", function(e){
 									<tr>
 										<th>금액</th>
 										<td><input type="number" id="roomPrice" class="form-control priceInput"
-											placeholder="(원)"  min="0" max="1000000"></td>
+											placeholder="(원)"  min="0" max="1000000" required="required"></td>
 									</tr>
 									<tr>
 										<th>상세내용</th>
