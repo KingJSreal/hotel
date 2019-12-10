@@ -17,7 +17,7 @@ div .searchBar {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
-
+ 
 .panel-defaul button {
 	margin: 10px;
 }
