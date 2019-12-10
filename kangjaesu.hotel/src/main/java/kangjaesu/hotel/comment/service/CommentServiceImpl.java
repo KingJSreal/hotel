@@ -19,5 +19,10 @@ public class CommentServiceImpl implements CommentService{
 	public List<Comment> getComments() {
 		return commentDao.getComments();
 	}
-
+	@Override
+	public Comment getReview(int revNum) {
+		return commentDao.getReview(revNum);
+	}
+	
+	
 }

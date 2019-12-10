@@ -8,4 +8,5 @@ import kangjaesu.hotel.comment.domain.Comment;
 public interface CommentMapper {
 	int addComment(Comment comment);
 	List<Comment> getComments();
+	Comment getReview(int revNum);
 }

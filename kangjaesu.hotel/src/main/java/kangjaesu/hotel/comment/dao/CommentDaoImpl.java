@@ -23,4 +23,10 @@ public class CommentDaoImpl implements CommentDao{
 		return mapper.getComments();
 	}
 
+	
+	@Override
+	public Comment getReview(int revNum) {
+		return mapper.getReview(revNum);
+	}
+
 }

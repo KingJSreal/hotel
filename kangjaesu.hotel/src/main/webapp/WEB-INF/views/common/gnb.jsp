@@ -77,7 +77,7 @@
 						<li><a href="#">호텔소개</a></li>
 				 		<li><a href="/hotel/inquiry/inquiryForm">고객문의</a></li>
 						<li><a href="#">프로모션</a></li>
-						<li><a href="#">후기게시판</a></li>	
+						<li><a href="/hotel/comment/commentLookUp">후기게시판</a></li>	
 					</ul>
 				</c:otherwise>	
 	  		</c:choose>

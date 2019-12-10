@@ -9,4 +9,5 @@ import kangjaesu.hotel.comment.domain.Comment;
 public interface CommentService {
 	List<Comment> getComments();
 	boolean join(Comment comment);
+	Comment getReview(int revNum);
 }

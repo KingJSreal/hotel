@@ -43,10 +43,13 @@
 	<div class=" container">
 		<div class="container center-block">
 			<div class="">
-
+			<c:choose>
+				<c:when test="${(sessionScope.user.userGrade == '1' || sessionScope.page == 'admin')}">
 				<button class="btn btn-primary" type="button" value="후기 등록"
-					onclick="location.href='01.html' "
+					onclick="location.href='/hotel/comment/commentAdd' "
 					style="text-align: reight; float: right;">후기 등록</button>
+					</c:when>
+					</c:choose>
 			</div>
 
 		</div>
@@ -69,7 +72,7 @@
 						<td>★★★★☆ <br> 그랜드
 						</td>
 						<td>${list.revContent }</td>
-						<td>작성자</td>
+						<td>${list.userNum }님</td>
 						<td>${list.revDate }</td>
 					</tr>
 				</c:forEach>

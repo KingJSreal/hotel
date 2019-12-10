@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/comment")
@@ -31,8 +33,17 @@ public class CommentController {
 
 	
 	@Transactional
+	@ResponseBody
 	@RequestMapping("/addC")
-	public void join(Comment comment) {
-		commentService.join(comment);
+	public boolean join(Comment comment) {
+		return commentService.join(comment);
+	}
+	
+	@RequestMapping("/commentView")
+	public String commentData(@RequestParam("revNum") int revNum , Model model) throws Exception{
+		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
+		model.addAttribute("comment", commentService.getReview(revNum));
+		
+		 return "comment/view";
 	}
 }

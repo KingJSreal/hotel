@@ -240,7 +240,7 @@ var confirm = function(msg, type) {
 	   //등록버튼 클릭시 호출
 		$("#addForm").bind("submit", function(e){		
 			e.preventDefault();
-			
+			var userNum = "${user.userNum}";
 		/* 	var userCall = null;
 			var userAddressCode = null;
 			var userAddress = null;
@@ -257,7 +257,7 @@ var confirm = function(msg, type) {
 					
 						roomType: $("input[name=roomType]:checked").val(),
 						revContent:$("#revContent").val(),
-						
+						userNum: userNum
 						
 					
 								
@@ -267,7 +267,8 @@ var confirm = function(msg, type) {
 						userAddress: userAddress */
 					},
 					success:function(){
-		       			location.href = "/hotel/comment/commentAdd";
+				
+		       			location.href = "/hotel/comment/commentLookUp";
 					},
 					error:function(a, b, errMsg){
 						alert("에러 등록 실패", 'warning');
@@ -293,7 +294,7 @@ var confirm = function(msg, type) {
 				</p>
 			</div>
 			<div class="headTit">
-				<h3>&nbsp;후기등록</h3>
+				<h3>&nbsp;후기등록 ${user.userNum}</h3>
 			</div>
 			<br> <br>
 		</div>

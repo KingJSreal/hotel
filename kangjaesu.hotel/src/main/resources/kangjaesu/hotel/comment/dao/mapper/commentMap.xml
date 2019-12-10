@@ -11,7 +11,7 @@
 		<result property="roomType" column="room_type"/>
 		<result property="rate" column="rate"/>
 		<result property="revDate" column="rev_date"/>
-
+		
 	
 	</resultMap>
 		<select id="getComments" resultMap="commentMap">
@@ -23,19 +23,29 @@
 			</if>
 					<if test="searchType=='content' and keyword != null and keyword != '' ">
 
-
 		</trim> -->
 		order by rev_num desc
 	</select>
+	
+	
+		
+	
+		<select id="getReview" parameterType="int"  resultMap="commentMap" resultType="room"  >
+			select * 
+		from reviews
+		where rev_num = ${revNum}
+		
+	</select>
+	
 	<insert id="addComment" parameterType="comment">
 		INSERT INTO reviews
 			(rev_num,  rev_title, rev_content, 
-			room_type,  rev_date) 
+			room_type,  rev_date, user_num) 
 			<!-- (rev_num, user_num, rev_title, rev_content, 
 			room_type, rate, rev_date)  -->
 		VALUES
 			(REV_CMT_SEQ.NEXTVAL, #{revTitle,jdbcType=VARCHAR},  
-			 #{revContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR},SYSDATE
+			 #{revContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR},SYSDATE, #{userNum }
 			 )
 			<!--  	(REV_CMT_SEQ.NEXTVAL, #{userNum,jdbcType=NUMERIC}, #{revTitle,jdbcType=VARCHAR},  
 			 #{revContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR},#{rate, jdbcType=NUMERIC},SYSDATE

@@ -13,6 +13,18 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="<c:url value="/js/common.js"/>"></script>
 <style>
+.modalbtn{
+	margin-left: 50%;
+}
+.inputGroup {
+	margin-left: 5%;
+}
+
+.input-group {
+	margin: 20px;
+}
+.previewImg{
+float: left;}
 div .searchBar {
    margin-top: 20px;
    margin-bottom: 20px;
@@ -194,6 +206,34 @@ function Today(){
  
     return year + "/" + month + "/" + day;
 }
+$(function() {
+	//답변보기 버튼
+	$(".confirmModalButton").click(function() {
+		var roomNumber = $(this).attr('id').substr(1);
+	
+		$.ajax({
+			url : "getData",
+			method : "GET",
+			data : {
+				roomNum : roomNumber
+			},
+			success : function(room) {
+				$("#roomType").val(room.roomName);
+				$("#roomContent").val(room.roomContent);
+				$("input:checkbox[name=rom][value=" +room.roomType+ "]").prop("checked",true);
+				$("input:checkbox[name=count][value=" +room.guests+ "]").prop("checked",true);
+				$("#confirmModa1").modal('show');
+
+/* 					 $("#answerModal").modal({
+					remote : "myInqAns"
+				});  */
+			},
+			error : function(a, b, errMsg) {
+				alert("오류" + errMsg);
+			}
+		});
+	});
+})
 </script>
 </head>
 <body>
@@ -286,7 +326,7 @@ function Today(){
                   <div class="isotope-element" id="isotope-filter0">
                      <div class="thumb-isotope">
                         <table class="table table-hover">
-                           <tr id="confirmModalButton">
+                           <tr id="a${list.roomNum }" class="confirmModalButton" >
                               <td><img width="300" height="200"></td>
 
                               <td style="vertical-align: middle;">
@@ -311,27 +351,135 @@ function Today(){
             </div>
             <!-- 객실목록 끝 -->
 
-            <div class="modal fade" id="confirmModal">
-               <div class="modal-dialog"
-                  style="max-width: 100%; width: auto; display: table;">
-                  <div class="modal-content">
-                     <!-- remote call이 되는영역 -->
-                  </div>
-               </div>
-            </div>
+        
 
-            <div class="modal fade" id="confirmModa2">
+            <div class="modal fade" id="confirmModa1">
                <div class="modal-dialog"
                   style="max-width: 100%; width: auto; display: table;">
                   <div class="modal-content">
                      <!-- remote call이 되는영역 -->
+                       <div  class="modal-dialog" style="max-width: 70%; width: 70%; display: table;">
+		
+		<div class="panel panel-default">
+		<div class="container">
+		<form id="form" class="form-inline">
+			<div class="container inputGroup">
+				<div class="input-group col-md-3">
+					<img width="250" height="200" class="previewImg"> 
+				</div>
+				<div class="input-group col-md-3">
+					<img width="250" height="200" class="previewImg1"> 
+				</div>
+
+				<div class="input-group col-md-3">
+					<img width="250" height="200" class="previewImg2">
+				</div>
+			</div></form>
+			<!-- 테이블 -->
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered">
+
+					<tbody>
+						<tr>
+							<th>객실명</th>
+							<td><input id="roomType" onfocus="this.blur();"></td>
+						</tr>
+						<tr>
+							<th>방타입</th>
+							<td>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="st"
+										name="rom" value="스탠다드" disabled> <label
+										class="custom-control-label" for="st">스탠다드</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="dt"
+										name="rom" value="디럭스" disabled> <label class="custom-control-label"
+										for="dt">디럭스</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="gt"
+										name="rom" value="그랜드" disabled> <label class="custom-control-label"
+										for="gt">그랜드</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>옵션</th>
+							<td>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option1" name="option" disabled> <label
+										class="custom-control-label" for="option1">조식</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option2" name="option" disabled> <label
+										class="custom-control-label" for="option2">스파</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option3" name="option" disabled> <label
+										class="custom-control-label" for="option3">야외수영장</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input"
+										id="option4" name="option" checked="checked" disabled> <label
+										class="custom-control-label" for="option4">엑스트라베드</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+
+							<th>가능인원수</th>
+							<td>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count1"
+										name="count" value="1" disabled> <label
+										class="custom-control-label" for="count1">1명</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count2"
+										name="count" value="2" disabled> <label
+										class="custom-control-label" for="count2">2명</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count3"
+										name="count" value="3" disabled> <label
+										class="custom-control-label" for="count3">3명</label>
+								</div>
+								<div class="custom-control custom-checkbox col-md-2">
+									<input type="checkbox" class="custom-control-input" id="count4"
+										name="count" value="4" disabled> <label class="custom-control-label"
+										for="count4">4명</label>
+								</div>
+							</td>
+
+						</tr>
+						<tr>
+							<th>금액</th>
+							<td>420000</td>
+						</tr>
+						<tr>
+							<th>상세내용</th>
+							<td><textarea rows="20" cols="135" id="roomContent" onfocus="this.blur();"></textarea></td>
+						</tr>
+
+					</tbody>
+				</table>
+						</div>
+		</div></div>
+
+		<button type="button" class="btn btn-default modalbtn" data-dismiss="modal">확인</button>
+
+	</div>
                   </div>
                </div>
             </div>
             <br> <br>
          </section>
       </div>
-      <script>
+     <script>
 $(function(){
    var checkInDate;
    var checkOutDate;
