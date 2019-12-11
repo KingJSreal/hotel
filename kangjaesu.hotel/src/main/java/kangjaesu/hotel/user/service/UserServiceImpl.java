@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kangjaesu.hotel.common.domain.Page;
 import kangjaesu.hotel.user.dao.UserDao;
 import kangjaesu.hotel.user.domain.User;
 
@@ -15,8 +16,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	@Transactional
-	public List<User> listUsers() {
-		return userDao.getUsers();
+	public List<User> listUsers(Page page) {
+		return userDao.getUsers(page);
 	}
 
 	@Override
@@ -25,6 +26,12 @@ public class UserServiceImpl implements UserService{
 		return userDao.searchUser(user);
 	}
 
+	@Override
+	@Transactional
+	public int countUsers() {
+		return userDao.countUser();
+	}
+	
 	@Override
 	@Transactional
 	public User getUser(User user) {
@@ -36,16 +43,17 @@ public class UserServiceImpl implements UserService{
 	public boolean join(User user) {
 		return userDao.addUser(user)>0;
 	}
-//
-//	@Override
-//	@Transactional
-//	public boolean cerrectUser(User user) {
-//		return userDao.updateUser(user)>0;
-//	}
-//
-//	@Override
-//	@Transactional
-//	public boolean secede(int userNo) {
-//		return userDao.delUser(userNo)>0;
-//	}
+
+	@Override
+	@Transactional
+	public boolean cerrectUser(User user) {
+		return userDao.updateUser(user) > 0;
+	}
+
+	@Override
+	@Transactional
+	public boolean secede(User user) {
+		return userDao.delUser(user) > 0;
+	}
+
 }
