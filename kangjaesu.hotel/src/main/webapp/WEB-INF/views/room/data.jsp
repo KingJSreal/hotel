@@ -98,6 +98,25 @@ input[type="checkbox"]:checked+label:BEFORE {
 /*폼 끝*/
 </style>
 <script>
+$(document).ready(function() {
+	var roomtype = ("${room.roomType}");
+	
+	$("input:checkbox[name=rom]").each(function(){
+		if(this.value == roomtype){
+			this.checked =true;
+		}
+	});
+	
+	var guest   =("${room.guests }");
+	$("input:checkbox[name=count]").each(function(){
+		if(this.value == guest){
+			this.checked =true;
+		}
+	});
+	
+
+		
+});
 var confirm = function(msg, type) {
 	   swal(msg, {
 		    icon: type,
@@ -120,15 +139,17 @@ var confirm = function(msg, type) {
 	    	  
 	      
 	   });
+	   $(".back").click(function() {
+		   window.history.back();
+		    	  
+		      
+		   });
+	   
 	});
 
 
 
-	$(document).ready(function() {
-		$("#header").load("main01.html");
-		$("#nav").load("main04.html");
-		$("#footer").load("main09.html");
-	});
+	
 	var alert = function(msg, type) {
 		swal({
 			title : "",
@@ -182,101 +203,89 @@ var confirm = function(msg, type) {
 								<tbody>
 									<tr>
 										<th>객실명</th>
-										<td>${room.roomNum} ${room.roomName}</td>
+										<td> ${room.roomName}</td>
 									</tr>
 									<tr>
 										<th>방타입</th>
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
-												<input type="checkbox" class="custom-control-input" id="st"
-													name="rom"  disabled> <label
+												<input type="checkbox" class="custom-control-input" id="st" 
+													name="rom" value="스탠다드" 
+												
+													disabled> <label
 													class="custom-control-label" for="st">스탠다드</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="dt"
-													name="rom" disabled> <label class="custom-control-label"
+													name="rom" value="디럭스" disabled> <label class="custom-control-label"
 													for="dt">디럭스</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="gt"
-													name="rom" disabled> <label class="custom-control-label"
+													name="rom" value="스탠다드" disabled> <label class="custom-control-label"
 													for="gt">그랜드</label>
-											</div>
+											</div> 
 										</td>
 									</tr>
 									<tr>
-										<th>옵션</th>
+										<th>옵션 ${room.option } </th>
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option1" name="option" disabled> <label
+													id="option1" name="option" value="1" disabled> <label
 													class="custom-control-label" for="option1">조식</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option2" name="option" disabled> <label
+													id="option2" name="option" value="2" disabled> <label
 													class="custom-control-label" for="option2">스파</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option3" name="option" disabled> <label
+													id="option3" name="option" value="3" disabled> <label
 													class="custom-control-label" for="option3">야외수영장</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option4" name="option" checked="checked" disabled> <label
+													id="option4" name="option" value="4"  disabled> <label
 													class="custom-control-label" for="option4">엑스트라베드</label>
 											</div>
 										</td>
 									</tr>
 									<tr>
 			
-										<th>가능인원수</th>
+										<th>가능인원수${room.guests }</th>
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
-												<input type="checkbox" class="custom-control-input" id="count1"
-													name="count"  disabled> <label
+												<input type="checkbox" class="custom-control-input" id="count1" 
+													name="count" value="1"  disabled> <label
 													class="custom-control-label" for="count1">1명</label>
 											</div>
-											<div class="custom-control custom-checkbox col-md-2">
+									 		<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count2"
-													name="count"  disabled> <label
+													name="count" value="2"  disabled> <label
 													class="custom-control-label" for="count2">2명</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count3"
-													name="count"  disabled> <label
+													name="count" value="3" disabled> <label
 													class="custom-control-label" for="count3">3명</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count4"
-													name="count" disabled> <label class="custom-control-label"
+													name="count" value="4" disabled> <label class="custom-control-label"
 													for="count4">4명</label>
-											</div>
+											</div> 
 										</td>
 			
 									</tr>
 									<tr>
 										<th>금액</th>
-										<td>420000</td>
+										<td>${room.roomPrice }</td>
 									</tr>
 									<tr>
 										<th>상세내용</th>
-										<td><textarea rows="20" cols="100" onfocus="this.blur();">
-			- 본 상품은 성인 2인 1실 기준이며, 요금에는 10% 부가가치세 및 10% 봉사료 (합계 21%)가 부과됩니다.
-			
-			- 본 상품은 Shilla S 멤버십 또는 카드사 할인 등의 중복 할인 혜택이 적용되지 않습니다.
-			
-			- 본 상품은 체크인 일자 기준 1일 전까지만 예약 가능하며(당일 예약 불가), 홈페이지 및 모바일 앱을 통한 온라인 예약만 가능합니다.
-			
-			- 기준 인원을 초과하여 투숙 시 추가 인원에 대해서는 별도의 요금이 부과됩니다.
-			
-			- 객실 1실 당 성인은 최대 3인까지만 투숙 가능하며, 소인(37개월 이상~만 12세 이하)은 최대 2인까지만 동반 투숙 가능합니다.
-			
-			- 객실 1실 당 성인과 소인 동반 시 최대 4인까지만 투숙 가능합니다.
-			
-			- Check-in은 오후 3시, Check-out은 정오까지입니다.
-									</textarea></td>
+										<td><textarea rows="20" cols="100" onfocus="this.blur();">${room.roomContent }</textarea></td>
 									</tr>
 			
 								</tbody>
@@ -284,7 +293,7 @@ var confirm = function(msg, type) {
 						</div>
 			
 						<div class="container center-block" style="text-align: center;">
-							<a class="btn btn-default" href="01.html" role="button">객실목록</a>
+							<a class="btn btn-default back" role="button">객실목록</a>
 							<a class="btn btn-default" id="uppage" role="button">수정하기</a>
 						</div>
 					</form>

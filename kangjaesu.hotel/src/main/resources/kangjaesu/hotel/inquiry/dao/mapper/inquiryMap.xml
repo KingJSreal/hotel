@@ -57,5 +57,10 @@
       insert into INQUIRYS_CMT(INQ_NUM, INQ_CMT_CONTENT, INQ_CMT_DATE)
       values(#{inqNum},#{inqCmtContent}, SYSDATE)
    </insert>
-
+   
+	<update id="updateStatus" parameterType="int">
+		update INQUIRYS
+		set STATUS=1
+		where INQ_NUM=#{inqNum}
+	</update>
 </mapper>

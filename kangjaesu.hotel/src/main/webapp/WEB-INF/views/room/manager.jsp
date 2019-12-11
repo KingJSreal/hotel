@@ -107,34 +107,17 @@ var confirm = function(msg, type) {
 	   
 	   $(".databtn").click(function () {
 		  
-		   var roomNumber = $(this).attr('id').substr(1);
+		   var roomNum = $(this).attr('id').substr(1);
 			
-		   swal("이동 하시겠습니까?", {
-			   icon: "warning",
-		        buttons: ["취소", "확인"],
-		      }).then((value) =>{
-		      if(value){
-		   $.ajax({
-				url:"roomData",
-				method:"GET",
-				data: {					
-					roomNum:roomNumber
-				 	
-				},
-				success:function(){
-					
-	       			location.href = "roomde";
-	       		
-				},
-				error:function(a, b, errMsg){
-					alert("에러"+ errMsg);
-				}
-				
-			})}
-			else
-				return;
-		      }); 
+		   location.href = "roomData?roomNum=" + roomNum;
+		
 	});
+		$(".myInquiryButton, .inqTitle").click(function() {
+			var tr = $(this).parent().parent();
+			var inqNumber = tr.children().children().val();
+
+			location.href = "myInquiry?inqNumber=" + inqNumber;
+		});
 		   
 	});	
 </script>

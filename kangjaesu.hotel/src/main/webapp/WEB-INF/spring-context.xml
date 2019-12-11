@@ -44,8 +44,8 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="username" value="rkdwotn09@gmail.com" />
-		<property name="password" value="saaa"></property>
+		<property name="username" value="SeoulHotelEmail@gmail.com" />
+		<property name="password" value="SeoulHotelEmailSeoulHotelEmail"></property>
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.starttls.enable">true</prop>

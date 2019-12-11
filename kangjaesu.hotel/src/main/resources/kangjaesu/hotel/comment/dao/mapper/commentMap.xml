@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kangjaesu.hotel.comment.dao.mapper.CommentMapper">
+	<resultMap type="comment" id="commentMap">
+		<id property="revNum" column="rev_num"/>
+		<result property="userNum" column="user_num"/>
+		<result property="revTitle" column="rev_title"/>
+		<result property="revContent" column="rev_content"/>
+		<result property="roomType" column="room_type"/>
+		<result property="rate" column="rate"/>
+		<result property="revDate" column="rev_date"/>
+		
+	
+	</resultMap>
+		<select id="getComments" resultMap="commentMap">
+		select *
+		from reviews
+	<!-- 	<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+				AND TITLE like CONCAT('%', #{keyword)
+			</if>
+					<if test="searchType=='content' and keyword != null and keyword != '' ">
+
+		</trim> -->
+		order by rev_num desc
+	</select>
+	
+	
+		
+	
+		<select id="getReview" parameterType="int"  resultMap="commentMap" resultType="room"  >
+			select * 
+		from reviews
+		where rev_num = ${revNum}
+		
+	</select>
+	
+	<insert id="addComment" parameterType="comment">
+		INSERT INTO reviews
+			(rev_num,  rev_title, rev_content, 
+			room_type,  rev_date, user_num) 
+			<!-- (rev_num, user_num, rev_title, rev_content, 
+			room_type, rate, rev_date)  -->
+		VALUES
+			(REV_CMT_SEQ.NEXTVAL, #{revTitle,jdbcType=VARCHAR},  
+			 #{revContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR},SYSDATE, #{userNum }
+			 )
+			<!--  	(REV_CMT_SEQ.NEXTVAL, #{userNum,jdbcType=NUMERIC}, #{revTitle,jdbcType=VARCHAR},  
+			 #{revContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR},#{rate, jdbcType=NUMERIC},SYSDATE
+			 ) -->
+	</insert>
+	
+	
+	<!-- 
+	<update id="updateUser" parameterType="user">
+		update users 
+		set user_name=#{userName}, reg_date=SYSDATE
+		where user_no=#{userNo}
+	</update>
+	
+	<delete id="delUser" parameterType="int">
+		delete from users 
+		where user_no=#{userNo}
+	</delete> 
+	-->
+</mapper>
