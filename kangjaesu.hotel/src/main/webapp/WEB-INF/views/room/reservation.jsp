@@ -222,6 +222,7 @@ $(function() {
 				$("#roomContent").val(room.roomContent);
 				$("input:checkbox[name=rom][value=" +room.roomType+ "]").prop("checked",true);
 				$("input:checkbox[name=count][value=" +room.guests+ "]").prop("checked",true);
+				$("input:checkbox[name=option][value=" +room.option.optNo+ "]").prop("checked",true);
 				$("#confirmModa1").modal('show');
 
 /* 					 $("#answerModal").modal({
@@ -409,22 +410,22 @@ $(function() {
 							<td>
 								<div class="custom-control custom-checkbox col-md-2">
 									<input type="checkbox" class="custom-control-input"
-										id="option1" name="option" disabled> <label
+										id="option1" name="option" value="1" disabled> <label
 										class="custom-control-label" for="option1">조식</label>
 								</div>
 								<div class="custom-control custom-checkbox col-md-2">
 									<input type="checkbox" class="custom-control-input"
-										id="option2" name="option" disabled> <label
+										id="option2" name="option" value="2" disabled> <label
 										class="custom-control-label" for="option2">스파</label>
 								</div>
 								<div class="custom-control custom-checkbox col-md-2">
 									<input type="checkbox" class="custom-control-input"
-										id="option3" name="option" disabled> <label
+										id="option3" name="option" value="3" disabled> <label
 										class="custom-control-label" for="option3">야외수영장</label>
 								</div>
 								<div class="custom-control custom-checkbox col-md-2">
 									<input type="checkbox" class="custom-control-input"
-										id="option4" name="option" checked="checked" disabled> <label
+										id="option4" name="option" value="4" disabled> <label
 										class="custom-control-label" for="option4">엑스트라베드</label>
 								</div>
 							</td>

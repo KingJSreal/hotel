@@ -114,6 +114,13 @@ $(document).ready(function() {
 		}
 	});
 	
+	var option  =("${room.option.optNo}");
+	$("input:checkbox[name=option]").each(function(){
+		if(this.value == option){
+			this.checked =true;
+		}
+	});
+	
 
 		
 });
@@ -202,7 +209,7 @@ var confirm = function(msg, type) {
 			
 								<tbody>
 									<tr>
-										<th>객실명</th>
+										<th>객실명${room.option.optNo}</th>
 										<td> ${room.roomName}</td>
 									</tr>
 									<tr>
@@ -228,7 +235,7 @@ var confirm = function(msg, type) {
 										</td>
 									</tr>
 									<tr>
-										<th>옵션 ${room.option } </th>
+										<th>옵션  </th>
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
@@ -254,7 +261,7 @@ var confirm = function(msg, type) {
 									</tr>
 									<tr>
 			
-										<th>가능인원수${room.guests }</th>
+										<th>가능인원수</th>
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count1" 

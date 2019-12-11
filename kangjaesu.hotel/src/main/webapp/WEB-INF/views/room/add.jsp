@@ -173,16 +173,21 @@ $("#addForm").bind("submit", function(e){
 		$.ajax({
 			url:"add",
 			method:"POST",
-			data: {					
+			data: {		
+			
 				roomName:$("#roomName").val(),
 			 	guests:$("input[name=guests]:checked").val(),
 				roomType: $("input[name=roomType]:checked").val(),
 				roomContent:$("#roomContent").val(),
+				
+			
 				optNo:$("input[name=option]:checked").serialize(),
+				
 				roomPrice:$("#roomPrice").val(),
 				roomImage1:$("#roomImage1").val(),
 				roomImage2:$("#roomImage2").val(),
 				roomImage3:$("#roomImage3").val() 
+			
 						
 						
 			/* 	userCall: userCall,
@@ -286,6 +291,7 @@ $("#addForm").bind("submit", function(e){
 									<tr>
 										<th>옵션</th>
 										<td>
+											
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
 													id="option1" value="1" name="option"> <label
@@ -305,6 +311,10 @@ $("#addForm").bind("submit", function(e){
 												<input type="checkbox" class="custom-control-input"
 													id="option4" value="4" name="option"> <label
 													class="custom-control-label" for="option4">엑스트라베드</label>
+											</div>
+											<div class="custom-control custom-checkbox col-md-2" >
+												<input type=checkbox class="custom-control-input" checked="checked"
+													id="option0" value="0" name="option" > 
 											</div>
 										</td>
 									</tr>

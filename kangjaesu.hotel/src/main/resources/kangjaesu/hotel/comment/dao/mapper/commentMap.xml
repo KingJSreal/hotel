@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kangjaesu.hotel.comment.dao.mapper.CommentMapper">
-	<resultMap type="comment" id="commentMap">
+	<resultMap type="comment" id="commentMap1">
 		<id property="revNum" column="rev_num"/>
 		<result property="userNum" column="user_num"/>
 		<result property="revTitle" column="rev_title"/>
@@ -14,7 +14,7 @@
 		
 	
 	</resultMap>
-		<select id="getComments" resultMap="commentMap">
+		<select id="getComments" resultMap="commentMap1">
 		select *
 		from reviews
 	<!-- 	<trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -28,19 +28,19 @@
 	</select>
 	
 	
-		
 	
-		<select id="getReview" parameterType="int"  resultMap="commentMap" resultType="room"  >
+	
+		<select id="getReview" parameterType="int"  resultMap="commentMap1"  >
 			select * 
 		from reviews
-		where rev_num = ${revNum}
+		where rev_num = #{revNum}
 		
 	</select>
 	
 	<insert id="addComment" parameterType="comment">
 		INSERT INTO reviews
 			(rev_num,  rev_title, rev_content, 
-			room_type,  rev_date, user_num) 
+			room_type,  rate, user_num) 
 			<!-- (rev_num, user_num, rev_title, rev_content, 
 			room_type, rate, rev_date)  -->
 		VALUES

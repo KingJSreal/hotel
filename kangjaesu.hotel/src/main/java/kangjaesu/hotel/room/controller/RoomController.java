@@ -69,7 +69,7 @@ public class RoomController {
 		
 		 return "room/data";
 	}
-	//문의 보기
+
 	@RequestMapping("/getData")
 	@ResponseBody
 	@Transactional
@@ -91,6 +91,7 @@ public class RoomController {
 	@ResponseBody
 	@RequestMapping("/add")
 	public boolean join(Room room , HttpServletRequest request) {
+	
 		String optNoReq =  request.getParameter("optNo");
 		List<String> optNo = new ArrayList<String>();
 		
@@ -104,7 +105,7 @@ public class RoomController {
 		 option.setOptNo(Integer.parseInt(optNo.get(i)));
 		
 		 options.add(option);}
-		 
+	
 		return roomService.join(room,  options);
 	}
 	
