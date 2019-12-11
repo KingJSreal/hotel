@@ -1,4 +1,4 @@
-var alert = function(msg, type) {
+/*var alert = function(msg, type) {
 	swal({
 		  title: "",
 		  text: msg,
@@ -17,4 +17,35 @@ var confirm = function(msg, type) {
 	    	  else
 	    		  return;
 	      });
+}*/
+
+function paging(page){
+	if(page == null) return false
+	
+	var prevPage 	= "<li class=\"page-item\">" +
+						"<a class=\"page-link\" href=\"?page=" + (page.startPage - 1)+ "\" aria-label=\"Previous\"\">" +
+						"<span aria-hidden=\"true\">&laquo;</span>" +
+						"</a></li>";
+	var nextPage 	= "<li class=\"page-item\">" +
+						"<a class=\"page-link\" href=\"?page=" + (page.endPage + 1)+ "\" aria-label=\"Next\"\">" +
+						"<span aria-hidden=\"true\">&raquo;</span>" +
+						"</a></li>";
+	
+	var pageList = [];
+	
+	pageList.push(prevPage);
+	for(var i = page.startPage; i <= page.endPage; i++){
+		if(page.nowPage == i){
+			pageList.push("<li class=\"page-item\">" +
+					"<a class=\"nowpage page-link\" href=\"?page=" + i + "\">" + i + "</a>" +
+					"</li>");
+		}else{
+			pageList.push("<li class=\"page-item\">" +
+					"<a class=\"page-link\" href=\"?page=" + i + "\">" + i + "</a>" +
+					"</li>");
+		}
+	}
+	pageList.push(nextPage);
+	
+	$("#pages").append(pageList.join(''));
 }

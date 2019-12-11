@@ -95,13 +95,6 @@ public class UserController {
 	@ResponseBody
 	@Transactional
 	public boolean cerrectUser(User user) {
-		System.out.println("==============================================================");
-		System.out.println("==============================================================");
-		System.out.println("==============================================================");
-		System.out.println(user);
-		System.out.println("==============================================================");
-		System.out.println("==============================================================");
-		System.out.println("==============================================================");
 		return userService.cerrectUser(user);
 	}
 	
