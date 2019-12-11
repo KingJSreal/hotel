@@ -108,7 +108,6 @@ $(document).ready(function() {
    var checkOut;
    var minprice;
    var maxprice;
-   var optionList;
    var selectbox;
    var checkList;
    var $optionSet = $('#isotope-options'), 
@@ -116,18 +115,18 @@ $(document).ready(function() {
         $optionLinks = $optionSets.find('a'); 
    
    // 필터링
-   var $container = $('#isotope-items').isotope({
-      layoutMode: 'fitRows',
-      filter: function() {
-         var $this = $(this); 
-         var optionResult;
+	var $container = $('#isotope-items').isotope({
+		layoutMode: 'fitRows',
+		filter: function() {
+		var $this = $(this); 
+		var optionResult;
          
-         var optionResult = checkList ? $this.find('.txt1').text().match( checkList ) : true;
-         var minResult = minprice ? parseInt($this.find('.txt3').text()) >= parseInt(minprice) : true;
-          var maxResult = maxprice ? parseInt($this.find('.txt3').text()) <= parseInt(maxprice) : true;
-          var countResult = selectbox ? $this.find('.txt4').text().match( selectbox ) : true;
+		var optionResult = checkList ? $this.find('.txt1').text().match( checkList ) : true;
+		var minResult = minprice ? parseInt($this.find('.txt3').text()) >= parseInt(minprice) : true;
+		var maxResult = maxprice ? parseInt($this.find('.txt3').text()) <= parseInt(maxprice) : true;
+		var countResult = selectbox ? $this.find('.txt4').text().match( selectbox ) : true;
 
-          return minResult && maxResult && countResult && optionResult;
+		return minResult && maxResult && countResult && optionResult;
      }
    });
 
@@ -157,11 +156,11 @@ $(document).ready(function() {
    }) );
 
    //옵션
-   var $optionboxes = $('.custom-checkbox');
+   var $optionboxes = $('.searchCheckBox');
    $optionboxes.change(function () {
       check = [];
       checkList="";
-      $('input:checkbox[name="option"]').each(function() {
+      $('input:checkbox[name="searchOption"]').each(function() {
          if(this.checked){
             var checkId = $(this).attr("id");
             checkList = checkList + ($("label[for='"+checkId+"']").text());
@@ -278,25 +277,25 @@ $(function() {
                            </div>
                         </div>
                         <div class="divTableCell col2">
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox searchCheckBox">
                            <input type="checkbox" class="custom-control-input"
-                              id="option1" name="option"> <label
-                              class="custom-control-label" for="option1">조식</label>
+                              id="searchOption1" name="searchOption"> <label
+                              class="custom-control-label" for="searchOption1">조식</label>
                         </div>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox searchCheckBox">
                            <input type="checkbox" class="custom-control-input"
-                              id="option2" name="option"> <label
-                              class="custom-control-label" for="option2">스파</label>
+                              id="searchOption2" name="searchOption"> <label
+                              class="custom-control-label" for="searchOption2">스파</label>
                         </div>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox searchCheckBox">
                            <input type="checkbox" class="custom-control-input"
-                              id="option3" name="option"> <label
-                              class="custom-control-label" for="option3">야외수영장</label>
+                              id="searchOption3" name="searchOption"> <label
+                              class="custom-control-label" for="searchOption3">야외수영장</label>
                         </div>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox searchCheckBox">
                            <input type="checkbox" class="custom-control-input"
-                              id="option4" name="option"> <label
-                              class="custom-control-label" for="option4">엑스트라베드</label>
+                              id="searchOption4" name="searchOption"> <label
+                              class="custom-control-label" for="searchOption4">엑스트라베드</label>
                         </div>
                         </div>
                      </div>
