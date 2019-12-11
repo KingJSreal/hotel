@@ -4,6 +4,7 @@ import java.util.List;
 
 import kangjaesu.hotel.comment.dao.mapper.CommentMapper;
 import kangjaesu.hotel.comment.domain.Comment;
+import kangjaesu.hotel.room.domain.Room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,8 @@ public class CommentDaoImpl implements CommentDao{
 		return mapper.getComments();
 	}
 
-	
+
+
 	@Override
 	public Comment getReview(int revNum) {
 		return mapper.getReview(revNum);

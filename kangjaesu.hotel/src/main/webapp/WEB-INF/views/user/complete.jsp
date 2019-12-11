@@ -8,6 +8,7 @@
 <title>회원가입</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style type="text/css">
+	@import url("<c:url value="/css/joinstep.css"/>");
 	div.complete{
 	   width: 50%;
 	   text-align: center;

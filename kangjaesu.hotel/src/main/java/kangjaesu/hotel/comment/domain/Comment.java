@@ -4,15 +4,20 @@ import java.sql.Date;
 
 public class Comment {
 /*	-- 후기
-	CREATE TABLE "REVIEWS" (
-		"REV_NUM"     NUMBER         NOT NULL, -- 후기번호
-		"USER_NUM"    NUMBER         NULL,     -- 회원번호
-		"REV_TITLE"   VARCHAR2(50)   NULL,     -- 후기제목
-		"REV_CONTENT" VARCHAR2(1000) NULL,     -- 후기내용
-		"ROOM_TYPE"   VARCHAR2(50)   NULL,     -- 방타입
-		"RATE"        NUMBER         NULL,     -- 후기작성일
-		"REV_DATE"    DATE           NULL,     -- 평점
-		"REV_PIC"     VARCHAR2(255)  NULL      -- 사진
+
+-- 후기
+CREATE TABLE "REVIEWS" (
+	"REV_NUM"     NUMBER         NOT NULL, -- 후기번호
+	"USER_NUM"    NUMBER         NULL,     -- 회원번호
+	"REV_TITLE"   VARCHAR2(200)  NULL,     -- 후기제목
+	"REV_CONTENT" VARCHAR2(4000) NULL,     -- 후기내용
+	"ROOM_TYPE"   VARCHAR2(50)   NULL,     -- 방타입
+	"RATE"        DATE           NULL,     -- 후기작성일
+	"REV_DATE"    NUMBER         NULL,     -- 평점
+	"REV_PIC"     VARCHAR2(255)  NULL,     -- 사진1
+	"REV_PIC2"    VARCHAR2(255)  NULL,     -- 사진2
+	"REV_PIC3"    VARCHAR2(255)  NULL      -- 사진3
+);
 	);*/
 	
 	private int revNum;
@@ -20,8 +25,8 @@ public class Comment {
 	private String revTitle;
 	private String revContent;
 	private String roomType;
-	private int rate;
-	private Date revDate;
+	private int revDate;
+	private Date rate;
 	
 	public int getRevNum() {
 		return revNum;
@@ -53,17 +58,18 @@ public class Comment {
 	public void setRoomType(String roomType) {
 		this.roomType = roomType;
 	}
-	public int getRate() {
-		return rate;
-	}
-	public void setRate(int rate) {
-		this.rate = rate;
-	}
-	public Date getRevDate() {
+	
+	public int getRevDate() {
 		return revDate;
 	}
-	public void setRevDate(Date revDate) {
+	public void setRevDate(int revDate) {
 		this.revDate = revDate;
+	}
+	public Date getRate() {
+		return rate;
+	}
+	public void setRate(Date rate) {
+		this.rate = rate;
 	}
 	@Override
 	public String toString() {
