@@ -8,6 +8,10 @@
 <title>쌍용호텔:관리자 페이지 - 회원관리</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
+.nowpage {
+	background-color: #ddd !important;
+}
+
 userbtns {
 	float: right;
 	margin-bottom: 10px;
@@ -35,15 +39,56 @@ div.Btns {
 }
 </style>
 <script>
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function paging(page){
+	if(page == null) return false
+	
+	var prevPage 	= "<li class=\"page-item\">" +
+						"<a class=\"page-link\" href=\"?page=" + (page.startPage - 1)+ "\" aria-label=\"Previous\"\">" +
+						"<span aria-hidden=\"true\">&laquo;</span>" +
+						"</a></li>";
+	var nextPage 	= "<li class=\"page-item\">" +
+						"<a class=\"page-link\" href=\"?page=" + (page.endPage + 1)+ "\" aria-label=\"Next\"\">" +
+						"<span aria-hidden=\"true\">&raquo;</span>" +
+						"</a></li>";
+	
+	var pageList = [];
+	
+	pageList.push(prevPage);
+	for(var i = page.startPage; i <= page.endPage; i++){
+		if(page.nowPage == i){
+			pageList.push("<li class=\"page-item\">" +
+					"<a class=\"nowpage page-link\" href=\"?page=" + i + "\">" + i + "</a>" +
+					"</li>");
+		}else{
+			pageList.push("<li class=\"page-item\">" +
+					"<a class=\"page-link\" href=\"?page=" + i + "\">" + i + "</a>" +
+					"</li>");
+		}
+	}
+	pageList.push(nextPage);
+	
+	$("#pages").append(pageList.join(''));
+}
+
 var loadUserList = function() {
 	$.ajax({
-		url:"listUsers",
+		url:"listUsers?page=" + getParameterByName("page"),
 		method:"POST",
-		success:function(users){
+		success:function(result){
 			$('#userList').empty();
-			if(users.length > 0 ){
+			if(result.userList.length > 0 ){
 				var userList = [];
-				$(users).each(function(idx, user){
+				$(result.userList).each(function(idx, user){
 					userList.push(
 							'<tr>' +
 							'<td>' + user.userNum+'</td>' +
@@ -51,12 +96,20 @@ var loadUserList = function() {
 							'<td>' + user.userName+'</td>' +
 							'<td>' + user.userEngFirstName + " " + user.userEngFirstName + '</td>' +
 							'<td>' + user.userBirth + '</td>'	+
-							'<td><a href="#">보기</a></td>'	+
+							'<td><button type="button" class="btn btn-default"' +
+								'id="' + user.userNum + '" value="' + user.userNum + '">보기</a></td>'	+
 							'</tr>'				
 					);
-						
 				});
+				paging(result.page);
+				
 				$('#userList').append(userList.join(''));
+				
+				$(result.userList).each(function(idx, user){
+					$('#' + user.userNum).click(function(){
+						loadUser($(this).val());
+					});
+				});
 				
 			}else{
 				$('#userList').append(
@@ -69,7 +122,24 @@ var loadUserList = function() {
 				'<tr><td colspan="6"><b>사용자 목록을 불러오지 못했습니다.</b></td></tr>'	);
 		}
 	});
+};
+
+var loadUser = function(userNum) {
+	$.ajax({
+		url:"getUser",
+		method:"POST",
+		data: {userNum: userNum},
+		success:function(User){
+			dataIn(User);
+			dataIn_correct(User);
+			$("#dataModal").modal('show');
+		},
+		error:function(a, b, errMsg){
+			alert("유저 데이터 불러오기에 실패했습니다.");
+		}
+	});
 }
+
 $(document).ready(loadUserList());
 
 $(function(){
@@ -192,34 +262,16 @@ $(function(){
 						</tbody>
 					</table>
 					<div class="container text-center">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item">
-									<a class="page-link" href="#" aria-label="Previous"> 
-										<span aria-hidden="true">&laquo;</span>
-									</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">1</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">2</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">3</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#" aria-label="Next"> 
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>
-							</ul>
-						</nav>
+						<ul class="pagination" id="pages">
+						</ul>
 					</div>
 				</div>
 			</section>
 		</div>
 		<jsp:include page="../common/footer.jsp" />
+	</div>
+	<div id="Modal">
+		<jsp:include page="userData.jsp" />
 	</div>
 </body>
 </html>
