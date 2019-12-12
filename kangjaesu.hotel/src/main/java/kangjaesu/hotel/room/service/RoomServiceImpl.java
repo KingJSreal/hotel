@@ -48,6 +48,11 @@ public class RoomServiceImpl implements RoomService{
 	
 	}
 
+	@Override
+	public boolean updateRoom(Room room) {
+		return roomDao.updateRoom(room)>0;
+	}
+
 
 
 }

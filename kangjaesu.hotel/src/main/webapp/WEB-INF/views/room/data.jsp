@@ -100,27 +100,28 @@ input[type="checkbox"]:checked+label:BEFORE {
 <script>
 $(document).ready(function() {
 	var roomtype = ("${room.roomType}");
-	
-	$("input:checkbox[name=rom]").each(function(){
+	$("input:checkbox[name=roomType]").each(function(){
 		if(this.value == roomtype){
 			this.checked =true;
 		}
 	});
 	
 	var guest   =("${room.guests }");
+	console.log(guest);
 	$("input:checkbox[name=count]").each(function(){
 		if(this.value == guest){
 			this.checked =true;
 		}
 	});
-	
-	var option  =("${room.option.optNo}");
+	var options  =("${room.options}").split(", option");
+
 	$("input:checkbox[name=option]").each(function(){
-		if(this.value == option){
-			this.checked =true;
+		for(var i = 0; i < options.length; i++){
+			if(this.value == options[i].match(/optNo=[0-9]/)[0].slice(6,7)){
+				this.checked =true;
+			}
 		}
 	});
-	
 
 		
 });
@@ -141,16 +142,56 @@ var confirm = function(msg, type) {
 	
 	$(function() {
 	   //취소버튼 클릭시 호출
-	   $("#uppage").click(function() {
+	/*    $("#uppage").click(function() {
 	      confirm("등록하시겠습니까","warning")
 	    	  
 	      
-	   });
+	   }); */
 	   $(".back").click(function() {
 		   window.history.back();
 		    	  
 		      
 		   });
+	   
+	   $("#updateForm").bind("submit", function(e){		
+			e.preventDefault();
+
+			
+				$.ajax({
+					url:"updateRoom",
+					method:"GET",
+					data: {		
+						roomNum:$("#roomNum").val(),
+						roomName:$("#roomName").val(),
+					 	guests:$("input[name=count]:checked").val(),
+						roomType: $("input[name=roomType]:checked").val(),
+						roomContent:$("#roomContent").val(),
+						
+					
+						//optNo:$("input[name=option]:checked").serialize(),
+						
+						roomPrice:$("#roomPrice").val(),
+						roomImage1:$("#roomImage1").val(),
+						roomImage2:$("#roomImage2").val(),
+						roomImage3:$("#roomImage3").val() 
+					
+								
+								
+					/* 	userCall: userCall,
+						userAddressCode:$("#userAddressCode").val(),
+						userAddress: userAddress */
+					},
+					success:function(){
+						
+		    			location.href = "/hotel/room/roomManager";
+					},
+					error:function(a, b, errMsg){
+						alert("수정 불가 에러", 'warning');
+					}
+					
+				})
+			
+		});
 	   
 	});
 
@@ -190,7 +231,7 @@ var confirm = function(msg, type) {
 						<h3>&nbsp;객실 정보</h3>
 					</div>
 					<br><br>
-					<form id="form" class="form-inline">
+					<form id="updateForm" name="updateForm" method="post" class="form-inline" >
 						<div class="container inputGroup">
 							<div class="input-group col-md-3">
 								<img width="300" height="200" class="previewImg"> 
@@ -206,30 +247,30 @@ var confirm = function(msg, type) {
 						<br>
 						<div class="container tableContainer">
 							<table class="table table-hover table-bordered">
-			
 								<tbody>
 									<tr>
-										<th>객실명${room.option.optNo}</th>
-										<td> ${room.roomName}</td>
+									
+										<th>객실명</th>
+										<td><input id="roomName" value="${room.roomName}" class="form-control roomnameInput"> </td>
 									</tr>
 									<tr>
 										<th>방타입</th>
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="st" 
-													name="rom" value="스탠다드" 
+													name="roomType" value="스탠다드" 
 												
-													disabled> <label
+													> <label
 													class="custom-control-label" for="st">스탠다드</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="dt"
-													name="rom" value="디럭스" disabled> <label class="custom-control-label"
+													name="roomType" value="디럭스" > <label class="custom-control-label"
 													for="dt">디럭스</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="gt"
-													name="rom" value="스탠다드" disabled> <label class="custom-control-label"
+													name="roomType" value="그랜드" > <label class="custom-control-label"
 													for="gt">그랜드</label>
 											</div> 
 										</td>
@@ -265,22 +306,22 @@ var confirm = function(msg, type) {
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count1" 
-													name="count" value="1"  disabled> <label
+													name="count" value="1"  > <label
 													class="custom-control-label" for="count1">1명</label>
 											</div>
 									 		<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count2"
-													name="count" value="2"  disabled> <label
+													name="count" value="2"  > <label
 													class="custom-control-label" for="count2">2명</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count3"
-													name="count" value="3" disabled> <label
+													name="count" value="3" > <label
 													class="custom-control-label" for="count3">3명</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input" id="count4"
-													name="count" value="4" disabled> <label class="custom-control-label"
+													name="count" value="4" > <label class="custom-control-label"
 													for="count4">4명</label>
 											</div> 
 										</td>
@@ -288,20 +329,21 @@ var confirm = function(msg, type) {
 									</tr>
 									<tr>
 										<th>금액</th>
-										<td>${room.roomPrice }</td>
+										<td><input id="roomPrice" value="${room.roomPrice }" class="form-control roomnameInput"></td>
 									</tr>
 									<tr>
 										<th>상세내용</th>
-										<td><textarea rows="20" cols="100" onfocus="this.blur();">${room.roomContent }</textarea></td>
+										<td><textarea id="roomContent" rows="20" cols="100" >${room.roomContent }</textarea></td>
 									</tr>
-			
+			<!-- onfocus="this.blur();" -->
 								</tbody>
 							</table>
 						</div>
 			
 						<div class="container center-block" style="text-align: center;">
 							<a class="btn btn-default back" role="button">객실목록</a>
-							<a class="btn btn-default" id="uppage" role="button">수정하기</a>
+							<input type="hidden" id="roomNum" value="${room.roomNum }">
+							<button class="btn btn-default" id="uppage" role="button">수정하기</button>
 						</div>
 					</form>
 				</div>

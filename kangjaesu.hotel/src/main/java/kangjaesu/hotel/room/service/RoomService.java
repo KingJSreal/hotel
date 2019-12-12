@@ -13,5 +13,5 @@ public interface RoomService {
 	boolean join(Room room, List<Option> options);
 	
 	boolean delRoom(int roomNum);
-	
+	boolean updateRoom(Room room);
 }

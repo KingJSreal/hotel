@@ -732,7 +732,7 @@ $(function(){
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-warning" id="correctBtn">수정하기</button>
 						&nbsp;&nbsp;
-						<button type="button" class="btn btn-primary " id="cencelBtn">취소하기</button>
+						<button type="button" class="btn btn-primary " value="${room.roomNum }" id="cencelBtn">취소하기</button>
 					</div>
 				</form>
 			</div>

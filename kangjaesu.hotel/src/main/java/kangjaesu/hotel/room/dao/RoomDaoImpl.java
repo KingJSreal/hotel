@@ -43,6 +43,13 @@ public class RoomDaoImpl implements RoomDao{
 		return mapper.addOption(option);
 	}
 
+	@Override
+	public int updateRoom(Room room) {
+		return mapper.updateRoom(room);
+	}
+
+
+
 	
 
 	
