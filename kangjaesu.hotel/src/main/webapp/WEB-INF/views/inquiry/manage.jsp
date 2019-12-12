@@ -105,13 +105,15 @@ $(function() {
 				inqNum:inqNumber
 			},
 			success:function(inq){
-				$("#to").val(inq.inqWriter);
+				$("#getInqTitle").val(inq.inqTitle);
+				$("#getinqContent").val(inq.inqContent);
+				$("#getinqDate").val(inq.inqDate);
+				$("#toName").val(inq.inqWriter);
 				$("#toEmail").val(inq.inqEmail);
-				$("#inqCmtContent").val("문의 제목: " + inq.inqTitle
+				$("#showInqContent").val("문의 제목: " + inq.inqTitle
 						+ "\n문의내용 :\n" + inq.inqContent
-						+ "\n\n작성일 :" + inq.inqDate
-						+ "\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n"
-						+ "답변 :\n");
+						+ "\n\n작성일 :" + inq.inqDate);
+				$("#inqCmtContent").val("답변 :\n");
 				$("#inquiryModal").modal('show');
 			},
 			error:function(a, b, errMsg){
@@ -175,11 +177,21 @@ function submitConfirm(){
 
 function submit(){	
 	var inqNumber = $(".submitBtn").attr("id");
+	var toEmail = $("#toEmail").val();
+	var toName = $("#toName").val();
+	var getInqTitle = $("#getInqTitle").val();
+	var getinqContent = $("#getinqContent").val();
+	var getinqDate = $("#getinqDate").val();
      $.ajax({
-		url:"submitComment",
+		url:"inquiryMail",
 		method:"GET",
 		data: {			
+			inqContent:getinqContent,
+			inqDate:getinqDate,
+			inqTitle:getInqTitle,
 			inqNum:inqNumber,
+			inqWriter:toName,
+			inqEmail:toEmail,
 			inqCmtContent:$("#inqCmtContent").val()
 		},
 		success:function(){
@@ -341,13 +353,17 @@ function submit(){
 								<tbody>
 									<tr>
 										<td>이름</td>
-										<td><input id="to" type="text"
+										<td><input id="toName" type="text"
 											class="form-control" onfocus="this.blur();"></td>
 									</tr>
 									<tr>
 										<td>이메일</td>
 										<td><input id="toEmail" type="text" class="form-control"
 											onfocus="this.blur();"></td>
+									</tr>
+									<tr>
+										<td colspan="2"><textarea class="form-control" rows="6" cols="60"
+												id="showInqContent" onfocus="this.blur();"></textarea></td>
 									</tr>
 									<tr>
 										<td colspan="2"><textarea class="form-control" rows="12" cols="60"
@@ -357,6 +373,9 @@ function submit(){
 							</table>
 
 					</div>
+					<input id="getInqTitle" type="hidden" class="form-control" onfocus="this.blur();">
+					<input id="getinqContent" type="hidden" class="form-control" onfocus="this.blur();">
+					<input id="getinqDate" type="hidden" class="form-control" onfocus="this.blur();">
 					<div class="modalbtngroup">
 						<button id="submitBtn" class="btn btn-default submitBtn"
 							type="button" onclick="submitConfirm();">제출</button>

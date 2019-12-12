@@ -40,10 +40,15 @@ public class CommentController {
 	}
 	
 	@RequestMapping("/commentView")
-	public String commentData(@RequestParam("revNum") int revNum , Model model) throws Exception{
+	public String commentView(@RequestParam("revNum") int revNum , Model model) throws Exception{
 		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
+		System.out.println(revNum);
+		System.out.println(revNum);
+		System.out.println(revNum);
+		System.out.println("dfdsfsdgdskfsdlhfasld");
 		model.addAttribute("comment", commentService.getReview(revNum));
-		
+
 		 return "comment/view";
 	}
+
 }

@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 	//연락처
 	$("#inqPhone").keyup(function() {
-		$(this).val($(this).val().replace(/[^0-9]/gi, '')); //숫자만 가능
+		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})/,"$1-$2-$3").replace("--", "-") );
 	});
 	
 });
@@ -190,7 +190,7 @@ function submit(){
 										</tr>
 										<tr>
 											<td>연락처</td>
-											<td><input type="text" id="inqPhone" class="form-control" placeholder="하이픈(-)생략" maxlength="11"></td>
+											<td><input type="text" id="inqPhone" class="form-control" placeholder="하이픈(-)생략" maxlength="13"></td>
 										</tr>
 									</tbody>
 								</table>

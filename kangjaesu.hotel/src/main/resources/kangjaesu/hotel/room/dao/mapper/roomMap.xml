@@ -56,9 +56,15 @@
 			(Room_Seq.NEXTVAL, #{roomName,jdbcType=VARCHAR}, #{guests,jdbcType=NUMERIC},  
 			SYSDATE, #{roomContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR}, #{roomPrice, jdbcType=NUMERIC},
 			#{roomImage1, jdbcType=VARCHAR}, #{roomImage2, jdbcType=VARCHAR}, #{roomImage3, jdbcType=VARCHAR} )
+	
+	
+	
 	</insert>
 	
 	<insert id="addOption" parameterType="option">
+ 		
+				
+			
  		INSERT INTO ROOMOPTIONS
  		(room_num, opt_no)
  		VALUES 

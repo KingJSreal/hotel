@@ -18,6 +18,15 @@
 	*/
 </style>
 <script>
+$(function(){ 
+$(".getReview").click(function () {
+	  
+	   var revNum = $(this).attr('id').substr(1);
+		
+	   location.href = "commentView?revNum=" + revNum;
+	
+});
+});
 </script>
 </head>
 <body>
@@ -49,7 +58,8 @@
 					onclick="location.href='/hotel/comment/commentAdd' "
 					style="text-align: reight; float: right;">후기 등록</button>
 					</c:when>
-					</c:choose>
+					</c:choose> 
+					
 			</div>
 
 		</div>
@@ -67,13 +77,13 @@
 				</thead>
 				<tbody>
 				<c:forEach var="list" items="${commentList}">
-					<tr onClick = " location.href='03.html' ">
+					<tr id="a${list.revNum }" class="getReview">
 						<th><a>${list.revNum }</a></th>
 						<td>★★★★☆ <br> 그랜드
 						</td>
 						<td>${list.revContent }</td>
 						<td>${list.userNum }님</td>
-						<td>${list.revDate }</td>
+						<td>${list.rate }</td>
 					</tr>
 				</c:forEach>
 				
