@@ -53,6 +53,9 @@
 .modalbtngroup {
 	margin-left: 80%;
 }
+.modalbtngroup2{
+	margin-left: 90%;
+}
 </style>
 <script>
 var alert = function(msg, type) {
@@ -125,11 +128,30 @@ $(function() {
 		});  
 	*/
 	});
+	
+	//답변 보기 버튼 클릭시 호출
+	$(".answerModalButton").click(function() {
+		var inqNumber = $(this).attr('id').substr(1);
+		$(".submitBtn").attr('id',inqNumber);
+		$.ajax({
+			url:"getAnswer",
+			method:"GET",
+			data: {					
+				inqNum:inqNumber
+			},
+			success:function(inq){
+				$("#inqCmtContent2").val(inq.inqCmtContent);
+				$("#inquiryModal2").modal('show');
+			},
+			error:function(a, b, errMsg){
+				alert("오류" + errMsg);
+			}
+		});  
+	});
 
 	//삭제버튼 클릭시 호출
 	$(".deleteButton").click(function() {
 		var inqNumber = $(this).attr('id').substr(1);
-		
 		swal(inqNumber+"번 문의를 삭제 하시겠습니까?", {
 			icon: "warning",
 	        buttons: ["취소", "확인"],
@@ -183,7 +205,7 @@ function submit(){
 	var getinqContent = $("#getinqContent").val();
 	var getinqDate = $("#getinqDate").val();
      $.ajax({
-		url:"inquiryMail",
+		url:"submitComment",
 		method:"GET",
 		data: {			
 			inqContent:getinqContent,
@@ -250,8 +272,13 @@ function submit(){
 									<td class="td4">${list.status}</td>
 									<td class="td5"><button type="button"
 											class="btn btn-default confirmModalButton" id="v${list.inqNum}">보기</button>
-										<button type="button" class="btn btn-default inquiryModalButton"
-											id="a${list.inqNum}">답변</button>
+								
+											<c:if test="${list.status eq '답변 대기'}">
+												<button class="btn btn-default inquiryModalButton" id="i${list.inqNum}" type="button">답변</button>
+											</c:if>
+											<c:if test="${list.status eq '처리완료'}">
+												<button class="btn btn-default answerModalButton" id="a${list.inqNum}" type="button">답변</button>
+											</c:if>
 			
 										<button type="button" class="btn btn-danger deleteButton"
 											id="d${list.inqNum}">삭제</button></td>
@@ -377,6 +404,7 @@ function submit(){
 					<input id="getinqContent" type="hidden" class="form-control" onfocus="this.blur();">
 					<input id="getinqDate" type="hidden" class="form-control" onfocus="this.blur();">
 					<div class="modalbtngroup">
+					
 						<button id="submitBtn" class="btn btn-default submitBtn"
 							type="button" onclick="submitConfirm();">제출</button>
 						<button type="button" class="btn btn-default"
@@ -384,6 +412,44 @@ function submit(){
 					</div>
 				</div>
 			</form>
+			<!-- remote call끝 -->
+		</div>
+	</div>
+</div>
+<!-- 답변 모달 끝 -->
+
+<!-- 답변 모달 -->
+<div class="modal fade" id="inquiryModal2">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- remote call이 되는영역 -->
+			
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">답변</h4>
+				</div>
+				<div class="modal-body">
+					<div class="panel panel-default">
+						<table class="table">
+								<tbody>
+									<tr>
+										<td colspan="2"><textarea class="form-control" rows="12" cols="60"
+												id="inqCmtContent2" onfocus="this.blur();"></textarea></td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+						<div class="modalbtngroup2">
+						<button type="button" class="btn btn-default"
+							data-dismiss="modal">확인</button>
+
+					</div>
+				</div>
+
 			<!-- remote call끝 -->
 		</div>
 	</div>

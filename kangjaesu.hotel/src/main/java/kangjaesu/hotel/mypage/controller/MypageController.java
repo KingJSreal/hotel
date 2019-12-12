@@ -1,6 +1,5 @@
 package kangjaesu.hotel.mypage.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class MypageController {
 	
 	@RequestMapping("/modifyInquiry")
 	public String modifyInquiry(@RequestParam("inqNumber")int inqNum,
-			Model model, HttpSession session) throws Exception {
+		Model model, HttpSession session) throws Exception {
 		User user = (User) session.getAttribute("user");
 		int userNum = user.getUserNum();
 		model.addAttribute("inq", myInqService.getInquiry(inqNum, userNum));
@@ -50,17 +49,20 @@ public class MypageController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getAnswer")
-	public InquiryComment getAnswer(Model model, Inquiry inquiry) {
-		model.addAttribute("inquiry", myInqService.getInquiryAnswer(inquiry.getInqNum()));
-		return myInqService.getInquiryAnswer(inquiry.getInqNum());
-	}
-	
-	@ResponseBody
 	@RequestMapping("/submitModInq")
 	public Inquiry submitModInq(Model model, Inquiry inquiry) {
 		myInqService.modInquiry(inquiry);
 		return inquiry;
+	}
+	
+	//답변 보기 페이지
+	@ResponseBody
+	@RequestMapping("/getComment")
+	public InquiryComment getComment(Model model, Inquiry inquiry, User user) {
+		int userNum = user.getUserNum();
+		model.addAttribute("inq", myInqService.getInquiry(inquiry.getInqNum(), userNum));
+		myInqService.getInquiryAnswer(inquiry.getInqNum());
+		return myInqService.getInquiryAnswer(inquiry.getInqNum());
 	}
 	
 	//답변 모달 불러오기

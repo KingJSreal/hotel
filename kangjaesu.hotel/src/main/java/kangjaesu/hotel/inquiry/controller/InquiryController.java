@@ -3,6 +3,8 @@ package kangjaesu.hotel.inquiry.controller;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
 import kangjaesu.hotel.inquiry.service.InquiryService;
+import kangjaesu.hotel.mypage.service.MyInquiryServiceImpl;
+import kangjaesu.hotel.user.domain.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/inquiry")
 public class InquiryController {
 	@Autowired private InquiryService inquiryService;
-	
 	//문의관리 페이지
 	@Transactional
 	@RequestMapping("/inquiryManage")
@@ -38,6 +39,15 @@ public class InquiryController {
 	@Transactional
 	public Inquiry getInquiry(Inquiry inquiry) {
 		return inquiryService.getInquiry(inquiry.getInqNum());
+	}
+	
+	//문의 답변 보기
+	@ResponseBody
+	@RequestMapping("/getAnswer")
+	public InquiryComment getAnswer(Model model, Inquiry inquiry) {
+		model.addAttribute("inquiry", inquiryService.getInquiry(inquiry.getInqNum()));
+		inquiryService.getInquiryAnswer(inquiry.getInqNum());
+		return inquiryService.getInquiryAnswer(inquiry.getInqNum());
 	}
 	
 /*	//문의답변 모달 페이지
@@ -65,7 +75,7 @@ public class InquiryController {
 		inquiryService.writeComment(comment);
 		return "inquiryMail";
 	}
-
+	
 	//문의등록 페이지
 	@Transactional
 	@RequestMapping("/inquiryForm")
