@@ -49,7 +49,4 @@ public class InquiryServiceImpl implements InquiryService{
 	public boolean changeStatus(int inqNum) {
 		return inquiryDao.updateStatus(inqNum) > 0;
 	}
-
-
-
 }

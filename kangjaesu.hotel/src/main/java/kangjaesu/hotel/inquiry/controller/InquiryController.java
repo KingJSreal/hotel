@@ -60,10 +60,10 @@ public class InquiryController {
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/submitComment")
-	public boolean submitComment(Inquiry inquiry, InquiryComment comment) {
+	public String submitComment(Inquiry inquiry, InquiryComment comment) {
 		inquiryService.changeStatus(inquiry.getInqNum());
-		//return "inquiryMail";
-		return inquiryService.writeComment(comment);
+		inquiryService.writeComment(comment);
+		return "inquiryMail";
 	}
 
 	//문의등록 페이지

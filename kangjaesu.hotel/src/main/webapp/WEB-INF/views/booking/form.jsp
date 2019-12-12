@@ -145,9 +145,14 @@
 					$(this).val($(this).val().replace(/[^a-z]/gi, '')); //영어만 가능
 				});
 
-				//생년월일, 연락처, 계좌비밀번호, 주민등록번호
-				$("#birth, #phoneNum, #password, .jumin").keyup(function() {
+				//생년월일, 계좌비밀번호, 주민등록번호
+				$("#birth, #password, .jumin").keyup(function() {
 					$(this).val($(this).val().replace(/[^0-9]/gi, '')); //숫자만 가능
+				});
+				
+				//연락처
+				$("#phoneNum").keyup(function() {
+					$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})/,"$1-$2-$3").replace("--", "-") );
 				});
 
 				//카드번호
@@ -335,7 +340,7 @@
 										<tr>
 											<td>*연락처</td>
 											<td><input type="text" class="form-control"
-												id="phoneNum" placeholder="하이픈(-) 생략" maxlength="11"
+												id="phoneNum" placeholder="하이픈(-) 생략" maxlength="13"
 												required="required"></td>
 										</tr>
 									</tbody>

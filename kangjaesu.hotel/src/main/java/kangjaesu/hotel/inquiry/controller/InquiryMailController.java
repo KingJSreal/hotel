@@ -16,13 +16,7 @@ public class InquiryMailController {
 	@RequestMapping("/inquiryMail")
 	public String send(InquiryComment msg, Inquiry to){
 		mailService.send(msg, to);
-		String a = msg.getInqCmtContent();
-		String b = to.getInqEmail();
-		
-		return "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n" + "내용:"+ a + "\n이메일:"+ b 
-				+"\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n";
-	//	Inquiry to가 null 나옴
-	//	return "inquiry/manage";
+		return "inquiry/manage";
 	}
 	
 }
