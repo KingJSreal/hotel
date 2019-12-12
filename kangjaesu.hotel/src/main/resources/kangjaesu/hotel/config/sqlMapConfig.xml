@@ -5,10 +5,11 @@
 <configuration>
 	<typeAliases>
 		 <package name="kangjaesu.hotel.common.domain" />
+		 <package name="kangjaesu.hotel.point.domain" />
 		 <package name="kangjaesu.hotel.user.domain" />
 		 <package name="kangjaesu.hotel.room.domain" />
 		 <package name="kangjaesu.hotel.inquiry.domain" />
 		 <package name="kangjaesu.hotel.promotion.domain" />
-		  <package name="kangjaesu.hotel.comment.domain" />
+		 <package name="kangjaesu.hotel.comment.domain" />
 	</typeAliases>
 </configuration>

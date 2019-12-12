@@ -13,4 +13,5 @@ public interface InquiryDao {
 	int addComment(InquiryComment comment);
 	Inquiry getCount();
 	int updateStatus(int inqNum);
+	InquiryComment getInquiryAnswer(int inqNum);
 }

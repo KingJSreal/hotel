@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script src="<c:url value="/js/common.js"/>"></script>  
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js">
+</script>
+
+
 <style>
 /*  진행상황 네비게이션  */
 .breadcrumb {
@@ -137,13 +141,18 @@
 				});
 
 				//영어이름
-				$("#ename").keyup(function() {
+				$("#firstName, #lastName").keyup(function() {
 					$(this).val($(this).val().replace(/[^a-z]/gi, '')); //영어만 가능
 				});
 
-				//생년월일, 연락처, 계좌비밀번호, 주민등록번호
-				$("#birth, #phoneNum, #password, .jumin").keyup(function() {
+				//생년월일, 계좌비밀번호, 주민등록번호
+				$("#birth, #password, .jumin").keyup(function() {
 					$(this).val($(this).val().replace(/[^0-9]/gi, '')); //숫자만 가능
+				});
+				
+				//연락처
+				$("#phoneNum").keyup(function() {
+					$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})/,"$1-$2-$3").replace("--", "-") );
 				});
 
 				//카드번호
@@ -179,7 +188,7 @@
 
 				//예약신청 버튼 클릭시 호출
 				$("#submitBtn").click(
-						function(e) {
+						function() {
 							var valid = this.form.checkValidity();
 							var inputpoint = $("#point").val();
 							var mypoint = $("#mypoint").text();
@@ -204,33 +213,64 @@
 
 							if (valid) {
 								event.preventDefault();
+								$("#name").val($("#kname").val());
+								$("#checkIn").val();
+								$("#checkOut").val();
+								$("#days").val();
+								$("#adult").val();
+								$("#kid").val();
+								$("#roomType").val();
+								$("#option").val();
+								
+								$("#confirm").modal('show');
 
-								$.ajax({
-									type : "POST",
-									url : "/",
-									dataType : "text",
-									data : $("#data").serialize(),
-									success : function(data) {
-
-										//	alert("success");
-										$("div.modal").modal({
-											remote : "02.html"
-										});
-									},
-									error : function(data) {
-										//	alert("fail");
-										$("div.modal").modal({
-											remote : "02.html"
-										});
-									}
-								});
+								
 							}
 						});
+				$("#paymentBtn").click(function () {
+					swal({
+						text: "결제를 진행 하시겠습니까?",
+							icon: "info",
+							buttons: true,
+							buttons: ["취소", "확인"],
+						}).then((willDelete) => {
+							if (willDelete) {
+								submit();
+							}else{
+								return;
+							}
+						});
+				});
 
 				//약관내용 로드
 				$("#agreement1").load("agreement1.txt");
 				$("#agreement2").load("agreement2.txt");
 			});
+	function submit(){	
+		$.ajax({
+			url:"proceedBooking",
+			type : "POST",
+			data: {			
+			
+			},
+			
+			beforeSend:function(){
+				$.LoadingOverlay("show");
+			},
+			success : function(data) {
+				location.href = "completeBooking";
+			},error:function(a, b, errMsg){
+				alert("결제오류" + errMsg);
+			} 			
+		});
+	}
+	
+	function loading() {
+		setTimeout(function(){
+		    $.LoadingOverlay("hide");
+		}, 1500);
+	}
+	
 </script>
 </head>
 <body>
@@ -249,7 +289,7 @@
 				</nav>
 				<!-- 진행상황 네비게이션 끝 -->
 
-				<form id="data" action="03.html" method="post">
+				<form id="form" action="completeBooking" method="post">
 					<!-- 테이블 패널 -->
 					<div class="panel panel-default">
 						<!-- 패널헤드 -->
@@ -300,7 +340,7 @@
 										<tr>
 											<td>*연락처</td>
 											<td><input type="text" class="form-control"
-												id="phoneNum" placeholder="하이픈(-) 생략" maxlength="11"
+												id="phoneNum" placeholder="하이픈(-) 생략" maxlength="13"
 												required="required"></td>
 										</tr>
 									</tbody>
@@ -464,7 +504,7 @@
 						<div class="form-inline">
 							<span class="usepoint">포인트 사용:</span> <input type="text"
 								class="form-control point" id="point" value="0"> <span
-								class="mypoint">보유 포인트: <span id="mypoint">${user.}</span></span>
+								class="mypoint">보유 포인트: <span id="mypoint">1000</span></span>
 						</div>
 					</div>
 					<!-- 포인트사용 폼 끝 -->
@@ -528,10 +568,87 @@
 					<!-- 버튼 끝 -->
 
 					<!-- 예약신청시 모달창 -->
-					<div class="modal fade">
+					<div class="modal fade" id="confirm">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<!-- remote ajax call이 되는영역 -->
+								<!-- 모달 바디 -->
+								<div class="modal-body center-block">
+									<!-- 예약정보 패널 -->
+									<div class="panel panel-default">
+										<!-- 패널 헤드 -->
+										<div class="panel-heading">
+											<h3 class="panel-title">예약정보</h3>
+										</div>
+										<!-- 패널 헤드 끝 -->
+							
+										<!-- 테이블 -->
+										<div class="panel-body">
+											<table class="table table-bordered">
+												<colgroup>
+													<col class="info">
+													<col>
+													<col class="info">
+													<col>
+												</colgroup>
+												<tr>
+													<td>호텔</td>
+													<td>서울호텔</td>
+													<td>성명</td>
+													<td><label id="name"></label></td>
+												</tr>
+												<tr>
+													<td>체크인</td>
+													<td><label id="checkIn"></label></td>
+													<td>체크아웃</td>
+													<td><label id="checkOut"></label></td>
+												</tr>
+												<tr>
+													<td>숙박일수</td>
+													<td><label id="days"></label>박</td>
+													<td>투숙인원</td>
+													<td>성인: <label id="adult"></label> / 어린이: <label id="kid"></label></td>
+												</tr>
+												<tr>
+													<td>객실</td>
+													<td><label id="roomType"></label></td>
+													<td>옵션</td>
+													<td><label id="option"></label></td>
+												</tr>
+											</table>
+										</div>
+										<!-- 테이블 끝-->
+							
+										<!-- 포인트,요금 -->
+										<div class="panel panel-default text-right">
+											<div class="panel-footer">사용 포인트: <label id="point"></label></div>
+											<div class="panel-footer">요금 합계: <label id="charge"></label></div>
+										</div>
+										<!-- 포인트,요금 끝-->
+							
+										<!-- 안내문 -->
+										<div class="well">
+											<p>※ 예약한 내용 확인 및 취소는 My page에서 가능합니다.</p>
+											<p>※ 현재 미결제 상태이며 결제버튼 클릭 시 결제가 진행됩니다.</p>
+											<span>※ 자세한 안내는 02-0000-0000로 문의 바랍니다.</span>
+										</div>
+										<!-- 안내문 끝-->
+									</div>
+									<!-- 예약정보 패널 끝-->
+								</div>
+								<!-- 모달바디 끝 -->
+							
+								<!-- Footer -->
+								<div class="modal-footer center-block">
+									<button class="btn btn-default pull-left" data-dismiss="modal">
+										<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;예약정보
+										수정
+									</button>
+									<button class="btn btn-default" type="button" id="paymentBtn">
+										<span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>&nbsp;결제
+									</button>
+								</div>
+								<!-- remote ajax call 끝 -->
 							</div>
 						</div>
 					</div>

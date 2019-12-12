@@ -35,12 +35,6 @@
 /* 버튼 끝 */
 </style>
 <script>
-	$.urlParam = function(name) {
-		var results = new RegExp('[\?&]' + name + '=([^&#]*)')
-				.exec(window.location.href);
-		return results[1] || 0;
-	}
-
 	$(document).ready(function() {
 		//수정 버튼
 		$("#modifyButton").click(function() {

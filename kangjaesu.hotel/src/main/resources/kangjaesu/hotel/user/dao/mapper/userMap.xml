@@ -88,7 +88,15 @@
 	<select id="getUser" parameterType="user" resultMap="userMap">
 		select *
 		from users
-		where user_num = #{userNum}
+		where 1=1
+		
+		<if test="userEmail != null">
+			and user_email = #{userEmail}
+		</if>
+		
+		<if test="userName != null">
+			and user_num = #{userNum}
+		</if>
 	</select>
 	
 	<insert id="addUser" parameterType="user">
