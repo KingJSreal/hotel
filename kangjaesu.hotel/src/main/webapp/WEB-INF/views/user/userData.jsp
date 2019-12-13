@@ -101,9 +101,9 @@ function dataIn_correct(user, myPointSum){
 	$("#correct #userEngLastName").val(user.userEngLastName);
 	
 	var birth = user.userBirth.split("-");
-	$("#correct #birthYear option[value=" + birth[0] + "]").prop("selected", true);
-	$("#correct #birthMonth option[value=" + birth[1] + "]").prop("selected", true);
-	$("#correct #birthDay option[value=" + birth[2] + "]").prop("selected", true);
+	$("#correct #birthYear option[value=" + Number(birth[0]) + "]").prop("selected", true);
+	$("#correct #birthMonth option[value=" + Number(birth[1]) + "]").prop("selected", true);
+	$("#correct #birthDay option[value=" + Number(birth[2]) + "]").prop("selected", true);
 
 	var phone = user.userPhone.split("-");
 	$("#correct #userPhone1 option[value=" + phone[0] + "]").prop("selected", true);

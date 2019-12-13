@@ -216,10 +216,6 @@ $(function(){
 							</form>
 						</div>
 					</div>
-					<div class="userbtns">
-						<button id="secedelistbtn" class="btn btn-default" type="button"
-							class="btn btn-primary" style="float: right; margin-bottom:10px;">탈퇴목록 보기</button>
-					</div>
 					<br>
 					<table class="table table-hover">
 						<thead>

@@ -26,15 +26,7 @@
 		<result property="userGrade" column="grade"/>
 		<collection property="myPoints" resultMap="pointMap" />
 	</resultMap>
-	
-	<select id="getUser" parameterType="user" resultMap="userMap">
-		select *
-		from users u LEFT OUTER JOIN points p
-		   ON  u.user_num = p.user_num  
-		where 1=1
-			and u.user_num = #{userNum} 
-	</select>
-	
+
 	<select id="loginUser" parameterType="user" resultMap="userMap">
 		select *
 		from users
@@ -70,9 +62,9 @@
 			and user_phone = #{userPhone}
 	</select>
 	
-	<select id="getUsers" parameterType="Page" resultMap="userMap">
+	<select id="getUsers" parameterType="page" resultMap="userMap">
 		SELECT * 
-		FROM (SELECT  m.*, FLOOR((ROWNUM - 1)/20 + 1) page 
+		FROM (SELECT  m.*, FLOOR((ROWNUM - 1)/#{limit} + 1) page 
 		      FROM (SELECT * 
 		            FROM users              
 		            ORDER BY users.USER_NUM DESC) m                                 
@@ -84,14 +76,14 @@
 		select *
 		from users
 		where 1 = 1
-		<if test="userName != null">
-			or user_korname = #{userName}
+		<if test="userName != ''">
+			and user_korname = #{userName}
 		</if>
-		<if test="userEmail != null">
-			or user_email = #{userEmail}
+		<if test="userEmail != ''">
+			and user_email = #{userEmail}
 		</if>
-		<if test="userNum != null">
-			or user_num = #{userNum}
+		<if test="userNum > 0">
+			and user_num = #{userNum}
 		</if>
 	</select>
 	
@@ -106,11 +98,13 @@
 		where user_email = #{userEmail}
 	</select>
 	
-	
-	
-	
-	
-	
+	<select id="getUser" parameterType="user" resultMap="userMap">
+		select *
+		from users u LEFT OUTER JOIN points p
+		   ON  u.user_num = p.user_num  
+		where 1=1
+			and u.user_num = #{userNum} 
+	</select>
 	
 	<insert id="addUser" parameterType="user">
 		INSERT INTO users

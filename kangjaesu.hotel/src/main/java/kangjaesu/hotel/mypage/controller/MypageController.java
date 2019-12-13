@@ -20,6 +20,15 @@ import kangjaesu.hotel.user.domain.User;
 public class MypageController {
 	@Autowired private MyInquiryService myInqService;
 	
+	@RequestMapping("/myPage")
+	public String myPage(){
+		return "mypage/myPage";
+	}
+	
+	
+	
+	
+	
 	@Transactional
 	@RequestMapping("/boardInq")
 	public String boardInq(Model model, HttpSession session) {
