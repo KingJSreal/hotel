@@ -79,8 +79,8 @@ public class MypageController {
 	
 	//답변 보기 페이지
 	@ResponseBody
-	@RequestMapping("/getComment")
-	public InquiryComment getComment(Model model, Inquiry inquiry, User user) {
+	@RequestMapping("/getAnswer")
+	public InquiryComment getAnswer(Model model, Inquiry inquiry, User user) {
 		int userNum = user.getUserNum();
 		model.addAttribute("inq", myInqService.getInquiry(inquiry.getInqNum(), userNum));
 		myInqService.getInquiryAnswer(inquiry.getInqNum());

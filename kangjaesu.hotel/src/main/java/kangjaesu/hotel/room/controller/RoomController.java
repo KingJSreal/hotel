@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
-import kangjaesu.hotel.promotion.domain.PromotionDetail;
 import kangjaesu.hotel.room.domain.Option;
 import kangjaesu.hotel.room.domain.Room;
 import kangjaesu.hotel.room.service.RoomService;
