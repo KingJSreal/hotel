@@ -11,5 +11,6 @@
 		 <package name="kangjaesu.hotel.inquiry.domain" />
 		 <package name="kangjaesu.hotel.promotion.domain" />
 		 <package name="kangjaesu.hotel.comment.domain" />
+		 <package name="kangjaesu.hotel.booking.domain" />
 	</typeAliases>
 </configuration>

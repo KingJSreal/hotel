@@ -73,7 +73,7 @@ public class RoomController {
 	@RequestMapping("/getData")
 	@ResponseBody
 	@Transactional
-	public Room getData(Room room) {
+	public Room getData(Room room, Option option) {
 		return	roomService.getRoom(room.getRoomNum());
 		
 

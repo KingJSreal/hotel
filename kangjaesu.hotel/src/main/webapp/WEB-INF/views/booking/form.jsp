@@ -96,6 +96,17 @@
 }
 </style>
 <script>
+var alert = function(msg, type) {
+	swal({
+		  title: "",
+		  text: msg,
+		  icon: type,
+		  button: "확인",
+		}).then((value) => {
+			return;
+		});
+}
+
 	$(document).ready(function() {
 		$("#kname").val("${user.userName}");
 		$("#firstName").val("${user.userEngFirstName}");
@@ -137,7 +148,7 @@
 
 				//한글이름
 				$("#kname").keyup(function() {
-					$(this).val($(this).val().replace(/[^가-힣ㄱ-ㅎ]/gi, '')); //한글만 가능
+					$(this).val($(this).val().replace(/[^가-힣ㄱ-ㅎ]/gi, '')); //한글만 가능			
 				});
 
 				//영어이름
@@ -175,7 +186,7 @@
 
 				$("#point").keyup(
 						function() {
-							$(this).val($(this).val().replace(/(^0+)/gi, '')); //숫자만 가능
+							$(this).val($(this).val().replace(/(^0+)/gi, '')); //0으로 시작시 공백
 							$(this).val($(this).val().replace(/[^0-9]/gi, '')); //숫자만 가능
 							var inputpoint = $("#point").val();
 							var mypoint = $("#mypoint").text();
@@ -213,18 +224,11 @@
 
 							if (valid) {
 								event.preventDefault();
-								$("#name").val($("#kname").val());
-								$("#checkIn").val();
-								$("#checkOut").val();
-								$("#days").val();
-								$("#adult").val();
-								$("#kid").val();
+								$("#name").text($("#kname").val());
+								$("#uPoint").text(inputpoint);
 								$("#roomType").val();
 								$("#option").val();
-								
 								$("#confirm").modal('show');
-
-								
 							}
 						});
 				$("#paymentBtn").click(function () {
@@ -560,7 +564,7 @@
 
 					<!-- 버튼 -->
 					<div class="buttongroup">
-						<a class="btn btn-default" href="../room/05.html" role="button">
+						<a class="btn btn-default" href="/hotel/room/roomReservation" role="button">
 							<span class="glyphicon glyphicon-menu-left"></span>객실 선택
 						</a>
 						<button class="btn btn-default" id="submitBtn">예약신청</button>
@@ -599,15 +603,15 @@
 												</tr>
 												<tr>
 													<td>체크인</td>
-													<td><label id="checkIn"></label></td>
+													<td><label id="checkIn">${checkIn}</label></td>
 													<td>체크아웃</td>
-													<td><label id="checkOut"></label></td>
+													<td><label id="checkOut">${checkOut}</label></td>
 												</tr>
 												<tr>
 													<td>숙박일수</td>
-													<td><label id="days"></label>박</td>
+													<td><label id="days">${days}</label>박</td>
 													<td>투숙인원</td>
-													<td>성인: <label id="adult"></label> / 어린이: <label id="kid"></label></td>
+													<td>성인: <label id="adult">${adult}</label> / 어린이: <label id="kid">${kid}</label></td>
 												</tr>
 												<tr>
 													<td>객실</td>
@@ -621,7 +625,7 @@
 							
 										<!-- 포인트,요금 -->
 										<div class="panel panel-default text-right">
-											<div class="panel-footer">사용 포인트: <label id="point"></label></div>
+											<div class="panel-footer">사용 포인트: <label id="uPoint"></label></div>
 											<div class="panel-footer">요금 합계: <label id="charge"></label></div>
 										</div>
 										<!-- 포인트,요금 끝-->

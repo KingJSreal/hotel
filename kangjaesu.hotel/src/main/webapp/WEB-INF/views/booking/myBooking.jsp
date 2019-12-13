@@ -66,7 +66,7 @@ var confirm = function(msg, type) {
 					icon: "success",
 					buttons: "확인",
 				}).then((willDelete) => {
-					location.href="../mypage/05.html";
+					location.href="/hotel/";
 				});
 	    	  }
 	    	  else
@@ -79,7 +79,7 @@ var confirm = function(msg, type) {
 			confirm("예약을 취소 하시겠습니까?", "warning");
 		});
 		$("#backmypage_book").click(function(){
-			location.href="../mypage/05.html";
+			location.href="/hotel/";
 		})
 	});
 </script>
@@ -180,8 +180,8 @@ var confirm = function(msg, type) {
 					<div class="buttongroup">
 						<button type="button" class="btn btn-warning pull-right"
 							id="cancel">예약취소</button>
-						<button type="button" class="btn btn-default pull-right"
-							id="backmypage_book">목록으로</button>
+				<!-- 		<button type="button" class="btn btn-default pull-right"
+							id="backmypage_book">목록으로</button> -->
 					</div>
 				</div>
 			</section>
