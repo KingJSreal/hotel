@@ -57,6 +57,7 @@ public class UserController {
 		if(userService.getEmail(user) == null) result = true;
 		return result;
 	}
+	
 	@RequestMapping("/listUsers")
 	@ResponseBody
 	@Transactional
@@ -73,6 +74,7 @@ public class UserController {
 		
 		return result;
 	}
+	
 	@RequestMapping("/searchListUsers")
 	@ResponseBody
 	@Transactional

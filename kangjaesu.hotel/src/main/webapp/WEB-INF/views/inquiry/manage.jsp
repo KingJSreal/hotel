@@ -205,7 +205,7 @@ function submit(){
 	var getinqContent = $("#getinqContent").val();
 	var getinqDate = $("#getinqDate").val();
      $.ajax({
-		url:"submitComment",
+    	url:"submitComment",
 		method:"GET",
 		data: {			
 			inqContent:getinqContent,
