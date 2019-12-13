@@ -37,13 +37,13 @@ div.Btns {
 <script>
 var loadUserList = function() {
 	$.ajax({
-		url:"listUsers",
+		url:"listUsers?page=" + getParameterByName("page"),
 		method:"POST",
-		success:function(users){
+		success:function(result){
 			$('#userList').empty();
-			if(users.length > 0 ){
+			if(result.userList.length > 0 ){
 				var userList = [];
-				$(users).each(function(idx, user){
+				$(result.userList).each(function(idx, user){
 					userList.push(
 							'<tr>' +
 							'<td>' + user.userNum+'</td>' +
@@ -51,12 +51,20 @@ var loadUserList = function() {
 							'<td>' + user.userName+'</td>' +
 							'<td>' + user.userEngFirstName + " " + user.userEngFirstName + '</td>' +
 							'<td>' + user.userBirth + '</td>'	+
-							'<td><a href="#">보기</a></td>'	+
+							'<td><button type="button" class="btn btn-default"' +
+								'id="' + user.userNum + '" value="' + user.userNum + '">보기</button></td>'	+
 							'</tr>'				
 					);
-						
 				});
+				paging(result.page);
+				
 				$('#userList').append(userList.join(''));
+				
+				$(result.userList).each(function(idx, user){
+					$('button#' + user.userNum).bind("click", function(){
+						loadUser(user.userNum);
+					});
+				});
 				
 			}else{
 				$('#userList').append(
@@ -69,7 +77,30 @@ var loadUserList = function() {
 				'<tr><td colspan="6"><b>사용자 목록을 불러오지 못했습니다.</b></td></tr>'	);
 		}
 	});
+};
+
+var loadUser = function(userNum) {
+	$.ajax({
+		url:"getUser",
+		method:"POST",
+		data: {userNum: userNum},
+		success:function(User){
+			var myPointSum = 0;
+			if(User.myPoints != null){
+				User.myPoints.forEach(function(point) {
+					myPointSum += point.pointChange;
+				})
+			}
+			dataIn(User, myPointSum);
+			dataIn_correct(User, myPointSum);
+			$("#dataModal").modal('show');
+		},
+		error:function(a, b, errMsg){
+			alert("유저 데이터 불러오기에 실패했습니다.");
+		}
+	});
 }
+
 $(document).ready(loadUserList());
 
 $(function(){
@@ -171,10 +202,6 @@ $(function(){
 							</form>
 						</div>
 					</div>
-					<div class="userbtns">
-						<button id="secedelistbtn" class="btn btn-default" type="button"
-							class="btn btn-primary" style="float: right; margin-bottom:10px;">탈퇴목록 보기</button>
-					</div>
 					<br>
 					<table class="table table-hover">
 						<thead>
@@ -191,35 +218,19 @@ $(function(){
 							
 						</tbody>
 					</table>
+					<!-- 페이징 -->
 					<div class="container text-center">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item">
-									<a class="page-link" href="#" aria-label="Previous"> 
-										<span aria-hidden="true">&laquo;</span>
-									</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">1</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">2</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">3</a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#" aria-label="Next"> 
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>
-							</ul>
-						</nav>
+						<ul class="pagination" id="pages">
+						</ul>
 					</div>
+					<!-- 페이징 끝 -->
 				</div>
 			</section>
 		</div>
 		<jsp:include page="../common/footer.jsp" />
+	</div>
+	<div id="Modal">
+		<jsp:include page="userData.jsp" />
 	</div>
 </body>
 </html>

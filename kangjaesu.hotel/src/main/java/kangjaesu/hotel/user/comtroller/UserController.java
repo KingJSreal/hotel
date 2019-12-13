@@ -1,7 +1,12 @@
 package kangjaesu.hotel.user.comtroller;
 
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import kangjaesu.hotel.common.domain.Page;
+import kangjaesu.hotel.common.service.PageService;
 import kangjaesu.hotel.user.domain.User;
 import kangjaesu.hotel.user.service.UserService;
 
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserController {
 	@Autowired private UserService userService;
+	@Autowired private PageService pageService;
 	
 	@RequestMapping("/userTerms")
 	public String userTerms() {
@@ -48,14 +54,24 @@ public class UserController {
 	@RequestMapping("/checkEmail")
 	public boolean checkDuplicationUserEmail(User user) {
 		boolean result = false;
-		if(userService.getUser(user) == null) result = true;
+		if(userService.getEmail(user) == null) result = true;
 		return result;
 	}
 	@RequestMapping("/listUsers")
 	@ResponseBody
 	@Transactional
-	public List<User> listUsers() {
-		return userService.listUsers();
+	public HashMap<String, Object> listUsers(HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		int dataSize = userService.countUsers();
+		int nowPage = 1;
+		
+		String paramNowPage = request.getParameter("page");
+		if(!(paramNowPage.equals("null"))) nowPage = Integer.parseInt(paramNowPage);
+		Page page = pageService.paging(nowPage, dataSize);
+		result.put("userList", userService.listUsers(page));
+		result.put("page", page);
+		
+		return result;
 	}
 	@RequestMapping("/searchListUsers")
 	@ResponseBody
@@ -71,19 +87,18 @@ public class UserController {
 		return userService.getUser(user);
 	}
 	
-//	
-//
-//	@RequestMapping("/cerrect")
-//	@ResponseBody
-//	@Transactional
-//	public boolean cerrectUser(User user) {
-//		return userService.cerrectUser(user);
-//	}
-//
-//	@RequestMapping("/secede")
-//	@ResponseBody
-//	@Transactional
-//	public boolean secede(int userNo) {
-//		return userService.secede(userNo);
-//	}
+	@RequestMapping("/cerrect")
+	@ResponseBody
+	@Transactional
+	public boolean cerrectUser(User user) {
+		return userService.cerrectUser(user);
+	}
+	
+	@RequestMapping("/secede")
+	@ResponseBody
+	@Transactional
+	public boolean secede(User user) {
+		return userService.secede(user);
+	}
 }
+

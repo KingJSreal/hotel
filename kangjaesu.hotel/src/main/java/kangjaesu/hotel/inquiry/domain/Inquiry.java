@@ -2,20 +2,7 @@ package kangjaesu.hotel.inquiry.domain;
 
 import java.sql.Date;
 
-public class Inquiry {
-/*	-- 문의
-	TABLE "INQUIRYS" (
-		"INQ_NUM"     NUMBER        NOT NULL, -- 문의번호
-		"INQ_TITLE"   VARCHAR2(50)  NULL,     -- 문의제목
-		"INQ_CONTENT" VARCHAR2(255) NULL,     -- 문의내용
-		"INQ_DATE"    DATE          NULL,     -- 문의작성일
-		"INQ_WRITER"  VARCHAR2(50)  NULL,     -- 문의작성자
-		"INQ_EMAIL"   VARCHAR2(255) NULL,     -- 작성자이메일
-		"INQ_PHONE"   VARCHAR2(12)  NULL,     -- 작성자연락처
-		"STATUS"      NUMBER        NULL,     -- 처리상태
-		"USER_NUM"    NUMBER        NULL      -- 회원번호
-	);*/
-	
+public class Inquiry {	
 	private int inqNum;
 	private String inqTitle;
 	private String inqContent;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import kangjaesu.hotel.user.dao.mapper.UserMapper;
 import kangjaesu.hotel.user.domain.User;
+import kangjaesu.hotel.common.domain.Page;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -28,15 +29,24 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Override
-	public List<User> getUsers() {
-		return mapper.getUsers();
+	public List<User> getUsers(Page page) {
+		return mapper.getUsers(page);
 	}
 
 	@Override
 	public List<User> searchUser(User user) {
 		return mapper.searchUser(user);
 	}
-	
+
+	@Override
+	public int countUser() {
+		return mapper.countUser();
+	}
+
+	@Override
+	public User getEmail(User user) {
+		return mapper.getEmail(user);
+	}
 	@Override
 	public User getUser(User user){
 		return mapper.getUser(user);
@@ -47,18 +57,14 @@ public class UserDaoImpl implements UserDao{
 		return mapper.addUser(user);
 	}
 
-
+	@Override
+	public int updateUser(User user) {
+		return mapper.updateUser(user);
+	}
 	
-//
-//	@Override
-//	public int updateUser(User user) {
-//		return mapper.updateUser(user);
-//	}
-//
-//	@Override
-//	public int delUser(int userNo) {
-//		return mapper.delUser(userNo);
-//	}
+	@Override
+	public int delUser(User user) {
+		return mapper.delUser(user);
+	}
 
-	
 }

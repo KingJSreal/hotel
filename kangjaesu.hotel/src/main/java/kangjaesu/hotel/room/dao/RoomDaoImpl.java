@@ -3,7 +3,9 @@ package kangjaesu.hotel.room.dao;
 import java.util.List;
 
 import kangjaesu.hotel.room.dao.mapper.RoomMapper;
+import kangjaesu.hotel.room.domain.Option;
 import kangjaesu.hotel.room.domain.Room;
+
 
 
 
@@ -35,6 +37,18 @@ public class RoomDaoImpl implements RoomDao{
 	public Room getRoom(int roomNum) {
 		return mapper.getRoom(roomNum);
 	}
+
+	@Override
+	public int addOption(Option option) {
+		return mapper.addOption(option);
+	}
+
+	@Override
+	public int updateRoom(Room room) {
+		return mapper.updateRoom(room);
+	}
+
+
 
 	
 

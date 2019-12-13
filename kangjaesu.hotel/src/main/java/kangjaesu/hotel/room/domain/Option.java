@@ -1,15 +1,9 @@
 package kangjaesu.hotel.room.domain;
 
 public class Option {
-	/*
-	-- 옵션
-	CREATE TABLE "OPTIONS" (
-	"OPT_NO"   NUMBER       NOT NULL, -- 옵션번호
-	"OPT_NAME" VARCHAR2(50) NOT NULL  -- 옵션내용
-	
-*/
 	private int optNo;
 	private String optName;
+	private int roomNum;
 	
 	public int getOptNo() {
 		return optNo;
@@ -23,9 +17,17 @@ public class Option {
 	public void setOptName(String optName) {
 		this.optName = optName;
 	}
+	
+	
+	public int getRoomNum() {
+		return roomNum;
+	}
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
+	}
 	@Override
 	public String toString() {
-		return String.format("option [optNo=%s, optName=%s]", optNo, optName);
+		return String.format("option [optNo=%s, optName=%s, roomNum=%s]", optNo, optName, roomNum);
 
 	}
 	

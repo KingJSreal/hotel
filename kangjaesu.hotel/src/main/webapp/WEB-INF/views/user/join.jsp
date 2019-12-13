@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
-<script src="<c:url value="/js/validationUser.js"/>"></script>
+<script src='<c:url value="/js/validationUser.js"/>'></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style type="text/css">
 	@import url("<c:url value="/css/joinstep.css"/>");
@@ -201,6 +201,8 @@ $(function(){
 		}
 		
 		if(regtest()) {
+			var userTel = null;
+			if($("#userCall1").val() != "") userTel = ($("#userCall1").val() +"-"+ $("#userCall2").val() +"-"+ $("#userCall3").val());
 			$.ajax({
 				url:"join",
 				method:"GET",
@@ -211,8 +213,8 @@ $(function(){
 					userEngFirstName:	$("#userEngFirstName").val(),
 					userEngLastName:	$("#userEngLastName").val(),
 					userBirth:			($("#birthYear").val() +"-"+ $("#birthMonth").val() +"-"+ $("#birthDay").val()),
-					userPhone:			($("#userPhone1").val() + $("#userPhone2").val() + $("#userPhone3").val()),
-					userTel:			($("#userCall1").val() + $("#userCall2").val() + $("#userCall3").val()),
+					userPhone:			($("#userPhone1").val() +"-"+ $("#userPhone2").val() +"-"+ $("#userPhone3").val()),
+					userTel:			userTel,
 					userZip: 			($("#userAddressCode").val()),
 					userAdd: 			($("#userAddress1").val()),
 					userAddDetail: 		($("#userAddress2").val())

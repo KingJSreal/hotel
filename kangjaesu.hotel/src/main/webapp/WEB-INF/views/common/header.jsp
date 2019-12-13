@@ -63,7 +63,7 @@
 							</c:if>
 						  	<li><a href="#" class="header_a">예약조회</a></li>
 						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
-						  	<li><a href="#" class="header_a">마이페이지</a></li>	
+						  	<li><a href="/hotel/mypage/myPage" class="header_a">마이페이지</a></li>	
 						</c:otherwise>
 				  	</c:choose>
 				</ul>

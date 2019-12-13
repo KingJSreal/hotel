@@ -1,15 +1,13 @@
 package kangjaesu.hotel.inquiry.service;
 
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
 
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,15 +17,26 @@ public class MailServiceImpl implements MailService{
 
 	@Override
 	public void send(InquiryComment msg, Inquiry to) {
-		MimeMessage message = mailSender.createMimeMessage();
+		String from ="SeoulHotel";
+		String toMail = to.getInqEmail();
+		String toName = to.getInqWriter();
+		String title = "[서울호텔] "+ toName +"님이 작성하신 문의에 대한 답변입니다.";
+		String content = "문의 제목: " + to.getInqTitle()
+				+ "\n문의내용 :\n" + to.getInqContent()
+				+ "\n\n작성일 :" + to.getInqDate()
+				+ "\n-------------------------------------------------------------\n"
+				+ msg.getInqCmtContent();
 		try {
-			message.addRecipient(RecipientType.TO, new InternetAddress("lim_317@naver.com"));
-			
-			//message.addRecipient(RecipientType.TO, new InternetAddress(to.getInqEmail()));
-			message.setSubject("[서울호텔]문의에 대한 답변입니다.");
-			message.setText(msg.getInqCmtContent(), "utf-8", "html");
-		} catch (Exception e) {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom(from); // 보내는사람
+			messageHelper.setTo(toMail); // 받는사람 이메일
+			messageHelper.setSubject(title); // 메일제목
+			messageHelper.setText(content); // 메일 내용
+
 			mailSender.send(message);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 }

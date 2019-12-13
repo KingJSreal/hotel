@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kangjaesu.hotel.booking.dao.mapper.BookingMapper">
+   <resultMap type="booking" id="bookingMap">
+      <id property="bookingNum" column="BOOKING_NUM" />
+      <result property="userNum" column="USER_NUM" />
+      <result property="roomNum" column="ROOM_NUM" />
+      <result property="checkIn" column="CHECK_IN_" />
+      <result property="checkOut" column="CHECK_OUT" />
+      <result property="payType" column="PAYTYPE" />
+      <result property="payment" column="PAYMENT" />
+      <result property="adult" column="ADULT" />
+      <result property="kid" column="KID" />
+   </resultMap>
+
+   <select id="getBookings" resultMap="bookingMap">
+      select *
+      from BOOKINGS order by BOOKING_NUM DESC
+   </select>
+   
+   <select id="getBooking" resultMap="bookingMap" parameterType="int">
+      select *
+      from BOOKINGS
+      where BOOKING_NUM=#{bookingNum}
+   </select>
+
+   <insert id="addBooking" parameterType="booking">
+	  insert into BOOKINGS(BOOKING_NUM, USER_NUM, ROOM_NUM, CHECK_IN_,
+	  						CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID)
+      values(#{bookingNum}, #{userNum}, #{roomNum}, #{checkIn},
+      #{checkOut}, #{payType}, #{adult}, #{kid})
+   </insert>
+
+   <delete id="delBooking" parameterType="int">
+      delete from BOOKINGS
+      where BOOKING_NUM=#{bookingNum}
+   </delete>
+
+	<update id="changeBooking" parameterType="booking">
+		update BOOKINGS
+		set (CHECK_IN_=#{checkIn}, CHECK_OUT=#{checkOut}, ADULT=#{adult}, KID=#{kid})
+		where BOOKING_NUM=#{bookingNum}
+	</update>
+</mapper>

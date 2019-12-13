@@ -12,4 +12,6 @@ public interface InquiryMapper {
 	int delInquiry(int inqNum);
 	int addComment(InquiryComment comment);
 	Inquiry getCount();
+	int updateStatus(int inqNum);
+	InquiryComment getInquiryAnswer(int inqNum);
 }

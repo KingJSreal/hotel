@@ -2,25 +2,12 @@ package kangjaesu.hotel.booking.domain;
 
 import java.sql.Date;
 public class Booking {
-/*	-- 예약
-	TABLE "BOOKINGS" (
-		"BOOKING_NUM" NUMBER       NOT NULL, -- 예약번호
-		"USER_NUM"    NUMBER       NOT NULL, -- 회원번호
-		"ROOM_NUM"    NUMBER       NULL,     -- 객실번호
-		"CHECK_IN_"   DATE         NULL,     -- 체크인날짜
-		"CHECK_OUT"   DATE         NULL,     -- 체크아웃날짜
-		"PAYTYPE"     VARCHAR2(50) NULL,     -- 결제방식
-		"PAYMENT"     NUMBER       NULL,     -- 결제금액
-		"ADULT"       NUMBER       NULL,     -- 성인
-		"KID"         NUMBER       NULL      -- 유아
-	);
-*/
 	private int bookingNum;
 	private int userNum;
 	private int roomNum;
 	private Date checkIn;
 	private Date checkOut;
-	private String paytype;
+	private String payType;
 	private int payment;
 	private int adult;
 	private int kid;
@@ -56,10 +43,10 @@ public class Booking {
 		this.checkOut = checkOut;
 	}
 	public String getPaytype() {
-		return paytype;
+		return payType;
 	}
 	public void setPaytype(String paytype) {
-		this.paytype = paytype;
+		this.payType = paytype;
 	}
 	public int getPayment() {
 		return payment;
@@ -84,7 +71,7 @@ public class Booking {
 	public String toString() {
 		return "Inquiry [bookingNum=" + bookingNum + ", userNum=" + userNum
 				+ ", roomNum=" + roomNum + ", checkIn=" + checkIn
-				+ ", checkOut=" + checkOut + ", paytype=" + paytype
+				+ ", checkOut=" + checkOut + ", paytype=" + payType
 				+ ", payment=" + payment + ", adult=" + adult + ", kid=" + kid
 				+ "]";
 	}

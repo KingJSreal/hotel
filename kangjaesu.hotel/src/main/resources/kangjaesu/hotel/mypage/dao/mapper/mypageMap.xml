@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kangjaesu.hotel.mypage.dao.mapper.MypageMapper">
+   <resultMap type="inquiry" id="inquiryMap">
+      <id property="inqNum" column="INQ_NUM" />
+      <result property="inqTitle" column="INQ_TITLE" />
+      <result property="inqContent" column="INQ_CONTENT" />
+      <result property="inqDate" column="INQ_DATE" />
+      <result property="inqWriter" column="INQ_WRITER" />
+      <result property="inqEmail" column="INQ_EMAIL" />
+      <result property="inqPhone" column="INQ_PHONE" />
+      <result property="status" column="STATUS" />
+      <result property="userNum" column="USER_NUM" />
+      <result property="count" column="COUNT" />
+   </resultMap>
+   
+   <resultMap type="inquiryComment" id="commentMap">
+      <id column="INQ_NUM" property="inqNum"/>
+      <result column="INQ_CMT_CONTENT" property="inqCmtContent"/>
+      <result column="INQ_CMT_DATE" property="inqCmtDate"/>
+   </resultMap>
+   
+   <select id="getCount" resultMap="inquiryMap" parameterType="int">
+      select count (*) as count
+      from INQUIRYS
+      where USER_NUM=#{userNum}
+   </select>
+
+   <select id="getInquirys" resultMap="inquiryMap" parameterType="int">
+		select INQ_NUM,INQ_TITLE,INQ_CONTENT,INQ_DATE,INQ_WRITER,INQ_EMAIL,INQ_PHONE,
+		decode(STATUS, 0, '답변 대기', 1,'답변완료') as STATUS, USER_NUM
+		from INQUIRYS 
+		where USER_NUM=#{userNum} order by INQ_NUM DESC
+
+   </select>
+
+   <select id="getInquiry" resultMap="inquiryMap" parameterType="int">
+      select *
+      from INQUIRYS
+      where INQ_NUM=#{inqNum} and USER_NUM=#{userNum}
+   </select>
+   
+   <select id="getComment" resultMap="commentMap" parameterType="int">
+      select *
+      from INQUIRYS_CMT
+      where INQ_NUM=#{inqNum}
+   </select>
+   
+   <update id="modInquiry" parameterType="inquiry">
+   		update INQUIRYS
+   		set INQ_TITLE=#{inqTitle}, INQ_CONTENT=#{inqContent},
+   		INQ_WRITER=#{inqWriter}, INQ_EMAIL=#{inqEmail}, INQ_PHONE=#{inqPhone}
+   		where INQ_NUM=#{inqNum}
+   </update>
+
+</mapper>

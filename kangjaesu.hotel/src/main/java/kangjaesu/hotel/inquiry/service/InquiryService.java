@@ -12,4 +12,6 @@ public interface InquiryService {
 	boolean deleteInquiry(int inqNum);
 	boolean writeComment(InquiryComment comment);
 	Inquiry getCount();
+	boolean changeStatus(int inqNum);
+	InquiryComment getInquiryAnswer(int inqNum);
 }
