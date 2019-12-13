@@ -28,9 +28,6 @@ public class UserDaoImpl implements UserDao{
 		return mapper.findPw(user);
 	}
 	
-	
-	
-	
 	@Override
 	public List<User> getUsers(Page page) {
 		return mapper.getUsers(page);
@@ -44,6 +41,11 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public int countUser() {
 		return mapper.countUser();
+	}
+
+	@Override
+	public User getEmail(User user) {
+		return mapper.getEmail(user);
 	}
 	@Override
 	public User getUser(User user){

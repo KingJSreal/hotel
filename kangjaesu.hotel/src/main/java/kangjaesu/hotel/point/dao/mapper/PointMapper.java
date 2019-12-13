@@ -6,7 +6,8 @@ import kangjaesu.hotel.point.domain.Point;
 import kangjaesu.hotel.user.domain.User;
 
 public interface PointMapper {
-	List<Point> getMyPoint(User user);
-	int addPoint(User user);
-	int updatePoint(User user);
+	List<Point> getMyPointList(User user);
+	int getMyPointSum(User user);
+	int addPoint(Point point);
+	int delPoint(User user);
 }

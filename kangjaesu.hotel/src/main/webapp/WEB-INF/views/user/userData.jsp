@@ -70,13 +70,13 @@ var confirm = function(msg, type) {
 
 
 // data, correct datas
-function dataIn(user){
+function dataIn(user, myPointSum){
 	$("#data #userNum").text(user.userNum);
 	$("#data #userRegDate").text(user.userRegDate);
 	$("#data #userEmail").text(user.userEmail);
 	$("#data #userGrade").text(user.userGrade);
 	$("#data #userPassword").text(user.userPassword);
-	//$("#data #point").text();
+	$("#data #point").text(myPointSum);
 	$("#data #userName").text(user.userName);
 	$("#data #userEngFirstName").text(user.userEngFirstName);
 	$("#data #userEngLastName").text(user.userEngLastName);
@@ -89,16 +89,17 @@ function dataIn(user){
 }
 
 
-function dataIn_correct(user){
+function dataIn_correct(user, myPointSum){
 	$("#correct #userNum").text(user.userNum);
 	$("#correct #userRegDate").text(user.userRegDate);
 	$("#correct #userEmail").text(user.userEmail);
 	$("#correct #userGrade option:eq(" + (user.grade - 1) + ")").prop("selected", true)
 	$("#correct #userPassword").val(user.userPassword);
-	//$("#correct #point").text();
+	$("#correct #point").val(myPointSum);
 	$("#correct #userName").val(user.userName);
 	$("#correct #userEngFirstName").val(user.userEngFirstName);
 	$("#correct #userEngLastName").val(user.userEngLastName);
+	
 	var birth = user.userBirth.split("-");
 	$("#correct #birthYear option[value=" + birth[0] + "]").prop("selected", true);
 	$("#correct #birthMonth option[value=" + birth[1] + "]").prop("selected", true);
@@ -108,12 +109,12 @@ function dataIn_correct(user){
 	$("#correct #userPhone1 option[value=" + phone[0] + "]").prop("selected", true);
 	$("#correct #userPhone2").val(phone[1]);
 	$("#correct #userPhone3").val(phone[2]);
-	
-	var tel = user.userTel.split("-");
-	$("#correct #userCall1 option[value=" + tel[0] + "]").prop("selected", true);
-	$("#correct #userCall2").val(tel[1]);
-	$("#correct #userCall3").val(tel[2]);
-
+	if(user.userTel != null){
+		var tel = user.userTel.split("-");
+		$("#correct #userCall1 option[value=" + tel[0] + "]").prop("selected", true);
+		$("#correct #userCall2").val(tel[1]);
+		$("#correct #userCall3").val(tel[2]);
+	}
 	$("#correct #userAddressCode").val(user.userZip);
 	$("#correct #userAddress1").val(user.userAdd);
 	$("#correct #userAddress2").val(user.userAddDetail);
@@ -230,11 +231,35 @@ $(function(){
 	});
 	
 	//correct btns
-	$("#correctForm").bind("submit", function(e){		
+	$("#correctForm").bind("submit", function(e){
 		e.preventDefault();
 		if(regtest()) {
+			$.ajax({
+				url:"/hotel/point/resetPoint",
+				method:"GET",
+				data:{
+					userNum: $("#correct #userNum").text()
+				},
+				error:function(a, b, errMsg){
+					alert("유저 정보 수정에 실패하였습니다.");
+					return;
+				}
+			});
+			$.ajax({
+				url:"/hotel/point/addPoint",
+				method:"GET",
+				data:{
+					pointContent:		$("#correct #point").val(),
+					userNum:			$("#correct #userNum").text()
+				},
+				error:function(a, b, errMsg){
+					alert("유저 정보 수정에 실패하였습니다.");
+					return;
+				}
+			});
 			var userTel = null;
-			if($("#userCall1").val() != "") userTel = ($("#userCall1").val() +"-"+ $("#userCall2").val() +"-"+ $("#userCall3").val());
+			if($("#userCall1").val() != "") 
+				userTel = ($("#userCall1").val() +"-"+ $("#userCall2").val() +"-"+ $("#userCall3").val());
 			$.ajax({
 				url:"cerrect",
 				method:"GET",
@@ -254,7 +279,7 @@ $(function(){
 					userAddDetail: 		($("#correct #userAddress2").val())
 				},
 				success:function(){
-					alert("유저 정보 수정에 성공하였습니다.");
+   					alert_reload("유저 정보 수정에 성공하였습니다.");
 				},
 				error:function(a, b, errMsg){
 					alert("유저 정보 수정에 실패하였습니다.");

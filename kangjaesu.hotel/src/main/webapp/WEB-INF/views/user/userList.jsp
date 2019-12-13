@@ -66,7 +66,7 @@ var loadUserList = function() {
 							'<td>' + user.userEngFirstName + " " + user.userEngFirstName + '</td>' +
 							'<td>' + user.userBirth + '</td>'	+
 							'<td><button type="button" class="btn btn-default"' +
-								'id="' + user.userNum + '" value="' + user.userNum + '">보기</a></td>'	+
+								'id="' + user.userNum + '" value="' + user.userNum + '">보기</button></td>'	+
 							'</tr>'				
 					);
 				});
@@ -75,8 +75,8 @@ var loadUserList = function() {
 				$('#userList').append(userList.join(''));
 				
 				$(result.userList).each(function(idx, user){
-					$('#' + user.userNum).click(function(){
-						loadUser($(this).val());
+					$('button#' + user.userNum).bind("click", function(){
+						loadUser(user.userNum);
 					});
 				});
 				
@@ -99,8 +99,14 @@ var loadUser = function(userNum) {
 		method:"POST",
 		data: {userNum: userNum},
 		success:function(User){
-			dataIn(User);
-			dataIn_correct(User);
+			var myPointSum = 0;
+			if(User.myPoints != null){
+				User.myPoints.forEach(function(point) {
+					myPointSum += point.pointContent;
+				})
+			}
+			dataIn(User, myPointSum);
+			dataIn_correct(User, myPointSum);
 			$("#dataModal").modal('show');
 		},
 		error:function(a, b, errMsg){

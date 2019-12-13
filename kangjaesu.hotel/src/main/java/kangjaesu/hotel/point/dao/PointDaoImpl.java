@@ -14,18 +14,23 @@ public class PointDaoImpl implements PointDao{
 	@Autowired private PointMapper mapper = null;
 	
 	@Override
-	public List<Point> getMyPoint(User user) {
-		return mapper.getMyPoint(user);
+	public List<Point> getMyPointList(User user) {
+		return mapper.getMyPointList(user);
 	}
 
 	@Override
-	public int addPoint(User user) {
-		return mapper.addPoint(user);
+	public int getMyPointSum(User user) {
+		return mapper.getMyPointSum(user);
+	}
+	
+	@Override
+	public int addPoint(Point point) {
+		return mapper.addPoint(point);
 	}
 
 	@Override
-	public int updatePoint(User user) {
-		return mapper.updatePoint(user);
+	public int delPoint(User user) {
+		return mapper.delPoint(user);
 	}
 
 }
