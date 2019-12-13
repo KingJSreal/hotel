@@ -1,6 +1,7 @@
 package kangjaesu.hotel.promotion.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Promotion {
 	private int proNum;
@@ -10,6 +11,7 @@ public class Promotion {
 	private Date proEndDate;
 	private String proDetail;
 	private Date proRegDate;
+	private List<PromotionDetail> promotionDetails;
 	
 	public int getProNum() {
 		return proNum;
@@ -53,13 +55,20 @@ public class Promotion {
 	public void setProRegDate(Date proRegDate) {
 		this.proRegDate = proRegDate;
 	}
-
+	public List<PromotionDetail> getPromotionDetails() {
+		return promotionDetails;
+	}
+	public void setPromotionDetails(List<PromotionDetail> promotionDetails) {
+		this.promotionDetails = promotionDetails;
+	}
 	@Override
 	public String toString() {
-		return "Promotion [proNum=" + proNum + ", proTitle=" + proTitle
-				+ ", proContent=" + proContent + ", proStartDate="
-				+ proStartDate + ", proEndDate=" + proEndDate + ", proDetail="
-				+ proDetail + ", proRegDate=" + proRegDate + "]";
+		return String
+				.format("Promotion [proNum=%s, proTitle=%s, proContent=%s, proStartDate=%s, proEndDate=%s, proDetail=%s, proRegDate=%s, promotionDetails=%s]",
+						proNum, proTitle, proContent, proStartDate, proEndDate,
+						proDetail, proRegDate, promotionDetails);
 	}
+	
+	
 	
 }
