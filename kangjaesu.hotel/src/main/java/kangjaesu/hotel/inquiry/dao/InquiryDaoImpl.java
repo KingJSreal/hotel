@@ -47,4 +47,9 @@ public class InquiryDaoImpl implements InquiryDao{
 	public int updateStatus(int inqNum) {
 		return mapper.updateStatus(inqNum);
 	}
+
+	@Override
+	public InquiryComment getInquiryAnswer(int inqNum) {
+		return mapper.getInquiryAnswer(inqNum);
+	}
 }

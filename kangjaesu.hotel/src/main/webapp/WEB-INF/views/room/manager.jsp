@@ -203,7 +203,7 @@ var confirm = function(msg, type) {
 										<td>${list.guests }</td>
 										<td>${list.roomRegDate }</td>
 										<td><a class="btn btn-default databtn" id="a${list.roomNum }" role="button">보기</a>
-											<a class="btn btn-default" href="04.html" role="button">수정</a>
+										
 											<button class="btn btn-danger delbtn" id="c${list.roomNum }" >삭제</button></td>
 									</tr>
 									</c:forEach>

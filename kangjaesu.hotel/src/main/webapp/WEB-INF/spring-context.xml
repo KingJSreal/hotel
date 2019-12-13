@@ -22,6 +22,14 @@
 	<mvc:resources mapping="/js/**" location="/WEB-INF/res/js/" />
 	<mvc:resources mapping="/img/**" location="/WEB-INF/res/img/" />
 
+	
+ <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+ <context:property-placeholder location="classpath:kangjaesu/hotel/config/upload.properties"/>
+ <mvc:resources location="/WEB-INF/res/img/"  mapping="/img/**"/>
+
+	
+	
+
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/kangjaesu" />
 		<property name="resourceRef" value="true" />

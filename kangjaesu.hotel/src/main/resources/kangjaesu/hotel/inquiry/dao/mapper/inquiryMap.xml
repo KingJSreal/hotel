@@ -39,6 +39,12 @@
       from INQUIRYS
       where INQ_NUM=#{inqNum}
    </select>
+   
+   <select id="getInquiryAnswer" resultMap="commentMap" parameterType="int">
+      select *
+      from INQUIRYS_CMT
+      where INQ_NUM=#{inqNum}
+   </select>
 
    <insert id="addInquiry" parameterType="inquiry">insert into
       INQUIRYS(INQ_NUM, INQ_TITLE, INQ_CONTENT, INQ_DATE,INQ_WRITER,

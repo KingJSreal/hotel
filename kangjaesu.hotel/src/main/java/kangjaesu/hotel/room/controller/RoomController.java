@@ -66,7 +66,7 @@ public class RoomController {
 	public String roomData(@RequestParam("roomNum") int roomNum , Model model) throws Exception{
 		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
 		model.addAttribute("room", roomService.getRoom(roomNum));
-		
+		System.out.println(model);
 		 return "room/data";
 	}
 
@@ -117,6 +117,20 @@ public class RoomController {
 			return true;
 		 
 	}
+	
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/updateRoom")
+	public  boolean updateRoom(Room room) {
+			System.out.println(room);
+			System.out.println(room);
+			System.out.println(room);
+			return  roomService.updateRoom(room);
+			
+		 
+	}
+	
+	
 	
 	
 

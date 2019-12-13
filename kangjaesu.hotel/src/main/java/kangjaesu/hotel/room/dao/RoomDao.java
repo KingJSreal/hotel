@@ -12,5 +12,5 @@ public interface RoomDao {
 	int addRoom(Room room);
 	int addOption(Option option);
 	int delRoom(int roomNum);
-	
+	int updateRoom(Room room);
 }

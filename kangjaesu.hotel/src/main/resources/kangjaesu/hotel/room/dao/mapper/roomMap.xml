@@ -14,7 +14,7 @@
 		<result property="roomImage1" column="room_image1"/>
 		<result property="roomImage2" column="room_image2"/>
 		<result property="roomImage3" column="room_image3"/>
-		<collection property="option" resultMap="optionMap"/>
+		<collection property="options" resultMap="optionMap"/>
 	
 	</resultMap>
 	<resultMap type="option" id="optionMap">
@@ -62,20 +62,25 @@
 	</insert>
 	
 	<insert id="addOption" parameterType="option">
- 		
-				
-			
  		INSERT INTO ROOMOPTIONS
  		(room_num, opt_no)
  		VALUES 
  		(Room_Seq.currval, #{optNo , jdbcType=NUMERIC})
 		
 	</insert>
+		<update id="updateRoom" parameterType="room">
+		update rooms 
+		set room_name=#{roomName,jdbcType=VARCHAR }, guests=#{guests ,jdbcType=NUMERIC}, room_content=#{roomContent,jdbcType=VARCHAR}, 
+			room_type=#{roomType,jdbcType=VARCHAR}, room_price=#{roomPrice} 
+			
+		where room_num=#{roomNum}
+	</update>
 	<delete id="delRoom" parameterType="int">
 		delete from rooms
 		where room_num=#{roomNum}
 	</delete>
 	<!-- 
+	room_image1=#{roomImage1, jdbcType=VARCHAR}, room_image2=#{roomImage2, jdbcType=VARCHAR},room_image3 #{roomImage3, jdbcType=VARCHAR}
 	<update id="updateUser" parameterType="user">
 		update users 
 		set user_name=#{userName}, reg_date=SYSDATE

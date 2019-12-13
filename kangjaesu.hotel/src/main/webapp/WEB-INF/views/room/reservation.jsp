@@ -114,6 +114,7 @@ $(document).ready(function() {
         $optionSets = $('#isotope-filters'), 
         $optionLinks = $optionSets.find('a'); 
    
+
    // 필터링
 	var $container = $('#isotope-items').isotope({
 		layoutMode: 'fitRows',
@@ -221,7 +222,8 @@ $(function() {
 				$("#roomContent").val(room.roomContent);
 				$("input:checkbox[name=rom][value=" +room.roomType+ "]").prop("checked",true);
 				$("input:checkbox[name=count][value=" +room.guests+ "]").prop("checked",true);
-				$("input:checkbox[name=option][value=" +room.option.optNo+ "]").prop("checked",true);
+			
+				//$("input:checkbox[name=option][value=" +room.options.optNo+ "]").prop("checked",true);
 				$("#confirmModa1").modal('show');
 
 /* 					 $("#answerModal").modal({
@@ -358,6 +360,19 @@ $(function() {
                   style="max-width: 100%; width: auto; display: table;">
                   <div class="modal-content">
                      <!-- remote call이 되는영역 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	var options  =("${room.options}").split(", option");
+
+	$("input:checkbox[name=option]").each(function(){
+		for(var i = 0; i < options.length; i++){
+			if(this.value == options[i].match(/optNo=[0-9]/)[0].slice(6,7)){
+				this.checked =true;
+			}
+		}
+	});
+});
+</script>
                        <div  class="modal-dialog" style="max-width: 70%; width: 70%; display: table;">
 		
 		<div class="panel panel-default">
@@ -457,7 +472,7 @@ $(function() {
 
 						</tr>
 						<tr>
-							<th>금액</th>
+							<th>금액 ${room.roomType }</th>
 							<td>420000</td>
 						</tr>
 						<tr>
