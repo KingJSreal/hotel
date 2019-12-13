@@ -205,7 +205,7 @@ function submit(){
 	var getinqContent = $("#getinqContent").val();
 	var getinqDate = $("#getinqDate").val();
      $.ajax({
-    	url:"submitComment",
+		url:"inquiryMail",
 		method:"GET",
 		data: {			
 			inqContent:getinqContent,
@@ -222,7 +222,21 @@ function submit(){
 		    	icon: "success",
 		    	buttons: "확인",
 		    }).then((willDelete) => {
-		    	location.href = "/hotel/inquiry/inquiryManage";
+		    	$.ajax({
+		    		url:"submitComment",
+		    		method:"GET",
+		    		data: {			
+		    			inqDate:getinqDate,
+		    			inqNum:inqNumber,
+		    			inqCmtContent:$("#inqCmtContent").val()
+		    		},
+		    		success:function(){
+		    		    location.href = "inquiryManage";
+		    		},
+		    		error:function(a, b, errMsg){
+		    			alert("작성  오류" + errMsg);
+		    		}
+		    	});
 			});
 		},
 		error:function(a, b, errMsg){

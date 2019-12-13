@@ -26,6 +26,7 @@ public class MailServiceImpl implements MailService{
 				+ "\n\n작성일 :" + to.getInqDate()
 				+ "\n-------------------------------------------------------------\n"
 				+ msg.getInqCmtContent();
+		System.out.println(content);
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
