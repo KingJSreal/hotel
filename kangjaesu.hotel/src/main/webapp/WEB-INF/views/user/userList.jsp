@@ -8,10 +8,6 @@
 <title>쌍용호텔:관리자 페이지 - 회원관리</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
-.nowpage {
-	background-color: #ddd !important;
-}
-
 userbtns {
 	float: right;
 	margin-bottom: 10px;
@@ -39,16 +35,6 @@ div.Btns {
 }
 </style>
 <script>
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
 var loadUserList = function() {
 	$.ajax({
 		url:"listUsers?page=" + getParameterByName("page"),
@@ -102,7 +88,7 @@ var loadUser = function(userNum) {
 			var myPointSum = 0;
 			if(User.myPoints != null){
 				User.myPoints.forEach(function(point) {
-					myPointSum += point.pointContent;
+					myPointSum += point.pointChange;
 				})
 			}
 			dataIn(User, myPointSum);

@@ -238,7 +238,8 @@ $(function(){
 				url:"/hotel/point/resetPoint",
 				method:"GET",
 				data:{
-					userNum: $("#correct #userNum").text()
+					userNum: $("#correct #userNum").text(),
+					pointContent:		"관리자 포인트 변경"
 				},
 				error:function(a, b, errMsg){
 					alert("유저 정보 수정에 실패하였습니다.");
@@ -249,7 +250,8 @@ $(function(){
 				url:"/hotel/point/addPoint",
 				method:"GET",
 				data:{
-					pointContent:		$("#correct #point").val(),
+					pointChange:		$("#correct #point").val(),
+					pointContent:		"관리자 포인트 변경",
 					userNum:			$("#correct #userNum").text()
 				},
 				error:function(a, b, errMsg){
@@ -258,8 +260,7 @@ $(function(){
 				}
 			});
 			var userTel = null;
-			if($("#userCall1").val() != "") 
-				userTel = ($("#userCall1").val() +"-"+ $("#userCall2").val() +"-"+ $("#userCall3").val());
+			if($("#correct #userCall1").val() != "") userTel = ($("#correct #userCall1").val() +"-"+ $("#correct #userCall2").val() +"-"+ $("#correct #userCall3").val());
 			$.ajax({
 				url:"cerrect",
 				method:"GET",
@@ -273,7 +274,7 @@ $(function(){
 					userEngLastName:	$("#correct #userEngLastName").val(),
 					userBirth:			($("#correct #birthYear").val() +"-"+ $("#correct #birthMonth").val() +"-"+ $("#correct #birthDay").val()),
 					userPhone:			($("#correct #userPhone1").val() +"-"+ $("#correct #userPhone2").val() +"-"+ $("#correct #userPhone3").val()),
-					userTel:			($("#correct #userCall1").val() +"-"+ $("#correct #userCall2").val() +"-"+ $("#correct #userCall3").val()),
+					userTel:			userTel,
 					userZip: 			($("#correct #userAddressCode").val()),
 					userAdd: 			($("#correct #userAddress1").val()),
 					userAddDetail: 		($("#correct #userAddress2").val())

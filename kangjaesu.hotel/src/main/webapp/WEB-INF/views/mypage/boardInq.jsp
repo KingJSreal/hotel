@@ -5,79 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>쌍용호텔:마이페이지</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
-/* aside 섹션 */
-.aside-section {
-	height: 100%;
-}
-
-.aside-section .aside_logo {
-	text-decoration: none;
-	font-size: 25px;
-	font-weight: bold;
-	color: #AAAAAA;
-	font-family: Sans-Serif;
-}
-
-.aside_logo:hover {
-	color: white;
-}
-
-.aside-section {
-	margin-top: 30px;
-	background-color: #3C3C3C;
-	width: 23%;
-	height: 800px;
-	float: left;
-}
-
-.aside-section div {
-	width: 90%;
-	margin-left: 10%;
-	margin-top: 7%;
-}
-
-.aside-section .aside_a {
-	text-decoration: none;
-	font-size: 16px;
-	color: #AAAAAA;
-	font-family: Sans-Serif;
-	font-weight: bold;
-}
-
-.aside-section .aside_a:hover {
-	color: white;
-}
-
-/* aside 섹션 끝*/
-
-/* main 섹션*/
-.main-section {
-	margin-top: 30px;
-	margin-left: 25%;
-}
-
-.main-section table {
-	width: 75%;
-}
-
-.main-section table a {
-	text-decoration: none;
-	text-align: center;
-	color: #8c8c8c;
-}
-
-.main-section table a:hover {
-	color: black;
-}
-
-.inform_form table th {
-	background-color: #3C3C3C;
-	color: white;
-}
-/* main 섹션 끝*/
-
 /* 모달 버튼 */
 .modalbtn{
 	margin-left:90%;
@@ -145,109 +75,71 @@
 				<div class="container center-block">
 					<div class="location">
 						<p>
-							<a>홈 > </a> <a>마이페이지 > </a> <a>문의 내역</a>
+							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
+							<a>마이페이지 > </a> 
+							<a>문의 내역</a>
 						</p>
 					</div>
 					<div class="headTit">
 						<h3>&nbsp;마이페이지</h3>
 					</div>
-					<div class="container">
-						<div class="aside-section">
-							<div>
-								<a href="01.html" class="aside_logo">Seoul Hotel</a>
-							</div>
-							<hr style="background-color: white; height: 1px">
-							<div>
-								<a href="05.html" class="aside_a">예약 확인/취소</a>
-							</div>
-							<br>
-							<div>
-								<a href="06.html" class="aside_a">포인트 사용 내역</a>
-							</div>
-							<br>
-							<div>
-								<a href="07.html" class="aside_a">후기 작성 내역</a>
-							</div>
-							<br>
-							<div>
-								<a class="aside_logo" style="font-size: 16px" href="02.html">개인정보</a>
-							</div>
-							<br>
-							<hr style="margin-top: -10px">
-							<div>
-								<a href="03.html" class="aside_a" style="font-size: 14px;">&nbsp;&nbsp;&nbsp;개인정보
-									수정</a>
-							</div>
-							<div>
-								<a href="04.html" class="aside_a" style="font-size: 14px;">&nbsp;&nbsp;&nbsp;탈퇴
-									신청</a>
-							</div>
-							<hr>
-							<div>
-								<a href="08.html" class="aside_a">문의 내역</a>
-							</div>
-						</div>
-						<!-- 문의 내역 -->
-						<div class="main-section">
-							<div>
-								<div class="container">
-									<div class="question_form">
-										<h4 style="text-align: left; width: 90%; float: left">|
-											문의내역</h4>
-										<table class="table table-bordered">
-											<tbody>
-												<tr>
-													<th scope="row" width="10%">문의번호</th>
-													<th scope="row" width="30%">문의제목</th>
-													<th scope="row" width="15%">작성일</th>
-													<th scope="row" width="15%">답변상태</th>
-													<th scope="row" width="20%">확인</th>
-												</tr>
-												<c:forEach var="list" items="${inqList}" varStatus="count">
-													<tr>
-														<c:set var= "num" value="${inqCount.count + 1 - count.count}"/>
-														<td><input type="hidden" value="${list.inqNum}"><c:out value="${num}"/></td>
-														<td><a class="inqTitle">${list.inqTitle}</a></td>
-														<td>${list.inqDate}</td>
-														<td>${list.status}</td>
-														<td>
-															<button class="btn btn-default myInquiryButton" type="button">보기</button>
-															<c:if test="${list.status eq '답변 대기'}">
-																<button class="btn btn-default modifyButton" type="button">수정</button>
-															</c:if>
-															<c:if test="${list.status eq '답변완료'}">
-																<button class="btn btn-default answerModalButton" type="button">답변 보기</button>
-															</c:if>
-														</td>
+					<jsp:include page="aside.jsp" />
+					<!-- 문의 내역 -->
+					<div class="main-section">
+						<div class="question_form">
+							<h4 style="text-align: left; width: 90%; float: left">|
+								문의내역</h4>
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th scope="row" width="10%">문의번호</th>
+										<th scope="row" width="30%">문의제목</th>
+										<th scope="row" width="15%">작성일</th>
+										<th scope="row" width="15%">답변상태</th>
+										<th scope="row" width="20%">확인</th>
+									</tr>
+									<c:forEach var="list" items="${inqList}" varStatus="count">
+										<tr>
+											<c:set var= "num" value="${inqCount.count + 1 - count.count}"/>
+											<td><input type="hidden" value="${list.inqNum}"><c:out value="${num}"/></td>
+											<td><a class="inqTitle">${list.inqTitle}</a></td>
+											<td>${list.inqDate}</td>
+											<td>${list.status}</td>
+											<td>
+												<button class="btn btn-default myInquiryButton" type="button">보기</button>
+												<c:if test="${list.status eq '답변 대기'}">
+													<button class="btn btn-default modifyButton" type="button">수정</button>
+												</c:if>
+												<c:if test="${list.status eq '답변완료'}">
+													<button class="btn btn-default answerModalButton" type="button">답변 보기</button>
+												</c:if>
+											</td>
 
-													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-									</div>
-									<!-- paging -->
-									<div class="paging" style="margin-left: 27%;">
-										<ul class="pagination">
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">4</a></li>
-											<li class="page-item"><a class="page-link" href="#">5</a></li>
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
-											</li>
-										</ul>
-									</div>
-									<!-- paging 끝 -->
-								</div>
-							</div>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
-						<!-- 문의 내역 끝-->
+						<!-- paging -->
+						<div class="paging" style="margin-left: 27%;">
+							<ul class="pagination">
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">4</a></li>
+								<li class="page-item"><a class="page-link" href="#">5</a></li>
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
+								</li>
+							</ul>
+						</div>
+						<!-- paging 끝 -->
 					</div>
 				</div>
+				<!-- 문의 내역 끝-->
 			</section>
 		</div>
 		<form name="form" method="post">

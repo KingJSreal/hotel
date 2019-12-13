@@ -6,6 +6,7 @@
 	<resultMap type="point" id="pointMap">
 		<id property="pointNum" column="point_num"/>
 		<result property="pointDate" column="point_date"/>
+		<result property="pointChange" column="point_change"/>
 		<result property="pointContent" column="point_content"/>
 		<result property="userNum" column="user_num" />
 	</resultMap>

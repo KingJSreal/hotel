@@ -1,6 +1,9 @@
 package kangjaesu.hotel.point.controller;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kangjaesu.hotel.common.domain.Page;
+import kangjaesu.hotel.common.service.PageService;
 import kangjaesu.hotel.point.domain.Point;
 import kangjaesu.hotel.point.service.PointService;
 import kangjaesu.hotel.user.domain.User;
@@ -18,12 +23,25 @@ import kangjaesu.hotel.user.domain.User;
 @RequestMapping("/point")
 public class PointController {
 	@Autowired private PointService pointService;
+	@Autowired private PageService pageService;
 
 	@RequestMapping("/getMyPointList")
 	@ResponseBody
 	@Transactional
-	public List<Point> getMyPointList(User user) {
-		return pointService.getMyPointList(user);
+	public HashMap<String, Object> getMyPointList(Point point, HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		int dataSize = pointService.countPoints(point);
+		int nowPage = 1;
+		
+		String paramNowPage = request.getParameter("page");
+		if(!(paramNowPage.equals("null"))) nowPage = Integer.parseInt(paramNowPage);
+		Page page = pageService.paging(nowPage, dataSize);
+		page.setSearchType(point);
+		System.out.println(page);
+		result.put("pointList", pointService.getMyPointList(page));
+		result.put("page", page);
+		
+		return result;
 	}
 	
 	@RequestMapping("/getMyPointSum")
@@ -43,7 +61,7 @@ public class PointController {
 	@RequestMapping("/resetPoint")
 	@ResponseBody
 	@Transactional
-	public boolean resetPoint(User user) {
-		return pointService.resetPoint(user);
+	public boolean resetPoint(Point point) {
+		return pointService.resetPoint(point);
 	}
 }

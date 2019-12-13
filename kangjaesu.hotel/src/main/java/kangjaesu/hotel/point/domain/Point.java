@@ -5,9 +5,9 @@ import java.sql.Date;
 public class Point {
 	private int pointNum;
 	private Date pointDate;
-	private int pointContent;
+	private int pointChange;
+	private String pointContent;
 	private int userNum;
-	
 	
 	public int getPointNum() {
 		return pointNum;
@@ -21,10 +21,16 @@ public class Point {
 	public void setPointDate(Date pointDate) {
 		this.pointDate = pointDate;
 	}
-	public int getPointContent() {
+	public int getPointChange() {
+		return pointChange;
+	}
+	public void setPointChange(int pointChange) {
+		this.pointChange = pointChange;
+	}
+	public String getPointContent() {
 		return pointContent;
 	}
-	public void setPointContent(int pointContent) {
+	public void setPointContent(String pointContent) {
 		this.pointContent = pointContent;
 	}
 	public int getUserNum() {
@@ -33,11 +39,10 @@ public class Point {
 	public void setUserNum(int userNum) {
 		this.userNum = userNum;
 	}
-	
 	@Override
 	public String toString() {
 		return String
-				.format("Point [pointNum=%s, pointDate=%s, pointContent=%s, userNum=%s]",
-						pointNum, pointDate, pointContent, userNum);
+				.format("Point [pointNum=%s, pointDate=%s, pointChange=%s, pointContent=%s, userNum=%s]",
+						pointNum, pointDate, pointChange, pointContent, userNum);
 	}
 }

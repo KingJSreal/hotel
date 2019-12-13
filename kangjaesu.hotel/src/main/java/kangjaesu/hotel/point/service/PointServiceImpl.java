@@ -2,6 +2,7 @@ package kangjaesu.hotel.point.service;
 
 import java.util.List;
 
+import kangjaesu.hotel.common.domain.Page;
 import kangjaesu.hotel.point.dao.PointDao;
 import kangjaesu.hotel.point.dao.mapper.PointMapper;
 import kangjaesu.hotel.point.domain.Point;
@@ -15,8 +16,8 @@ public class PointServiceImpl implements PointService{
 	@Autowired private PointDao pointDao;
 	
 	@Override
-	public List<Point> getMyPointList(User user) {
-		return pointDao.getMyPointList(user);
+	public List<Point> getMyPointList(Page page) {
+		return pointDao.getMyPointList(page);
 	}
 
 	@Override
@@ -29,8 +30,13 @@ public class PointServiceImpl implements PointService{
 	}
 
 	@Override
-	public boolean resetPoint(User user) {
-		return pointDao.delPoint(user)>0;
+	public boolean resetPoint(Point point) {
+		return pointDao.delPoint(point)>0;
+	}
+
+	@Override
+	public int countPoints(Point point) {
+		return pointDao.getMyPointCount(point);
 	}
 	
 	

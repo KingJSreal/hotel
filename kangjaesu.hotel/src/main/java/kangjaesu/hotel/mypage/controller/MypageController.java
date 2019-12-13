@@ -24,9 +24,22 @@ public class MypageController {
 	public String myPage(){
 		return "mypage/myPage";
 	}
-	
-	
-	
+	@RequestMapping("/myPoint")
+	public String myPoint(){
+		return "mypage/myPoint";
+	}
+	@RequestMapping("/myInfo")
+	public String myInfo(){
+		return "mypage/myInfo";
+	}
+	@RequestMapping("/myInfoChange")
+	public String myInfoChange(){
+		return "mypage/myInfoChange";
+	}
+	@RequestMapping("/mySecede")
+	public String mySecede(){
+		return "mypage/mySecede";
+	}
 	
 	
 	@Transactional

@@ -101,3 +101,4 @@ public class UserController {
 		return userService.secede(user);
 	}
 }
+
