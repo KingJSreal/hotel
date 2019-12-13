@@ -116,7 +116,7 @@ button.login{
    /*메인 섹션 끝*/
 </style>
 <section>
-	<div class="container center-block">
+	<div class="container center-block" style="height: 600px">
 		<div class="location">
 			<p>
 				<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>

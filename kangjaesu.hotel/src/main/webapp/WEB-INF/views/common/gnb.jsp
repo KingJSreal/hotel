@@ -4,85 +4,74 @@
 <!DOCTYPE html>
 <html>
 <style>
-	
-/*네비*/
-.navi {
-	text-align: center;
-	width:35%;
-	margin: 0px auto;
-}
-
-.nav li a:hover {
-	background-color: white;
-}
-
-.navbar .navbar-nav {
-	float: none;
-}
-
-.dropdown:hover .dropdown-menu {
-	display: block;
-	margin-top: 0;
-}
-
-.mainMenu {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	text-decoration: none;
-}
-
-.mainMenu>li {
-	float: left;
-	width: 20%;
-}
-
-.mainMenu>li>a {
-	display: block;
-	color: #A0A0A0;
-	text-align: center;
-	padding: 0px 15px;
-	text-decoration: none;
-	font-size: 15px;
-	font-family: Sans-Serif;
-	font-weight: bold;
-}
-
-.mainMenu>li>a:hover {
-	color: black;
-}
-/*네비 끝*/
-
-/*어드민 네비*/
-}
-/*어드민 네비 끝*/
+	/*헤더*/
+	header{
+		padding-top: 15px;
+	}
+	header a.logo { 
+		text-decoration: none;
+		font-size: 30px;
+		color: black;
+		font-family: Cursive
+	}
+	.container{
+		padding-right:0px;
+		padding-left:0px;
+	}
+	.title{
+		font-size: 30px;
+	}
+	.header_a{
+		font-size: 14px;
+		color: #A0A0A0;
+		font-weight:normal;
+	}
+	.header_a:hover{
+		text-decoration: none;
+		color: black;
+		background-color: yellow;
+	}
+	/*헤더 끝*/
 </style>
 <body>
-	<nav>
-		<div class ="navi container">
-			<c:choose>
-				<c:when test="${(sessionScope.user.userGrade == '2' && sessionScope.page == 'admin')}">
-					<ul class="mainMenu">
-						<li><a href="/hotel/user/userList">회원관리</a></li>
-						<li><a href="/hotel/room/roomManager">객실관리</a></li>
-				 		<li><a href="/hotel/booking/bookingManage">예약관리</a></li>
-			 			<li><a href="/hotel/inquiry/inquiryManage">문의관리</a></li>
-						<li><a href="/hotel/promotion/boardProAdmin">프로모션 관리</a></li>	
-					</ul>
-				</c:when>
-				<c:otherwise>
-					<ul class="mainMenu">
-						<li><a href="/hotel/room/roomReservation">예약</a></li>
-						<li><a href="#">호텔소개</a></li>
-				 		<li><a href="/hotel/inquiry/inquiryForm">고객문의</a></li>
-						<li><a href="/hotel/promotion/boardPro">프로모션</a></li>
-						<li><a href="/hotel/comment/commentLookUp">후기게시판</a></li>	
-					</ul>
-				</c:otherwise>	
-	  		</c:choose>
+	<header>
+		<!-- 타이틀 -->
+		<div class="container">
+			<div class="center-block title">
+				<c:if test="${sessionScope.page != 'admin'}">
+					<a class="logo" href="/hotel/" style="margin-left:42%">Seoul HOTEL</a>
+				</c:if>
+				<c:if test="${sessionScope.page == 'admin'}">
+					<a class="logo" href="/hotel/admin" style="margin-left:36%">Seoul HOTEL Admin</a>
+				</c:if>
+				<!-- 예약조회, 로그인, 회원가입 -->
+				<ul class="nav navbar-nav navbar-right">
+					<c:choose>
+						<c:when test="${sessionScope.user == null}">
+				   	  		<li><a href="/hotel/admin" style="font-size: 9px; color: gray;">관리자 로그인</a></li>
+						  	<li><a href="/hotel/loginUser" class="header_a">예약조회</a></li>
+						  	<li><a href="/hotel/loginUser" class="header_a">로그인</a></li>
+						  	<li><a href="/hotel/user/userTerms" class="header_a">회원가입</a></li>
+						</c:when>
+						<c:when test="${(sessionScope.user.userGrade == '2' && sessionScope.page == 'admin')}">
+						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
+						  	<li><a href="/hotel/switchMain" class="header_a">이용자 화면 보기</a></li>	
+						</c:when>
+						<c:otherwise>		
+							<c:if test="${sessionScope.user.userGrade == '2'}">
+				   	  			<li><a href="/hotel/switchAdmin" style="font-size: 9px; color: gray;">관리자 화면으로</a></li>
+							</c:if>
+						  	<li><a href="#" class="header_a">예약조회</a></li>
+						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
+						  	<li><a href="/hotel/mypage/myPage" class="header_a">마이페이지</a></li>	
+						</c:otherwise>
+				  	</c:choose>
+				</ul>
+				<!--예약조회, 로그인, 회원가입 끝 -->
+			</div>
 		</div>
-		<hr style="background-color:#B4B4B4; height:1px solid;">
-	</nav>	
+		<!--타이틀 끝 -->
+	</header>
+	<br>
 </body>
 </html>
