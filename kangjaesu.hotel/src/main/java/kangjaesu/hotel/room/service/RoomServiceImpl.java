@@ -2,7 +2,6 @@ package kangjaesu.hotel.room.service;
 
 import java.util.List;
 
-import kangjaesu.hotel.promotion.domain.PromotionDetail;
 import kangjaesu.hotel.room.dao.RoomDao;
 import kangjaesu.hotel.room.domain.Option;
 import kangjaesu.hotel.room.domain.Room;
