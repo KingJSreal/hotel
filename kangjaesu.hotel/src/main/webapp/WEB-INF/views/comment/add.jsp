@@ -184,6 +184,14 @@ $(document).ready(function() {
 		return false;
 
 	});
+	$('input[type="checkbox"][name="roomType"]').click(function(){
+		if($(this).prop('checked')
+		&& $('input[type="checkbox"][name="roomType"]:checked').size()>1) {
+			$(this).prop('checked', false);
+			alert('두개이상 선택할수없습니다','warning');
+		}
+	});
+	
 
 });
 //이미지 추가
@@ -237,6 +245,10 @@ var confirm = function(msg, type) {
 
 	
 	$(function() {
+		 $("#back").click(function() {
+			   window.history.back();
+			    	      
+			   });
 	   //등록버튼 클릭시 호출
 		$("#addForm").bind("submit", function(e){		
 			e.preventDefault();
@@ -294,7 +306,7 @@ var confirm = function(msg, type) {
 				</p>
 			</div>
 			<div class="headTit">
-				<h3>&nbsp;후기등록 ${user.userNum}</h3>
+				<h3>&nbsp;후기등록</h3>
 			</div>
 			<br> <br>
 		</div>
@@ -394,7 +406,7 @@ var confirm = function(msg, type) {
 						>등록</button>
 					
 					<button class="btn btn-warning" type="button" value="취소"
-						id="delete" onclick="location.href='04.html'">취소</button>
+						id="back" >취소</button>
 
 				</div>
 			</form>

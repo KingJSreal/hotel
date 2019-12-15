@@ -23,6 +23,14 @@ public class CommentServiceImpl implements CommentService{
 	public Comment getReview(int revNum) {
 		return commentDao.getReview(revNum);
 	}
+	@Override
+	public boolean delReview(int revNum) {
+		return commentDao.delReview(revNum)>0;
+	}
+	@Override
+	public boolean updateReview(Comment comment) {
+		return commentDao.updateReview(comment)>0;
+	}
 	
 	
 }
