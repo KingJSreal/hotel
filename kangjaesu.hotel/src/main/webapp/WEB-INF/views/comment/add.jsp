@@ -245,6 +245,9 @@ var confirm = function(msg, type) {
 
 	
 	$(function() {
+		
+		
+		
 		 $("#back").click(function() {
 			   window.history.back();
 			    	      
@@ -253,41 +256,64 @@ var confirm = function(msg, type) {
 		$("#addForm").bind("submit", function(e){		
 			e.preventDefault();
 			var userNum = "${user.userNum}";
-		/* 	var userCall = null;
-			var userAddressCode = null;
-			var userAddress = null;
-			var validinput = this.checkValidity();
-			var validform = regtest();
-			var validcall = regCall();
-			var validpw = check_pw(); */
-				
+			
+
+			var ex_files = [null, null, null];
+			for(var i = 0; i < ex_files.length ; i++){
+				if($("#ex_file" + (i+1))[0].files[0] != null)
+					ex_files[i] = "/comment/" + $("#ex_file" + (i+1))[0].files[0].name;
+			}
+			
+
+			$("input[name=commentImage]").each(function(idx, img){
+				var formData = new FormData();
+				formData.append( "file", img.files[0] );
 				$.ajax({
-					url:"addC",
-					method:"GET",
-					data: {					
-						revTitle:$("#revTitle").val(),
-					
-						roomType: $("input[name=roomType]:checked").val(),
-						revContent:$("#revContent").val(),
-						userNum: userNum
+					url: "addImage",
+					method: "post",
+					data: formData,
+					processData: false,
+					contentType: false,
+					success:function(result){
 						
-					
-								
-								
-					/* 	userCall: userCall,
-						userAddressCode:$("#userAddressCode").val(),
-						userAddress: userAddress */
-					},
-					success:function(){
-				
-		       			location.href = "/hotel/comment/commentLookUp";
 					},
 					error:function(a, b, errMsg){
-						alert("에러 등록 실패", 'warning');
+						alert(errMsg);
+						return;
 					}
+				});
+			});
+			$.ajax({
+				url:"addC",
+				method:"GET",
+				data: {					
+					revTitle:$("#revTitle").val(),
+				
+					roomType: $("input[name=roomType]:checked").val(),
+					revContent:$("#revContent").val(),
+					userNum: userNum,
+					rate: $(".star_rating a.on").length,
+					revImage1: ex_files[0],
+					revImage2: ex_files[1],
+					revImage3:	ex_files[2] 
 					
-				})
+				
+							
+							
+				 	//userCall: userCall,
+					//userAddressCode:$("#userAddressCode").val(),
+					//userAddress: userAddress 
+				},
+				success:function(){
 			
+	       			//location.href = "/hotel/comment/commentLookUp";
+				},
+				error:function(a, b, errMsg){
+					alert("에러 등록 실패", 'warning');
+				}
+				
+			})
+				
 		});
 	});	
 </script>
@@ -364,17 +390,11 @@ var confirm = function(msg, type) {
 							</thead>
 						</table>
 					</div>
-
-
-
-
-
-
 					<div class="col-sm-2 col-md-4">
 						<div class="input-group">
 							<img width="250" height="200" class="previewImg"> <label class="btn btn-default btn-lg btn-block"
-								for="ex_file">이미지업로드</label> <input type="file" id="ex_file"
-								value="이미지업로드" onchange="imgView(this)">
+								for="ex_file1">이미지업로드</label> <input type="file" id="ex_file1"
+								value="이미지업로드" name="commentImage" onchange="imgView(this)">
 							<button class="btn btn-default btn-lg btn-block" type="button" value="등록 취소">등록취소</button>
 
 						</div>
@@ -383,7 +403,7 @@ var confirm = function(msg, type) {
 
 						<div class="input-group">
 							<img width="250" height="200" class="previewImg1"> <label class="btn btn-default btn-lg btn-block"
-								for="ex_file1">이미지업로드</label> <input type="file"  id="ex_file1" value="이미지업로드"
+								for="ex_file2">이미지업로드</label> <input type="file"  id="ex_file2" value="이미지업로드" name="commentImage" 
 								onchange="imgView1(this)">
 							<button class="btn btn-default btn-lg btn-block" type="button" value="등록 취소">등록취소</button>
 						</div>
@@ -391,7 +411,7 @@ var confirm = function(msg, type) {
 					<div class="col-sm-2 col-md-4">
 						<div class="input-group">
 								<img width="250" height="200" class="previewImg2"> <label class="btn btn-default btn-lg btn-block"
-								for="ex_file2">이미지업로드</label> <input type="file" id="ex_file2" value="이미지업로드"
+								for="ex_file3">이미지업로드</label> <input type="file" id="ex_file3" value="이미지업로드" name="commentImage" 
 								onchange="imgView2(this)">
 							<button class="btn btn-default btn-lg btn-block" type="button" value="등록 취소">등록취소</button>
 

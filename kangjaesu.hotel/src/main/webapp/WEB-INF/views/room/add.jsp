@@ -156,7 +156,8 @@ $(document).ready(function() {
 
 $(function() {
 	
-	$("#addForm").bind("submit", function(e){		
+	$("#addForm").bind("submit", function(e){	
+		e.preventDefault();	
 		
 	if (($("input:checkbox[name=guests]").is(":checked")==false)
 		&& $("input:checkbox[name=roomType]").is(":checked")==false) {
@@ -175,14 +176,11 @@ $(function() {
 		opt.push($(this).val());
 	}); */
 	else {
-
 		var roomImage = [null, null, null];
 		for(var i = 0; i < roomImage.length ; i++){
 			if($("#roomImage" + (i+1))[0].files[0] != null)
 				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
 		}
-		console.log(roomImage);
-		e.preventDefault();
 		$("input[name=roomImage]").each(function(idx, img){
 			var formData = new FormData();
 			formData.append( "file", img.files[0] );

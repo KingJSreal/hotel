@@ -2,6 +2,8 @@ package kangjaesu.hotel.comment.domain;
 
 import java.sql.Date;
 
+import kangjaesu.hotel.user.domain.User;
+
 public class Comment {
 /*	-- 후기
 
@@ -25,8 +27,12 @@ CREATE TABLE "REVIEWS" (
 	private String revTitle;
 	private String revContent;
 	private String roomType;
-	private int revDate;
-	private Date rate;
+	private Date revDate;
+	private int rate;
+	private String revImage1;
+	private String revImage2;
+	private String revImage3;
+	private User user;
 	
 	public int getRevNum() {
 		return revNum;
@@ -59,24 +65,51 @@ CREATE TABLE "REVIEWS" (
 		this.roomType = roomType;
 	}
 	
-	public int getRevDate() {
+	public Date getRevDate() {
 		return revDate;
 	}
-	public void setRevDate(int revDate) {
+	public void setRevDate(Date revDate) {
 		this.revDate = revDate;
 	}
-	public Date getRate() {
+	public int getRate() {
 		return rate;
 	}
-	public void setRate(Date rate) {
+	public void setRate(int rate) {
 		this.rate = rate;
+	}
+
+	public String getRevImage1() {
+		return revImage1;
+	}
+	public void setRevImage1(String revImage1) {
+		this.revImage1 = revImage1;
+	}
+	public String getRevImage2() {
+		return revImage2;
+	}
+	public void setRevImage2(String revImage2) {
+		this.revImage2 = revImage2;
+	}
+	public String getRevImage3() {
+		return revImage3;
+	}
+	public void setRevImage3(String revImage3) {
+		this.revImage3 = revImage3;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	@Override
 	public String toString() {
-		return String.format("Comment [revNum=%s, uesrNum=%s, revTitle=%s, revContent=%s, roomType=%s,rate=%s, revDate=%s ]", 
-				revNum, userNum, revTitle,revContent , roomType, rate ,revDate ); 
-	
+		return String
+				.format("Comment [revNum=%s, userNum=%s, revTitle=%s, revContent=%s, roomType=%s, revDate=%s, rate=%s, revImage1=%s, revImage2=%s, revImage3=%s, user=%s]",
+						revNum, userNum, revTitle, revContent, roomType,
+						revDate, rate, revImage1, revImage2, revImage3, user);
 	}
+	
 	
 	
 }

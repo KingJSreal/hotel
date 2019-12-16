@@ -66,6 +66,13 @@ var confirm = function(msg, type) {
 	}
 
 $(function(){
+	var commentImages = ["${comment.revImage1}", "${comment.revImage2}", "${comment.revImage3}"];
+	$(".previewImg2").each(function(idx, img){	
+		if(commentImages[idx] != "")
+			$(this).attr("src",  "<c:url value='/img/" + commentImages[idx] + "'/>")
+	})
+	
+	
 	  $("#back").click(function() {
 		   window.history.back();
 		    	      
