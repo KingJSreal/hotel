@@ -44,6 +44,7 @@ public class BookingServiceImpl implements BookingService{
 	@Override
 	public int addBooking(Booking booking) {
 		booking.setBookingNum(bookingNum(booking));
+		
 		if(booking.getPaytype().equals("card"))
 			booking.setPaytype("카드결제");
 		else if(booking.getPaytype().equals("account"))
@@ -51,6 +52,7 @@ public class BookingServiceImpl implements BookingService{
 		else {
 			booking.setPaytype("null");
 		}
+		
 		return bookingDao.addBooking(booking);
 	}
 
@@ -106,6 +108,8 @@ public class BookingServiceImpl implements BookingService{
 
 	@Override
 	public List<Booking> getMyBookings(int userNum) {
+	//	if(userNum == 0)
+			
 		return bookingDao.getMyBookings(userNum);
 	}
 }

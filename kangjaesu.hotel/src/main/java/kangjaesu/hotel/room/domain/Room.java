@@ -16,11 +16,14 @@ public class Room {
 	private String roomImage2;
 	private String roomImage3;
 	private List<Option> options;
+	private String option;
 
-	
-	
-	
-
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
 	public List<Option> getOptions() {
 		return options;
 	}
@@ -91,8 +94,12 @@ public class Room {
 	}
 	@Override
 	public String toString() {
-		return String.format("Room [roomNum=%s, roomName=%s, guests=%s, roomRegDate=%s, roomContent=%s, roomType=%s, roomPrice=%s,roomImage1=%s,roomImage2=%s,roomImage3=%s,options=%s]", 
-				roomNum, roomName, guests, roomRegDate, roomContent, roomType, roomPrice,roomImage1,roomImage2,roomImage3,options); 
+		return "Room [roomNum=" + roomNum + ", roomName=" + roomName
+				+ ", guests=" + guests + ", roomRegDate=" + roomRegDate
+				+ ", roomContent=" + roomContent + ", roomType=" + roomType
+				+ ", roomPrice=" + roomPrice + ", roomImage1=" + roomImage1
+				+ ", roomImage2=" + roomImage2 + ", roomImage3=" + roomImage3
+				+ ", options=" + options + ", option=" + option + "]";
 	}
 	
 	

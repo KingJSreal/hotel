@@ -120,6 +120,7 @@ var alert = function(msg, type) {
 			function() {
 				//라디오버튼 선택시 입력폼 변환
 				$("input:radio[name=radio]").click(function() {
+					var userNum = "${user.userNum}";
 					var check = $("input[name=radio]:checked");
 					var checkid = "#" + check.attr("id") + "Payment";
 					var uncheck = $("input[name=radio]:not(:checked)");
@@ -254,6 +255,7 @@ var alert = function(msg, type) {
 			});
 	function submit(){	
 		var userNum = "${user.userNum}";
+		if(userNum == "") userNum = "0";
 		var roomNum = "${booking.roomNum}";
 		var roomType = "${booking.roomType}";
 		var checkIn = "${booking.checkIn}";
@@ -267,6 +269,7 @@ var alert = function(msg, type) {
 					+ $(".cardnum").eq(1).val() + "-" 
 					+ $(".cardnum").eq(2).val() + "-" 
 					+ $(".cardnum").eq(3).val();
+		var pointChange = $("#point").val() * (-1)
 	 	$.ajax({
 			url:"proceedBooking",
 			type : "POST",
@@ -286,6 +289,13 @@ var alert = function(msg, type) {
 				installment: $("#installment").val(),
 				bank: $("#accountselect").val(),
 				account: $("#accountnum").val(),
+				pointChange: pointChange,
+				nuserEmail: $("#email").val(),
+				nuserKname: $("#kname").val(),
+				nuserLastName: $("#lastName").val(),
+				nuserFirstName: $("#firstName").val(),
+				nuserBirth: $("#birth").val(),
+				nuserPhone: $("#phoneNum").val(),
 			},
 	
 			beforeSend:function(){
@@ -362,15 +372,15 @@ var alert = function(msg, type) {
 										</tr>
 										<tr>
 											<td>*성명(영문)</td>
-											<td>
-												<input type="text" class="form-control" id="firstName"
-												placeholder="영문성명(성)" maxlength="15" required="required">
+											<td><input type="text" class="form-control" id="firstName"
+												placeholder="영문성명(이름)" maxlength="15" required="required">
+												
 												
 												</td>
 										</tr>
 										<tr><td></td><td>
-										<input type="text" class="form-control" id="lastName"
-												placeholder="영문성명(이름)" maxlength="15" required="required">
+											<input type="text" class="form-control" id="lastName"
+												placeholder="영문성명(성)" maxlength="15" required="required">
 												</td></tr>
 										<tr>
 											<td>*생년월일(6자)</td>
@@ -548,9 +558,9 @@ var alert = function(msg, type) {
 					<!-- 포인트사용 폼 -->
 					<div class="well pointpanel">
 						<div class="form-inline">
-							<span class="usepoint">포인트 사용:</span> <input type="text"
-								class="form-control point" id="point" value="0"> <span
-								class="mypoint">보유 포인트: <span id="mypoint">1000</span></span>
+							<span class="usepoint">포인트 사용:</span>
+							<input type="text" class="form-control point" id="point" value="0">
+							<span class="mypoint">보유 포인트: <span id="mypoint">${point}</span></span>
 						</div>
 					</div>
 					<!-- 포인트사용 폼 끝 -->

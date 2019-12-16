@@ -20,8 +20,8 @@ public class PointDaoImpl implements PointDao{
 	}
 
 	@Override
-	public int getMyPointSum(User user) {
-		return mapper.getMyPointSum(user);
+	public int getMyPointSum(int userNum) {
+		return mapper.getMyPointSum(userNum);
 	}
 	
 	@Override
