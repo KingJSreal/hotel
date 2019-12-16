@@ -1,5 +1,7 @@
 package kangjaesu.hotel.promotion.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ import kangjaesu.hotel.promotion.domain.Search;
 import kangjaesu.hotel.promotion.service.PromotionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/promotion")
 public class PromotionController {
+	@Value("${promotion_uploadDir}") private String uploadDir;
 	@Autowired private PromotionService promotionService;
 	
 	@Transactional
@@ -31,13 +36,66 @@ public class PromotionController {
 	public boolean addPromotion(Promotion promotion, HttpServletRequest request){
 	    String[] prodTitle = request.getParameterValues("prodTitle");
 	    String[] location = request.getParameterValues("location");
-	    //String[] prodPic = request.getParameterValues("prodPic");
+	    String[] serviceHour = request.getParameterValues("serviceHour");
+	    String[] notice = request.getParameterValues("notice");
+	    String[] prodPic = request.getParameterValues("prodPic");
+	    String[] prodContent = request.getParameterValues("prodContent");
+	    
+	    List<PromotionDetail> prods = new ArrayList<PromotionDetail>();
+	    
+	    for(int i = 0; i < prodTitle.length; i++){
+	    	PromotionDetail prod = new PromotionDetail();
+	    	prod.setProdTitle(prodTitle[i]);
+	    	prod.setLocation(location[i]);
+	    	prod.setServiceHour(serviceHour[i]);
+	    	prod.setNotice(notice[i]);
+	    	prod.setProdPic(prodPic[i]);
+	    	prod.setProdContent(prodContent[i]);
+	    	
+	    	prods.add(prod);
+	    }
+	    
+		return promotionService.addPromotion(promotion, prods);
+	}
+	
+	@Transactional
+	@RequestMapping("/addImage")
+	@ResponseBody
+	public boolean upload(MultipartFile file, HttpServletRequest request){
+		
+		boolean isStored = true;
+		String dir = request.getServletContext().getRealPath(uploadDir);
+		System.out.println("dir: " + dir);
+		String fileName = file.getOriginalFilename();
+		try{
+			save(dir + "/" + fileName, file);
+		} catch (IOException e){
+			isStored = false;
+		}
+		return isStored;
+	}
+	
+	private void save(String fileFullName, MultipartFile uploadFile) throws IOException{
+		uploadFile.transferTo(new File(fileFullName));
+	}
+	
+	@Transactional
+	@RequestMapping("/addPro")
+	public String addPro(){
+		return "promotion/addPro";
+	}
+	
+	@Transactional
+	@RequestMapping("/modPromotion")
+	@ResponseBody
+	public boolean modPromotion(Promotion promotion, HttpServletRequest request){
+		String[] prodTitle = request.getParameterValues("prodTitle");
+	    String[] location = request.getParameterValues("location");
 	    String[] serviceHour = request.getParameterValues("serviceHour");
 	    String[] notice = request.getParameterValues("notice");
 	    String[] prodContent = request.getParameterValues("prodContent");
 	    
 	    List<PromotionDetail> prods = new ArrayList<PromotionDetail>();
-	    
 	    for(int i = 0; i < prodTitle.length; i++){
 	    	PromotionDetail prod = new PromotionDetail();
 	    	prod.setProdTitle(prodTitle[i]);
@@ -49,17 +107,11 @@ public class PromotionController {
 	    	prods.add(prod);
 	    }
 	    
-		return promotionService.addPromotion(promotion, prods);
+		return promotionService.modPromotion(promotion, prods);
 	}
 	
 	@Transactional
-	@RequestMapping("/addPro")
-	public String addPro(){
-		return "promotion/addPro";
-	}
-	
-	@Transactional
-	@RequestMapping(value="/modPro", method=RequestMethod.GET)
+	@RequestMapping("/modPro")
 	public String modPro(Model model, @RequestParam("proNum") int proNum){
 		model.addAttribute("modPro", promotionService.listPro(proNum));
 		
@@ -106,5 +158,11 @@ public class PromotionController {
 		
 		return "promotion/detailPro";
 	}
-
+	
+	@Transactional
+	@RequestMapping("/delPro")
+	@ResponseBody
+	public boolean delPromotion(int proNum){
+		return promotionService.delPromotion(proNum);
+	}
 }
