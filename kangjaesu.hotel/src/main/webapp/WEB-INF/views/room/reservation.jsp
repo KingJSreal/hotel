@@ -247,9 +247,10 @@ $(function() {
 						}
 					}
 				}); */
-				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];
+				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];	
 				$(".previewImg").each(function(idx, img){
-					$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
+					if(roomImages[idx] != null)
+						$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
 					})
 					
 				$("#roomType").val(room.roomName);
@@ -454,11 +455,11 @@ $(document).ready(function(){
 					<img width="250" height="200" class="previewImg"> 
 				</div>
 				<div class="input-group col-md-3">
-					<img width="250" height="200" class="previewImg1"> 
+					<img width="250" height="200" class="previewImg"> 
 				</div>
 
 				<div class="input-group col-md-3">
-					<img width="250" height="200" class="previewImg2">
+					<img width="250" height="200" class="previewImg">
 				</div>
 			</div></form>
 			<!-- 테이블 -->

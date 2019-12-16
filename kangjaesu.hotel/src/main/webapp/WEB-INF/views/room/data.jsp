@@ -149,7 +149,6 @@ $(document).ready(function() {
 	});
 	
 	var guest   =("${room.guests }");
-	console.log(guest);
 	$("input:checkbox[name=count]").each(function(){
 		if(this.value == guest){
 			this.checked =true;
@@ -166,11 +165,10 @@ $(document).ready(function() {
 	});
 
 	var roomImages = ["${room.roomImage1}", "${room.roomImage2}", "${room.roomImage3}"];
-	$(".previewImg").each(function(idx, img){
-		$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
-		})
-
-		
+	$(".previewImg").each(function(idx, img){		
+		if(roomImages[idx] != "")
+			$(this).attr("src", "<c:url value='/img/" + roomImages[idx] + "'/>");
+		});		
 });
 var confirm = function(msg, type) {
 	   swal(msg, {
