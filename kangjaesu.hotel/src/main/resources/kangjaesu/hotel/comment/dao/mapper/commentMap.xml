@@ -51,7 +51,18 @@
 			 #{revContent,jdbcType=VARCHAR}, #{roomType, jdbcType=VARCHAR},#{rate, jdbcType=NUMERIC},SYSDATE
 			 ) -->
 	</insert>
+		<delete id="delReview" parameterType="int">
+		delete from reviews
+		where  rev_num = #{revNum}
+	</delete>
 	
+		<update id="updateReview" parameterType="comment">
+		update reviews 
+		set rev_title=#{revTitle,jdbcType=VARCHAR }, rev_content=#{revContent,jdbcType=VARCHAR}, 
+			room_type=#{roomType,jdbcType=VARCHAR}
+			
+		where rev_num = #{revNum}
+	</update>
 	
 	<!-- 
 	<update id="updateUser" parameterType="user">

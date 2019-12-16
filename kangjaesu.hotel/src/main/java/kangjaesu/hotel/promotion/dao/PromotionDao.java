@@ -1,14 +1,17 @@
 package kangjaesu.hotel.promotion.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import kangjaesu.hotel.promotion.domain.Promotion;
 import kangjaesu.hotel.promotion.domain.PromotionDetail;
+import kangjaesu.hotel.promotion.domain.Search;
 
 public interface PromotionDao {
-	Map<Promotion, PromotionDetail> getPros();
-	List<Promotion> getBoardPros();
+	List<Promotion> getBoardPros(Search search);
+	//int boardProsCnt(Search search);
+	
+	List<Promotion> getPros();
+	Promotion getPro(int proNum);
 	
 	int addpro(Promotion promotion);
 	int addprod(PromotionDetail prod);

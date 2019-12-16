@@ -171,7 +171,7 @@ function submit(){
 								<table class="table">
 									<tbody>
 										<tr>
-											<td>제목${user.userName}</td>
+											<td>제목</td>
 											<td><input type="text" id="inqTitle"
 												class="form-control inputTitle" maxlength="20"></td>
 										</tr>

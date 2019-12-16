@@ -101,6 +101,16 @@ border: 1px solid #dddddd;
 }
 </style>
 <script>
+var alert = function(msg, type) {
+	swal({
+		  title: "",
+		  text: msg,
+		  icon: type,
+		  button: "확인",
+		}).then((value) => {
+			return;
+		});
+}
 
 
 $(document).ready(function() {
@@ -174,7 +184,11 @@ $(document).ready(function() {
    var $selectboxes = $('#adult, #kid');
    $selectboxes.change(function() {
       adult = $("#adult option:selected").val();
+      $("#bookingAdult").val(adult);
+      
       kid = $("#kid option:selected").val();
+      $("#bookingKid").val(kid);
+   
       selectbox = parseInt(adult) + parseInt(kid);
       $container.isotope();
    });
@@ -206,10 +220,15 @@ function Today(){
  
     return year + "/" + month + "/" + day;
 }
+
+
 $(function() {
-	//답변보기 버튼
+	$("#dateForm").val("");
+	$("#adult").val("선택");
+	$("#kid").val("0");
+	
 	$(".confirmModalButton").click(function() {
-		var roomNumber = $(this).attr('id').substr(1);
+		var roomNumber = $(this).parents().attr('id').substr(1);
 		$("input:checkbox[name=rom]").prop("checked",false);
 		$("input:checkbox[name=count]").prop("checked",false);
 		
@@ -220,11 +239,26 @@ $(function() {
 				roomNum : roomNumber
 			},
 			success : function(room) {
+				//var options = (room.opt_no).split(", option");
+			/* 		$("input:checkbox[name=option]").each(function(){
+					for(var i = 0; i < options.length; i++){
+						if(this.value == options[i].match(/optNo=[0-9]/)[0].slice(6,7)){
+							this.checked =true;
+						}
+					}
+				}); */
+				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];
+				$(".previewImg").each(function(idx, img){
+					$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
+					})
+					
 				$("#roomType").val(room.roomName);
+				$("#price").val(room.roomPrice);
 				$("#roomContent").val(room.roomContent);
 				$("input:checkbox[name=rom][value=" +room.roomType+ "]").prop("checked",true);
 				$("input:checkbox[name=count][value=" +room.guests+ "]").prop("checked",true);
 			
+				
 				//$("input:checkbox[name=option][value=" +room.options.optNo+ "]").prop("checked",true);
 				$("#confirmModa1").modal('show');
 
@@ -236,8 +270,36 @@ $(function() {
 				alert("오류" + errMsg);
 			}
 		});
+		
+		
 	});
+	
+	$(".bookingBtn").click(function() {
+ 		if($("#dateForm").val() ==""){
+			alert("체크인/체크아웃을 선택해 주세요");
+			return;
+		}
+		if($("#adult").val() =="선택"){
+			alert("예약인원을 선택해 주세요");
+			return;
+		}
+		
+		var roomNumber = $(this).parents().parents().attr('id').substr(1);
+		var roomType = $(this).parents().prev().prev().children().children().eq(0).text();
+		var roomOption = $(this).parents().prev().prev().children().children().eq(1).text();
+		var roomPrice = $(this).parents().prev().children().eq(0).text();
+		$("#bookingRoomNumber").val(roomNumber);
+		$("#bookingRoomPrice").val(roomPrice);
+		$("#bookingRoomType").val(roomType);
+		$("#bookingRoomOption").val(roomOption);
+		//$("#bookingUser").val("${user.userNum}");
+		
+		document.form.submit();
+	});
+
 })
+
+
 </script>
 </head>
 <body>

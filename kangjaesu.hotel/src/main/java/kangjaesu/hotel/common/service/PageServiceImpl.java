@@ -16,7 +16,8 @@ public class PageServiceImpl implements PageService{
 	@Override
 	public Page paging(int nowPage, int dataSize) {                                             
 		if(nowPage < 1) nowPage=1;     
-		int maxPage = (int) ( (double) dataSize / this.pageInfo.getLimit() + 0.95);       
+		int maxPage = (int)(
+				(double) dataSize/this.pageInfo.getLimit() + 0.95);       
 		int startPage = (((int)((double) nowPage/10 + 0.9 )) -1)*10 + 1;                        
 		int endPage = startPage + 9;                                         
 		if(endPage > maxPage) endPage=maxPage;                                                   
@@ -30,3 +31,4 @@ public class PageServiceImpl implements PageService{
 		return this.pageInfo;
 	}
 }
+

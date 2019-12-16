@@ -13,6 +13,7 @@ public interface UserDao {
 	List<User> getUsers(Page page);
 	List<User> searchUser(User user);
 	int countUser();
+	User getEmail(User user);
 	User getUser(User user);
 	int addUser(User user);
 	int updateUser(User user);

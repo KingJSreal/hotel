@@ -8,10 +8,6 @@
 <title>쌍용호텔:관리자 페이지 - 회원관리</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
-.nowpage {
-	background-color: #ddd !important;
-}
-
 userbtns {
 	float: right;
 	margin-bottom: 10px;
@@ -39,16 +35,6 @@ div.Btns {
 }
 </style>
 <script>
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
 var loadUserList = function() {
 	$.ajax({
 		url:"listUsers?page=" + getParameterByName("page"),
@@ -66,7 +52,7 @@ var loadUserList = function() {
 							'<td>' + user.userEngFirstName + " " + user.userEngFirstName + '</td>' +
 							'<td>' + user.userBirth + '</td>'	+
 							'<td><button type="button" class="btn btn-default"' +
-								'id="' + user.userNum + '" value="' + user.userNum + '">보기</a></td>'	+
+								'id="' + user.userNum + '" value="' + user.userNum + '">보기</button></td>'	+
 							'</tr>'				
 					);
 				});
@@ -75,8 +61,8 @@ var loadUserList = function() {
 				$('#userList').append(userList.join(''));
 				
 				$(result.userList).each(function(idx, user){
-					$('#' + user.userNum).click(function(){
-						loadUser($(this).val());
+					$('button#' + user.userNum).bind("click", function(){
+						loadUser(user.userNum);
 					});
 				});
 				
@@ -99,8 +85,14 @@ var loadUser = function(userNum) {
 		method:"POST",
 		data: {userNum: userNum},
 		success:function(User){
-			dataIn(User);
-			dataIn_correct(User);
+			var myPointSum = 0;
+			if(User.myPoints != null){
+				User.myPoints.forEach(function(point) {
+					myPointSum += point.pointChange;
+				})
+			}
+			dataIn(User, myPointSum);
+			dataIn_correct(User, myPointSum);
 			$("#dataModal").modal('show');
 		},
 		error:function(a, b, errMsg){
@@ -209,10 +201,6 @@ $(function(){
 								<button type="submit" class="btn btn-default" id="userSearchBtn">검색</button>
 							</form>
 						</div>
-					</div>
-					<div class="userbtns">
-						<button id="secedelistbtn" class="btn btn-default" type="button"
-							class="btn btn-primary" style="float: right; margin-bottom:10px;">탈퇴목록 보기</button>
 					</div>
 					<br>
 					<table class="table table-hover">

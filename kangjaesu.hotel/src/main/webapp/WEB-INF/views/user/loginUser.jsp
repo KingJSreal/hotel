@@ -116,7 +116,7 @@ var confirm = function(msg, type) {
 		<!-- 예약정보 검색 -->
 		<div id="contents">
 			<section>
-				<div class="container center-block">
+				<div class="container center-block"  style="height: 600px">
 					<div class="location">
 						<p>
 							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>

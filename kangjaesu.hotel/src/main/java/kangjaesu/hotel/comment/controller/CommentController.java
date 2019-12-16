@@ -2,6 +2,7 @@ package kangjaesu.hotel.comment.controller;
 
 import kangjaesu.hotel.comment.domain.Comment;
 import kangjaesu.hotel.comment.service.CommentService;
+import kangjaesu.hotel.room.domain.Room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,13 +43,34 @@ public class CommentController {
 	@RequestMapping("/commentView")
 	public String commentView(@RequestParam("revNum") int revNum , Model model) throws Exception{
 		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
-		System.out.println(revNum);
-		System.out.println(revNum);
-		System.out.println(revNum);
-		System.out.println("dfdsfsdgdskfsdlhfasld");
+	
 		model.addAttribute("comment", commentService.getReview(revNum));
 
 		 return "comment/view";
+		 
+	}
+	@RequestMapping("/commentView2")
+	public String commentView2(@RequestParam("revNum") int revNum , Model model) throws Exception{
+		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
+	
+		model.addAttribute("comment", commentService.getReview(revNum));
+
+		 return "comment/viewUpdate";
+		 
 	}
 
+	
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/delView")
+	public boolean delView(int revNum){
+	 return	commentService.delReview(revNum);
+	}
+	
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/updateView")
+	public boolean updateReview(Comment comment){
+	 return commentService.updateReview(comment);
+	}
 }

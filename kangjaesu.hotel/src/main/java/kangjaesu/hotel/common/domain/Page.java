@@ -6,6 +6,7 @@ public class Page {
 	private int startPage; 
 	private int endPage;	
 	private int nowPage;	//현재 페이지 번호
+	private Object searchType;
 	
 	public int getLimit() {
 		return limit;
@@ -37,11 +38,16 @@ public class Page {
 	public void setNowPage(int nowPage) {
 		this.nowPage = nowPage;
 	}
-	
+	public Object getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(Object searchType) {
+		this.searchType = searchType;
+	}
 	@Override
 	public String toString() {
 		return String
-				.format("Page [limit=%s, maxPage=%s, startPage=%s, endPage=%s, nowPage=%s]",
-						limit, maxPage, startPage, endPage, nowPage);
+				.format("Page [limit=%s, maxPage=%s, startPage=%s, endPage=%s, nowPage=%s, searchType=%s]",
+						limit, maxPage, startPage, endPage, nowPage, searchType);
 	}
 }

@@ -9,6 +9,7 @@ public interface UserService {
 	List<User> listUsers(Page page);
 	List<User> searchListUsers(User user);
 	int countUsers();
+	User getEmail(User user);
 	User getUser(User user);
 	boolean join(User user);
 	boolean cerrectUser(User user);

@@ -20,6 +20,28 @@ import kangjaesu.hotel.user.domain.User;
 public class MypageController {
 	@Autowired private MyInquiryService myInqService;
 	
+	@RequestMapping("/myPage")
+	public String myPage(){
+		return "mypage/myPage";
+	}
+	@RequestMapping("/myPoint")
+	public String myPoint(){
+		return "mypage/myPoint";
+	}
+	@RequestMapping("/myInfo")
+	public String myInfo(){
+		return "mypage/myInfo";
+	}
+	@RequestMapping("/myInfoChange")
+	public String myInfoChange(){
+		return "mypage/myInfoChange";
+	}
+	@RequestMapping("/mySecede")
+	public String mySecede(){
+		return "mypage/mySecede";
+	}
+	
+	
 	@Transactional
 	@RequestMapping("/boardInq")
 	public String boardInq(Model model, HttpSession session) {
@@ -57,8 +79,8 @@ public class MypageController {
 	
 	//답변 보기 페이지
 	@ResponseBody
-	@RequestMapping("/getComment")
-	public InquiryComment getComment(Model model, Inquiry inquiry, User user) {
+	@RequestMapping("/getAnswer")
+	public InquiryComment getAnswer(Model model, Inquiry inquiry, User user) {
 		int userNum = user.getUserNum();
 		model.addAttribute("inq", myInqService.getInquiry(inquiry.getInqNum(), userNum));
 		myInqService.getInquiryAnswer(inquiry.getInqNum());

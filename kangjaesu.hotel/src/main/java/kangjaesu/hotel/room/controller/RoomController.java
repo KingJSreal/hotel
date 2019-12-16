@@ -1,6 +1,8 @@
 package kangjaesu.hotel.room.controller;
 
 import java.io.Console;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
-import kangjaesu.hotel.promotion.domain.PromotionDetail;
+
+
+
 import kangjaesu.hotel.room.domain.Option;
 import kangjaesu.hotel.room.domain.Room;
 import kangjaesu.hotel.room.service.RoomService;
@@ -23,17 +27,24 @@ import kangjaesu.hotel.room.service.RoomService;
 
 
 
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/room")
 public class RoomController {
+	@Value("${room_uploadDir}") private String uploadDir;
 	@Autowired private RoomService roomService;
 	
 	@Transactional
@@ -73,7 +84,7 @@ public class RoomController {
 	@RequestMapping("/getData")
 	@ResponseBody
 	@Transactional
-	public Room getData(Room room) {
+	public Room getData(Room room, Option option) {
 		return	roomService.getRoom(room.getRoomNum());
 		
 
@@ -108,6 +119,29 @@ public class RoomController {
 	
 		return roomService.join(room,  options);
 	}
+	
+	//111111111111111
+	
+	@RequestMapping("/addImage")
+	@ResponseBody
+	public boolean upload(MultipartFile file, HttpServletRequest request){
+		boolean isStored = true;
+		String dir = request.getServletContext().getRealPath(uploadDir);
+		System.out.println("dir: " + dir);
+		String fileName = file.getOriginalFilename();
+		try{
+			save(dir + "/" + fileName, file);
+		} catch (IOException e){
+			isStored = false;
+		}
+		return isStored;
+	}
+	
+	private void save(String fileFullName, MultipartFile uploadFile) throws IOException{
+		uploadFile.transferTo(new File(fileFullName));
+	}
+
+	//111111111111111
 	
 	@Transactional
 	@ResponseBody

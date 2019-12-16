@@ -13,6 +13,7 @@ public interface UserMapper {
 	List<User> getUsers(Page page);
 	int countUser();
 	List<User> searchUser(User user);
+	User getEmail(User user);
 	User getUser(User user);
 	int addUser(User user);
 	int updateUser(User user);

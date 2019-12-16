@@ -16,12 +16,6 @@ public class PromotionDetail {
 	public void setProdNum(int prodNum) {
 		this.prodNum = prodNum;
 	}
-	public int getProNum() {
-		return proNum;
-	}
-	public void setProNum(int proNum) {
-		this.proNum = proNum;
-	}
 	public String getProdTitle() {
 		return prodTitle;
 	}
@@ -58,6 +52,12 @@ public class PromotionDetail {
 	public void setProdContent(String prodContent) {
 		this.prodContent = prodContent;
 	}
+	public int getProNum() {
+		return proNum;
+	}
+	public void setProNum(int proNum) {
+		this.proNum = proNum;
+	}
 	
 	@Override
 	public String toString() {
@@ -66,5 +66,4 @@ public class PromotionDetail {
 				+ ", prodPic=" + prodPic + ", serviceHour=" + serviceHour
 				+ ", notice=" + notice + ", prodContent=" + prodContent + "]";
 	}
-	
 }

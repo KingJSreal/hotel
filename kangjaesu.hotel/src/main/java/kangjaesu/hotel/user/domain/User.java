@@ -1,6 +1,9 @@
 package kangjaesu.hotel.user.domain;
 
 import java.sql.Date;
+import java.util.List;
+
+import kangjaesu.hotel.point.domain.Point;
 
 public class User {
 	private int userNum;
@@ -17,6 +20,7 @@ public class User {
 	private String userAddDetail;
 	private Date userRegDate;
 	private int userGrade;
+	private List<Point> myPoints;
 	
 	public int getUserNum() {
 		return userNum;
@@ -102,14 +106,20 @@ public class User {
 	public void setUserAddDetail(String userAddDetail) {
 		this.userAddDetail = userAddDetail;
 	}
+	public List<Point> getMyPoints() {
+		return myPoints;
+	}
+	public void setMyPoints(List<Point> myPoints) {
+		this.myPoints = myPoints;
+	}
 	
 	@Override
 	public String toString() {
 		return String
-				.format("User [userNum=%s, userRegDate=%s, userEmail=%s, userGrade=%s, userPassword=%s, userName=%s, userEngFirstName=%s, userEngLastName=%s, userBirth=%s, userPhone=%s, userTel=%s, userZip=%s, userAdd=%s, userAddDetail=%s]",
-						userNum, userRegDate, userEmail, userGrade,
-						userPassword, userName, userEngFirstName,
-						userEngLastName, userBirth, userPhone, userTel,
-						userZip, userAdd, userAddDetail);
+				.format("User [userNum=%s, userEmail=%s, userPassword=%s, userName=%s, userEngFirstName=%s, userEngLastName=%s, userBirth=%s, userPhone=%s, userTel=%s, userZip=%s, userAdd=%s, userAddDetail=%s, userRegDate=%s, userGrade=%s, myPoints=%s]",
+						userNum, userEmail, userPassword, userName,
+						userEngFirstName, userEngLastName, userBirth,
+						userPhone, userTel, userZip, userAdd, userAddDetail,
+						userRegDate, userGrade, myPoints);
 	}
 }

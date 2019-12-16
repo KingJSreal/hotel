@@ -61,9 +61,9 @@
 							<c:if test="${sessionScope.user.userGrade == '2'}">
 				   	  			<li><a href="/hotel/switchAdmin" style="font-size: 9px; color: gray;">관리자 화면으로</a></li>
 							</c:if>
-						  	<li><a href="#" class="header_a">예약조회</a></li>
+						  	<li><a href="/hotel/booking/myBooking" class="header_a">예약조회</a></li>
 						  	<li><a href="/hotel/logout" class="header_a">로그아웃</a></li>
-						  	<li><a href="/hotel/mypage/boardInq" class="header_a">마이페이지</a></li>	
+						  	<li><a href="/hotel/mypage/myPage" class="header_a">마이페이지</a></li>	
 						</c:otherwise>
 				  	</c:choose>
 				</ul>

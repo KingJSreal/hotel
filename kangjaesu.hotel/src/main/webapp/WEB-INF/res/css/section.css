@@ -28,3 +28,32 @@ div.headTit{
    	font-style:Sans-Serif;
    } 
 
+
+
+/* mypage main 섹션*/
+.main-section{
+	margin-top:30px;
+	margin-left:25%;
+	height: 1000px;
+	overflow: auto;
+}
+.main-section table{
+	width:95%;
+}
+.main-section table a{
+	text-decoration:none;
+	text-align:center;
+	color:#8c8c8c;
+}
+.main-section table a:hover{
+	color:black;
+}
+.inform_form table th{
+	background-color: #3C3C3C;
+	color:white;
+}
+   /* main 섹션 끝*/
+.nowpage {
+	background-color: #ddd !important;
+}
+   

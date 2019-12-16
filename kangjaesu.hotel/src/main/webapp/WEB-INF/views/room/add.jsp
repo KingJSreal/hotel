@@ -135,6 +135,7 @@ $(function() {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
+	
 $(document).ready(function() {
 	$('input[type="checkbox"][name="roomType"]').click(function(){
 		if($(this).prop('checked')
@@ -155,8 +156,8 @@ $(document).ready(function() {
 
 $(function() {
 	
-$("#addForm").bind("submit", function(e){		
-	e.preventDefault();
+	$("#addForm").bind("submit", function(e){		
+		
 	if (($("input:checkbox[name=guests]").is(":checked")==false)
 		&& $("input:checkbox[name=roomType]").is(":checked")==false) {
 		alert("인원과 방을 선택 하세요");
@@ -174,6 +175,32 @@ $("#addForm").bind("submit", function(e){
 		opt.push($(this).val());
 	}); */
 	else {
+
+		var roomImage = [null, null, null];
+		for(var i = 0; i < roomImage.length ; i++){
+			if($("#roomImage" + (i+1))[0].files[0] != null)
+				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
+		}
+		console.log(roomImage);
+		e.preventDefault();
+		$("input[name=roomImage]").each(function(idx, img){
+			var formData = new FormData();
+			formData.append( "file", img.files[0] );
+			$.ajax({
+				url: "addImage",
+				method: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				success:function(result){
+					
+				},
+				error:function(a, b, errMsg){
+					alert(errMsg);
+					return;
+				}
+			});
+		});
 		$.ajax({
 			url:"add",
 			method:"POST",
@@ -188,9 +215,9 @@ $("#addForm").bind("submit", function(e){
 				optNo:$("input[name=option]:checked").serialize(),
 				
 				roomPrice:$("#roomPrice").val(),
-				roomImage1:$("#roomImage1").val(),
-				roomImage2:$("#roomImage2").val(),
-				roomImage3:$("#roomImage3").val() 
+				roomImage1: roomImage[0],
+				roomImage2: roomImage[1],
+				roomImage3:	roomImage[2] 
 			
 						
 						
@@ -234,7 +261,7 @@ $("#addForm").bind("submit", function(e){
 							<div class="input-group col-md-3">
 								<img width="300" height="200" class="previewImg"> <label
 									class="btn btn-default btn-lg btn-block" for="roomImage1">이미지업로드</label>
-								<input type="file" id="roomImage1" value="roomImage1"
+								<input type="file" id="roomImage1" value="roomImage1" name="roomImage"
 									onchange="imgView(this)">
 								<button class="btn btn-default btn-lg btn-block" type="button"
 									value="등록 취소">등록취소</button>
@@ -243,7 +270,7 @@ $("#addForm").bind("submit", function(e){
 							<div class="input-group col-md-3">
 								<img width="300" height="200" class="previewImg1"> <label
 									class="btn btn-default btn-lg btn-block" for="roomImage2">이미지업로드</label>
-								<input type="file" id="roomImage2" value="roomImage2"
+								<input type="file" id="roomImage2" value="roomImage2" name="roomImage"
 									onchange="imgView1(this)">
 								<button type="button" class="btn btn-default btn-lg btn-block"
 									value="등록 취소">등록취소</button>
@@ -253,7 +280,7 @@ $("#addForm").bind("submit", function(e){
 							<div class="input-group col-md-3">
 								<img width="300" height="200" class="previewImg2"> <label
 									class="btn btn-default btn-lg btn-block" for="roomImage3">이미지업로드</label>
-								<input type="file" id="roomImage3" value="roomImage3"
+								<input type="file" id="roomImage3" value="roomImage3" name="roomImage"
 									onchange="imgView2(this)">
 								<button class="btn btn-default btn-lg btn-block" type="button"
 									value="등록 취소">등록취소</button>

@@ -2,7 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kangjaesu.hotel.user.dao.mapper.UserMapper">
+<mapper namespace="kangjaesu.hotel.user.dao.mapper.UserMapper">	
+	<resultMap type="point" id="pointMap">
+		<id property="pointNum" column="point_num"/>
+		<result property="pointDate" column="point_date"/>
+		<result property="pointChange" column="point_change"/>
+		<result property="pointContent" column="point_content"/>
+		<result property="userNum" column="user_num" />
+	</resultMap>
 	<resultMap type="user" id="userMap">
 		<id property="userNum" column="user_num"/>
 		<result property="userEmail" column="user_email"/>
@@ -18,8 +25,9 @@
 		<result property="userAddDetail" column="add_detail"/>
 		<result property="userRegDate" column="user_reg_date"/>
 		<result property="userGrade" column="grade"/>
+		<collection property="myPoints" resultMap="pointMap" />
 	</resultMap>
-	
+
 	<select id="loginUser" parameterType="user" resultMap="userMap">
 		select *
 		from users
@@ -55,9 +63,9 @@
 			and user_phone = #{userPhone}
 	</select>
 	
-	<select id="getUsers" parameterType="Page" resultMap="userMap">
+	<select id="getUsers" parameterType="page" resultMap="userMap">
 		SELECT * 
-		FROM (SELECT  m.*, FLOOR((ROWNUM - 1)/20 + 1) page 
+		FROM (SELECT  m.*, FLOOR((ROWNUM - 1)/#{limit} + 1) page 
 		      FROM (SELECT * 
 		            FROM users              
 		            ORDER BY users.USER_NUM DESC) m                                 
@@ -69,14 +77,14 @@
 		select *
 		from users
 		where 1 = 1
-		<if test="userName != null">
-			or user_korname = #{userName}
+		<if test="userName != ''">
+			and user_korname = #{userName}
 		</if>
-		<if test="userEmail != null">
-			or user_email = #{userEmail}
+		<if test="userEmail != ''">
+			and user_email = #{userEmail}
 		</if>
-		<if test="userNum != null">
-			or user_num = #{userNum}
+		<if test="userNum > 0">
+			and user_num = #{userNum}
 		</if>
 	</select>
 	
@@ -85,18 +93,18 @@
 		from users
 	</select>
 	
-	<select id="getUser" parameterType="user" resultMap="userMap">
+	<select id="getEmail" parameterType="user" resultMap="userMap">
 		select *
 		from users
+		where user_email = #{userEmail}
+	</select>
+	
+	<select id="getUser" parameterType="user" resultMap="userMap">
+		select *
+		from users u LEFT OUTER JOIN points p
+		   ON  u.user_num = p.user_num  
 		where 1=1
-		
-		<if test="userEmail != null">
-			and user_email = #{userEmail}
-		</if>
-		
-		<if test="userName != null">
-			and user_num = #{userNum}
-		</if>
+			and u.user_num = #{userNum} 
 	</select>
 	
 	<insert id="addUser" parameterType="user">

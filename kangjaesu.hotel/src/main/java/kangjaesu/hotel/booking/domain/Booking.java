@@ -1,17 +1,41 @@
 package kangjaesu.hotel.booking.domain;
 
 import java.sql.Date;
+import java.util.List;
+
+import kangjaesu.hotel.room.domain.Option;
 public class Booking {
 	private int bookingNum;
 	private int userNum;
+	private String userName;
 	private int roomNum;
+	private String roomType;
+	private List<Option> roomOption;
 	private Date checkIn;
 	private Date checkOut;
-	private String paytype;
 	private int payment;
 	private int adult;
 	private int kid;
+	private String paytype;
 	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getRoomType() {
+		return roomType;
+	}
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
+	}
+	public List<Option> getRoomOption() {
+		return roomOption;
+	}
+	public void setRoomOption(List<Option> list) {
+		this.roomOption = list;
+	}
 	public int getBookingNum() {
 		return bookingNum;
 	}
@@ -69,10 +93,9 @@ public class Booking {
 	
 	@Override
 	public String toString() {
-		return "Inquiry [bookingNum=" + bookingNum + ", userNum=" + userNum
-				+ ", roomNum=" + roomNum + ", checkIn=" + checkIn
-				+ ", checkOut=" + checkOut + ", paytype=" + paytype
-				+ ", payment=" + payment + ", adult=" + adult + ", kid=" + kid
-				+ "]";
+		return "Booking [bookingNum=" + bookingNum + ", userNum=" + userNum + ", userName=" + userName + ", roomNum="
+				+ roomNum + ", roomType=" + roomType + ", roomOption=" + roomOption + ", checkIn=" + checkIn
+				+ ", checkOut=" + checkOut + ", payment=" + payment + ", adult=" + adult + ", kid=" + kid + ", paytype="
+				+ paytype + "]";
 	}
 }
