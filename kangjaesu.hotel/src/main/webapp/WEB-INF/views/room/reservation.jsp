@@ -14,11 +14,15 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <style>
+.table-responsive{
+	width: 90%;
+	margin: 0 auto;
+}
 .modalbtn{
 	margin-left: 50%;
 }
 .inputGroup {
-	margin-left: 5%;
+	text-align: center;
 }
 
 .input-group {
@@ -77,7 +81,7 @@ input[type="checkbox"]:checked+label:BEFORE {
 border: 1px solid #dddddd;
 }
 
-/* DivTable.com */
+/* DivTable */
 .divTable{
    display: table;
    width: 100%;
@@ -229,7 +233,9 @@ $(function() {
 	
 	$(".confirmModalButton").click(function() {
 		var roomNumber = $(this).parents().attr('id').substr(1);
-	
+		$("input:checkbox[name=rom]").prop("checked",false);
+		$("input:checkbox[name=count]").prop("checked",false);
+		
 		$.ajax({
 			url : "getData",
 			method : "GET",
@@ -237,27 +243,31 @@ $(function() {
 				roomNum : roomNumber
 			},
 			success : function(room) {
-				//var options = (room.opt_no).split(", option");
-			/* 		$("input:checkbox[name=option]").each(function(){
-					for(var i = 0; i < options.length; i++){
-						if(this.value == options[i].match(/optNo=[0-9]/)[0].slice(6,7)){
-							this.checked =true;
-						}
-					}
-				}); */
-				
+				var options = room.option;
+				var optionList = options.split(" ");
+				var checkBox = $("input:checkbox[name=option]");
+	//			for(var i=0;i<optionList.legth;i++)
+	//				$("input:checkbox[name=option]")[i].prop("checked",true);
+ 	//		 		$("input:checkbox[name=option]").each(function(){
+ 	//		 			$(this).eq()
+ 	//		 			if(this.index == options.split(" "))
+	//							this.checked =true;
+	//				});  .
+	 $('input[type="option"]').each(function(index,item){
+		    if(index == optionList[index]){
+		    	$(this).attr("checked", true);
+		    }
+   });
+//alert(checkBox[0].val());
 				$("#roomType").val(room.roomName);
 				$("#roomContent").val(room.roomContent);
 				$("input:checkbox[name=rom][value=" +room.roomType+ "]").prop("checked",true);
 				$("input:checkbox[name=count][value=" +room.guests+ "]").prop("checked",true);
-			
+				$("#price").text(room.roomPrice);
 				
 				//$("input:checkbox[name=option][value=" +room.options.optNo+ "]").prop("checked",true);
-				$("#confirmModa1").modal('show');
-
-/* 					 $("#answerModal").modal({
-					remote : "myInqAns"
-				});  */
+			//	$("#confirmModa1").modal('show');
+			
 			},
 			error : function(a, b, errMsg) {
 				alert("오류" + errMsg);
@@ -516,12 +526,12 @@ $(function() {
 
 						</tr>
 						<tr>
-							<th>금액 $</th>
-							<td>420000</td>
+							<th>금액 </th>
+							<td><p id="price"></p></td>
 						</tr>
 						<tr>
 							<th>상세내용</th>
-							<td><textarea rows="20" cols="135" id="roomContent" onfocus="this.blur();"></textarea></td>
+							<td><textarea rows="20" cols="110" id="roomContent" onfocus="this.blur();"></textarea></td>
 						</tr>
 
 					</tbody>

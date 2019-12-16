@@ -72,10 +72,10 @@ public class RoomController {
 	@RequestMapping("/getData")
 	@ResponseBody
 	@Transactional
-	public Room getData(Room room, Option option) {
-		return	roomService.getRoom(room.getRoomNum());
-		
-
+	public Room getData(Model model, Room room) {
+		Room roomDate = roomService.getRoom(room.getRoomNum());
+		roomDate.setOption(roomService.getOption(roomDate));
+		return roomDate;
 	}
 	
 
