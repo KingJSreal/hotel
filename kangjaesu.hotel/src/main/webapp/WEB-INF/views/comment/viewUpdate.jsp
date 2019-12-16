@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
-
-
 <meta charset="UTF-8">
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
@@ -19,7 +16,6 @@
 	- res/css 추가 시
 	@import url("<c:url value="/css/section.css" />");
 	*/
-	
 .star_rating {
 	font-size: 0;
 	letter-spacing: -4px;
@@ -157,11 +153,8 @@ table.table-sm td {
 	font-style: Sans-Serif;
 }
 /* 섹션 타이틀 끝 */
-
-
 </style>
 <script>
-
 $(document).ready(function() {
 	$("#header").load("main01.html");
 	$("#nav").load("main04.html");
@@ -188,13 +181,17 @@ $(document).ready(function() {
 
 		$(this).addClass("on").prevAll("a").addClass("on");
 
-		console.log($(this).attr("value"));
-		var rate = $(this).attr("value");
-		console.log(rate);
-		
+		return false;
 
 	});
-	$('input[type="checkbox"][name="roomType"]').click(function(){
+	
+	var roomtype = ("${comment.roomType}");
+	$("input:checkbox[name=roomType]").each(function(){
+		if(this.value == roomtype){
+			this.checked =true;
+		}
+	});
+		$('input[type="checkbox"][name="roomType"]').click(function(){
 		if($(this).prop('checked')
 		&& $('input[type="checkbox"][name="roomType"]:checked').size()>1) {
 			$(this).prop('checked', false);
@@ -255,85 +252,45 @@ var confirm = function(msg, type) {
 
 	
 	$(function() {
-		
-		
-		
-		 $("#back").click(function() {
-			   window.history.back();
-			    	      
-			   });
-	   //등록버튼 클릭시 호출
-		$("#addForm").bind("submit", function(e){	
-			$(".star_rating a").click(function() {
+	   
+		 $("#updateForm").bind("submit", function(e){		
+				e.preventDefault();
 
-				$(this).parent().children("a").removeClass("on");
-
-				$(this).addClass("on").prevAll("a").addClass("on");
-
-				console.log($(this).attr("value"));
-				var rate = $(this).attr("value");
-				console.log(rate);
-			});
-			
-			e.preventDefault();
-			var userNum = "${user.userNum}";
-			
-			var ex_files = [null, null, null];
-			for(var i = 0; i < ex_files.length ; i++){
-				if($("#ex_file" + (i+1))[0].files[0] != null)
-					ex_files[i] = "/comment/" + $("#ex_file" + (i+1))[0].files[0].name;
-			}
-			
-
-			$("input[name=commentImage]").each(function(idx, img){
-				var formData = new FormData();
-				formData.append( "file", img.files[0] );
-				$.ajax({
-					url: "addImage",
-					method: "post",
-					data: formData,
-					processData: false,
-					contentType: false,
-					success:function(result){
-					},
-					error:function(a, b, errMsg){
-						alert(errMsg);
-						return;
-					}
-				});
-			});
-			$.ajax({
-				url:"addC",
-				method:"GET",
-				data: {					
-					revTitle:$("#revTitle").val(),
 				
-					roomType: $("input[name=roomType]:checked").val(),
-					revContent:$("#revContent").val(),
-					userNum: userNum,
-					rate: $(".star_rating a.on").length,
-					revImage1: ex_files[0],
-					revImage2: ex_files[1],
-					revImage3:	ex_files[2] 
+					$.ajax({
+						url:"updateView",
+						method:"GET",
+						data: {		
+							revNum:$("#revNum").val(),
+							revTitle:$("#revTitle").val(),
 					
-				
-							
-							
-				 	//userCall: userCall,
-					//userAddressCode:$("#userAddressCode").val(),
-					//userAddress: userAddress 
-				},
-				success:function(){
+							roomType: $("input[name=roomType]:checked").val(),
+							revContent:$("#revContent").val()
+	
 			
-	       			//location.href = "/hotel/comment/commentLookUp";
-				},
-				error:function(a, b, errMsg){
-					alert("에러 등록 실패", 'warning');
-				}
+						
+									
+									
+					
+						},
+						success:function(){
+							
+			    			location.href = "/hotel/comment/commentLookUp";
+						},
+						error:function(a, b, errMsg){
+							alert("수정 불가 에러", 'warning');
+						}
+						
+					})
 				
-			})
-				
-		});
+			});
+	   
+		   $("#back").click(function() {
+			   window.history.back();
+			    	  
+			      
+			   });
+		   
 	});	
 </script>
 </head>
@@ -351,14 +308,14 @@ var confirm = function(msg, type) {
 				</p>
 			</div>
 			<div class="headTit">
-				<h3>&nbsp;후기등록</h3>
+				<h3>&nbsp;후기 수정</h3>
 			</div>
 			<br> <br>
 		</div>
 		<div class=" container">
 	
 		<section>
-			<form id="addForm" name="addForm" method="post" >
+			<form id="updateForm" name="updateForm" method="post" >
 				<div class="container center-block" style="width: 70%;">
 
 					
@@ -367,23 +324,19 @@ var confirm = function(msg, type) {
 							<thead>
 								<tr>
 									<th class="table-active">제목</th>
-									<th  scope="col"><input type="text" class="form-control"
-										placeholder="제목을 입력하세요." required id="revTitle"/></th>
+									<th  scope="col">
+									<input type="hidden" id="revNum" value="${comment.revNum }">
+									<input type="text" id="revTitle" class="form-control"
+										placeholder="제목을 입력하세요." value="${comment.revTitle}" required id="revTitle"/></th>
 								</tr>
 								<tr>
 									<th class="table-active">평점</th>
 									<th scope="col">
-										<p class="star_rating" id="star_rating">
-											<a href="#" value="1">★</a>
-											 <a  href="#" value="2">★</a> 
-											 <a href="#" value="3">★</a> 
-											 <a href="#" value="4">★</a> 
-											 <a href="#" value="5">★</a>
+										<p class="star_rating">
+											<a class="on" href="#">★</a> <a class="on" href="#">★</a> <a
+												href="#">★</a> <a href="#">★</a> <a href="#">★</a>
 										</p>
-	
-										<div class='starrr'></div>
 									</th>
-									
 								</tr>
 								<tr>
 									<th class="table-active">방타입</th>
@@ -409,16 +362,22 @@ var confirm = function(msg, type) {
 								<tr>
 									<th class="table-active" style="vertical-align: middle;">내용</th>
 									<th scope="col"><textarea class="form-control" rows="10"
-											cols="80%" placeholder="후기 내용을 작성하세요." id="revContent"></textarea></th>
+											cols="80%" placeholder="후기 내용을 작성하세요." id="revContent">${comment.revContent}</textarea></th>
 								</tr>
 							</thead>
 						</table>
 					</div>
+
+
+
+
+
+
 					<div class="col-sm-2 col-md-4">
 						<div class="input-group">
 							<img width="250" height="200" class="previewImg"> <label class="btn btn-default btn-lg btn-block"
-								for="ex_file1">이미지업로드</label> <input type="file" id="ex_file1"
-								value="이미지업로드" name="commentImage" onchange="imgView(this)">
+								for="ex_file">이미지업로드</label> <input type="file" id="ex_file"
+								value="이미지업로드" onchange="imgView(this)">
 							<button class="btn btn-default btn-lg btn-block" type="button" value="등록 취소">등록취소</button>
 
 						</div>
@@ -427,7 +386,7 @@ var confirm = function(msg, type) {
 
 						<div class="input-group">
 							<img width="250" height="200" class="previewImg1"> <label class="btn btn-default btn-lg btn-block"
-								for="ex_file2">이미지업로드</label> <input type="file"  id="ex_file2" value="이미지업로드" name="commentImage" 
+								for="ex_file1">이미지업로드</label> <input type="file"  id="ex_file1" value="이미지업로드"
 								onchange="imgView1(this)">
 							<button class="btn btn-default btn-lg btn-block" type="button" value="등록 취소">등록취소</button>
 						</div>
@@ -435,7 +394,7 @@ var confirm = function(msg, type) {
 					<div class="col-sm-2 col-md-4">
 						<div class="input-group">
 								<img width="250" height="200" class="previewImg2"> <label class="btn btn-default btn-lg btn-block"
-								for="ex_file3">이미지업로드</label> <input type="file" id="ex_file3" value="이미지업로드" name="commentImage" 
+								for="ex_file2">이미지업로드</label> <input type="file" id="ex_file2" value="이미지업로드"
 								onchange="imgView2(this)">
 							<button class="btn btn-default btn-lg btn-block" type="button" value="등록 취소">등록취소</button>
 
@@ -447,8 +406,8 @@ var confirm = function(msg, type) {
 				<br>
 				<br> <br>
 				<div class="container center-block" style="text-align: center;">
-					<button class="btn btn-primary" type="submit" value="등록" 
-						>등록</button>
+					<button class="btn btn-primary" type="submit" value="수정" 
+						>수정</button>
 					
 					<button class="btn btn-warning" type="button" value="취소"
 						id="back" >취소</button>

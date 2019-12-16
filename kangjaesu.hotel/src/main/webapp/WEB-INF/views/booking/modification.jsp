@@ -5,12 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
 /* 패널 해드 */
 .panel-heading {
 	padding-left: 100px;
-	padding-right: 120px;
 }
 /* 패널 해드 끝 */
 
@@ -21,7 +24,7 @@
 }
 
 .pointpanel, .payment {
-	margin-left: 80%;
+	margin-left: 70%;
 }
 
 .panel-body {
@@ -70,6 +73,8 @@ var confirm = function(msg, type) {
 	}
 
 	$(function() {
+		$("#adult").val("${booking.adult}");
+		$("#kid").val("${booking.kid}");
 		//취소버튼 클릭시 호출
 		$("#cancel").click(function() {
 			confirm("수정을 취소 하시겠습니까?", "warning");
@@ -101,8 +106,7 @@ var confirm = function(msg, type) {
 						<!-- 예약일, 예약번호 -->
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<span>예약일: <label id="bookingDate"></label></span> <span
-									class="pull-right regnum">예약번호: <label id="bookingNum"></label></span>
+								 <span class="regnum">예약번호: <label id="bookingNum">${booking.bookingNum}</label></span>
 							</div>
 						</div>
 						<!-- 예약일, 예약번호 끝-->
@@ -120,37 +124,47 @@ var confirm = function(msg, type) {
 									<td>호텔</td>
 									<td>서울호텔</td>
 									<td>성명</td>
-									<td><label id="name"></label></td>
+									<td><label id="name">${name}</label></td>
 								</tr>
 								<tr>
 									<td>체크인</td>
 									<td>
 										<div class="form-group">
-											<input type="date" class="form-control" value="2019-11-17">
+											<div class="input-group date" id="checkIn">
+					                           <input type="text" class="form-control" id="indateForm"
+					                           			onfocus="this.blur();" value="${booking.checkIn}"/>
+					                           <span class="input-group-addon">
+					                           <i class="glyphicon glyphicon-calendar"></i></span>
+					                        </div>
 										</div>
 									</td>
 									<td>체크아웃</td>
 									<td>
 										<div class="form-group">
-											<input type="date" class="form-control" value="2019-11-17">
+											<div class="input-group date" id="checkOut">
+					                           <input type="text" class="form-control" id="outdateForm"
+					                           			onfocus="this.blur();" value="${booking.checkOut}"/>
+					                           <span class="input-group-addon">
+					                           <i class="glyphicon glyphicon-calendar"></i></span>
+					                        </div>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<td>숙박일수</td>
-									<td><label id="days"></label>박</td>
+									<td><label id="days"></label>${days}박</td>
 									<td>투숙인원</td>
 									<td>
 										<div class="form-group form-inline">
-											<span>성인:&nbsp;</span>
-											<select class="form-control">
+											<span>성인: </span>
+											<select class="form-control" id="adult">
 												<option>1</option>
 												<option>2</option>
 												<option>3</option>
 												<option>4</option>
 											</select>
-											<span>&nbsp;/&nbsp;어린이:&nbsp;</span>
-											<select class="form-control">
+											<span>&nbsp;/&nbsp;어린이: </span>
+											<select class="form-control" id="kid">
 												<option>0</option>
 												<option>1</option>
 												<option>2</option>
@@ -161,9 +175,9 @@ var confirm = function(msg, type) {
 								</tr>
 								<tr>
 									<td>객실</td>
-									<td><label id="roomType"></label></td>
+									<td><label id="roomType">${roomType}</label></td>
 									<td>옵션</td>
-									<td><label id="option"></label></td>
+									<td><label id="option">${optionList}</label></td>
 								</tr>
 							</table>
 						</div>
@@ -172,10 +186,10 @@ var confirm = function(msg, type) {
 						<!-- 포인트,요금 -->
 						<div class="panel panel-default">
 							<div class="panel-footer">
-								<span class="pointpanel">사용 포인트: <label id="point"></label></span>
+								<span class="pointpanel">사용 포인트: ${point}<label id="point"></label></span>
 							</div>
 							<div class="panel-footer">
-								<span class="pointpanel">요금 합계: <label id="charge"></label>
+								<span class="pointpanel">요금 합계: ${booking.payment}<label id="charge"></label>
 								&nbsp;/&nbsp;
 						요금 변동: <label>0</label></span>
 							</div>
@@ -184,7 +198,7 @@ var confirm = function(msg, type) {
 
 						<!-- 결제수단 -->
 						<div class="panel-footer">
-							<span class="payment">결제 수단: <label id="payType"></label></span>
+							<span class="payment">결제 수단: ${booking.paytype}<label id="payType"></label></span>
 						</div>
 
 					</div>
@@ -192,12 +206,46 @@ var confirm = function(msg, type) {
 					<div class="buttongroup">
 						<button type="button" class="btn btn-default pull-right" id="cancel">취소</button>
 						<button type="button" class="btn btn-default pull-right" id="submit">수정 완료</button>
-
-
 					</div>
 				</div>
 			</section>
 		</div>
+		<script>
+$(function(){
+   var checkInDate;
+   var checkOutDate;
+   $('#checkIn').daterangepicker({
+       autoUpdateInput: false,
+       "locale": {
+    	   "singleDatePicker": true,
+          "format": "YYYY/MM/DD",
+           "applyLabel": "확인",
+           "cancelLabel": "취소",
+           "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+           "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월",
+                        "7월", "8월", "9월", "10월", "11월", "12월"],
+           "firstDay": 1,
+           "toLabel": "To"
+       },    
+       "minDate": Today(),   //오늘 날짜
+      
+   },function(start) {
+      checkInDate = start.format('YYYY-MM-DD');
+   });
+   
+   $('#checkIn').on('apply.daterangepicker', function(ev, picker) {
+      var arr1 = checkInDate.split('-');
+      checkIn = new Date(arr1[0], arr1[1], arr1[2]);
+      alert('체크인: ' + checkInDate, "info");
+      $('#indateForm').val(picker.startDate.format('YYYY-MM-DD'));
+   });
+
+   $('#checkIn').on('cancel.daterangepicker', function(ev, picker) {
+      $('#indateForm').val('');
+   });
+     
+});
+</script>
 		<jsp:include page="../common/footer.jsp" />
 	</div>
 </body>

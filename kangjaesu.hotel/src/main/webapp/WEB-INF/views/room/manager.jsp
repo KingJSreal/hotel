@@ -120,6 +120,22 @@ var confirm = function(msg, type) {
 		});
 		   
 	});	
+/*  $(document)ready(function(){ 
+	$("#keyword").on("keyup", function(){
+		
+		var value = $(this).val().toLowerCase();
+	 	if (value == ""){
+			$('#roomTable tbody tr').show();
+		} else{
+			$('#roomTable tbody tr').hide();
+			$("#roomTable tbody tr:contains('"+value+"')").show();
+		} 
+		
+		$("#roomTable").filter(function(){
+			$(this).toggle($(this).text().toLowerCase().indexOf(value)> -1)
+		}); 
+	});
+}); */
 </script>
 </head>
 <body>
@@ -184,7 +200,7 @@ var confirm = function(msg, type) {
 						<br>
 				
 						<div class="container center-block">
-							<table class="table table-hover table-bordered">
+							<table class="table table-hover table-bordered" id="roomTable">
 								<thead class="thead">
 									<tr class="info">
 										<th class="th1">번호</th>
@@ -209,22 +225,13 @@ var confirm = function(msg, type) {
 									</c:forEach>
 								</tbody>
 							</table>
-							<!-- paging -->
-							<div class="paging" style="text-align: center">
-								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-									</li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
-								</ul>
-							</div>
-							<!-- paging 끝 -->
+							<!-- 페이징 -->
+					<div class="container text-center">
+						<ul class="pagination" id="pages">
+						</ul>
+					</div>
+					<!-- 페이징 끝 -->
+				
 						</div>
 					</div>
 				</div>

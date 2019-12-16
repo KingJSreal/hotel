@@ -1,5 +1,8 @@
 package kangjaesu.hotel.mypage.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kangjaesu.hotel.comment.domain.Comment;
+import kangjaesu.hotel.common.domain.Page;
+import kangjaesu.hotel.common.service.PageService;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
 import kangjaesu.hotel.mypage.service.MyInquiryService;
+import kangjaesu.hotel.point.service.PointService;
 import kangjaesu.hotel.user.domain.User;
 
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
 	@Autowired private MyInquiryService myInqService;
+	@Autowired private PageService pageService;
 	
 	@RequestMapping("/myPage")
 	public String myPage(){
@@ -27,6 +35,10 @@ public class MypageController {
 	@RequestMapping("/myPoint")
 	public String myPoint(){
 		return "mypage/myPoint";
+	}
+	@RequestMapping("/myComment")
+	public String myComment(){
+		return "mypage/myComment";
 	}
 	@RequestMapping("/myInfo")
 	public String myInfo(){

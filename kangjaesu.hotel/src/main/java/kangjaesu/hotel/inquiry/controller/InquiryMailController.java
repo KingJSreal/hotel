@@ -16,6 +16,7 @@ public class InquiryMailController {
 	@RequestMapping("/inquiryMail")
 	public String send(InquiryComment msg, Inquiry to){
 		mailService.send(msg, to);
+		
 		return "inquiry/manage";
 	}
 	

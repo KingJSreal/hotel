@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import kangjaesu.hotel.common.domain.Page;
 import kangjaesu.hotel.common.service.PageService;
+import kangjaesu.hotel.point.domain.Point;
+import kangjaesu.hotel.point.service.PointService;
 import kangjaesu.hotel.user.domain.User;
 import kangjaesu.hotel.user.service.UserService;
 
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 	@Autowired private UserService userService;
 	@Autowired private PageService pageService;
+	@Autowired private PointService pointService;
+	
 	
 	@RequestMapping("/userTerms")
 	public String userTerms() {
@@ -47,6 +51,11 @@ public class UserController {
 	@Transactional
 	@RequestMapping("/join")
 	public void join(User user) {
+		Point point = new Point();
+		point.setPointChange(0);
+		point.setPointContent("초기 생성");
+		point.setUserNum(user.getUserNum());
+		pointService.addPoint(point);
 		userService.join(user);
 	}
 	@Transactional
@@ -57,6 +66,7 @@ public class UserController {
 		if(userService.getEmail(user) == null) result = true;
 		return result;
 	}
+	
 	@RequestMapping("/listUsers")
 	@ResponseBody
 	@Transactional
@@ -73,6 +83,7 @@ public class UserController {
 		
 		return result;
 	}
+	
 	@RequestMapping("/searchListUsers")
 	@ResponseBody
 	@Transactional
