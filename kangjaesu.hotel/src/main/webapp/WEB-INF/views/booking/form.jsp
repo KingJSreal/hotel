@@ -120,7 +120,6 @@ var alert = function(msg, type) {
 			function() {
 				//라디오버튼 선택시 입력폼 변환
 				$("input:radio[name=radio]").click(function() {
-					var userNum = "${user.userNum}";
 					var check = $("input[name=radio]:checked");
 					var checkid = "#" + check.attr("id") + "Payment";
 					var uncheck = $("input[name=radio]:not(:checked)");
@@ -201,8 +200,13 @@ var alert = function(msg, type) {
 				//예약신청 버튼 클릭시 호출
 				$("#submitBtn").click(
 						function() {
-							var valid = this.form.checkValidity();
 							var inputpoint = $("#point").val();
+							if (inputpoint == ""){
+								$("#point").val("0");
+								$("#uPoint").text("0");
+								inputpoint = 0;
+							}
+							var valid = this.form.checkValidity();
 							var mypoint = $("#mypoint").text();
 							var charge = ${room.roomPrice} - inputpoint;
 
@@ -211,10 +215,7 @@ var alert = function(msg, type) {
 										+ parseInt(mypoint));
 								return false;
 							}
-							if (inputpoint == ""){
-								$("#point").val("0");
-								$("#uPoint").text("0");
-							}
+							
 
 							var radios = $(":radio[value='y']");
 							for (var i = 0; i < radios.length; i++) {
@@ -270,9 +271,6 @@ var alert = function(msg, type) {
 					+ $(".cardnum").eq(1).val() + "-" 
 					+ $(".cardnum").eq(2).val() + "-" 
 					+ $(".cardnum").eq(3).val();
-		var point = $("#point").val();
-		var pointChange = point * (-1);
-		
 	 	$.ajax({
 			url:"proceedBooking",
 			type : "POST",
@@ -293,7 +291,7 @@ var alert = function(msg, type) {
 				installment: $("#installment").val(),
 				bank: $("#accountselect").val(),
 				account: $("#accountnum").val(),
-				pointChange: pointChange,
+				bookingPoint: $("#point").val(),
 				nuserEmail: $("#email").val(),
 				nuserKname: $("#kname").val(),
 				nuserLastName: $("#lastName").val(),
@@ -309,7 +307,7 @@ var alert = function(msg, type) {
 				$("#bookingNumber").val(booking.bookingNum);
 				$("#bookinguserNum").val(booking.userNum);
 				$("#bookingPoint").val(point);
-			//	$("#bookingUserName").val(name);
+				$("#bookingUserName").val(userName);
 				$.ajax({
 					url:"bookingMail",
 					type : "POST",
@@ -326,7 +324,7 @@ var alert = function(msg, type) {
 						$.LoadingOverlay("hide");
 						alert("이메일오류" + errMsg);
 					} 			
-				});
+				}); 
 			},error:function(a, b, errMsg){
 				$.LoadingOverlay("hide");
 				alert("결제오류" + errMsg);
@@ -351,7 +349,7 @@ var alert = function(msg, type) {
 				</nav>
 				<!-- 진행상황 네비게이션 끝 -->
 
-				<form id="form" action="completeBooking" method="post">
+				<form id="form" method="post">
 					<!-- 테이블 패널 -->
 					<div class="panel panel-default">
 						<!-- 패널헤드 -->
@@ -738,7 +736,7 @@ var alert = function(msg, type) {
 			<form id="bookingInfo" method="post" action="completeBooking">
 				<input id="bookingNumber" name="bookingNum" type="hidden" value="">
 				<input id="bookinguserNum" name="userNum" type="hidden" value="">
-				<input id="bookinguserName" name="userName" type="hidden" value="">
+				<input id="bookingUserName" name="userName" type="hidden" value="">
 				<input id="bookingPoint" name="point" type="hidden" value="">
 			</form>
 		</div>

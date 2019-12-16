@@ -193,7 +193,7 @@ colgroup col.col {
 						<!-- 포인트,요금 -->
 						<div class="panel panel-default">
 							<div class="panel-footer">
-								<span class="pointpanel">사용 포인트: <label id="point">${point}</label></span>
+								<span class="pointpanel">사용 포인트: <label id="point">${booking.bookingPoint}</label></span>
 							</div>
 							<div class="panel-footer">
 								<span class="pointpanel">요금 합계: <label id="charge">${booking.payment}</label>
