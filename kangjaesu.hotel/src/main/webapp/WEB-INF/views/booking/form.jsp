@@ -254,6 +254,7 @@ var alert = function(msg, type) {
 				$("#agreement2").load("agreement2.txt");
 			});
 	function submit(){	
+		var userName = $("#kname").val();
 		var userNum = "${user.userNum}";
 		if(userNum == "") userNum = "0";
 		var roomNum = "${booking.roomNum}";
@@ -269,11 +270,14 @@ var alert = function(msg, type) {
 					+ $(".cardnum").eq(1).val() + "-" 
 					+ $(".cardnum").eq(2).val() + "-" 
 					+ $(".cardnum").eq(3).val();
-		var pointChange = $("#point").val() * (-1)
+		var point = $("#point").val();
+		var pointChange = point * (-1);
+		
 	 	$.ajax({
 			url:"proceedBooking",
 			type : "POST",
 			data: {			
+				userName: userName,
 				userNum: userNum,
 				roomNum: roomNum,
 				roomType: roomType,
@@ -304,12 +308,14 @@ var alert = function(msg, type) {
 			success : function(booking) {
 				$("#bookingNumber").val(booking.bookingNum);
 				$("#bookinguserNum").val(booking.userNum);
+				$("#bookingPoint").val(point);
+			//	$("#bookingUserName").val(name);
 				$.ajax({
 					url:"bookingMail",
 					type : "POST",
 					data: {		
 						roomNum: roomNum,
-						bookingName: $("#kname").val(),
+						bookingName: userName,
 						bookingEmail: $("#email").val(),
 						bookingNum: $("#bookingNumber").val()
 					},
@@ -325,7 +331,7 @@ var alert = function(msg, type) {
 				$.LoadingOverlay("hide");
 				alert("결제오류" + errMsg);
 			} 			
-		});  
+		});   
 	}
 </script>
 </head>
@@ -732,6 +738,8 @@ var alert = function(msg, type) {
 			<form id="bookingInfo" method="post" action="completeBooking">
 				<input id="bookingNumber" name="bookingNum" type="hidden" value="">
 				<input id="bookinguserNum" name="userNum" type="hidden" value="">
+				<input id="bookinguserName" name="userName" type="hidden" value="">
+				<input id="bookingPoint" name="point" type="hidden" value="">
 			</form>
 		</div>
 		<jsp:include page="../common/footer.jsp" />

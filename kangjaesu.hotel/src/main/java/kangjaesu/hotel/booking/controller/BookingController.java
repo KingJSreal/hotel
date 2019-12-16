@@ -42,10 +42,6 @@ public class BookingController {
 	public String bookingForm(Booking booking, Room room, HttpSession session,
 						Model model, HttpServletRequest request) {
 		User user = (User) session.getAttribute("user");
-//		session = request.getSession();
-//		if(session == null) {
-//			user.setUserNum(0);
-//		}
 		
 		model.addAttribute("point", pointService.getMyPointSum(user.getUserNum()));
 		model.addAttribute("booking", booking);
@@ -60,7 +56,7 @@ public class BookingController {
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/proceedBooking")
-	public Booking proceedBooking(Model model, Booking booking, Card card, int pointChange,
+	public Booking proceedBooking(Model model, Booking booking, Card card, int pointChange, HttpSession session,
 						Account account, String paytype, String cardExp, NoneUser noneUser) throws ParseException {
 		
 		booking.setPaytype(paytype);
@@ -83,9 +79,10 @@ public class BookingController {
 		
 		Point point = new Point();
 		point.setPointChange(pointChange);
+		model.addAttribute("point", pointChange);
 		point.setPointContent("객실예약");
 		point.setUserNum(booking.getUserNum());
-		pointService.addPoint(point);
+		model.addAttribute("point", pointService.addPoint(point));
 		
 		return booking;
 	}
@@ -93,11 +90,13 @@ public class BookingController {
 	//예약완료 페이지
 	@Transactional
 	@RequestMapping("/completeBooking")
-	public String completeBooking(Model model, Room room, int bookingNum) {
+	public String completeBooking(Model model, Room room, int bookingNum, int point, String name) {
 		Booking booking = bookingService.getBooking(bookingNum);
 		booking.setRoomType(roomService.getRoom(booking.getRoomNum()).getRoomType());
 		model.addAttribute("optionList", roomService.getRoom(booking.getRoomNum()).getOptions());
 		model.addAttribute("booking", booking);
+		model.addAttribute("point", point);
+		model.addAttribute("name", name);
 		model.addAttribute("days", bookingService.days(booking.getCheckIn(), booking.getCheckOut()));
 		return "booking/completion";
 	}
@@ -105,14 +104,17 @@ public class BookingController {
 	//예약조회 페이지
 	@Transactional
 	@RequestMapping("/myBooking")
-	public String myBooking(Model model, HttpSession session) {
+	public String myBooking(Model model, HttpSession session, Booking booking) {
 		User user = (User) session.getAttribute("user");
 		int userNum = user.getUserNum();
-		if(userNum == 0)
-			
-			
-		model.addAttribute("myBookingList", bookingService.getMyBookings(userNum));
-		return "booking/myBooking";
+		if(userNum == 0){
+			model.addAttribute("nUserBooking", bookingService.getNoneUserBookings(booking.getBookingNum()));
+			return "booking/noneUserBooking";
+		}
+		else{
+			model.addAttribute("myBookingList", bookingService.getMyBookings(userNum));
+			return "booking/myBooking";
+		}
 	}
 	
 	//예약관리 페이지
