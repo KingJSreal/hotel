@@ -70,7 +70,7 @@ public class MypageController {
 		Page page = pageService.paging(nowPage, dataSize);
 		page.setSearchType(comment);
 		System.out.println(page);
-		result.put("pointList", myCommentService.getMyComments(comment));
+		result.put("commnetList", myCommentService.getMyComments(comment));
 		result.put("page", page);
 		
 		return result;

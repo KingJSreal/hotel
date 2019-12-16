@@ -42,33 +42,35 @@ var loadMyComment = function(userNum) {
 			userNum: userNum
 		},
 		success:function(result){
-			var num = 1;
 			$('#commnetList').empty();
-			if(result.pointList.length > 0 ){
+			if(result.commnetList.length > 0 ){
 				var commnetList = [];
-				$(result.commnetList).each(function(idx, commnet){
+				$(result.commnetList).each(function(idx, comment){
 					var commentRate = "";
-					for(var i = 0; i < commnet.rate; i++){
+					for(var i = 0; i < comment.rate; i++){
 						commentRate += "★";
 					}
-					for(var i = 0; i < 5 - commnet.rate; i++){
+					for(var i = 0; i < 5 - comment.rate; i++){
 						commentRate += "☆";
 					}
 					
-					
-					pointList.push(
-							'<tr>' +
-							'<td>' + commnet.revNum 			+ '</td>' +
-							'<td>' + commnet.rate + "/" + commnet.roomType + '</td>' +
-							'<td>' + commnet.revTitle			+ '</td>' +
-							'<td>' + commnet.revDate + '</td>' +
+					commnetList.push(
+							'<tr id="' + comment.revNum + '" class="getReview">' +
+							'<td>' + comment.revNum 			+ '</td>' +
+							'<td>' + commentRate + "/" + comment.roomType + '</td>' +
+							'<td>' + comment.revTitle			+ '</td>' +
+							'<td>' + comment.revDate + '</td>' +
 							'</tr>'				
 					);
-					num++;
 				});
 				paging(result.page);
-				
-				$('#commnetList').append(commnetList.join(''));				
+
+				$('#commnetList').append(commnetList.join(''));		
+
+				$(".getReview").click(function () {
+					console.log("!!")
+					   location.href = "/hotel/comment/commentView?revNum=" + $(this).attr('id');
+				});
 			}else{
 				$('#commnetList').append(
 					'<tr><td colspan="6"><b>포인트 사용 내역이 없습니다.</b></td></tr>'	);
@@ -83,8 +85,6 @@ var loadMyComment = function(userNum) {
 }
 
 $(document).ready(loadMyComment("${sessionScope.user.userNum}"));
-
-
 </script>
 </head>
 <body>

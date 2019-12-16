@@ -94,7 +94,6 @@ $(".getReview").click(function () {
 						<td>${list.revDate }</td>
 					</tr>
 				</c:forEach>
-				
 				</tbody>
 			</table>
 			<div class="container center-block">
