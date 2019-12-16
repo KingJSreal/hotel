@@ -7,12 +7,11 @@
 <meta charset="UTF-8">
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
-<script src="<c:url value="/js/common.js"/>"></script>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+<script src="<c:url value="/js/common.js"/>"></script>
 <style>
 .modalbtn{
 	margin-left: 50%;
@@ -112,6 +111,7 @@ var alert = function(msg, type) {
 			return;
 		});
 }
+
 
 $(document).ready(function() {
    var checkIn;
@@ -229,7 +229,9 @@ $(function() {
 	
 	$(".confirmModalButton").click(function() {
 		var roomNumber = $(this).parents().attr('id').substr(1);
-	
+		$("input:checkbox[name=rom]").prop("checked",false);
+		$("input:checkbox[name=count]").prop("checked",false);
+		
 		$.ajax({
 			url : "getData",
 			method : "GET",
@@ -311,13 +313,20 @@ $(function() {
                <div class="panel panel-default">
                   <form class="form-inline searchBar">
                      <div class="container text-center form-group">
-                        <p class="form-control-static">예약정보를 선택하세요</p>
-                        <p class="form-control-static">&nbsp; | &nbsp;체크인/체크아웃</p>
-                        <div class="input-group date" id="date">
-                           <input type="text" class="form-control" id="dateForm" onfocus="this.blur();"/>
-                           <span class="input-group-addon">
-                           <i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
+                       	<p class="form-control-static">&nbsp; | &nbsp; 체크인</p>
+						<div class="input-group date">
+							<input type="date" class="form-control" placeholder="체크인"
+								value="체크인"> <span class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
+						<p class="form-control-static">&nbsp; | &nbsp; 체크아웃</p>
+						<div class="input-group date">
+							<input type="date" class="form-control" placeholder="체크아웃">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
                         <p class="form-control-static">&nbsp; | &nbsp; 성인</p>
                         <select class="form-control" id="adult">
                            <option>선택</option>
@@ -393,19 +402,20 @@ $(function() {
                            <tr id="a${list.roomNum }"  >
                               <td class="confirmModalButton"><img width="300" height="200" src="<c:url value="/img/${list.roomImage1}"/>"></td>
 
-                              <td class="confirmModalButton" style="vertical-align: middle;">
+                              <td style="vertical-align: middle;">
                                  <p>- <span class="txt0">${list.roomType }</span></p>
                                  <p>- <span class="txt1">조식</span></p>
                                  <p>- <span class="txt1">야외수영장</span></p>
                               </td>
-                              <td class="confirmModalButton" style="vertical-align: middle;">
+                              <td style="vertical-align: middle;">
                                  <span class="txt3">${list.roomPrice }</span>원<br>기준
                                  <span class="txt4">${list.guests }</span> 명
                               </td>
 
                               <td style="vertical-align: middle;"><button
-                                    class="btn btn-default bookingBtn" type="button"
-                                    style="width: 150px; height: 150px;">예약</button></td>
+                                    class="btn btn-default" type="button"
+                                    style="width: 150px; height: 150px;"
+                                    onclick="location.href='/hotel/booking/bookingForm'">예약</button></td>
                            </tr>
                         </table>
                      </div>
@@ -421,7 +431,19 @@ $(function() {
                   style="max-width: 100%; width: auto; display: table;">
                   <div class="modal-content">
                      <!-- remote call이 되는영역 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	var options  =("${room.options}").split(", option");
 
+	$("input:checkbox[name=option]").each(function(){
+		for(var i = 0; i < options.length; i++){
+			if(this.value == options[i].match(/optNo=[0-9]/)[0].slice(6,7)){
+				this.checked =true;
+			}
+		}
+	});
+});
+</script>
                        <div  class="modal-dialog" style="max-width: 70%; width: 70%; display: table;">
 		
 		<div class="panel panel-default">
@@ -432,11 +454,11 @@ $(function() {
 					<img width="250" height="200" class="previewImg"> 
 				</div>
 				<div class="input-group col-md-3">
-					<img width="250" height="200" class="previewImg"> 
+					<img width="250" height="200" class="previewImg1"> 
 				</div>
 
 				<div class="input-group col-md-3">
-					<img width="250" height="200" class="previewImg">
+					<img width="250" height="200" class="previewImg2">
 				</div>
 			</div></form>
 			<!-- 테이블 -->
@@ -521,8 +543,8 @@ $(function() {
 
 						</tr>
 						<tr>
-							<th>금액 $</th>
-							<td id="price"></td>
+							<th>금액 ${room.roomType }</th>
+							<td>420000</td>
 						</tr>
 						<tr>
 							<th>상세내용</th>
@@ -543,17 +565,6 @@ $(function() {
             <br> <br>
          </section>
       </div>
-      
-      <form name="form" method="post" action="/hotel/booking/bookingForm">
-			<input id="bookingRoomNumber" name="roomNum" type="hidden" value="">
-			<input id="bookingcheckIn" name="checkIn" type="hidden" value="">
-			<input id="bookingcheckOut" name="checkOut" type="hidden" value="">
-			<input id="bookingAdult" name="adult" type="hidden" value="">
-			<input id="bookingKid" name="kid" type="hidden" value="">
-			<input id="bookingRoomType" name="roomType" type="hidden" value="">
-			<input id="bookingRoomPrice" name="roomPrice" type="hidden" value="">
-			<input id="bookingRoomoption" name="optName" type="hidden" value="">
-	</form>
      <script>
 $(function(){
    var checkInDate;
@@ -586,10 +597,8 @@ $(function(){
       var arr2 = checkInDate.split('-');
       checkIn = new Date(arr1[0], arr1[1], arr1[2]);
       checkOut = new Date(arr2[0], arr2[1], arr2[2]);
-      alert('체크인: ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
-      $('#dateForm').val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
-      $('#bookingcheckIn').val(picker.startDate.format('YYYY-MM-DD'));
-      $('#bookingcheckOut').val(picker.endDate.format('YYYY-MM-DD'));
+      alert('체크인:   ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
+      $('#dateForm').val(picker.startDate.format('YYYY/MM/DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
    });
 
    $('#date').on('cancel.daterangepicker', function(ev, picker) {

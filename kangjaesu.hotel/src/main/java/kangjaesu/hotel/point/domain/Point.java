@@ -1,3 +1,4 @@
+
 package kangjaesu.hotel.point.domain;
 
 import java.sql.Date;

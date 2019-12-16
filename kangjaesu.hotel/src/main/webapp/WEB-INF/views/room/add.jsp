@@ -157,6 +157,31 @@ $(document).ready(function() {
 $(function() {
 	
 	$("#addForm").bind("submit", function(e){		
+		
+	if (($("input:checkbox[name=guests]").is(":checked")==false)
+		&& $("input:checkbox[name=roomType]").is(":checked")==false) {
+		alert("인원과 방을 선택 하세요");
+	}
+	
+	/* 	var userCall = null;
+	var userAddressCode = null;
+	var userAddress = null;
+	var validinput = this.checkValidity();
+	var validform = regtest();
+	var validcall = regCall();
+	var validpw = check_pw(); */
+/* 	var opt = [];
+	$("input[name:option]:checked").each(function(i){
+		opt.push($(this).val());
+	}); */
+	else {
+
+		var roomImage = [null, null, null];
+		for(var i = 0; i < roomImage.length ; i++){
+			if($("#roomImage" + (i+1))[0].files[0] != null)
+				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
+		}
+		console.log(roomImage);
 		e.preventDefault();
 		$("input[name=roomImage]").each(function(idx, img){
 			var formData = new FormData();
@@ -176,13 +201,6 @@ $(function() {
 				}
 			});
 		});
-
-		var roomImage = [null, null, null];
-		for(var i = 0; i < roomImage.length ; i++){
-			if($("#roomImage" + (i+1))[0].files[0] != null)
-				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
-		}
-		console.log(roomImage);
 		$.ajax({
 			url:"add",
 			method:"POST",
@@ -208,15 +226,15 @@ $(function() {
 				userAddress: userAddress */
 			},
 			success:function(){
-	   			//location.href = "/hotel/room/roomManager";
+    			location.href = "/hotel/room/roomManager";
 			},
 			error:function(a, b, errMsg){
 				alert($('input[name=option]:checked').val(), 'warning');
 			}
 			
-		})
+		})}
 	
-	});
+});
 });
 </script>
 </head>
@@ -279,7 +297,7 @@ $(function() {
 									<tr>
 										<th>객실명</th>
 										<td><input type="text" id="roomName" name="roomName" class="form-control roomnameInput"
-											placeholder="객실명을 입력하세요" ></td>
+											placeholder="객실명을 입력하세요" required="required"></td>
 									</tr>
 									<tr>
 										<th>방타입</th>
