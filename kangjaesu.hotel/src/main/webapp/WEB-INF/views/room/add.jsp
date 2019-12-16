@@ -177,13 +177,12 @@ $(function() {
 			});
 		});
 
-		var roomImage = ["", "", ""];
-		if($("#roomImage1")[0].files != null)
-			roomImage.push("/img/room/" + $("#roomImage1")[0].files[0].name);
-		if($("#roomImage2")[0].files != null)
-			roomImage.push("/img/room/" + $("#roomImage2")[0].files[0].name);
-		if($("#roomImage3")[0].files != null)
-			roomImage.push("/img/room/" + $("#roomImage3")[0].files[0].name);
+		var roomImage = [null, null, null];
+		for(var i = 0; i < roomImage.length ; i++){
+			if($("#roomImage" + (i+1))[0].files[0] != null)
+				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
+		}
+		console.log(roomImage);
 		$.ajax({
 			url:"add",
 			method:"POST",
@@ -209,7 +208,7 @@ $(function() {
 				userAddress: userAddress */
 			},
 			success:function(){
-	   			location.href = "/hotel/room/roomManager";
+	   			//location.href = "/hotel/room/roomManager";
 			},
 			error:function(a, b, errMsg){
 				alert($('input[name=option]:checked').val(), 'warning');

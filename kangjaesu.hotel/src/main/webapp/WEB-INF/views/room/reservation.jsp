@@ -245,8 +245,13 @@ $(function() {
 						}
 					}
 				}); */
-				
+				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];
+				$(".previewImg").each(function(idx, img){
+					$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
+					})
+					
 				$("#roomType").val(room.roomName);
+				$("#price").val(room.roomPrice);
 				$("#roomContent").val(room.roomContent);
 				$("input:checkbox[name=rom][value=" +room.roomType+ "]").prop("checked",true);
 				$("input:checkbox[name=count][value=" +room.guests+ "]").prop("checked",true);
@@ -427,11 +432,11 @@ $(function() {
 					<img width="250" height="200" class="previewImg"> 
 				</div>
 				<div class="input-group col-md-3">
-					<img width="250" height="200" class="previewImg1"> 
+					<img width="250" height="200" class="previewImg"> 
 				</div>
 
 				<div class="input-group col-md-3">
-					<img width="250" height="200" class="previewImg2">
+					<img width="250" height="200" class="previewImg">
 				</div>
 			</div></form>
 			<!-- 테이블 -->
@@ -517,7 +522,7 @@ $(function() {
 						</tr>
 						<tr>
 							<th>금액 $</th>
-							<td>420000</td>
+							<td id="price"></td>
 						</tr>
 						<tr>
 							<th>상세내용</th>

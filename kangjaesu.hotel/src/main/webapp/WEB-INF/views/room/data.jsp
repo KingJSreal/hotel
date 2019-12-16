@@ -123,6 +123,11 @@ $(document).ready(function() {
 		}
 	});
 
+	var roomImages = ["${room.roomImage1}", "${room.roomImage2}", "${room.roomImage3}"];
+	$(".previewImg").each(function(idx, img){
+		$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
+		})
+
 		
 });
 var confirm = function(msg, type) {
@@ -237,11 +242,11 @@ var confirm = function(msg, type) {
 								<img width="300" height="200" class="previewImg"> 
 							</div>
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg1"> 
+								<img width="300" height="200" class="previewImg"> 
 							</div>
 			
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg2">
+								<img width="300" height="200" class="previewImg">
 							</div>
 						</div>
 						<br>
