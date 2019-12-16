@@ -8,7 +8,7 @@ import kangjaesu.hotel.user.domain.User;
 
 public interface PointService {
 	List<Point> getMyPointList(Page page);
-	int getMyPointSum(User user);
+	int getMyPointSum(int userNum);
 	boolean addPoint(Point point);
 	boolean resetPoint(Point point);
 	int countPoints(Point point);

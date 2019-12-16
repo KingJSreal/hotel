@@ -52,23 +52,10 @@
       where INQ_NUM=#{inqNum} and USER_NUM=#{userNum}
    </select>
    
-   <select id="getComment" resultMap="commentMap" parameterType="int">
+   <select id="getComment" resultMap="commentMap" parameterType="comment">
       select *
       from INQUIRYS_CMT
       where INQ_NUM=#{inqNum}
-   </select>
-   
-   <select id="getMyCommentsCount" resultMap="commentMap1" parameterType="user">
-      select count(*)
-      from reviews
-      where user_num=#{userNum}
-   </select>
-   
-   <select id="getMyComments" resultMap="commentMap1" parameterType="user">
-      select *
-      from reviews
-      where user_num=#{userNum}
-      order by rev_num;
    </select>
    
    <update id="modInquiry" parameterType="inquiry">
@@ -78,4 +65,23 @@
    		where INQ_NUM=#{inqNum}
    </update>
 
+   <select id="getMyCommentsCount" resultType="int" parameterType="comment">
+      select count(*)
+      from reviews
+      where user_num=#{userNum}
+   </select>
+   
+   <select id="getMyComments" resultMap="commentMap1" parameterType="comment">
+      select *
+      from reviews
+      where user_num=#{userNum}
+      order by rev_num
+   </select>
+   
+   <select id="getMyComment" resultMap="commentMap1" parameterType="comment">
+   	select *
+   	from reviews
+   	where rev_num = #{revNum}
+   </select>
+   
 </mapper>

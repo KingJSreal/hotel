@@ -2,6 +2,7 @@ package kangjaesu.hotel.room.service;
 
 import java.util.List;
 
+import kangjaesu.hotel.booking.domain.Booking;
 import kangjaesu.hotel.room.domain.Option;
 import kangjaesu.hotel.room.domain.Room;
 
@@ -13,4 +14,5 @@ public interface RoomService {
 	
 	boolean delRoom(int roomNum);
 	boolean updateRoom(Room room);
+	String getOption(Room room);
 }

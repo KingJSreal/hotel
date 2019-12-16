@@ -86,7 +86,7 @@
 	  insert into NONE_USERS(NUSER_NUM, NUSER_EMAIL, NUSER_KORNAME, NUSER_LASTNAME,
 	  							 NUSER_FIRSTNAME, NUSER_BIRTH, NUSER_PHONE, BOOKING_NUM)
    	  values(NUSERS_SEQ.NEXTVAL, #{nuserEmail}, #{nuserKname}, #{nuserLastName}, #{nuserFirstName},
-   	  			 #{nuserBirth}, #{nuserPhone}, #{bookingNum})
+   	  			 TO_DATE(#{nuserBirth}, 'YYMMDD'), #{nuserPhone}, #{bookingNum})
    </insert>
    
 
