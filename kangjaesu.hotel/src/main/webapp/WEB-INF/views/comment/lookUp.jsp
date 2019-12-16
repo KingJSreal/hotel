@@ -84,7 +84,7 @@ $(".getReview").click(function () {
 						</td>
 						<td>${list.revTitle }</td>
 						<td>${list.userNum }님</td>
-						<td>${list.rate }</td>
+						<td>${list.revDate }</td>
 					</tr>
 				</c:forEach>
 				

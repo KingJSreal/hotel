@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
-
-
 <meta charset="UTF-8">
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
@@ -19,7 +16,6 @@
 	- res/css 추가 시
 	@import url("<c:url value="/css/section.css" />");
 	*/
-	
 .star_rating {
 	font-size: 0;
 	letter-spacing: -4px;
@@ -157,11 +153,8 @@ table.table-sm td {
 	font-style: Sans-Serif;
 }
 /* 섹션 타이틀 끝 */
-
-
 </style>
 <script>
-
 $(document).ready(function() {
 	$("#header").load("main01.html");
 	$("#nav").load("main04.html");
@@ -188,13 +181,17 @@ $(document).ready(function() {
 
 		$(this).addClass("on").prevAll("a").addClass("on");
 
-		console.log($(this).attr("value"));
-		var rate = $(this).attr("value");
-		console.log(rate);
-		
+		return false;
 
 	});
-	$('input[type="checkbox"][name="roomType"]').click(function(){
+	
+	var roomtype = ("${comment.roomType}");
+	$("input:checkbox[name=roomType]").each(function(){
+		if(this.value == roomtype){
+			this.checked =true;
+		}
+	});
+		$('input[type="checkbox"][name="roomType"]').click(function(){
 		if($(this).prop('checked')
 		&& $('input[type="checkbox"][name="roomType"]:checked').size()>1) {
 			$(this).prop('checked', false);
@@ -255,62 +252,45 @@ var confirm = function(msg, type) {
 
 	
 	$(function() {
-		 $("#back").click(function() {
-			   window.history.back();
-			    	      
-			   });
-	   //등록버튼 클릭시 호출
-		$("#addForm").bind("submit", function(e){	
-			$(".star_rating a").click(function() {
+	   
+		 $("#updateForm").bind("submit", function(e){		
+				e.preventDefault();
 
-				$(this).parent().children("a").removeClass("on");
-
-				$(this).addClass("on").prevAll("a").addClass("on");
-
-				console.log($(this).attr("value"));
-				var rate = $(this).attr("value");
-				console.log(rate);
-			});
-			
-			e.preventDefault();
-			var userNum = "${user.userNum}";
-			//var rate = $(".star_rating a").attr("value");
-		/* 	var userCall = null;
-			var userAddressCode = null;
-			var userAddress = null;
-			var validinput = this.checkValidity();
-			var validform = regtest();
-			var validcall = regCall();
-			var validpw = check_pw(); */
 				
-				$.ajax({
-					url:"addC",
-					method:"GET",
-					data: {					
-						revTitle:$("#revTitle").val(),
-						rate:$(".star_rating a").attr("value"),
-						roomType: $("input[name=roomType]:checked").val(),
-						revContent:$("#revContent").val(),
-						userNum: userNum
+					$.ajax({
+						url:"updateView",
+						method:"GET",
+						data: {		
+							revNum:$("#revNum").val(),
+							revTitle:$("#revTitle").val(),
+					
+							roomType: $("input[name=roomType]:checked").val(),
+							revContent:$("#revContent").val()
+	
+			
 						
+									
+									
 					
-								
-								
-					/* 	userCall: userCall,
-						userAddressCode:$("#userAddressCode").val(),
-						userAddress: userAddress */
-					},
-					success:function(){
+						},
+						success:function(){
+							
+			    			location.href = "/hotel/comment/commentLookUp";
+						},
+						error:function(a, b, errMsg){
+							alert("수정 불가 에러", 'warning');
+						}
+						
+					})
 				
-		       			location.href = "/hotel/comment/commentLookUp";
-					},
-					error:function(a, b, errMsg){
-						alert("에러 등록 실패", 'warning');
-					}
-					
-				})
-			
-		});
+			});
+	   
+		   $("#back").click(function() {
+			   window.history.back();
+			    	  
+			      
+			   });
+		   
 	});	
 </script>
 </head>
@@ -328,14 +308,14 @@ var confirm = function(msg, type) {
 				</p>
 			</div>
 			<div class="headTit">
-				<h3>&nbsp;후기등록</h3>
+				<h3>&nbsp;후기 수정</h3>
 			</div>
 			<br> <br>
 		</div>
 		<div class=" container">
 	
 		<section>
-			<form id="addForm" name="addForm" method="post" >
+			<form id="updateForm" name="updateForm" method="post" >
 				<div class="container center-block" style="width: 70%;">
 
 					
@@ -344,23 +324,19 @@ var confirm = function(msg, type) {
 							<thead>
 								<tr>
 									<th class="table-active">제목</th>
-									<th  scope="col"><input type="text" class="form-control"
-										placeholder="제목을 입력하세요." required id="revTitle"/></th>
+									<th  scope="col">
+									<input type="hidden" id="revNum" value="${comment.revNum }">
+									<input type="text" id="revTitle" class="form-control"
+										placeholder="제목을 입력하세요." value="${comment.revTitle}" required id="revTitle"/></th>
 								</tr>
 								<tr>
 									<th class="table-active">평점</th>
 									<th scope="col">
-										<p class="star_rating" id="star_rating">
-											<a href="#" value="1">★</a>
-											 <a  href="#" value="2">★</a> 
-											 <a href="#" value="3">★</a> 
-											 <a href="#" value="4">★</a> 
-											 <a href="#" value="5">★</a>
+										<p class="star_rating">
+											<a class="on" href="#">★</a> <a class="on" href="#">★</a> <a
+												href="#">★</a> <a href="#">★</a> <a href="#">★</a>
 										</p>
-	
-										<div class='starrr'></div>
 									</th>
-									
 								</tr>
 								<tr>
 									<th class="table-active">방타입</th>
@@ -386,7 +362,7 @@ var confirm = function(msg, type) {
 								<tr>
 									<th class="table-active" style="vertical-align: middle;">내용</th>
 									<th scope="col"><textarea class="form-control" rows="10"
-											cols="80%" placeholder="후기 내용을 작성하세요." id="revContent"></textarea></th>
+											cols="80%" placeholder="후기 내용을 작성하세요." id="revContent">${comment.revContent}</textarea></th>
 								</tr>
 							</thead>
 						</table>
@@ -430,8 +406,8 @@ var confirm = function(msg, type) {
 				<br>
 				<br> <br>
 				<div class="container center-block" style="text-align: center;">
-					<button class="btn btn-primary" type="submit" value="등록" 
-						>등록</button>
+					<button class="btn btn-primary" type="submit" value="수정" 
+						>수정</button>
 					
 					<button class="btn btn-warning" type="button" value="취소"
 						id="back" >취소</button>
