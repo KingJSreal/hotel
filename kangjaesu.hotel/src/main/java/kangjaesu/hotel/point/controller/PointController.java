@@ -43,7 +43,7 @@ public class PointController {
 		
 		return result;
 	}
-	
+
 	@RequestMapping("/getMyPointSum")
 	@ResponseBody
 	@Transactional

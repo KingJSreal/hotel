@@ -37,7 +37,7 @@
    </select>
    
    <select id="getMyPointSum" parameterType="int" resultType="int">
-      select sum(point_change) 
+      select NVL(sum(point_change), 0 )
       from points
       where user_num = #{userNum}
    </select>

@@ -51,11 +51,6 @@ public class UserController {
 	@Transactional
 	@RequestMapping("/join")
 	public void join(User user) {
-		Point point = new Point();
-		point.setPointChange(0);
-		point.setPointContent("초기 생성");
-		point.setUserNum(user.getUserNum());
-		pointService.addPoint(point);
 		userService.join(user);
 	}
 	@Transactional
