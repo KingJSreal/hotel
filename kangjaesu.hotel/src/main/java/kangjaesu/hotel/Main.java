@@ -19,7 +19,8 @@ public class Main{
 
 		User user = new User();
 		user.setUserNum(0);
-		session.setAttribute("user", user);
+		if(session.getAttribute("user") == null)
+			session.setAttribute("user", user);
 		return "main";
 	}
 	
