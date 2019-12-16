@@ -31,6 +31,20 @@
 		<result property="rate" column="rate"/>
 		<result property="revDate" column="rev_date"/>
 	</resultMap>
+	
+   <resultMap type="booking" id="bookingMap">
+      <id property="bookingNum" column="BOOKING_NUM" />
+      <result property="userNum" column="USER_NUM" />
+      <result property="roomNum" column="ROOM_NUM" />
+      <result property="checkIn" column="CHECK_IN_" />
+      <result property="checkOut" column="CHECK_OUT" />
+      <result property="paytype" column="PAYTYPE" />
+      <result property="payment" column="PAYMENT" />
+      <result property="adult" column="ADULT" />
+      <result property="kid" column="KID" />
+      <result property="userName" column="USER_KORNAME" />
+      <result property="roomType" column="ROOM_TYPE" />
+   </resultMap>
    
    <select id="getCount" resultMap="inquiryMap" parameterType="int">
       select count (*) as count
@@ -52,23 +66,10 @@
       where INQ_NUM=#{inqNum} and USER_NUM=#{userNum}
    </select>
    
-   <select id="getComment" resultMap="commentMap" parameterType="int">
+   <select id="getComment" resultMap="commentMap" parameterType="comment">
       select *
       from INQUIRYS_CMT
       where INQ_NUM=#{inqNum}
-   </select>
-   
-   <select id="getMyCommentsCount" resultMap="commentMap1" parameterType="user">
-      select count(*)
-      from reviews
-      where user_num=#{userNum}
-   </select>
-   
-   <select id="getMyComments" resultMap="commentMap1" parameterType="user">
-      select *
-      from reviews
-      where user_num=#{userNum}
-      order by rev_num;
    </select>
    
    <update id="modInquiry" parameterType="inquiry">
@@ -78,4 +79,31 @@
    		where INQ_NUM=#{inqNum}
    </update>
 
+   <select id="getMyCommentsCount" resultType="int" parameterType="comment">
+      select count(*)
+      from reviews
+      where user_num=#{userNum}
+   </select>
+   
+   <select id="getMyComments" resultMap="commentMap1" parameterType="comment">
+      select *
+      from reviews
+      where user_num=#{userNum}
+      order by rev_num
+   </select>
+   
+   
+   <select id="getMyBookingsCount" resultType="int" parameterType="booking">
+      select count(*)
+      from bookings
+      where user_num=#{userNum}
+   </select>
+   
+   <select id="getMyBookings" resultMap="bookingMap" parameterType="booking">
+      select *
+      from bookings b left outer join rooms r
+        on b.ROOM_NUM = r.ROOM_NUM
+      where user_num=#{userNum}
+      order by booking_num
+   </select>
 </mapper>

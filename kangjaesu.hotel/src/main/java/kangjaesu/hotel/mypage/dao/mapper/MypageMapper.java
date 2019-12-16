@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kangjaesu.hotel.booking.domain.Booking;
 import kangjaesu.hotel.comment.domain.Comment;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
@@ -20,5 +21,7 @@ public interface MypageMapper {
 	
 	List<Comment> getMyComments(Comment comment);
 	int getMyCommentsCount(Comment comment);
-	Comment getMyComment(Comment comment);
+
+	List<Booking> getMyBookings(Booking booking);
+	int getMyBookingsCount(Booking booking);
 }

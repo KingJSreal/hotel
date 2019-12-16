@@ -21,8 +21,8 @@ public class PointServiceImpl implements PointService{
 	}
 
 	@Override
-	public int getMyPointSum(User user) {
-		return pointDao.getMyPointSum(user);
+	public int getMyPointSum(int userNum) {
+		return pointDao.getMyPointSum(userNum);
 	}
 	@Override
 	public boolean addPoint(Point point) {

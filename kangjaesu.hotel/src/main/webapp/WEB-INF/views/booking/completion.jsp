@@ -148,7 +148,7 @@ colgroup col.col {
 									<td>호텔</td>
 									<td>서울호텔</td>
 									<td>성명</td>
-									<td><label id="name">${user.userName}</label></td>
+									<td><label id="name">${booking.userName}</label></td>
 								</tr>
 								<tr>
 									<td>체크인</td>
@@ -193,7 +193,7 @@ colgroup col.col {
 						<!-- 포인트,요금 -->
 						<div class="panel panel-default">
 							<div class="panel-footer">
-								<span class="pointpanel">사용 포인트: <label id="point"></label></span>
+								<span class="pointpanel">사용 포인트: <label id="point">${point}</label></span>
 							</div>
 							<div class="panel-footer">
 								<span class="pointpanel">요금 합계: <label id="charge">${booking.payment}</label>

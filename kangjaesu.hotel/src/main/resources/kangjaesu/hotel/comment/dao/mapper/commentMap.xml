@@ -53,7 +53,8 @@
 	
 		<select id="getReview" parameterType="int"  resultMap="commentMap1"  >
 			select * 
-		from reviews
+		from reviews r LEFT OUTER JOIN users u
+			   ON  r.user_num = u.user_num 
 		where rev_num = #{revNum}
 		
 	</select>

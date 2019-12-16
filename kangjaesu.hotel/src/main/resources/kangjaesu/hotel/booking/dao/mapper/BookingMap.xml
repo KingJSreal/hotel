@@ -60,8 +60,17 @@
    	  select BOOKING_NUM, BOOKINGS.USER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_,
    	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE
       from USERS, BOOKINGS, ROOMS
-      where USERS.USER_NUM=#{userNum}
+      where BOOKINGS.BOOKING_NUM=#{bookingNum}
       		and USERS.USER_NUM=BOOKINGS.USER_NUM
+      		and BOOKINGS.ROOM_NUM=ROOMS.ROOM_NUM order by BOOKING_NUM DESC
+   </select>
+   
+   <select id="getNoneUserBookings" resultMap="bookingMap" parameterType="int">
+   	  select NONE_USERS.BOOKING_NUM, NUSER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_,
+   	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, NUSER_KORNAME, ROOM_TYPE
+      from NONE_USERS, BOOKINGS, ROOMS
+      where NONE_USERS.BOOKING_NUM=#{bookingNum}
+      		and NONE_USERS.BOOKING_NUM=BOOKINGS.BOOKING_NUM
       		and BOOKINGS.ROOM_NUM=ROOMS.ROOM_NUM order by BOOKING_NUM DESC
    </select>
 
@@ -86,7 +95,7 @@
 	  insert into NONE_USERS(NUSER_NUM, NUSER_EMAIL, NUSER_KORNAME, NUSER_LASTNAME,
 	  							 NUSER_FIRSTNAME, NUSER_BIRTH, NUSER_PHONE, BOOKING_NUM)
    	  values(NUSERS_SEQ.NEXTVAL, #{nuserEmail}, #{nuserKname}, #{nuserLastName}, #{nuserFirstName},
-   	  			 #{nuserBirth}, #{nuserPhone}, #{bookingNum})
+   	  			 TO_DATE(#{nuserBirth}, 'YYMMDD'), #{nuserPhone}, #{bookingNum})
    </insert>
    
 

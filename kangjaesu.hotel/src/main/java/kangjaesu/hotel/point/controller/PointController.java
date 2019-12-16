@@ -43,12 +43,12 @@ public class PointController {
 		
 		return result;
 	}
-	
+
 	@RequestMapping("/getMyPointSum")
 	@ResponseBody
 	@Transactional
-	public int getMyPointSum(User user) {
-		return pointService.getMyPointSum(user);
+	public int getMyPointSum(int userNum) {
+		return pointService.getMyPointSum(userNum);
 	}
 	
 	@RequestMapping("/addPoint")
