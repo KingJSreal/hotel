@@ -59,6 +59,14 @@ public class PromotionController {
 	}
 	
 	@Transactional
+	@RequestMapping(value="/modPro", method=RequestMethod.GET)
+	public String modPro(Model model, @RequestParam("proNum") int proNum){
+		model.addAttribute("modPro", promotionService.listPro(proNum));
+		
+		return "promotion/modPro";
+	}
+	
+	@Transactional
 	@RequestMapping(value="/boardProAdmin", method=RequestMethod.GET)
 	public String boardProAdmin(Model model, 
 			@RequestParam(required=false) String keyword,
@@ -68,23 +76,25 @@ public class PromotionController {
 		search.setKeyword(keyword);
 		search.setSchStartDate(schStartDate);
 		search.setSchEndDate(schEndDate);
-		//int listCnt = promotionService.boardProsCnt(search);
 		
 		model.addAttribute("pagination", search);
 		model.addAttribute("listProsAdmin", promotionService.listBoardPros(search));
-		System.out.println("=======================================");
-		System.out.println(keyword);
-		System.out.println(schStartDate);
-		System.out.println(schEndDate);
-		System.out.println("=======================================");
 		
 		return "promotion/boardProAdmin";
 	}
 	
 	@Transactional
-	@RequestMapping("/boardPro")
-	public String boardPro(Model model){
-		model.addAttribute("listPros", promotionService.listPros());
+	@RequestMapping(value="/boardPro", method=RequestMethod.GET)
+	public String boardPro(Model model,
+			@RequestParam(required=false) String keyword,
+			@RequestParam(required=false) Date schStartDate,
+			@RequestParam(required=false) Date schEndDate){
+		Search search = new Search();
+		search.setKeyword(keyword);
+		search.setSchStartDate(schStartDate);
+		search.setSchEndDate(schEndDate);
+		
+		model.addAttribute("listPros", promotionService.listPros(search));
 
 		return "promotion/boardPro";
 	}

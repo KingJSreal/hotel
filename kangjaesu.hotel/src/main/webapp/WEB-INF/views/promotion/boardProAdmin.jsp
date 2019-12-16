@@ -8,8 +8,14 @@
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script>
-	function detailView(proNum){
+	function detailPro(proNum){
 		var url = "${pageContext.request.contextPath}/promotion/detailPro";
+		url = url + "?proNum=" + proNum;
+		location.href=url;
+	}
+	
+	function modifyPro(proNum){
+		var url = "${pageContext.request.contextPath}/promotion/modPro";
 		url = url + "?proNum=" + proNum;
 		location.href=url;
 	}
@@ -131,7 +137,6 @@ th {
 										placeholder="프로모션 명">
 								</div>
 								<button class="btn btn-default" name="schProAdmin" id="schProAdmin">검색</button>
-								<button class="btn btn-default" name="schProAdmin" id="schProAdmin">검색</button>
 							</form>
 						</div>
 					</div>
@@ -158,11 +163,11 @@ th {
 												<td>${pro.proRegDate}</td>
 												<td>
 													<input type="button" class="form-control" id="${pro.proNum}"
-														value="보기" onclick="detailView(${pro.proNum})"> 
-													<input type="button" class="form-control" value="수정"
-														onclick="location.href='./05.html'"> 
-													<input type="button" class="form-control" value="삭제"
-														onclick="alert('정말 삭제하시겠습니까?', 'warning');">
+														value="보기" onclick="detailPro(${pro.proNum})"> 
+													<input type="button" class="form-control" id="${pro.proNum}"
+														value="수정" onclick="modifyPro(${pro.proNum})"> 
+													<input type="button" class="form-control" id="${pro.proNum}"
+														value="삭제" onclick="deletePro(${pro.proNum})">
 												</td>
 											</tr>
 										</c:forEach>

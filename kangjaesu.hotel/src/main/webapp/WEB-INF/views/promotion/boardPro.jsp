@@ -14,6 +14,33 @@
 		url = url + "?proNum=" + proNum;
 		location.href=url;
 	}
+	
+	$(document).on('click', '#schProAdmin', function(e){
+		e.preventDefault();
+		
+		var sdate = $('#schStartDate').val();
+		var edate = $('#schEndDate').val();
+		var url = "${pageContext.request.contextPath}/promotion/boardPro";
+		
+		if(sdate == '' && edate == ''){
+			$('#schStartDate').val('2001-01-01');
+			$('#schStartDate').val('2099-01-01');
+			url = url + "?keyword=" + $('#keyword').val() + "&schStartDate=" + "2001-01-01"
+					+ "&schEndDate=" + "2030-01-01";
+			location.href = url;
+		}
+		else if(sdate != '' && edate == ''){
+			alert('마지막날 입력하그래이');
+		}
+		else if(sdate == '' && edate != ''){
+			alert('첫날 입력하그래이');
+		}else{ 
+			url = url + "?keyword=" + $('#keyword').val() + "&schStartDate=" + sdate
+					+ "&schEndDate=" + edate;
+			location.href = url;
+			console.log(url);	
+		}
+	});
 </script>
 <!-- 
 	- res/js 추가 시
@@ -117,21 +144,21 @@
 							<div class="form-group">
 				            	<p class="form-control-static">투숙 기간&nbsp;</p>
 				            <div class="input-group date">
-				               	<input type="date" class="form-control" placeholder="체크인" id="proStartDate">
+				               	<input type="date" class="form-control" placeholder="체크인" id="schStartDate">
 			                	<span class="input-group-addon">
 				                	<i class="glyphicon glyphicon-calendar"></i>
 			                	</span>
 				            </div>
 				            <p class="form-control-static">&nbsp;~&nbsp;</p>
 				            <div class="input-group date">
-				            	<input type="date" class="form-control" placeholder="체크아웃" id="proEndDate">
+				            	<input type="date" class="form-control" placeholder="체크아웃" id="schEndDate">
 				            	<span class="input-group-addon">
 				            		<i class="glyphicon glyphicon-calendar"></i>
 			            		</span>
 				            </div>&nbsp;&nbsp;&nbsp;
-				            <input type="text" class="form-control" id="title_pro" placeholder="프로모션 명">
+				            <input type="text" class="form-control" id="keyword" placeholder="프로모션 명">
 				         </div>
-				         <button class="btn btn-default" onclick='searchProAdmin()'>검색</button>
+				         <button class="btn btn-default" id="schProAdmin">검색</button>
 				      </form>
 				   	</div>
 				</div>

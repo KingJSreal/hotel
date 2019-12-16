@@ -17,22 +17,8 @@ public class PromotionServiceImpl implements PromotionService{
 	
 	@Override
 	@Transactional
-	public boolean addPromotion(Promotion promotion, List<PromotionDetail> prods) {
-		int length = 1 + prods.size();
-		int a = promotionDao.addpro(promotion);
-		int cnt = 0;
-		
-		for(PromotionDetail prod:prods){
-			cnt += promotionDao.addprod(prod);
-		}
-		
-		return (a+ cnt) > (length - 1);
-	}
-	
-	@Override
-	@Transactional
-	public List<Promotion> listPros() {
-		return promotionDao.getPros();
+	public List<Promotion> listPros(Search search) {
+		return promotionDao.getPros(search);
 	}
 
 	@Override
@@ -47,10 +33,38 @@ public class PromotionServiceImpl implements PromotionService{
 		return promotionDao.getBoardPros(search);
 	}
 
-	/*@Override
+	@Override
 	@Transactional
-	public int boardProsCnt(Search search) {
-		return promotionDao.boardProsCnt(search);
-	}*/
+	public boolean addPromotion(Promotion promotion, List<PromotionDetail> prods) {
+		int length = 1 + prods.size();
+		int a = promotionDao.addpro(promotion);
+		int cnt = 0;
+		
+		for(PromotionDetail prod:prods){
+			cnt += promotionDao.addprod(prod);
+		}
+		
+		return (a + cnt) > (length - 1);
+	}
+	
+	@Override
+	@Transactional
+	public boolean modPromotion(Promotion promotion, List<PromotionDetail> prods) {
+		int length = 1 + prods.size();
+		int a = promotionDao.updatePro(promotion);
+		int cnt = 0;
+		
+		for(PromotionDetail prod:prods){
+			cnt += promotionDao.updateProd(prod);
+		}
+		
+		return (a + cnt) > (length - 1);
+	}
+
+	@Override
+	@Transactional
+	public boolean delPromotion(int proNum) {
+		return promotionDao.delPro(proNum) > 0;
+	}
 
 }

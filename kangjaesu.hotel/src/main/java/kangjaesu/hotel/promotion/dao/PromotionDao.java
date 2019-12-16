@@ -7,12 +7,18 @@ import kangjaesu.hotel.promotion.domain.PromotionDetail;
 import kangjaesu.hotel.promotion.domain.Search;
 
 public interface PromotionDao {
-	List<Promotion> getBoardPros(Search search);
-	//int boardProsCnt(Search search);
+
+	List<Promotion> getPros(Search search);
 	
-	List<Promotion> getPros();
 	Promotion getPro(int proNum);
+	
+	List<Promotion> getBoardPros(Search search);
 	
 	int addpro(Promotion promotion);
 	int addprod(PromotionDetail prod);
+	
+	int updatePro(Promotion promotion);
+	int updateProd(PromotionDetail prod);
+	
+	int delPro(int proNum);
 }
