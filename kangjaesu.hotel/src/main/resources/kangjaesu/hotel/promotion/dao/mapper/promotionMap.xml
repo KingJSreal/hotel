@@ -30,7 +30,26 @@
 		select a.pro_num, min(b.prod_num), b.prod_pic, a.pro_title, a.pro_content, 
 			a.pro_start_date, a.pro_end_date
 		from promotions a, pro_details b
-		where a.pro_num = b.pro_num
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="schStartDate != null and schEndDate != null
+				and schStartDate != '' and schEndDate != '' ">
+				AND a.pro_num = b.pro_num
+				AND NOT((#{schStartDate} <![CDATA[ < ]]> a.pro_start_date and #{schEndDate} <![CDATA[ < ]]> a.pro_start_date)
+					OR(a.pro_end_date <![CDATA[ < ]]> #{schStartDate} and a.pro_end_date <![CDATA[ < ]]> #{schEndDate}))
+			</if>
+			<if test="keyword != null and keyword != '' ">
+				AND a.pro_num = b.pro_num
+				AND a.pro_title like ('%'||#{keyword}||'%')
+			</if>
+			<if test="schStartDate != null and schEndDate != null
+				and schStartDate != '' and schEndDate != '' 
+				and keyword != null and keyword != '' ">
+				AND a.pro_num = b.pro_num
+				AND (a.pro_title like ('%'||#{keyword}||'%')
+					AND NOT((#{schStartDate} <![CDATA[ < ]]> a.pro_start_date and #{schEndDate} <![CDATA[ < ]]> a.pro_start_date) 
+						OR (a.pro_end_date <![CDATA[ < ]]> #{schStartDate} and a.pro_end_date <![CDATA[ < ]]> #{schEndDate})))
+			</if>
+		</trim>
 		group by a.pro_num, b.prod_pic, a.pro_title, a.pro_content, 
 			a.pro_start_date, a.pro_end_date
 		order by a.pro_num desc
@@ -89,4 +108,27 @@
 		values(pro_detail_seq.nextval, promotion_seq.currval, #{prodTitle, jdbcType=VARCHAR}, #{location, jdbcType=VARCHAR}, 
 			#{serviceHour, jdbcType=VARCHAR}, #{notice, jdbcType=VARCHAR}, #{prodContent, jdbcType=VARCHAR})
 	</insert>
+	
+	<update id="updatePro" parameterType="promotion">
+		update promotions
+		set pro_title = #{proTitle}
+			pro_start_date = #{proStartDate}
+			pro_end_date = #{proEndDate}
+			pro_content = #{proContent}
+			pro_detail = #{proDetail}
+		where pro_num = #{proNum}
+	</update>
+	<update id="updateProd" parameterType="promotiondetail">
+		update pro_details
+		set prod_title = #{prodTitle}
+			location = #{location}
+			service_hour = #{serviceHour}
+			notice = #{notice}
+			prod_content = #{prodContent}
+		where pro_num = #{proNum}
+	</update>
+		
+	<delete id="delPro" parameterType="int">
+		delete * from promotions where pro_num = #{proNum}
+	</delete>
 </mapper>

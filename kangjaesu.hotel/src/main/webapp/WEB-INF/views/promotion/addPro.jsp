@@ -39,8 +39,6 @@
 	$("#imgCancel").bind("click", function() {
 		$("#imgUpLoad").val('');
 	});
-
-	
 	
 	$(function() {
 		$("#addProForm").bind(
@@ -302,8 +300,8 @@ section {
 						</div>
 						<div style="margin-top: 25px">
 							<input type="submit" value="작성하기" class="form-control"
-								style="width: 100px; float: right;"> <input
-								type="button" value="다시쓰기" class="form-control"
+								style="width: 100px; float: right;"> 
+							<input type="reset" value="다시쓰기" class="form-control"
 								style="width: 100px; float: right; margin-right: 5px">
 						</div>
 					</div>

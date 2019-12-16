@@ -7,12 +7,11 @@
 <meta charset="UTF-8">
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
-<script src="<c:url value="/js/common.js"/>"></script>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+<script src="<c:url value="/js/common.js"/>"></script>
 <style>
 .table-responsive{
 	width: 90%;

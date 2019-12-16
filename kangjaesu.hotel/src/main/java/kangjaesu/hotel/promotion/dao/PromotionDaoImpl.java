@@ -13,16 +13,10 @@ import kangjaesu.hotel.promotion.domain.Search;
 @Repository
 public class PromotionDaoImpl implements PromotionDao{
 	@Autowired private PromotionMapper mapper = null;
-	
-	
-	/*@Override
-	public int boardProsCnt(Search search) {
-		return mapper.boardProsCnt(search);
-	}*/
 
 	@Override
-	public List<Promotion> getPros() {
-		return mapper.getPros();
+	public List<Promotion> getPros(Search search) {
+		return mapper.getPros(search);
 	}
 	
 	@Override
@@ -43,6 +37,21 @@ public class PromotionDaoImpl implements PromotionDao{
 	@Override
 	public List<Promotion> getBoardPros(Search search) {
 		return mapper.getBoardPros(search);
+	}
+
+	@Override
+	public int updatePro(Promotion promotion) {
+		return mapper.updatePro(promotion);
+	}
+
+	@Override
+	public int updateProd(PromotionDetail prod) {
+		return mapper.updateProd(prod);
+	}
+
+	@Override
+	public int delPro(int proNum) {
+		return mapper.delPro(proNum);
 	}
 
 }

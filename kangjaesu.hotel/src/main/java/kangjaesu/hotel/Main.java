@@ -5,6 +5,9 @@ import javax.servlet.http.HttpSession;
 
 import kangjaesu.hotel.user.domain.User;
 
+import kangjaesu.hotel.user.domain.User;
+import oracle.net.aso.s;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,6 +16,7 @@ public class Main{
 	
 	@RequestMapping("/")
 	public String main(HttpSession session){
+
 		User user = new User();
 		user.setUserNum(0);
 		session.setAttribute("user", user);

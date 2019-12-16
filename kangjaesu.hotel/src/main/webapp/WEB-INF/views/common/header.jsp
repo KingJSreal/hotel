@@ -47,7 +47,7 @@
 				<!-- 예약조회, 로그인, 회원가입 -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
-						<c:when test="${sessionScope.user == null}">
+						<c:when test="${sessionScope.user == null && sessionScope.user.userNum != 0}">
 				   	  		<li><a href="/hotel/admin" style="font-size: 9px; color: gray;">관리자 로그인</a></li>
 						  	<li><a href="/hotel/loginUser" class="header_a">예약조회</a></li>
 						  	<li><a href="/hotel/loginUser" class="header_a">로그인</a></li>

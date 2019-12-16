@@ -22,6 +22,16 @@
       <result column="INQ_CMT_DATE" property="inqCmtDate"/>
    </resultMap>
    
+	<resultMap type="comment" id="commentMap1">
+		<id property="revNum" column="rev_num"/>
+		<result property="userNum" column="user_num"/>
+		<result property="revTitle" column="rev_title"/>
+		<result property="revContent" column="rev_content"/>
+		<result property="roomType" column="room_type"/>
+		<result property="rate" column="rate"/>
+		<result property="revDate" column="rev_date"/>
+	</resultMap>
+   
    <select id="getCount" resultMap="inquiryMap" parameterType="int">
       select count (*) as count
       from INQUIRYS
@@ -46,6 +56,19 @@
       select *
       from INQUIRYS_CMT
       where INQ_NUM=#{inqNum}
+   </select>
+   
+   <select id="getMyCommentsCount" resultMap="commentMap1" parameterType="user">
+      select count(*)
+      from reviews
+      where user_num=#{userNum}
+   </select>
+   
+   <select id="getMyComments" resultMap="commentMap1" parameterType="user">
+      select *
+      from reviews
+      where user_num=#{userNum}
+      order by rev_num;
    </select>
    
    <update id="modInquiry" parameterType="inquiry">

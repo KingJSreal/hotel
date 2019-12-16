@@ -40,6 +40,7 @@ public class UserLoginController {
 		User memUser = loginService.logInVaildate(user);
 		if(memUser != null) {
 			result = true;
+			session.removeAttribute("user");
 			session.setAttribute("user", memUser);
 			}
 		return result;
@@ -53,6 +54,7 @@ public class UserLoginController {
 		User adminUser = loginService.logInVaildate(user);
 		if(adminUser != null && adminUser.getUserGrade() >= 2) {
 			result = true;
+			session.removeAttribute("user");
 			session.setAttribute("user", adminUser);
 			session.setAttribute("page", "admin");
 			}

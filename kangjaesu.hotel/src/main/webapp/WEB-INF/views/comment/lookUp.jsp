@@ -80,11 +80,18 @@ $(".getReview").click(function () {
 				<c:forEach var="list" items="${commentList}">
 					<tr id="a${list.revNum }" class="getReview">
 						<th><a>${list.revNum }</a></th>
-						<td>★★★★☆ <br> ${list.roomType }
+						<td>
+							<c:forEach begin="1" end="${list.rate}" step="1">
+								<c:out value="★" />
+							</c:forEach>
+							<c:forEach begin="1" end="${5-list.rate}" step="1">
+								<c:out value="☆" />
+							</c:forEach>
+						<br> ${list.roomType }
 						</td>
 						<td>${list.revTitle }</td>
-						<td>${list.userNum }님</td>
-						<td>${list.rate }</td>
+						<td>${list.user.userName }님</td>
+						<td>${list.revDate }</td>
 					</tr>
 				</c:forEach>
 				
