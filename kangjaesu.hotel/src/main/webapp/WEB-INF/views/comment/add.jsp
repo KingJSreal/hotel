@@ -277,9 +277,7 @@ var confirm = function(msg, type) {
 			
 			e.preventDefault();
 			var userNum = "${user.userNum}";
-<<<<<<< HEAD
 			
-
 			var ex_files = [null, null, null];
 			for(var i = 0; i < ex_files.length ; i++){
 				if($("#ex_file" + (i+1))[0].files[0] != null)
@@ -290,36 +288,13 @@ var confirm = function(msg, type) {
 			$("input[name=commentImage]").each(function(idx, img){
 				var formData = new FormData();
 				formData.append( "file", img.files[0] );
-=======
-			//var rate = $(".star_rating a").attr("value");
-		/* 	var userCall = null;
-			var userAddressCode = null;
-			var userAddress = null;
-			var validinput = this.checkValidity();
-			var validform = regtest();
-			var validcall = regCall();
-			var validpw = check_pw(); */
-				
->>>>>>> refs/remotes/origin/master
 				$.ajax({
-<<<<<<< HEAD
 					url: "addImage",
 					method: "post",
 					data: formData,
 					processData: false,
 					contentType: false,
 					success:function(result){
-=======
-					url:"addC",
-					method:"GET",
-					data: {					
-						revTitle:$("#revTitle").val(),
-						rate:$(".star_rating a").attr("value"),
-						roomType: $("input[name=roomType]:checked").val(),
-						revContent:$("#revContent").val(),
-						userNum: userNum
->>>>>>> refs/remotes/origin/master
-						
 					},
 					error:function(a, b, errMsg){
 						alert(errMsg);

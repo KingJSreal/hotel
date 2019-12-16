@@ -18,7 +18,6 @@ import kangjaesu.hotel.common.domain.Page;
 import kangjaesu.hotel.common.service.PageService;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
-import kangjaesu.hotel.mypage.service.MyCommentService;
 import kangjaesu.hotel.mypage.service.MyInquiryService;
 import kangjaesu.hotel.point.service.PointService;
 import kangjaesu.hotel.user.domain.User;
@@ -27,7 +26,6 @@ import kangjaesu.hotel.user.domain.User;
 @RequestMapping("/mypage")
 public class MypageController {
 	@Autowired private MyInquiryService myInqService;
-	@Autowired private MyCommentService myCommentService;
 	@Autowired private PageService pageService;
 	
 	@RequestMapping("/myPage")
@@ -53,27 +51,6 @@ public class MypageController {
 	@RequestMapping("/mySecede")
 	public String mySecede(){
 		return "mypage/mySecede";
-	}
-	
-	
-
-	@Transactional
-	@ResponseBody
-	@RequestMapping("/myCommentList")
-	public HashMap<String, Object> myCommentList(Comment comment, HttpServletRequest request) {
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		int dataSize = myCommentService.getMyCommentsCount(comment);
-		int nowPage = 1;
-		
-		String paramNowPage = request.getParameter("page");
-		if(!(paramNowPage.equals("null"))) nowPage = Integer.parseInt(paramNowPage);
-		Page page = pageService.paging(nowPage, dataSize);
-		page.setSearchType(comment);
-		System.out.println(page);
-		result.put("commentList", myCommentService.getMyComments(comment));
-		result.put("page", page);
-		
-		return result;
 	}
 	
 	
