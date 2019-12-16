@@ -42,12 +42,10 @@ public class BookingController {
 	public String bookingForm(Booking booking, Room room, HttpSession session,
 						Model model, HttpServletRequest request) {
 		User user = (User) session.getAttribute("user");
-	//	session = request.getSession();
-	//	if(session == null) {
-	//		user.setUserNum(0);
-	//	}
-		
-		
+//		session = request.getSession();
+//		if(session == null) {
+//			user.setUserNum(0);
+//		}
 		
 		model.addAttribute("point", pointService.getMyPointSum(user.getUserNum()));
 		model.addAttribute("booking", booking);
