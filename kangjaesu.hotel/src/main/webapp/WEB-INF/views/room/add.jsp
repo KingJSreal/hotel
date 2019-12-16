@@ -183,22 +183,21 @@ $(function() {
 				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
 		}
 		$("input[name=roomImage]").each(function(idx, img){
-			var formData = new FormData();
-			formData.append( "file", img.files[0] );
-			$.ajax({
-				url: "addImage",
-				method: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				success:function(result){
-					
-				},
-				error:function(a, b, errMsg){
-					alert(errMsg);
-					return;
-				}
-			});
+			if(roomImage[idx] != null){
+				var formData = new FormData();
+				formData.append( "file", img.files[0] );
+				$.ajax({
+					url: "addImage",
+					method: "post",
+					data: formData,
+					processData: false,
+					contentType: false,
+					error:function(a, b, errMsg){
+						alert(errMsg);
+						return;
+					}
+				});
+			}
 		});
 		$.ajax({
 			url:"add",

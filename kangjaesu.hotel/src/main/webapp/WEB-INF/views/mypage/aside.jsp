@@ -61,7 +61,7 @@
 		</div>
 		<br>
 		<div>
-			<a href="" class="aside_a">후기 작성 내역</a>
+			<a href="/hotel/mypage/myComment" class="aside_a">후기 작성 내역</a>
 		</div>
 		<br>
 		<div>

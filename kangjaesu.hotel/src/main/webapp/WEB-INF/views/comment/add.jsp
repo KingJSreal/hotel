@@ -264,6 +264,7 @@ var confirm = function(msg, type) {
 			   });
 	   //등록버튼 클릭시 호출
 		$("#addForm").bind("submit", function(e){	
+			e.preventDefault();
 			$(".star_rating a").click(function() {
 
 				$(this).parent().children("a").removeClass("on");
@@ -275,7 +276,6 @@ var confirm = function(msg, type) {
 				console.log(rate);
 			});
 			
-			e.preventDefault();
 			var userNum = "${user.userNum}";
 			
 			var ex_files = [null, null, null];
@@ -283,24 +283,22 @@ var confirm = function(msg, type) {
 				if($("#ex_file" + (i+1))[0].files[0] != null)
 					ex_files[i] = "/comment/" + $("#ex_file" + (i+1))[0].files[0].name;
 			}
-			
-
 			$("input[name=commentImage]").each(function(idx, img){
-				var formData = new FormData();
-				formData.append( "file", img.files[0] );
-				$.ajax({
-					url: "addImage",
-					method: "post",
-					data: formData,
-					processData: false,
-					contentType: false,
-					success:function(result){
-					},
-					error:function(a, b, errMsg){
-						alert(errMsg);
-						return;
-					}
+				if(ex_files[idx] != null){
+					var formData = new FormData();
+					formData.append( "file", img.files[0] );
+					$.ajax({
+						url: "addImage",
+						method: "post",
+						data: formData,
+						processData: false,
+						contentType: false,
+						error:function(a, b, errMsg){
+							alert(errMsg);
+							return;
+						}
 				});
+				}
 			});
 			$.ajax({
 				url:"addC",
@@ -315,17 +313,9 @@ var confirm = function(msg, type) {
 					revImage1: ex_files[0],
 					revImage2: ex_files[1],
 					revImage3:	ex_files[2] 
-					
-				
-							
-							
-				 	//userCall: userCall,
-					//userAddressCode:$("#userAddressCode").val(),
-					//userAddress: userAddress 
 				},
 				success:function(){
-			
-	       			//location.href = "/hotel/comment/commentLookUp";
+	       			location.href = "/hotel/comment/commentLookUp";
 				},
 				error:function(a, b, errMsg){
 					alert("에러 등록 실패", 'warning');

@@ -33,9 +33,10 @@
     /* main 섹션 끝*/
 </style>
 <script>
-var loadMyCommet = function(userNum) {
+var loadMyComment = function(userNum) {
 	$.ajax({
-		url:"/hotel/point/myCommentList?page=" + getParameterByName("page"),
+		
+		url:"/hotel/mypage/myCommentList?page=" + getParameterByName("page"),
 		method:"POST",
 		data:{
 			userNum: userNum
@@ -47,6 +48,13 @@ var loadMyCommet = function(userNum) {
 				var commnetList = [];
 				$(result.commnetList).each(function(idx, commnet){
 					var commentRate = "";
+					for(var i = 0; i < commnet.rate; i++){
+						commentRate += "★";
+					}
+					for(var i = 0; i < 5 - commnet.rate; i++){
+						commentRate += "☆";
+					}
+					
 					
 					pointList.push(
 							'<tr>' +
@@ -74,7 +82,7 @@ var loadMyCommet = function(userNum) {
 	});
 }
 
-$(document).ready(loadMyPoint("${sessionScope.user.userNum}"));
+$(document).ready(loadMyComment("${sessionScope.user.userNum}"));
 
 
 </script>
