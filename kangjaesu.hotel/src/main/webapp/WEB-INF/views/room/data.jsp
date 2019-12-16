@@ -285,29 +285,14 @@ var confirm = function(msg, type) {
 					<form id="updateForm" name="updateForm" method="post" class="form-inline" >
 						<div class="container inputGroup">
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg"><label
-									class="btn btn-default btn-lg btn-block" for="roomImage1">이미지업로드</label>
-								<input type="file" id="roomImage1" value="roomImage1" name="roomImage"
-									onchange="imgView(this)">
-								<button class="btn btn-default btn-lg btn-block btn-image-cancel" type="button"
-									value="등록 취소">등록취소</button>
+								<img width="300" height="200" class="previewImg">
 							</div>
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg"> <label
-									class="btn btn-default btn-lg btn-block" for="roomImage2">이미지업로드</label>
-								<input type="file" id="roomImage2" value="roomImage2" name="roomImage"
-									onchange="imgView1(this)">
-								<button type="button" class="btn btn-default btn-lg btn-block btn-image-cancel"
-									value="등록 취소">등록취소</button> 
+								<img width="300" height="200" class="previewImg">
 							</div>
 			
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg"> <label
-									class="btn btn-default btn-lg btn-block" for="roomImage3">이미지업로드</label>
-								<input type="file" id="roomImage3" value="roomImage3" name="roomImage"
-									onchange="imgView2(this)">
-								<button class="btn btn-default btn-lg btn-block" type="button"
-									value="등록 취소">등록취소</button>
+								<img width="300" height="200" class="previewImg"> 
 							</div>
 						</div>
 						<br>

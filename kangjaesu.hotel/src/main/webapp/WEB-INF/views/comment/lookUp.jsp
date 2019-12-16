@@ -90,8 +90,13 @@ $(".getReview").click(function () {
 						<br> ${list.roomType }
 						</td>
 						<td>${list.revTitle }</td>
+<<<<<<< HEAD
 						<td>${list.user.userName }님</td>
 						<td>${list.rate }</td>
+=======
+						<td>${list.userNum }님</td>
+						<td>${list.revDate }</td>
+>>>>>>> refs/remotes/origin/master
 					</tr>
 				</c:forEach>
 				

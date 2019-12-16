@@ -160,9 +160,10 @@ $(function() {
 		e.preventDefault();	
 		
 	if (($("input:checkbox[name=guests]").is(":checked")==false)
-		&& $("input:checkbox[name=roomType]").is(":checked")==false) {
-		alert("인원과 방을 선택 하세요");
-	}
+		&& $("input:checkbox[name=roomType]").is(":checked")==false)
+		{ alert("선택하세요");}
+		
+	
 	
 	/* 	var userCall = null;
 	var userAddressCode = null;
@@ -175,7 +176,7 @@ $(function() {
 	$("input[name:option]:checked").each(function(i){
 		opt.push($(this).val());
 	}); */
-	else {
+	
 		var roomImage = [null, null, null];
 		for(var i = 0; i < roomImage.length ; i++){
 			if($("#roomImage" + (i+1))[0].files[0] != null)
@@ -227,10 +228,11 @@ $(function() {
     			location.href = "/hotel/room/roomManager";
 			},
 			error:function(a, b, errMsg){
-				alert($('input[name=option]:checked').val(), 'warning');
+				alert(errMsg);
 			}
 			
-		})}
+		})
+	
 	
 });
 });
