@@ -86,10 +86,6 @@ $(function(){
 				method:"GET",
 				data: {		
 					revNum:revNum
-				
-				
-							
-							
 				/* 	userCall: userCall,
 					userAddressCode:$("#userAddressCode").val(),
 					userAddress: userAddress */
@@ -134,9 +130,9 @@ $(function(){
   <thead>
     <tr  class="info">
       <th scope="col">제목 : ${comment.revTitle }</th>
-      <th scope="col">작성자 : ${comment.userNum } 님</th>
+      <th scope="col">작성자 :${comment.user.userName } 님</th>
       <th scope="col"></th>
-      <th scope="col">작성일 : ${comment.rate }</th>
+      <th scope="col">작성일 : ${comment.revDate }</th>
     </tr>
   </thead>
   <tbody>
