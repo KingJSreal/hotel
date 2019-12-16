@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../common/import.jsp"></jsp:include>
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js">
+</script>
 <style>
 
 /*테이블*/
@@ -204,7 +206,8 @@ function submit(){
 	var getInqTitle = $("#getInqTitle").val();
 	var getinqContent = $("#getinqContent").val();
 	var getinqDate = $("#getinqDate").val();
-     $.ajax({
+	
+    $.ajax({
 		url:"inquiryMail",
 		method:"GET",
 		data: {			
@@ -216,7 +219,12 @@ function submit(){
 			inqEmail:toEmail,
 			inqCmtContent:$("#inqCmtContent").val()
 		},
+		beforeSend:function(){
+			$.LoadingOverlay("show");
+			
+		},
 		success:function(){
+			$.LoadingOverlay("hide");
 			swal( {
 				text: "답변완료",
 		    	icon: "success",
@@ -242,7 +250,7 @@ function submit(){
 		error:function(a, b, errMsg){
 			alert("작성  오류" + errMsg);
 		}
-	});     
+	});   
 }
 </script>
 </head>

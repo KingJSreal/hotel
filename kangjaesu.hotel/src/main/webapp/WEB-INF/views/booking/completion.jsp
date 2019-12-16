@@ -41,8 +41,8 @@
 
 /* 패널 해드 */
 .panel-heading {
-	padding-left: 100px;
-	padding-right: 100px;
+	padding-left: 80px;
+	padding-right: 80px;
 }
 /* 패널 해드 끝 */
 
@@ -51,8 +51,11 @@
 	width: 80%;
 	margin: 0 auto;
 }
+.panel-footer{
+	text-align: right;
+}
 .pointpanel{
-	margin-left: 80%;
+	margin-right:30px;
 }
 
 .panel-body {
@@ -128,7 +131,7 @@ colgroup col.col {
 						<div class="panel-heading">
 							<h3>예약이 완료되었습니다.</h3>
 							<h4>예약하신 내용이 이메일로 발송되었습니다.</h4>
-							<h2 class="text-right">예약번호: <label id="bookingNum"></label></h2>
+							<h2 class="text-right">예약번호: <label id="bookingNum">${booking.bookingNum}</label></h2>
 						</div>
 						<!-- 패널 헤드 끝 -->
 
@@ -145,25 +148,43 @@ colgroup col.col {
 									<td>호텔</td>
 									<td>서울호텔</td>
 									<td>성명</td>
-									<td><label id="name"></label></td>
+									<td><label id="name">${user.userName}</label></td>
 								</tr>
 								<tr>
 									<td>체크인</td>
-									<td><label id="checkIn"></label></td>
+									<td><label id="checkIn">${booking.checkIn}</label></td>
 									<td>체크아웃</td>
-									<td><label id="checkOut"></label></td>
+									<td><label id="checkOut">${booking.checkOut}</label></td>
 								</tr>
 								<tr>
 									<td>숙박일수</td>
-									<td><label id="days"></label>박</td>
+									<td><label id="days">${days}</label>박</td>
 									<td>투숙인원</td>
-									<td>성인: <label id="adult"></label> / 어린이: <label id="kid"></label></td>
+									<td>성인: <label id="adult">${booking.adult}</label> / 어린이: <label id="kid">${booking.kid}</label></td>
 								</tr>
 								<tr>
 									<td>객실</td>
-									<td><label id="roomType"></label></td>
+									<td><label id="roomType">${booking.roomType}</label></td>
 									<td>옵션</td>
-									<td><label id="option"></label></td>
+									<td><label id="option">
+									<c:forEach var="list" items="${optionList}" varStatus="status">
+										<c:choose>
+									        <c:when test="${list.optNo == 0}">
+									        	조식&nbsp;
+									        </c:when>
+									        <c:when test="${list.optNo == 1}">
+									        	스파&nbsp;
+									        </c:when>
+									        <c:when test="${list.optNo == 2}">
+									      		야외수영장&nbsp;
+									        </c:when>
+									        <c:when test="${list.optNo == 2}">
+									      		엑스트라베드&nbsp;
+									        </c:when>
+									        <c:otherwise></c:otherwise>
+									    </c:choose>
+									</c:forEach>
+									</label></td>
 								</tr>
 							</table>
 						</div>
@@ -175,7 +196,8 @@ colgroup col.col {
 								<span class="pointpanel">사용 포인트: <label id="point"></label></span>
 							</div>
 							<div class="panel-footer">
-								<span class="pointpanel">요금 합계: <label id="charge"></label></span>
+								<span class="pointpanel">요금 합계: <label id="charge">${booking.payment}</label>
+								 / 결제수단: <label id="paytype">${booking.paytype}</label></span>
 							</div>
 						</div>
 						<!-- 포인트,요금 끝-->

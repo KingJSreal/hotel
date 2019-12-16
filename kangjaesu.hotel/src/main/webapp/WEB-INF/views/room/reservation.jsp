@@ -223,6 +223,10 @@ function Today(){
 
 
 $(function() {
+	$("#dateForm").val("");
+	$("#adult").val("선택");
+	$("#kid").val("0");
+	
 	$(".confirmModalButton").click(function() {
 		var roomNumber = $(this).parents().attr('id').substr(1);
 	
@@ -264,9 +268,7 @@ $(function() {
 	});
 	
 	$(".bookingBtn").click(function() {
-		var roomNumber = $(this).parents().parents().attr('id').substr(1);
-		$("#bookingRoomNumber").val(roomNumber);
-		if($("#dateForm").val() ==""){
+ 		if($("#dateForm").val() ==""){
 			alert("체크인/체크아웃을 선택해 주세요");
 			return;
 		}
@@ -274,6 +276,17 @@ $(function() {
 			alert("예약인원을 선택해 주세요");
 			return;
 		}
+		
+		var roomNumber = $(this).parents().parents().attr('id').substr(1);
+		var roomType = $(this).parents().prev().prev().children().children().eq(0).text();
+		var roomOption = $(this).parents().prev().prev().children().children().eq(1).text();
+		var roomPrice = $(this).parents().prev().children().eq(0).text();
+		$("#bookingRoomNumber").val(roomNumber);
+		$("#bookingRoomPrice").val(roomPrice);
+		$("#bookingRoomType").val(roomType);
+		$("#bookingRoomOption").val(roomOption);
+		//$("#bookingUser").val("${user.userNum}");
+		
 		document.form.submit();
 	});
 
@@ -296,7 +309,7 @@ $(function() {
                         <p class="form-control-static">예약정보를 선택하세요</p>
                         <p class="form-control-static">&nbsp; | &nbsp;체크인/체크아웃</p>
                         <div class="input-group date" id="date">
-                           <input type="text" class="form-control" id="dateForm"/>
+                           <input type="text" class="form-control" id="dateForm" onfocus="this.blur();"/>
                            <span class="input-group-addon">
                            <i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
@@ -503,7 +516,7 @@ $(function() {
 
 						</tr>
 						<tr>
-							<th>금액 ${room.roomType }</th>
+							<th>금액 $</th>
 							<td>420000</td>
 						</tr>
 						<tr>
@@ -532,8 +545,9 @@ $(function() {
 			<input id="bookingcheckOut" name="checkOut" type="hidden" value="">
 			<input id="bookingAdult" name="adult" type="hidden" value="">
 			<input id="bookingKid" name="kid" type="hidden" value="">
-			<input id="bookingRoomtype" name="roomType" type="hidden" value="">
-			<input id="bookingRoomoption" name="roomType" type="hidden" value="">
+			<input id="bookingRoomType" name="roomType" type="hidden" value="">
+			<input id="bookingRoomPrice" name="roomPrice" type="hidden" value="">
+			<input id="bookingRoomoption" name="optName" type="hidden" value="">
 	</form>
      <script>
 $(function(){
@@ -567,7 +581,7 @@ $(function(){
       var arr2 = checkInDate.split('-');
       checkIn = new Date(arr1[0], arr1[1], arr1[2]);
       checkOut = new Date(arr2[0], arr2[1], arr2[2]);
-      alert('체크인:   ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
+      alert('체크인: ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
       $('#dateForm').val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
       $('#bookingcheckIn').val(picker.startDate.format('YYYY-MM-DD'));
       $('#bookingcheckOut').val(picker.endDate.format('YYYY-MM-DD'));

@@ -203,14 +203,17 @@ var alert = function(msg, type) {
 							var valid = this.form.checkValidity();
 							var inputpoint = $("#point").val();
 							var mypoint = $("#mypoint").text();
+							var charge = ${room.roomPrice} - inputpoint;
 
 							if (parseInt(mypoint) < parseInt(inputpoint)) {
 								alert("보유한 포인트를 초과할 수 없습니다.\n사용 가능한 포인트 : "
 										+ parseInt(mypoint));
 								return false;
 							}
-							if (inputpoint == "")
+							if (inputpoint == ""){
 								$("#point").val("0");
+								$("#uPoint").text("0");
+							}
 
 							var radios = $(":radio[value='y']");
 							for (var i = 0; i < radios.length; i++) {
@@ -226,8 +229,7 @@ var alert = function(msg, type) {
 								event.preventDefault();
 								$("#name").text($("#kname").val());
 								$("#uPoint").text(inputpoint);
-								$("#roomType").val();
-								$("#option").val();
+								$("#charge").text(charge);
 								$("#confirm").modal('show');
 							}
 						});
@@ -251,30 +253,70 @@ var alert = function(msg, type) {
 				$("#agreement2").load("agreement2.txt");
 			});
 	function submit(){	
-		$.ajax({
+		var userNum = "${user.userNum}";
+		var roomNum = "${booking.roomNum}";
+		var roomType = "${booking.roomType}";
+		var checkIn = "${booking.checkIn}";
+		var checkOut = "${booking.checkOut}";
+		var paytype = $("input[name=radio]:checked").attr("id")+"";
+		var payment = $("#charge").text();
+		var adult = "${booking.adult}";
+		var kid = "${booking.kid}";
+		var cardExp = $("#month").val() + "/" + $("#year").val();
+		var cardNum = $(".cardnum").eq(0).val() + "-" 
+					+ $(".cardnum").eq(1).val() + "-" 
+					+ $(".cardnum").eq(2).val() + "-" 
+					+ $(".cardnum").eq(3).val();
+	 	$.ajax({
 			url:"proceedBooking",
 			type : "POST",
 			data: {			
-			
+				userNum: userNum,
+				roomNum: roomNum,
+				roomType: roomType,
+				checkIn: checkIn,
+				checkOut: checkOut,
+				paytype: paytype,
+				payment: payment,
+				adult: adult,
+				kid: kid,
+				cardCom: $("#cardselect").val(),
+				cardNo: cardNum,
+				cardExp: cardExp,
+				installment: $("#installment").val(),
+				bank: $("#accountselect").val(),
+				account: $("#accountnum").val(),
 			},
-			
+	
 			beforeSend:function(){
 				$.LoadingOverlay("show");
 			},
-			success : function(data) {
-				location.href = "completeBooking";
+			success : function(booking) {
+				$("#bookingNumber").val(booking.bookingNum);
+				$("#bookinguserNum").val(booking.userNum);
+				$.ajax({
+					url:"bookingMail",
+					type : "POST",
+					data: {		
+						roomNum: roomNum,
+						bookingName: $("#kname").val(),
+						bookingEmail: $("#email").val(),
+						bookingNum: $("#bookingNumber").val()
+					},
+					success : function(data) {
+						$.LoadingOverlay("hide");
+						$("#bookingInfo").submit();
+					},error:function(a, b, errMsg){
+						$.LoadingOverlay("hide");
+						alert("이메일오류" + errMsg);
+					} 			
+				});
 			},error:function(a, b, errMsg){
+				$.LoadingOverlay("hide");
 				alert("결제오류" + errMsg);
 			} 			
-		});
+		});  
 	}
-	
-	function loading() {
-		setTimeout(function(){
-		    $.LoadingOverlay("hide");
-		}, 1500);
-	}
-	
 </script>
 </head>
 <body>
@@ -415,15 +457,15 @@ var alert = function(msg, type) {
 													<div class="form-group">
 														<select class="form-control" id="month" required>
 															<option value="" hidden>월</option>
-															<option>1</option>
-															<option>2</option>
-															<option>3</option>
-															<option>4</option>
-															<option>5</option>
-															<option>6</option>
-															<option>7</option>
-															<option>8</option>
-															<option>9</option>
+															<option>01</option>
+															<option>02</option>
+															<option>03</option>
+															<option>04</option>
+															<option>05</option>
+															<option>06</option>
+															<option>07</option>
+															<option>08</option>
+															<option>09</option>
 															<option>10</option>
 															<option>11</option>
 															<option>12</option>
@@ -603,21 +645,39 @@ var alert = function(msg, type) {
 												</tr>
 												<tr>
 													<td>체크인</td>
-													<td><label id="checkIn">${checkIn}</label></td>
+													<td><label id="checkIn">${booking.checkIn}</label></td>
 													<td>체크아웃</td>
-													<td><label id="checkOut">${checkOut}</label></td>
+													<td><label id="checkOut">${booking.checkOut}</label></td>
 												</tr>
 												<tr>
 													<td>숙박일수</td>
 													<td><label id="days">${days}</label>박</td>
 													<td>투숙인원</td>
-													<td>성인: <label id="adult">${adult}</label> / 어린이: <label id="kid">${kid}</label></td>
+													<td>성인: <label id="adult">${booking.adult}</label> / 어린이: <label id="kid">${booking.kid}</label></td>
 												</tr>
 												<tr>
 													<td>객실</td>
-													<td><label id="roomType"></label></td>
+													<td><label id="roomType">${booking.roomType}</label></td>
 													<td>옵션</td>
-													<td><label id="option"></label></td>
+													<td><label id="option">
+													<c:forEach var="list" items="${optionList}" varStatus="status">
+														<c:choose>
+													        <c:when test="${list.optNo == 0}">
+													        	조식&nbsp;
+													        </c:when>
+													        <c:when test="${list.optNo == 1}">
+													        	스파&nbsp;
+													        </c:when>
+													        <c:when test="${list.optNo == 2}">
+													      		야외수영장&nbsp;
+													        </c:when>
+													        <c:when test="${list.optNo == 2}">
+													      		엑스트라베드&nbsp;
+													        </c:when>
+													        <c:otherwise></c:otherwise>
+													    </c:choose>
+													</c:forEach>
+													</label></td>
 												</tr>
 											</table>
 										</div>
@@ -625,7 +685,7 @@ var alert = function(msg, type) {
 							
 										<!-- 포인트,요금 -->
 										<div class="panel panel-default text-right">
-											<div class="panel-footer">사용 포인트: <label id="uPoint"></label></div>
+											<div class="panel-footer">사용 포인트: <label id="uPoint">0</label></div>
 											<div class="panel-footer">요금 합계: <label id="charge"></label></div>
 										</div>
 										<!-- 포인트,요금 끝-->
@@ -659,6 +719,10 @@ var alert = function(msg, type) {
 					<!-- 예약신청시 모달창 끝 -->
 				</form>
 			</section>
+			<form id="bookingInfo" method="post" action="completeBooking">
+				<input id="bookingNumber" name="bookingNum" type="hidden" value="">
+				<input id="bookinguserNum" name="userNum" type="hidden" value="">
+			</form>
 		</div>
 		<jsp:include page="../common/footer.jsp" />
 	</div>

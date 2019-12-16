@@ -31,4 +31,14 @@ public class CommentDaoImpl implements CommentDao{
 		return mapper.getReview(revNum);
 	}
 
+	@Override
+	public int delReview(int revNum) {
+		return mapper.delReview(revNum);
+	}
+
+	@Override
+	public int updateReview(Comment comment) {
+		return mapper.updateReview(comment);
+	}
+
 }

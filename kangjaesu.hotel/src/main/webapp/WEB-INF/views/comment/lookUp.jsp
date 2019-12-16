@@ -19,6 +19,7 @@
 </style>
 <script>
 $(function(){ 
+
 $(".getReview").click(function () {
 	  
 	   var revNum = $(this).attr('id').substr(1);
@@ -53,7 +54,7 @@ $(".getReview").click(function () {
 		<div class="container center-block">
 			<div class="">
 			<c:choose>
-				<c:when test="${(sessionScope.user.userGrade == '1' || sessionScope.page == 'admin')}">
+				<c:when test="${(sessionScope.user.userGrade == '1' || sessionScope.user.userGrade == '2')}">
 				<button class="btn btn-primary" type="button" value="후기 등록"
 					onclick="location.href='/hotel/comment/commentAdd' "
 					style="text-align: reight; float: right;">후기 등록</button>
@@ -79,9 +80,9 @@ $(".getReview").click(function () {
 				<c:forEach var="list" items="${commentList}">
 					<tr id="a${list.revNum }" class="getReview">
 						<th><a>${list.revNum }</a></th>
-						<td>★★★★☆ <br> 그랜드
+						<td>★★★★☆ <br> ${list.roomType }
 						</td>
-						<td>${list.revContent }</td>
+						<td>${list.revTitle }</td>
 						<td>${list.userNum }님</td>
 						<td>${list.rate }</td>
 					</tr>
@@ -90,21 +91,14 @@ $(".getReview").click(function () {
 				</tbody>
 			</table>
 			<div class="container center-block">
-				<nav aria-label="Page navigation example">
-					<center>
-						<ul class="pagination">
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
+				
+				<!-- 페이징 -->
+					<div class="container text-center">
+						<ul class="pagination" id="pages">
 						</ul>
-					</center>
-				</nav>
+					</div>
+					<!-- 페이징 끝 -->
+				
 			</div>
 		</div>
 	</div>

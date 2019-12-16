@@ -26,11 +26,28 @@ th {
 }
 </style>
 <script>
-$(function() {
-	$(".info").click(function() {
-		location.href = "bookingInformation";
-	}); 
-}); 
+var alert = function(msg, type) {
+	swal({
+		text: msg,
+		icon: type,
+		buttons: true,
+		buttons: "확인",
+	});
+}
+
+$(function() {		
+	//보기 버튼, 제목 클릭시 호출
+	$(".infoButton").click(function() {
+		var tr = $(this).parent().parent();
+		var bookingNum = tr.children().eq(0).text();
+		var roomType = tr.children().eq(1).text();
+		var name = tr.children().eq(3).text();
+		$("#bookingNum").val(bookingNum);
+		$("#roomType").val(roomType);
+		$("#name").val(name);
+		document.form.submit();
+	});
+});
 </script>
 </head>
 <body>
@@ -72,21 +89,19 @@ $(function() {
 							<th>예약번호</th>
 							<th>객실</th>
 							<th>숙박일</th>
-							<th>예약일자</th>
 							<th>예약인</th>
 							<th class="th06"></th>
 						</tr>
+						<c:forEach var="list" items="${bookingList}">
 						<tr>
-							<td>17033360</td>
-							<td>Deluxe</td>
-							<td>2019-11-20 ~ 2019-11-23</td>
-							<td>2019-10-10</td>
-							<td>김철수</td>
-							<td><button type="button" class="btn btn-success info">예약정보</button></td>
+							<td>${list.bookingNum}</td>
+							<td>${list.roomType}</td>
+							<td>${list.checkIn} ~ ${list.checkOut}</td>
+							<td>${list.userName}</td>
+							<td><button type="button" class="btn btn-success infoButton" id="${list.bookingNum}">예약정보</button></td>
 						</tr>
+						</c:forEach>
 					</table>
-
-
 					<!-- paging -->
 					<div class="paging" style="text-align: center">
 						<ul class="pagination">
@@ -104,9 +119,13 @@ $(function() {
 					</div>
 				</div>
 				<!-- paging 끝 -->
-
 		</section>
 	</div>
+	<form name="form" method="post" action="bookingInformation">
+		<input id=bookingNum name="bookingNum" type="hidden" value="">
+		<input id=roomType name="roomType" type="hidden" value="">
+		<input id=name name="name" type="hidden" value="">
+	</form>
 	<jsp:include page="../common/footer.jsp" />
 	</div>
 </body>
