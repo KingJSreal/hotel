@@ -391,7 +391,7 @@ $(function() {
                      <div class="thumb-isotope">
                         <table class="table table-hover">
                            <tr id="a${list.roomNum }"  >
-                              <td class="confirmModalButton"><img width="300" height="200"></td>
+                              <td class="confirmModalButton"><img width="300" height="200" src="<c:url value="/img/${list.roomImage1}"/>"></td>
 
                               <td class="confirmModalButton" style="vertical-align: middle;">
                                  <p>- <span class="txt0">${list.roomType }</span></p>

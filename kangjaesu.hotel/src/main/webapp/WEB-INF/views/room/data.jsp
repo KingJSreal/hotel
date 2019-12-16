@@ -33,6 +33,17 @@ h4.promotion-title {
 /*메인 섹션 끝*/
 
 
+.input-group input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
 input[type="checkbox"] {
 	display: none;
 	float: left;
@@ -99,6 +110,37 @@ input[type="checkbox"]:checked+label:BEFORE {
 </style>
 <script>
 $(document).ready(function() {
+
+	//이미지 추가
+	var imgView = function(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.addEventListener("load", function() {
+				$('.previewImg').attr('src', reader.result);
+			}, false);
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	var imgView1 = function(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.addEventListener("load", function() {
+				$('.previewImg1').attr('src', reader.result);
+			}, false);
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	var imgView2 = function(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.addEventListener("load", function() {
+				$('.previewImg2').attr('src', reader.result);
+			}, false);
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	
 	var roomtype = ("${room.roomType}");
 	$("input:checkbox[name=roomType]").each(function(){
 		if(this.value == roomtype){
@@ -157,7 +199,13 @@ var confirm = function(msg, type) {
 		    	  
 		      
 		   });
-	   
+
+		var roomImage = [null, null, null];
+		for(var i = 0; i < roomImage.length ; i++){
+			if($("#roomImage" + (i+1))[0].files[0] != null)
+				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
+		}
+		
 	   $("#updateForm").bind("submit", function(e){		
 			e.preventDefault();
 
@@ -176,9 +224,9 @@ var confirm = function(msg, type) {
 						//optNo:$("input[name=option]:checked").serialize(),
 						
 						roomPrice:$("#roomPrice").val(),
-						roomImage1:$("#roomImage1").val(),
-						roomImage2:$("#roomImage2").val(),
-						roomImage3:$("#roomImage3").val() 
+						roomImage1: roomImage[0],
+						roomImage2: roomImage[1],
+						roomImage3:	roomImage[2] 
 					
 								
 								
@@ -239,14 +287,29 @@ var confirm = function(msg, type) {
 					<form id="updateForm" name="updateForm" method="post" class="form-inline" >
 						<div class="container inputGroup">
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg"> 
+								<img width="300" height="200" class="previewImg"><label
+									class="btn btn-default btn-lg btn-block" for="roomImage1">이미지업로드</label>
+								<input type="file" id="roomImage1" value="roomImage1" name="roomImage"
+									onchange="imgView(this)">
+								<button class="btn btn-default btn-lg btn-block btn-image-cancel" type="button"
+									value="등록 취소">등록취소</button>
 							</div>
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg"> 
+								<img width="300" height="200" class="previewImg"> <label
+									class="btn btn-default btn-lg btn-block" for="roomImage2">이미지업로드</label>
+								<input type="file" id="roomImage2" value="roomImage2" name="roomImage"
+									onchange="imgView1(this)">
+								<button type="button" class="btn btn-default btn-lg btn-block btn-image-cancel"
+									value="등록 취소">등록취소</button> 
 							</div>
 			
 							<div class="input-group col-md-3">
-								<img width="300" height="200" class="previewImg">
+								<img width="300" height="200" class="previewImg"> <label
+									class="btn btn-default btn-lg btn-block" for="roomImage3">이미지업로드</label>
+								<input type="file" id="roomImage3" value="roomImage3" name="roomImage"
+									onchange="imgView2(this)">
+								<button class="btn btn-default btn-lg btn-block" type="button"
+									value="등록 취소">등록취소</button>
 							</div>
 						</div>
 						<br>
