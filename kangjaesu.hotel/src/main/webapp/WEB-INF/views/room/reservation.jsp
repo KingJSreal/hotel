@@ -399,8 +399,8 @@ $(function() {
                   <div class="isotope-element" id="isotope-filter0">
                      <div class="thumb-isotope">
                         <table class="table table-hover">
-                           <tr id="a${list.roomNum }" class="confirmModalButton" >
-                              <td><img width="300" height="200"></td>
+                           <tr id="a${list.roomNum }"  >
+                              <td class="confirmModalButton"><img width="300" height="200" src="<c:url value="/img/${list.roomImage1}"/>"></td>
 
                               <td style="vertical-align: middle;">
                                  <p>- <span class="txt0">${list.roomType }</span></p>
