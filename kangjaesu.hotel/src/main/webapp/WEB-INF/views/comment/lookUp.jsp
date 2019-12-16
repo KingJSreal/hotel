@@ -79,7 +79,7 @@ $(".getReview").click(function () {
 				<c:forEach var="list" items="${commentList}">
 					<tr id="a${list.revNum }" class="getReview">
 						<th><a>${list.revNum }</a></th>
-						<td>★★★★☆ <br> 그랜드
+						<td>★★★★☆ <br> ${list.roomType }
 						</td>
 						<td>${list.revContent }</td>
 						<td>${list.userNum }님</td>

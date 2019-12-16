@@ -210,7 +210,9 @@ $(function() {
 	//답변보기 버튼
 	$(".confirmModalButton").click(function() {
 		var roomNumber = $(this).attr('id').substr(1);
-	
+		$("input:checkbox[name=rom]").prop("checked",false);
+		$("input:checkbox[name=count]").prop("checked",false);
+		
 		$.ajax({
 			url : "getData",
 			method : "GET",
@@ -249,13 +251,20 @@ $(function() {
                <div class="panel panel-default">
                   <form class="form-inline searchBar">
                      <div class="container text-center form-group">
-                        <p class="form-control-static">예약정보를 선택하세요</p>
-                        <p class="form-control-static">&nbsp; | &nbsp;체크인/체크아웃</p>
-                        <div class="input-group date" id="date">
-                           <input type="text" class="form-control" id="dateForm"/>
-                           <span class="input-group-addon">
-                           <i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
+                       	<p class="form-control-static">&nbsp; | &nbsp; 체크인</p>
+						<div class="input-group date">
+							<input type="date" class="form-control" placeholder="체크인"
+								value="체크인"> <span class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
+						<p class="form-control-static">&nbsp; | &nbsp; 체크아웃</p>
+						<div class="input-group date">
+							<input type="date" class="form-control" placeholder="체크아웃">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
                         <p class="form-control-static">&nbsp; | &nbsp; 성인</p>
                         <select class="form-control" id="adult">
                            <option>선택</option>

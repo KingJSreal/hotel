@@ -321,6 +321,7 @@ var confirm = function(msg, type) {
 												href="#">★</a> <a href="#">★</a> <a href="#">★</a>
 										</p>
 									</th>
+									
 								</tr>
 								<tr>
 									<th class="table-active">방타입</th>

@@ -157,8 +157,12 @@ $(function() {
 	
 $("#addForm").bind("submit", function(e){		
 	e.preventDefault();
-
-/* 	var userCall = null;
+	if (($("input:checkbox[name=guests]").is(":checked")==false)
+		&& $("input:checkbox[name=roomType]").is(":checked")==false) {
+		alert("인원과 방을 선택 하세요");
+	}
+	
+	/* 	var userCall = null;
 	var userAddressCode = null;
 	var userAddress = null;
 	var validinput = this.checkValidity();
@@ -169,7 +173,7 @@ $("#addForm").bind("submit", function(e){
 	$("input[name:option]:checked").each(function(i){
 		opt.push($(this).val());
 	}); */
-	
+	else {
 		$.ajax({
 			url:"add",
 			method:"POST",
@@ -201,7 +205,7 @@ $("#addForm").bind("submit", function(e){
 				alert($('input[name=option]:checked').val(), 'warning');
 			}
 			
-		})
+		})}
 	
 });
 });
@@ -266,7 +270,7 @@ $("#addForm").bind("submit", function(e){
 									<tr>
 										<th>객실명</th>
 										<td><input type="text" id="roomName" name="roomName" class="form-control roomnameInput"
-											placeholder="객실명을 입력하세요" ></td>
+											placeholder="객실명을 입력하세요" required="required"></td>
 									</tr>
 									<tr>
 										<th>방타입</th>
