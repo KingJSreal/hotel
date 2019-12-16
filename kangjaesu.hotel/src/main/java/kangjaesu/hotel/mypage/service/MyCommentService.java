@@ -8,6 +8,4 @@ import kangjaesu.hotel.user.domain.User;
 public interface MyCommentService {
 	List<Comment> getMyComments(Comment comment);
 	int getMyCommentsCount(Comment comment);
-	Comment getMyComment(Comment comment);
-
 }

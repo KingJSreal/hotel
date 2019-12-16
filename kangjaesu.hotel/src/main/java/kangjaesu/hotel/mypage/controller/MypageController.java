@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kangjaesu.hotel.booking.domain.Booking;
 import kangjaesu.hotel.comment.domain.Comment;
 import kangjaesu.hotel.common.domain.Page;
 import kangjaesu.hotel.common.service.PageService;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
+import kangjaesu.hotel.mypage.service.MyBookingService;
 import kangjaesu.hotel.mypage.service.MyCommentService;
 import kangjaesu.hotel.mypage.service.MyInquiryService;
 import kangjaesu.hotel.point.domain.Point;
@@ -29,6 +31,7 @@ import kangjaesu.hotel.user.domain.User;
 public class MypageController {
 	@Autowired private MyInquiryService myInqService;
 	@Autowired private MyCommentService myCommentService;
+	@Autowired private MyBookingService myBookingService;
 	@Autowired private PageService pageService;
 	
 	@RequestMapping("/myPage")
@@ -42,6 +45,10 @@ public class MypageController {
 	@RequestMapping("/myComment")
 	public String myComment(){
 		return "mypage/myComment";
+	}
+	@RequestMapping("/myBooking")
+	public String myBooking(){
+		return "mypage/myBooking";
 	}
 	@RequestMapping("/myInfo")
 	public String myInfo(){
@@ -76,7 +83,24 @@ public class MypageController {
 		return result;
 	}
 	
-	
+	@RequestMapping("/myBookingList")
+	@ResponseBody
+	@Transactional
+	public HashMap<String, Object> myBookingList(Booking booking, HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		int dataSize = myBookingService.getMyBookingsCount(booking);
+		int nowPage = 1;
+		
+		String paramNowPage = request.getParameter("page");
+		if(!(paramNowPage.equals("null"))) nowPage = Integer.parseInt(paramNowPage);
+		Page page = pageService.paging(nowPage, dataSize);
+		page.setSearchType(booking);
+		System.out.println(page);
+		result.put("bookingList", myBookingService.getMyBookings(booking));
+		result.put("page", page);
+		
+		return result;
+	}
 	
 	
 	

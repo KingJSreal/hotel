@@ -23,12 +23,4 @@ public class MyCommentServiceImpl implements MyCommentService{
 	public int getMyCommentsCount(Comment comment) {
 		return mypageDao.getMyCommentsCount(comment);
 	}
-
-	@Override
-	public Comment getMyComment(Comment comment) {
-		return mypageDao.getMyComment(comment);
-	}
-
-	
-
 }
