@@ -18,6 +18,7 @@ import kangjaesu.hotel.common.domain.Page;
 import kangjaesu.hotel.common.service.PageService;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
+import kangjaesu.hotel.mypage.service.MyCommentService;
 import kangjaesu.hotel.mypage.service.MyInquiryService;
 import kangjaesu.hotel.point.service.PointService;
 import kangjaesu.hotel.user.domain.User;
