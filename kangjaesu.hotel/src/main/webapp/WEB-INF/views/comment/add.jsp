@@ -346,7 +346,7 @@ var confirm = function(msg, type) {
 		<div class=" container">
 	
 		<section>
-			<form id="addForm" name="addForm" method="post" >
+			<form id="addForm" name="addForm" method="post" enctype="multiport/form-data">
 				<div class="container center-block" style="width: 70%;">
 
 					
