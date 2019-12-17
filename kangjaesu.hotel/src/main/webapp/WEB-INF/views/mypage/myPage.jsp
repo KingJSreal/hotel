@@ -157,7 +157,7 @@ var loadMyBooking = function(userNum) {
 				$('#bookingList').append(bookingList.join(''));		
 
 				$(".getBooking").click(function () {
-				   location.href = "/hotel/booking/bookingInformation?bookingNum=" + $(this).attr('id');
+				   location.href = "/hotel/booking/myBooking?bookingNum=" + $(this).attr('id');
 				});
 			}else{
 				$('#bookingList').append(

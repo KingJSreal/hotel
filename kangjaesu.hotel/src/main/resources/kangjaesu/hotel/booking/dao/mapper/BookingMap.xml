@@ -60,12 +60,10 @@
    </select>
    
    <select id="getMyBookings" resultMap="bookingMap" parameterType="int">
-   	  select BOOKING_NUM, BOOKINGS.USER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_, POINT
+   	  select BOOKING_NUM, BOOKINGS.USER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_, POINT,
    	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE
-      from USERS, BOOKINGS, ROOMS
-      where BOOKINGS.BOOKING_NUM=#{bookingNum}
-      		and USERS.USER_NUM=BOOKINGS.USER_NUM
-      		and BOOKINGS.ROOM_NUM=ROOMS.ROOM_NUM order by BOOKING_NUM DESC
+      from USERS, ROOMS, (select * from BOOKINGS where BOOKING_NUM=#{bookingNum}) BOOKINGS
+      where USERS.USER_NUM=BOOKINGS.USER_NUM and BOOKINGS.ROOM_NUM=ROOMS.ROOM_NUM
    </select>
    
    <select id="getNoneUserBookings" resultMap="bookingMap" parameterType="int">
