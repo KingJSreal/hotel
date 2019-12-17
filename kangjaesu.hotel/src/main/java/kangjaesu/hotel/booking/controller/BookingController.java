@@ -42,10 +42,6 @@ public class BookingController {
 	public String bookingForm(Booking booking, Room room, HttpSession session,
 						Model model, HttpServletRequest request) {
 		User user = (User) session.getAttribute("user");
-//		session = request.getSession();
-//		if(session == null) {
-//			user.setUserNum(0);
-//		}
 		
 		model.addAttribute("point", pointService.getMyPointSum(user.getUserNum()));
 		model.addAttribute("booking", booking);
@@ -60,7 +56,7 @@ public class BookingController {
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/proceedBooking")
-	public Booking proceedBooking(Model model, Booking booking, Card card, int pointChange,
+	public Booking proceedBooking(Model model, Booking booking, Card card, HttpSession session,
 						Account account, String paytype, String cardExp, NoneUser noneUser) throws ParseException {
 		
 		booking.setPaytype(paytype);
@@ -68,6 +64,7 @@ public class BookingController {
 		
 		if(booking.getUserNum()==0){
 			noneUser.setBookingNum(booking.getBookingNum());
+			noneUser.setNuserKname(booking.getUserName());
 			bookingService.addNoneUser(noneUser);
 		}
 		
@@ -81,20 +78,23 @@ public class BookingController {
 			bookingService.addAccount(account);
 		}
 		
-		Point point = new Point();
-		point.setPointChange(pointChange);
-		point.setPointContent("객실예약");
-		point.setUserNum(booking.getUserNum());
-		pointService.addPoint(point);
-		
+		if (booking.getBookingPoint() != 0){
+			Point point = new Point();
+			point.setPointChange(booking.getBookingPoint() * (-1));
+			model.addAttribute("point", booking.getBookingPoint());
+			point.setPointContent("객실예약");
+			point.setUserNum(booking.getUserNum());
+			model.addAttribute("point", pointService.addPoint(point));
+		}
 		return booking;
 	}
 	
 	//예약완료 페이지
 	@Transactional
 	@RequestMapping("/completeBooking")
-	public String completeBooking(Model model, Room room, int bookingNum) {
+	public String completeBooking(Model model, Room room, int bookingNum, String userName) {
 		Booking booking = bookingService.getBooking(bookingNum);
+		booking.setUserName(userName);
 		booking.setRoomType(roomService.getRoom(booking.getRoomNum()).getRoomType());
 		model.addAttribute("optionList", roomService.getRoom(booking.getRoomNum()).getOptions());
 		model.addAttribute("booking", booking);
@@ -105,14 +105,17 @@ public class BookingController {
 	//예약조회 페이지
 	@Transactional
 	@RequestMapping("/myBooking")
-	public String myBooking(Model model, HttpSession session) {
+	public String myBooking(Model model, HttpSession session, Booking booking) {
 		User user = (User) session.getAttribute("user");
 		int userNum = user.getUserNum();
-		if(userNum == 0)
-			
-			
-		model.addAttribute("myBookingList", bookingService.getMyBookings(userNum));
-		return "booking/myBooking";
+		if(userNum == 0){
+			model.addAttribute("nUserBooking", bookingService.getNoneUserBookings(booking.getBookingNum()));
+			return "booking/noneUserBooking";
+		}
+		else{
+			model.addAttribute("myBookingList", bookingService.getMyBookings(userNum));
+			return "booking/myBooking";
+		}
 	}
 	
 	//예약관리 페이지

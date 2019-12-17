@@ -104,9 +104,9 @@
 	</insert>
 	<insert id="addProd" parameterType="promotiondetail">
 		insert into pro_details
-			(prod_num, pro_num, prod_title, location, service_hour, notice, prod_content)
+			(prod_num, pro_num, prod_title, location, service_hour, notice, prod_content, prod_pic)
 		values(pro_detail_seq.nextval, promotion_seq.currval, #{prodTitle, jdbcType=VARCHAR}, #{location, jdbcType=VARCHAR}, 
-			#{serviceHour, jdbcType=VARCHAR}, #{notice, jdbcType=VARCHAR}, #{prodContent, jdbcType=VARCHAR})
+			#{serviceHour, jdbcType=VARCHAR}, #{notice, jdbcType=VARCHAR}, #{prodContent, jdbcType=VARCHAR}, #{prodPic, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="updatePro" parameterType="promotion">
@@ -120,7 +120,8 @@
 	</update>
 	<update id="updateProd" parameterType="promotiondetail">
 		update pro_details
-		set prod_title = #{prodTitle}
+		set prod_pic = #{prodPic}
+			prod_title = #{prodTitle}
 			location = #{location}
 			service_hour = #{serviceHour}
 			notice = #{notice}
@@ -129,6 +130,6 @@
 	</update>
 		
 	<delete id="delPro" parameterType="int">
-		delete * from promotions where pro_num = #{proNum}
+		delete from promotions where pro_num = #{proNum}
 	</delete>
 </mapper>

@@ -64,8 +64,8 @@ public class RoomController {
 	@Transactional
 	@RequestMapping("/roomReservation")
 	public String roomReservation(Model model) {
-	  model.addAttribute("roomList", roomService.getRooms());   
-		return "room/reservation";
+	  model.addAttribute("roomList", roomService.getRooms()); 
+	  return "room/reservation";
 	}
 	
 /*	@Transactional

@@ -259,13 +259,14 @@ $(function() {
 			success : function(room) {
 				var options = room.option;
 				var optionList = options.split(" ");
-				$("input:checkbox[name=option]").each(function(index){
+			//	alert(optionList);
+	 			$("input:checkbox[name=option]").each(function(index){
 					for(var i=0;i<optionList.length;i++){
-					    if(index == optionList[i]){
+					    if($(this).siblings().text() == optionList[i]){
 					    	$(this).prop("checked", true);
 						}
 					}
-	  			}); 
+	  			});  
 			  		
 				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];	
 				$(".previewImg").each(function(idx, img){
@@ -311,7 +312,6 @@ $(function() {
 		$("#bookingRoomType").val(roomType);
 		$("#bookingRoomOption").val(roomOption);
 		//$("#bookingUser").val("${user.userNum}");
-		
 		document.form.submit();
 	});
 
@@ -419,8 +419,10 @@ $(function() {
 											<p>
 												- <span class="txt0">${list.roomType }</span>
 											</p>
+											
+
 											<p>
-												- <span class="txt1">조식</span>
+												- <span class="txt1">${list.option }</span>
 											</p>
 											<p>
 												- <span class="txt1">야외수영장</span>
@@ -455,7 +457,7 @@ $(function() {
 
 								<div class="panel panel-default">
 									<div class="container">
-										<form id="form" class="form-inline">
+										<form class="form-inline">
 											<div class="container inputGroup">
 												<div class="input-group col-md-3">
 													<img width="250" height="200" class="previewImg">

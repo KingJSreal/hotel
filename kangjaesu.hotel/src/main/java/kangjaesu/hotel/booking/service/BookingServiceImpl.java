@@ -108,8 +108,11 @@ public class BookingServiceImpl implements BookingService{
 
 	@Override
 	public List<Booking> getMyBookings(int userNum) {
-	//	if(userNum == 0)
-			
 		return bookingDao.getMyBookings(userNum);
+	}
+
+	@Override
+	public List<Booking> getNoneUserBookings(int bookingNum) {
+		return bookingDao.getNoneUserBookings(bookingNum);
 	}
 }

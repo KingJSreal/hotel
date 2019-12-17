@@ -8,6 +8,23 @@
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script>
+	var alert = function(msg, type){
+	   swal({
+	      title:"",
+	      text:msg,
+	      type:type,
+
+	      customClass:"sweet-size",
+	      showConfirmButton:true
+	   });
+	}
+	var alertResult = function(msg, isGood){
+	   if(isGood){
+	      alert(msg + '성공했습니다', 'success');
+	   }
+	   else alert(msg + '실패했습니다', 'error');
+	}
+
 	function detailPro(proNum){
 		var url = "${pageContext.request.contextPath}/promotion/detailPro";
 		url = url + "?proNum=" + proNum;
@@ -18,6 +35,22 @@
 		var url = "${pageContext.request.contextPath}/promotion/modPro";
 		url = url + "?proNum=" + proNum;
 		location.href=url;
+	}
+	
+	function deletePro(proNum){
+		//var url = "${pageContext.request.contextPath}/promotion/delPro";
+		//url = url + "?proNum=" + proNum;
+		//location.href=url;
+		$.ajax({
+			url:'delPro',
+			data: {proNum:proNum},
+			success:function(){
+				alert('삭제가 완료되었습니다.', 'success');
+			},
+			error:function(){
+				alert('삭제 실패', 'error');
+			}
+		});
 	}
 	
 	$(document).on('click', '#schProAdmin', function(e){
@@ -85,6 +118,11 @@ div .searchBar {
 
 th {
 	text-align: center;
+}
+
+.sweet-size{
+   width: 320px;
+   height: 200px;
 }
 /*메인 섹션 끝*/
 </style>
