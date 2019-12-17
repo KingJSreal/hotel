@@ -224,6 +224,12 @@ $(document).ready(function() {
           timeout = setTimeout( delayed, threshold );
       };
    }
+   
+   var roomImages = ["${room.roomImage1}", "${room.roomImage2}", "${room.roomImage3}"];
+	$(".previewImg").each(function(idx, img){		
+		if(roomImages[idx] != "")
+			$(this).attr("src", "<c:url value='/img/" + roomImages[idx] + "'/>");
+		});	
 });
 
 function Today(){
@@ -268,7 +274,7 @@ $(function() {
 	  			}); 
 			  		
 				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];	
-				$(".previewImg").each(function(idx, img){
+				$(".previewImg3").each(function(idx, img){
 					if(roomImages[idx] != null)
 						$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
 					})
@@ -409,7 +415,7 @@ $(function() {
 							<div class="thumb-isotope">
 								<table class="table table-hover">
 									<tr id="a${list.roomNum }">
-										<td class="confirmModalButton"><img width="300"
+										<td class="confirmModalButton"><img width="300" src="${list.roomImage1 } "class="previewImg"
 											height="200"></td>
 
 										<td class="confirmModalButton" style="vertical-align: middle;">
@@ -455,14 +461,14 @@ $(function() {
 										<form id="form" class="form-inline">
 											<div class="container inputGroup">
 												<div class="input-group col-md-3">
-													<img width="250" height="200" class="previewImg">
+													<img width="250" height="200" class="previewImg3">
 												</div>
 												<div class="input-group col-md-3">
-													<img width="250" height="200" class="previewImg1">
+													<img width="250" height="200" class="previewImg3">
 												</div>
 
 												<div class="input-group col-md-3">
-													<img width="250" height="200" class="previewImg2">
+													<img width="250" height="200" class="previewImg3">
 												</div>
 											</div>
 										</form>
