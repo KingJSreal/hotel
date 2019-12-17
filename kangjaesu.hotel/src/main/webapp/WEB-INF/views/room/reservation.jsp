@@ -224,12 +224,6 @@ $(document).ready(function() {
           timeout = setTimeout( delayed, threshold );
       };
    }
-   
-   var roomImages = ["${room.roomImage1}", "${room.roomImage2}", "${room.roomImage3}"];
-	$(".previewImg").each(function(idx, img){		
-		if(roomImages[idx] != "")
-			$(this).attr("src", "<c:url value='/img/" + roomImages[idx] + "'/>");
-		});	
 });
 
 function Today(){
@@ -265,16 +259,17 @@ $(function() {
 			success : function(room) {
 				var options = room.option;
 				var optionList = options.split(" ");
-				$("input:checkbox[name=option]").each(function(index){
+			//	alert(optionList);
+	 			$("input:checkbox[name=option]").each(function(index){
 					for(var i=0;i<optionList.length;i++){
-					    if(index == optionList[i]){
+					    if($(this).siblings().text() == optionList[i]){
 					    	$(this).prop("checked", true);
 						}
 					}
-	  			}); 
+	  			});  
 			  		
 				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];	
-				$(".previewImg3").each(function(idx, img){
+				$(".previewImg").each(function(idx, img){
 					if(roomImages[idx] != null)
 						$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
 					})
@@ -314,7 +309,6 @@ $(function() {
 		$("#bookingRoomType").val(roomType);
 		$("#bookingRoomOption").val(roomOption);
 		//$("#bookingUser").val("${user.userNum}");
-		
 		document.form.submit();
 	});
 
@@ -415,15 +409,17 @@ $(function() {
 							<div class="thumb-isotope">
 								<table class="table table-hover">
 									<tr id="a${list.roomNum }">
-										<td class="confirmModalButton"><img width="300" src="${list.roomImage1 } "class="previewImg"
-											height="200"></td>
+										<td class="confirmModalButton">
+											<img width="300" height="200" src="<c:url value="/img/${list.roomImage1}"/>"></td>
 
 										<td class="confirmModalButton" style="vertical-align: middle;">
 											<p>
 												- <span class="txt0">${list.roomType }</span>
 											</p>
+											
+
 											<p>
-												- <span class="txt1">조식</span>
+												- <span class="txt1">${list.option }</span>
 											</p>
 											<p>
 												- <span class="txt1">야외수영장</span>

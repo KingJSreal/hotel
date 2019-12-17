@@ -14,6 +14,7 @@ public interface BookingDao {
 	int addBooking(Booking booking);
 	List<Booking> getBookings();
 	List<Booking> getMyBookings(int userNum);
+	List<Booking> getNoneUserBookings(int bookingNum);
 	List<User> getNames(int userNum);
 	Room getRoom(int roomNum);
 	int delBooking(int bookingNum);
@@ -21,4 +22,6 @@ public interface BookingDao {
 	int addNoneUser(NoneUser nuser);
 	int addCard(Card card);
 	int addAccount(Account account);
+
+	int countBookingToday();
 }

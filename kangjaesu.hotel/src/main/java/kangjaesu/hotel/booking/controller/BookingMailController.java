@@ -21,7 +21,6 @@ public class BookingMailController {
 	@RequestMapping("/bookingMail")
 	public String bookingMail(int bookingNum, String bookingEmail, String bookingName, int roomNum){
 		Booking booking = bookingService.getBooking(bookingNum);
-	//	booking.setRoomNum(roomService.getRoom(bookingNum).getRoomNum());
 		booking.setRoomNum(roomNum);
 		mailService.send(booking, bookingEmail, bookingName);
 		

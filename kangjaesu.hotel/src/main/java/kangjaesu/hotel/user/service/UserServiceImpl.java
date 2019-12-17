@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService{
 		return userDao.delUser(user) > 0;
 	}
 
+	@Override
+	public int countUserToday() {
+		return userDao.countUserToday();
+	}
+
 }

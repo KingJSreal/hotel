@@ -72,4 +72,14 @@ public class BookingDaoImpl implements BookingDao{
 		return mapper.getMyBookings(userNum);
 	}
 
+	@Override
+	public List<Booking> getNoneUserBookings(int bookingNum) {
+		return mapper.getNoneUserBookings(bookingNum);
+	}
+
+	@Override
+	public int countBookingToday() {
+		return mapper.countBookingToday();
+	}
+
 }

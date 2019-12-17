@@ -17,7 +17,21 @@ public class Booking {
 	private int adult;
 	private int kid;
 	private String paytype;
+	private String nuserKname;
+	private int bookingPoint;
 	
+	public int getBookingPoint() {
+		return bookingPoint;
+	}
+	public void setBookingPoint(int bookingPoint) {
+		this.bookingPoint = bookingPoint;
+	}
+	public String getNuserKname() {
+		return nuserKname;
+	}
+	public void setNuserKname(String nuserKname) {
+		this.nuserKname = nuserKname;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -96,6 +110,6 @@ public class Booking {
 		return "Booking [bookingNum=" + bookingNum + ", userNum=" + userNum + ", userName=" + userName + ", roomNum="
 				+ roomNum + ", roomType=" + roomType + ", roomOption=" + roomOption + ", checkIn=" + checkIn
 				+ ", checkOut=" + checkOut + ", payment=" + payment + ", adult=" + adult + ", kid=" + kid + ", paytype="
-				+ paytype + "]";
+				+ paytype + ", nuserKname=" + nuserKname + ", bookingPoint=" + bookingPoint + "]";
 	}
 }

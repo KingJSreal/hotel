@@ -2,6 +2,7 @@ package kangjaesu.hotel.mypage.dao;
 
 import java.util.List;
 
+import kangjaesu.hotel.booking.domain.Booking;
 import kangjaesu.hotel.comment.domain.Comment;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
@@ -18,5 +19,7 @@ public interface MypageDao {
 	
 	List<Comment> getMyComments(Comment comment);
 	int getMyCommentsCount(Comment comment);
-	Comment getMyComment(Comment comment);
+
+	List<Booking> getMyBookings(Booking booking);
+	int getMyBookingsCount(Booking booking);
 }

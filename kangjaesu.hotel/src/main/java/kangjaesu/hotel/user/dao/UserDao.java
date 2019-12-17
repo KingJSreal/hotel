@@ -18,4 +18,6 @@ public interface UserDao {
 	int addUser(User user);
 	int updateUser(User user);
 	int delUser(User user);
+	
+	int countUserToday();
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kangjaesu.hotel.booking.domain.Booking;
 import kangjaesu.hotel.comment.domain.Comment;
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
@@ -53,9 +54,16 @@ public class MypageDaoImpl implements MypageDao{
 	}
 
 	@Override
-	public Comment getMyComment(Comment comment) {
-		return mapper.getMyComment(comment);
+	public List<Booking> getMyBookings(Booking booking) {
+		return mapper.getMyBookings(booking);
 	}
+
+	@Override
+	public int getMyBookingsCount(Booking booking) {
+		return mapper.getMyBookingsCount(booking);
+	}
+
+
 
 
 }

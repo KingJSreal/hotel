@@ -186,7 +186,7 @@ var confirm = function(msg, type) {
 							<!-- 포인트,요금 -->
 							<div class="panel panel-default">
 								<div class="panel-footer">
-									<span class="pointpanel">사용 포인트: ${point}<label id="point"></label></span>
+									<span class="pointpanel">사용 포인트: ${booking.bookingPoint}<label id="point"></label></span>
 								</div>
 								<div class="panel-footer">
 									<span class="pointpanel">요금 합계: ${booking.payment}<label id="charge"></label></span>

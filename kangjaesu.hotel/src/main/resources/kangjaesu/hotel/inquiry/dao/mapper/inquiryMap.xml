@@ -69,4 +69,18 @@
 		set STATUS=1
 		where INQ_NUM=#{inqNum}
 	</update>
+	
+	<select id="countInquiryToday" resultType="int">
+		select count(*)
+		from inquirys
+   		where INQ_DATE like to_char(sysdate, 'YY/MM/DD')
+	</select>
+	
+	<select id="countInquiryTodayNoComent" resultType="int">
+		select count(*)
+		from inquirys
+   		where INQ_DATE like to_char(sysdate, 'YY/MM/DD')
+   			AND status = 0
+	</select>
+	
 </mapper>

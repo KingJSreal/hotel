@@ -7,13 +7,175 @@
 <meta charset="UTF-8">
 <title>쌍용호텔:마이페이지</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
-<!-- 
-	- res/js 추가 시
-	<script src="<c:url value="/js/common.js"/>"></script>  
--->
 <style>
+/* 모달 버튼 */
+.modalbtn{
+	margin-left:90%;
+}
+
+/*문의 제목*/
+.inqTitle{
+	font-size: 15px;
+	cursor:pointer;
+}
+
+
+    /* main 섹션*/
+    .main-section{
+		margin-top:30px;
+		margin-left:25%;
+		height: 1000px;
+		overflow: auto;
+	}
+	.main-section table{
+		width:95%;
+	}
+	.main-section table a{
+		text-decoration:none;
+		text-align:center;
+		color:#8c8c8c;
+	}
+	.main-section table a:hover{
+		color:black;
+	}
+	.inform_form table th{
+		background-color: #3C3C3C;
+		color:white;
+	}
+    /* main 섹션 끝*/
 </style>
 <script>
+$(function() {
+	//보기 버튼
+	$(".myInquiryButton, .inqTitle").click(function() {
+		var tr = $(this).parent().parent();
+		var inqNumber = tr.children().children().val();
+			$("#inqNumParam").val(inqNumber);
+		document.form.setAttribute("action", "myInquiry");
+		document.form.submit();
+	});
+
+	//수정 버튼
+	$(".modifyButton").click(function() {
+		var tr = $(this).parent().parent();
+		var inqNumber = tr.children().children().val();
+		$("#inqNumParam").val(inqNumber);
+		document.form.setAttribute("action", "modifyInquiry");
+		document.form.submit();
+	});
+
+	//답변보기 버튼
+	$(".answerModalButton").click(function() {
+		var tr = $(this).parent().parent();
+		var inqNumber = tr.children().children().val();
+		$.ajax({
+			url : "getAnswer",
+			method : "GET",
+			data : {
+				inqNum : inqNumber
+			},
+			success : function(inq) {
+				$("#Anscontent").val(inq.inqCmtContent);
+				$("#answerModal").modal('show');
+
+/* 					 $("#answerModal").modal({
+					remote : "myInqAns"
+				});  */
+			},
+			error : function(a, b, errMsg) {
+				alert("오류" + errMsg);
+			}
+		});
+	});
+});
+
+var loadUser = function(userNum) {
+	$.ajax({
+		url:"/hotel/user/getUser",
+		method:"POST",
+		data: {userNum: userNum},
+		success:function(User){
+			var myPointSum = 0;
+			if(User.myPoints != null){
+				User.myPoints.forEach(function(point) {
+					myPointSum += point.pointChange;
+				})
+			}
+			dataIn(User, myPointSum)
+		},
+		error:function(a, b, errMsg){
+			alert("유저 데이터 불러오기에 실패했습니다.");
+		}
+	});
+}
+
+//data, correct datas
+function dataIn(user, myPointSum){
+	$("#userRegDate").text(user.userRegDate);
+	$("#userEmail").text(user.userEmail);
+	$("#userPassword").text(user.userPassword);
+	$("#point").text(myPointSum);
+	$("#userName").text(user.userName);
+	$("#userEngFirstName").text(user.userEngFirstName);
+	$("#userEngLastName").text(user.userEngLastName);
+	$("#userBirth").text(user.userBirth);
+	$("#userPhone").text(user.userPhone);
+	$("#userTel").text(user.userTel);
+	$("#userZip").text(user.userZip);
+	$("#userAdd").text(user.userAdd);
+	$("#userAddDetail").text(user.userAddDetail);
+}
+$(document).ready(loadUser("${sessionScope.user.userNum}"));
+
+var loadMyBooking = function(userNum) {
+	$.ajax({
+		
+		url:"/hotel/mypage/myBookingList?page=" + getParameterByName("page"),
+		method:"POST",
+		data:{
+			userNum: userNum
+		},
+		success:function(result){
+			$('#bookingList').empty();
+			if(result.bookingList.length > 0 ){
+				var bookingList = [];
+				$(result.bookingList).each(function(idx, booking){	
+					if(idx > 10) return;
+					bookingList.push(
+							'<tr id="' + booking.bookingNum + '" class="getBooking">' +
+							'<td>' + booking.bookingNum				+ '</td>' +
+							'<td>' + "서울호텔"				+ '</td>' +
+							'<td>' + booking.roomType		+ '</td>' +
+							'<td>' + booking.checkIn		+ '</td>' +
+							'<td>' + booking.checkOut		+ '</td>' +
+							'<td>' + (new Date(booking.checkOut) - new Date(booking.checkIn))/(1000*3600*24) + "일"	+ '</td>' +
+							'<td>' + (Number(booking.adult) + Number(booking.kid)) + "명" + '</td>' +
+							'</tr>'				
+					);
+				});
+
+				$('#bookingList').append(bookingList.join(''));		
+
+				$(".getBooking").click(function () {
+				   location.href = "/hotel/booking/bookingInformation?bookingNum=" + $(this).attr('id');
+				});
+			}else{
+				$('#bookingList').append(
+					'<tr><td colspan="7"><b>예약 내역이 없습니다.</b></td></tr>'	);
+			}
+		},
+		error:function(a, b, errMsg){
+			$('#bookingList').empty();
+			$('#bookingList').append(
+				'<tr><td colspan="7"><b>예약 내역을 불러오지 못했습니다.</b></td></tr>'	);
+		}
+	});
+}
+
+$(document).ready(loadMyBooking("${sessionScope.user.userNum}"));
+
+
+
 </script>
 </head>
 <body>
@@ -40,85 +202,27 @@
 								<div class="reserve_form">
 									<h4 style="text-align:left; width:90%; float:left">| 예약내역</h4>
 									<table class="table table-bordered">
-										<tbody>
+										<thead>
 											<tr>
-												<th scope="row" width="10%">예약번호</th>
-												<th scope="row" width="10%">호텔</th>
-												<th scope="row" width="10%">객실</th>
-												<th scope="row" width="15%">체크인</th>
-												<th scope="row" width="15%">체크아웃</th>
-												<th scope="row" width="8%">숙박일수</th>
-												<th scope="row" width="8%">투숙인원</th>
-												<th scope="row" width="10%">예약상태</th>
+												<th scope="row" width="14%">예약번호</th>
+												<th scope="row" width="14%">호텔</th>
+												<th scope="row" width="14%">객실</th>
+												<th scope="row" width="19%">체크인</th>
+												<th scope="row" width="19%">체크아웃</th>
+												<th scope="row" width="10%">숙박일수</th>
+												<th scope="row" width="10%">투숙인원</th>
 											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
+										</thead>
+										<tbody id="bookingList">
+											
 										</tbody>
 									</table>
-								</div>
-								<!-- paging -->
-					            <div class="paging" style="margin-left:27%;">
-					               <ul class="pagination">
-					                    <li class="page-item">
-					                       <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-					                    </li>
-					                     <li class="page-item"><a class="page-link" href="#">1</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">2</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">4</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">5</a></li>
-					                     <li class="page-item"><a class="page-link" href="#" aria-label="Next">
-					                        <span aria-hidden="true">&raquo;</span></a>
-					                     </li>
-					                  </ul>       
+									<!-- paging -->
+									<div class="text-center">
+										<ul class="pagination" id="pages_bookings">
+										</ul>
+									</div>
+									<!-- paging 끝 -->
 					            </div>
 					            <!-- paging 끝 -->
 
@@ -128,65 +232,36 @@
 										<tbody>
 											<tr>
 												<th scope="row" width="10%">문의번호</th>
-												<th scope="row" width="40%">문의제목</th>
+												<th scope="row" width="30%">문의제목</th>
 												<th scope="row" width="15%">작성일</th>
 												<th scope="row" width="15%">답변상태</th>
-												<th scope="row" width="10%">답변확인</th>
+												<th scope="row" width="20%">확인</th>
 											</tr>
-											<tr>
-												<td>87745</td>
-												<td>체크인 시간 문의</td>
-												<td>2019-10-10 09:00</td>
-												<td>답변대기</td>
-												<td><a>답변대기</a></td>							
-											</tr>
-											<tr>
-												<td>87745</td>
-												<td>체크인 시간 문의</td>
-												<td>2019-10-10 09:00</td>
-												<td>답변완료</td>
-												<td><a>답변보기</a></td>							
-											</tr>
-											<tr>
-												<td>87745</td>
-												<td>체크인 시간 문의</td>
-												<td>2019-10-10 09:00</td>
-												<td>답변완료</td>
-												<td><a>답변보기</a></td>							
-											</tr>
-											<tr>
-												<td>87745</td>
-												<td>체크인 시간 문의</td>
-												<td>2019-10-10 09:00</td>
-												<td>답변완료</td>
-												<td><a>답변보기</a></td>							
-											</tr>
-											<tr>
-												<td>87745</td>
-												<td>체크인 시간 문의</td>
-												<td>2019-10-10 09:00</td>
-												<td>답변완료</td>
-												<td><a>답변보기</a></td>							
-											</tr>
+											<c:forEach var="list" items="${inqList}" varStatus="count">
+												<tr>
+													<c:set var= "num" value="${inqCount.count + 1 - count.count}"/>
+													<td><input type="hidden" value="${list.inqNum}"><c:out value="${num}"/></td>
+													<td><a class="inqTitle">${list.inqTitle}</a></td>
+													<td>${list.inqDate}</td>
+													<td>${list.status}</td>
+													<td>
+														<button class="btn btn-default myInquiryButton" type="button">보기</button>
+														<c:if test="${list.status eq '답변 대기'}">
+															<button class="btn btn-default modifyButton" type="button">수정</button>
+														</c:if>
+														<c:if test="${list.status eq '답변완료'}">
+															<button class="btn btn-default answerModalButton" type="button">답변 보기</button>
+														</c:if>
+													</td>
+		
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
+									<form name="form" method="post">
+										<input id=inqNumParam name="inqNumber" type="hidden" value="">
+									</form>
 								</div>
-								<!-- paging -->
-					            <div class="paging" style="margin-left:27%;">
-					               <ul class="pagination">
-					                    <li class="page-item">
-					                       <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-					                    </li>
-					                     <li class="page-item"><a class="page-link" href="#">1</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">2</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">4</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">5</a></li>
-					                     <li class="page-item"><a class="page-link" href="#" aria-label="Next">
-					                        <span aria-hidden="true">&raquo;</span></a>
-					                     </li>
-					                  </ul>       
-					            </div>
 					            <!-- paging 끝 -->
 								<div class="inform_form">
 									<h4 style="text-align:left; width:90%; float:left">| 개인정보</h4>
@@ -197,47 +272,86 @@
 										</colgroup>
 										<tbody>
 											<tr>
-												<th scope="row">가입일</th>
-												<td>2019.11.09</td>
+												<th scope="row" class="first">가입일</th>
+												<td>		
+													<div >	
+														<label id="userRegDate" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">이메일</th>
-												<td>childo@naver.com</td>
+												<th scope="row" class="first">이메일</th>
+												<td>		
+													<div >	
+														<label id="userEmail" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">비밀번호</th>
-												<td>wlstjd123</td>
+												<th scope="row" class="first">비밀번호</th>
+												<td>		
+													<div >	
+														<label id="userPassword" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">포인트</th>
-												<td>79,000p</td>
+												<th scope="row" class="first">포인트</th>
+												<td>		
+													<div >	
+														<label id="point" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">성명(국문)</th>
-												<td>김칠두</td>
+												<th scope="row" class="first">이름(국문)</th>
+												<td>		
+													<div>	
+														<label id="userName" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">성명(영문)</th>
-												<td>Kim Childo</td>
+												<th scope="row" class="first">이름(영문)</th>
+												<td>		
+													<div>	
+														<label id="userEngFirstName" class="control-label"></label> 
+														<label id="userEngLastName" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">생년월일</th>
-												<td>1983.08.01</td>
+												<th scope="row" class="first">생년월일</th>
+												<td>		
+													<div>	
+														<label id="userBirth" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">휴대전화</th>
-												<td>010-1234-5678</td>
+												<th scope="row" class="first">휴대전화</th>
+												<td>		
+													<div>	
+														<label id="userPhone" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">자택전화</th>
-												<td>02-1234-5678</td>
+												<th scope="row" class="first">자택전화</th>
+												<td>		
+													<div>	
+														<label id="userTel" class="control-label"></label> 
+													</div>
+												</td>
 											</tr>
 											<tr>
-												<th scope="row">자택주소</th>
-												<td>
-													123-123<br>
-													경기도 고양시 김수로 123-12<br>
-													칠두아파트 101동 101호
+												<th scope="row" class="first">자택주소</th>
+												<td>		
+													<div>	
+														<label id="userZip" class="control-label"></label><br>
+														<label id="userAdd" class="control-label"></label><br>
+														<label id="userAddDetail" class="control-label"></label> 
+													</div>
 												</td>
 											</tr>
 										</tbody>
@@ -251,5 +365,43 @@
 		</div>
 		<jsp:include page="../common/footer.jsp" />
 	</div>
+		
+	<!-- 답변 모달 -->
+	<div class="modal fade" id="answerModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- remote call이 되는영역 -->
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">답변</h4>
+				</div>
+				<div class="modal-body">
+					<div class="panel panel-default">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td><textarea id="Anscontent" class="form-control" rows="12" cols="60"
+											onfocus="this.blur();">
+					</textarea></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+						<button type="button" class="btn btn-default modalbtn"
+							data-dismiss="modal">확인</button>
+
+				</div>
+
+				<!-- remote call끝 -->
+			</div>
+		</div>
+	</div>
+	<!-- 답변 모달 끝 -->
 </body>
 </html>

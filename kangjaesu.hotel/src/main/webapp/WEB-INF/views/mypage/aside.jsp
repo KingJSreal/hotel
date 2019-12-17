@@ -49,11 +49,11 @@
 <body>
 	<div class="aside-section">
 		<div>
-			<a href="" class="aside_logo">Seoul Hotel</a>
+			<a href="/hotel/mypage/myPage" class="aside_logo">Seoul Hotel</a>
 		</div>
 		<hr style="background-color: white; height: 1px">
 		<div>
-			<a href="" class="aside_a">예약 확인/취소</a>
+			<a href="/hotel/mypage/myBooking" class="aside_a">예약 확인/취소</a>
 		</div>
 		<br>
 		<div>

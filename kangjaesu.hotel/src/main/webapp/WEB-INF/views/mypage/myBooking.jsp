@@ -8,6 +8,7 @@
 <title>쌍용호텔:마이페이지</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
+
     /* main 섹션*/
     .main-section{
 		margin-top:30px;
@@ -33,57 +34,53 @@
     /* main 섹션 끝*/
 </style>
 <script>
-var loadMyComment = function(userNum) {
+var loadMyBooking = function(userNum) {
 	$.ajax({
 		
-		url:"/hotel/mypage/myCommentList?page=" + getParameterByName("page"),
+		url:"/hotel/mypage/myBookingList?page=" + getParameterByName("page"),
 		method:"POST",
 		data:{
 			userNum: userNum
 		},
 		success:function(result){
-			$('#commnetList').empty();
-			if(result.commnetList.length > 0 ){
-				var commnetList = [];
-				$(result.commnetList).each(function(idx, comment){
-					var commentRate = "";
-					for(var i = 0; i < comment.rate; i++){
-						commentRate += "★";
-					}
-					for(var i = 0; i < 5 - comment.rate; i++){
-						commentRate += "☆";
-					}
-					
-					commnetList.push(
-							'<tr id="' + comment.revNum + '" class="getReview">' +
-							'<td>' + comment.revNum 			+ '</td>' +
-							'<td>' + commentRate + "/" + comment.roomType + '</td>' +
-							'<td>' + comment.revTitle			+ '</td>' +
-							'<td>' + comment.revDate + '</td>' +
+			$('#bookingList').empty();
+			if(result.bookingList.length > 0 ){
+				var bookingList = [];
+				$(result.bookingList).each(function(idx, booking){					
+					bookingList.push(
+							'<tr id="' + booking.bookingNum + '" class="getBooking">' +
+							'<td>' + booking.bookingNum				+ '</td>' +
+							'<td>' + "서울호텔"				+ '</td>' +
+							'<td>' + booking.roomType		+ '</td>' +
+							'<td>' + booking.checkIn		+ '</td>' +
+							'<td>' + booking.checkOut		+ '</td>' +
+							'<td>' + (new Date(booking.checkOut) - new Date(booking.checkIn))/(1000*3600*24) + "일"	+ '</td>' +
+							'<td>' + (Number(booking.adult) + Number(booking.kid)) + "명" + '</td>' +
 							'</tr>'				
 					);
 				});
+				
 				paging(result.page);
 
-				$('#commnetList').append(commnetList.join(''));		
+				$('#bookingList').append(bookingList.join(''));		
 
-				$(".getReview").click(function () {
-					location.href = "/hotel/comment/commentView?revNum=" + $(this).attr('id');
+				$(".getBooking").click(function () {
+				   location.href = "/hotel/booking/bookingInformation?bookingNum=" + $(this).attr('id');
 				});
 			}else{
-				$('#commnetList').append(
-					'<tr><td colspan="6"><b>후기 작성 내역이 없습니다.</b></td></tr>'	);
+				$('#bookingList').append(
+					'<tr><td colspan="7"><b>예약 내역이 없습니다.</b></td></tr>'	);
 			}
 		},
 		error:function(a, b, errMsg){
-			$('#commnetList').empty();
-			$('#commnetList').append(
-				'<tr><td colspan="6"><b>후기 작성 내역을 불러오지 못했습니다.</b></td></tr>'	);
+			$('#bookingList').empty();
+			$('#bookingList').append(
+				'<tr><td colspan="7"><b>예약 내역을 불러오지 못했습니다.</b></td></tr>'	);
 		}
 	});
 }
 
-$(document).ready(loadMyComment("${sessionScope.user.userNum}"));
+$(document).ready(loadMyBooking("${sessionScope.user.userNum}"));
 </script>
 </head>
 <body>
@@ -98,7 +95,7 @@ $(document).ready(loadMyComment("${sessionScope.user.userNum}"));
 						<p>
 							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
 							<a>마이페이지</a>
-							<a>후기 내역</a>
+							<a>예약 확인/취소</a>
 						</p>
 					</div>
 					<div class="headTit">
@@ -106,17 +103,20 @@ $(document).ready(loadMyComment("${sessionScope.user.userNum}"));
 					</div>
 					<jsp:include page="aside.jsp" />
 					<div class="main-section">
-						<h4 style="text-align: left; width: 90%; float: left">|포인트 사용 내역</h4>
+						<h4 style="text-align: left; width: 90%; float: left">|예약 내역</h4>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th scope="row" width="10%">번호</th>
-									<th scope="row" width="25%">평점/방타입</th>
-									<th scope="row" width="45%">제목</th>
-									<th scope="row" width="20%">작성일자</th>
+									<th scope="row" width="14%">예약번호</th>
+									<th scope="row" width="14%">호텔</th>
+									<th scope="row" width="14%">객실</th>
+									<th scope="row" width="19%">체크인</th>
+									<th scope="row" width="19%">체크아웃</th>
+									<th scope="row" width="10%">숙박일수</th>
+									<th scope="row" width="10%">투숙인원</th>
 								</tr>
 							</thead>
-							<tbody id="commnetList">
+							<tbody id="bookingList">
 								
 							</tbody>
 						</table>

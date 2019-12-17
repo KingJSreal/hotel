@@ -10,6 +10,28 @@
 <script type="text/javascript">
 	var cnt = 0;
 
+	function add_image_onchange(){
+		$("#field input[name=promotionImage]").each(
+			function(idx, imgInput){
+				$(imgInput).attr("id", idx);
+				$(imgInput).change(function(){
+					if ($(this)[0].files && $(this)[0].files[0]) {
+						var reader = new FileReader();
+						reader.addEventListener("load", function() {
+							$($(imgInput).parent().children()[0]).attr('src', reader.result);
+						}, false);
+						reader.readAsDataURL($(imgInput)[0].files[0]);
+					}
+				})
+			});
+
+		$("#field label[name=imglabel]").each(
+			function(idx, label){
+				$(label).attr("for", idx);
+			});
+	}
+	
+	
 	function add_promotion() {
 		var div = document.createElement('div');
 		cnt = Number($("#cnt").val());
@@ -18,53 +40,78 @@
 		console.log($("#cnt").val());
 		div.innerHTML = document.getElementById('pre_set').innerHTML;
 		document.getElementById('field').appendChild(div);
+		
+		add_image_onchange();
 	}
-
+	
 	function del_promotion(obj) {
 		document.getElementById('field').removeChild(obj.parentNode);
 	}
 
 	//이미지 업로드
 	var imgView = function(input) {
+		console.log(input);
+		inputss = input;
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.addEventListener("load", function() {
-				$('.promotionImg').attr('src', reader.result);
+				$(input.parent().children()[0]).attr('src', reader.result);
 			}, false);
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-
+	
+	
 	//이미지 등록취소
-	$("#imgCancel").bind("click", function() {
+	$("#imgCancel").bind("click", function(){
 		$("#imgUpLoad").val('');
 	});
 	
 	$(function() {
+		
 		$("#addProForm").bind(
 			"submit",
 			function(e) {
 				e.preventDefault();
 				var prodTitle = new Array();
 				var location = new Array();
-				//var prodPic = new Array();
+				var prodPic = new Array();
 				var serviceHour = new Array();
 				var notice = new Array();
 				var prodContent = new Array();
 
 				for (var i = 0; i < cnt; i++) {
-				prodTitle.push($(
-					"#field input[name=prodTitle]:eq(" + (i - 1) + ")").val());
-				location.push($(
-					"#field input[name=location]:eq(" + (i - 1) + ")").val());
-					//prodPic.push($("#field input[name=prodPic]:eq(" + (i - 1) + ")").val());
-				serviceHour.push($(
-					"#field input[name=serviceHour]:eq(" + (i - 1) + ")").val());
-				notice.push($(
-					"#field input[name=notice]:eq(" + (i - 1) + ")").val());
-				prodContent.push($(
-					"#field textarea[name=prodContent]:eq(" + (i - 1) + ")").val());
+					prodTitle.push($(
+						"#field input[name=prodTitle]:eq(" + (i - 1) + ")").val());
+					location.push($(
+						"#field input[name=location]:eq(" + (i - 1) + ")").val());
+					serviceHour.push($(
+						"#field input[name=serviceHour]:eq(" + (i - 1) + ")").val());
+					notice.push($(
+						"#field input[name=notice]:eq(" + (i - 1) + ")").val());
+					prodContent.push($(
+						"#field textarea[name=prodContent]:eq(" + (i - 1) + ")").val());
+					prodPic.push("promotion/" + $(
+						"#field input[name=promotionImage]:eq(" + (i - 1) + ")")[0].files[0].name);
 				}
+				
+				$("#field input[class=promotionImage]").each(function(idx, img){
+					var formData = new FormData();
+					formData.append("file", img.files[0]);
+					$.ajax({
+						url: "addImage",
+						method: "post",
+						data: formData,
+						processData: false,
+						contentType: false,
+						success:function(result){
+						},
+						error:function(a, b, errMsg){
+							alert("이미지" + errMsg);
+							return;
+						}
+					});
+				});
 
 				$.ajax({
 					url : "addPromotion",
@@ -75,10 +122,10 @@
 					proStartDate : $("#proStartDate").val(),
 					proEndDate : $("#proEndDate").val(),
 					proDetail : $("#proDetail").val(),
-
+					
 					prodTitle : prodTitle,
 					location : location,
-					//prodPic:$(".prodPic").val(),
+					prodPic : prodPic,
 					serviceHour : serviceHour,
 					notice : notice,
 					prodContent : prodContent
@@ -92,7 +139,6 @@
 						alert("등록에 실패하셨습니다.");
 						location.href = "#";
 					}
-
 				})
 			});
 		})
@@ -171,7 +217,7 @@ section {
 
 <body>
 	<form class="form-inline" id="addProForm" method="post">
-		<div class="container">
+		<div>
 			<jsp:include page="../common/header.jsp" />
 			<jsp:include page="../common/gnb.jsp" />
 			<!-- 프로모션 등록 -->
@@ -235,13 +281,13 @@ section {
 							<div class="img_section">
 								<img class="promotionImg" style="height: 230px; width: 100%">
 								<label class="btn btn-default btn-lg btn-block" for="imgUpLoad"
-									style="width: 50%; margin-top: 2px; font-size: 13px; float: left">이미지
+									style="width: 50%; margin-top: 2px; font-size: 13px; float: left" name="imglabel">이미지
 									업로드</label>
 								<button class="btn btn-default btn-lg btn-block" id="imgCancel"
 									value="등록 취소"
 									style="width: 50%; font-size: 13px; margin-top: 2px;">등록취소</button>
-								<input type="file" id="imgUpLoad" value="imgUpLoad"
-									onchange="imgView(this)" style="display: none;">
+								<input type="file" id="imgUpLoad" value="imgUpLoad" name="promotionImage"
+									class="promotionImage" style="display: none">
 							</div>
 							<div class="content_section">
 								<table class="table table-bordered">

@@ -1,5 +1,7 @@
 package kangjaesu.hotel.inquiry.controller;
 
+import java.util.List;
+
 import kangjaesu.hotel.inquiry.domain.Inquiry;
 import kangjaesu.hotel.inquiry.domain.InquiryComment;
 import kangjaesu.hotel.inquiry.service.InquiryService;
@@ -98,6 +100,35 @@ public class InquiryController {
 	public boolean deleteInquiry(Inquiry inquiry) {
 		inquiryService.deleteInquiry(inquiry.getInqNum());
 		return true;
+	}
+	
+	
+
+	@RequestMapping("/todayInquiry")
+	@ResponseBody
+	@Transactional
+	public int todayInquiry() {
+		return inquiryService.countInquiryToday();
+	}
+
+	@RequestMapping("/todayInquiryNoComent")
+	@ResponseBody
+	@Transactional
+	public int todayInquiryNoComent() {
+		return inquiryService.countInquiryTodayNoComent();
+	}
+	
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/inquiryMainList")
+	public List<Inquiry> inquiryManage() {
+		List<Inquiry> inqList = inquiryService.getInquirys();
+		if(inqList.size() < 10)
+			inqList.subList(0, inqList.size());
+		else
+			inqList.subList(0, 10);
+		
+		return inqList;
 	}
 
 }

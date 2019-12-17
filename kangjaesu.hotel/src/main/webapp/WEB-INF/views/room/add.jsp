@@ -180,7 +180,7 @@ $(function() {
 		var roomImage = [null, null, null];
 		for(var i = 0; i < roomImage.length ; i++){
 			if($("#roomImage" + (i+1))[0].files[0] != null)
-				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
+				roomImage[i] = "room/" + $("#roomImage" + (i+1))[0].files[0].name;
 		}
 		$("input[name=roomImage]").each(function(idx, img){
 			if(roomImage[idx] != null){
