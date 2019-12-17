@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kangjaesu.hotel.booking.domain.NoneUser;
 import kangjaesu.hotel.common.domain.Page;
 import kangjaesu.hotel.user.dao.UserDao;
 import kangjaesu.hotel.user.domain.User;
@@ -66,5 +67,4 @@ public class UserServiceImpl implements UserService{
 	public int countUserToday() {
 		return userDao.countUserToday();
 	}
-
 }

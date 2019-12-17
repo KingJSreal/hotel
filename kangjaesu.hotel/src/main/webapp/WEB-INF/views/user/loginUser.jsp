@@ -105,6 +105,37 @@ var confirm = function(msg, type) {
 		
 		$("#nmemlogin").bind("click", function(e){
 			e.preventDefault();
+
+			if(!$("#num").val()) {
+				alert("예약번호를 입력하세요.")
+				return;
+			}
+			if(!$("#fname").val()) {
+				alert("이름를 입력하세요.")
+				return;
+			}
+			if(!$("#lname").val()) {
+				alert("성을 입력하세요.")
+				return;
+			}
+
+			$.ajax({
+				url:"user/Noneuser",
+				method:"GET",
+				data: {
+					bookingNum:$("#num").val(),
+					nuserLastName:$("#fname").val(),
+					nuserFirstName:$("#lname").val()
+				},
+				success:function(result){
+					if(result == true) 
+						location.href = "/hotel/booking/myBooking?bookingNum=" + $("#num").val();
+					else alert("이메일 및 비밀번호가 정확하지 않습니다. \n다시 입력해 주세요")
+				},
+				error:function(a, b, errMsg){
+					alert("로그인에 실패하였습니다.");
+				}
+			})
 		});
 	});
 </script>

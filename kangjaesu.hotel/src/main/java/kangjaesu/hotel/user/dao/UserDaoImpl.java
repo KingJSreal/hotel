@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import kangjaesu.hotel.user.dao.mapper.UserMapper;
 import kangjaesu.hotel.user.domain.User;
+import kangjaesu.hotel.booking.domain.NoneUser;
 import kangjaesu.hotel.common.domain.Page;
 
 @Repository
@@ -70,6 +71,11 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public int countUserToday() {
 		return mapper.countUserToday();
+	}
+
+	@Override
+	public int noneUserValidate(NoneUser noneUser) {
+		return mapper.noneUserValidate(noneUser);
 	}
 
 }

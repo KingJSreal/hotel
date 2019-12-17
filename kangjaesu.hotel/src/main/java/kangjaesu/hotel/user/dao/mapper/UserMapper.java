@@ -3,12 +3,14 @@ package kangjaesu.hotel.user.dao.mapper;
 import java.util.List;
 
 import kangjaesu.hotel.user.domain.User;
+import kangjaesu.hotel.booking.domain.NoneUser;
 import kangjaesu.hotel.common.domain.Page;
 
 public interface UserMapper {
 	User loginUser(User user);
 	List<User> findId(User user);
 	User findPw(User user);
+	int noneUserValidate(NoneUser noneUser);
 	
 	List<User> getUsers(Page page);
 	int countUser();
