@@ -281,7 +281,7 @@ var confirm = function(msg, type) {
 			var ex_files = [null, null, null];
 			for(var i = 0; i < ex_files.length ; i++){
 				if($("#ex_file" + (i+1))[0].files[0] != null)
-					ex_files[i] = "/comment/" + $("#ex_file" + (i+1))[0].files[0].name;
+					ex_files[i] = "comment/" + $("#ex_file" + (i+1))[0].files[0].name;
 			}
 			$("input[name=commentImage]").each(function(idx, img){
 				if(ex_files[idx] != null){

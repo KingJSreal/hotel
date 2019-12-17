@@ -96,8 +96,9 @@ public class MypageController {
 		Page page = pageService.paging(nowPage, dataSize);
 		page.setSearchType(booking);
 		System.out.println(page);
+		
+		result.put("inquiryList", myInqService.getInquirys(booking.getUserNum()));
 		result.put("bookingList", myBookingService.getMyBookings(booking));
-		result.put("page", page);
 		
 		return result;
 	}

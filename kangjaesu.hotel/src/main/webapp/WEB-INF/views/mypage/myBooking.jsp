@@ -103,7 +103,7 @@ $(document).ready(loadMyBooking("${sessionScope.user.userNum}"));
 					</div>
 					<jsp:include page="aside.jsp" />
 					<div class="main-section">
-						<h4 style="text-align: left; width: 90%; float: left">|포인트 사용 내역</h4>
+						<h4 style="text-align: left; width: 90%; float: left">|예약 내역</h4>
 						<table class="table table-bordered">
 							<thead>
 								<tr>

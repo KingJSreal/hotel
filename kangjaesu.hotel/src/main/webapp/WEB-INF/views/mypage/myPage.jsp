@@ -7,13 +7,56 @@
 <meta charset="UTF-8">
 <title>쌍용호텔:마이페이지</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
-<!-- 
-	- res/js 추가 시
-	<script src="<c:url value="/js/common.js"/>"></script>  
--->
 <style>
 </style>
 <script>
+var loadMyBooking = function(userNum) {
+	$.ajax({
+		
+		url:"/hotel/mypage/myBookingList?page=" + getParameterByName("page"),
+		method:"POST",
+		data:{
+			userNum: userNum
+		},
+		success:function(result){
+			$('#bookingList').empty();
+			if(result.bookingList.length > 0 ){
+				if(idx > 10) return;
+				var bookingList = [];
+				$(result.bookingList).each(function(idx, booking){					
+					bookingList.push(
+							'<tr id="' + booking.bookingNum + '" class="getBooking">' +
+							'<td>' + booking.bookingNum				+ '</td>' +
+							'<td>' + "서울호텔"				+ '</td>' +
+							'<td>' + booking.roomType		+ '</td>' +
+							'<td>' + booking.checkIn		+ '</td>' +
+							'<td>' + booking.checkOut		+ '</td>' +
+							'<td>' + (new Date(booking.checkOut) - new Date(booking.checkIn))/(1000*3600*24) + "일"	+ '</td>' +
+							'<td>' + (Number(booking.adult) + Number(booking.kid)) + "명" + '</td>' +
+							'</tr>'				
+					);
+				});
+
+				$('#bookingList').append(bookingList.join(''));		
+
+				$(".getBooking").click(function () {
+				   location.href = "/hotel/booking/bookingInformation?bookingNum=" + $(this).attr('id');
+				});
+			}else{
+				$('#bookingList').append(
+					'<tr><td colspan="6"><b>예약 내역이 없습니다.</b></td></tr>'	);
+			}
+		},
+		error:function(a, b, errMsg){
+			$('#bookingList').empty();
+			$('#bookingList').append(
+				'<tr><td colspan="6"><b>예약 내역을 불러오지 못했습니다.</b></td></tr>'	);
+		}
+	});
+}
+
+$(document).ready(loadMyBooking("${sessionScope.user.userNum}"));
+
 </script>
 </head>
 <body>
@@ -40,85 +83,27 @@
 								<div class="reserve_form">
 									<h4 style="text-align:left; width:90%; float:left">| 예약내역</h4>
 									<table class="table table-bordered">
-										<tbody>
+										<thead>
 											<tr>
-												<th scope="row" width="10%">예약번호</th>
-												<th scope="row" width="10%">호텔</th>
-												<th scope="row" width="10%">객실</th>
-												<th scope="row" width="15%">체크인</th>
-												<th scope="row" width="15%">체크아웃</th>
-												<th scope="row" width="8%">숙박일수</th>
-												<th scope="row" width="8%">투숙인원</th>
-												<th scope="row" width="10%">예약상태</th>
+												<th scope="row" width="14%">예약번호</th>
+												<th scope="row" width="14%">호텔</th>
+												<th scope="row" width="14%">객실</th>
+												<th scope="row" width="19%">체크인</th>
+												<th scope="row" width="19%">체크아웃</th>
+												<th scope="row" width="10%">숙박일수</th>
+												<th scope="row" width="10%">투숙인원</th>
 											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
-											<tr>
-												<td>64887</td>
-												<td>서울호텔</td>
-												<td>Deluxe</td>
-												<td>2019-10-10 09:00</td>
-												<td>2019-10-11 14:00</td>
-												<td>1일</td>
-												<td>2명</td>
-												<td>예약완료</td>							
-											</tr>
+										</thead>
+										<tbody id="bookingList">
+											
 										</tbody>
 									</table>
-								</div>
-								<!-- paging -->
-					            <div class="paging" style="margin-left:27%;">
-					               <ul class="pagination">
-					                    <li class="page-item">
-					                       <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-					                    </li>
-					                     <li class="page-item"><a class="page-link" href="#">1</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">2</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">4</a></li>
-					                     <li class="page-item"><a class="page-link" href="#">5</a></li>
-					                     <li class="page-item"><a class="page-link" href="#" aria-label="Next">
-					                        <span aria-hidden="true">&raquo;</span></a>
-					                     </li>
-					                  </ul>       
+									<!-- paging -->
+									<div class="text-center">
+										<ul class="pagination" id="pages_bookings">
+										</ul>
+									</div>
+									<!-- paging 끝 -->
 					            </div>
 					            <!-- paging 끝 -->
 

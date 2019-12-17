@@ -46,6 +46,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class RoomController {
 	@Value("${room_uploadDir}") private String uploadDir;
 	@Autowired private RoomService roomService;
+
+	/* 재수 추가. 메인에서 쓸꺼*/
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/roomList")
+	public List<Room> roomList() {
+		return roomService.getRooms();
+	}
 	
 	@Transactional
 	@RequestMapping("/roomManager")
