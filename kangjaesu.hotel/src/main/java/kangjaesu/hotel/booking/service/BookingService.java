@@ -23,4 +23,6 @@ public interface BookingService {
 	int addAccount(Account account);
 	long days(Date start, Date end);
 	String getOption(Booking booking);
+
+	int countBookingToday();
 }

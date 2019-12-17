@@ -15,6 +15,8 @@
       <result property="kid" column="KID" />
       <result property="userName" column="USER_KORNAME" />
       <result property="roomType" column="ROOM_TYPE" />
+      <result property="nuserKname" column="NUSER_KORNAME" />
+      <result property="bookingPoint" column="POINT" />
    </resultMap>
    
    <resultMap type="card" id="cardMap">
@@ -43,11 +45,12 @@
    </resultMap>
    
    <select id="getBookings" resultMap="bookingMap">
-   	  select BOOKING_NUM, BOOKINGS.USER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_,
-   	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE
-      from USERS, BOOKINGS, ROOMS
-      where USERS.USER_NUM=BOOKINGS.USER_NUM
-      		and BOOKINGS.ROOM_NUM=ROOMS.ROOM_NUM order by BOOKING_NUM DESC
+   	  select b.BOOKING_NUM, b.USER_NUM, b.ROOM_NUM, CHECK_IN_,
+   	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE,  NUSER_KORNAME
+      from USERS u, BOOKINGS b, ROOMS r, NONE_USERS n
+      where (u.USER_NUM=b.USER_NUM and b.ROOM_NUM=r.ROOM_NUM and b.BOOKING_NUM=n.BOOKING_NUM) or
+           (u.USER_NUM=b.USER_NUM and b.ROOM_NUM=r.ROOM_NUM )
+          order by BOOKING_NUM DESC
    </select>
    
    <select id="getBooking" resultMap="bookingMap" parameterType="int">
@@ -57,12 +60,10 @@
    </select>
    
    <select id="getMyBookings" resultMap="bookingMap" parameterType="int">
-   	  select BOOKING_NUM, BOOKINGS.USER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_,
+   	  select BOOKING_NUM, BOOKINGS.USER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_, POINT,
    	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE
-      from USERS, BOOKINGS, ROOMS
-      where BOOKINGS.BOOKING_NUM=#{bookingNum}
-      		and USERS.USER_NUM=BOOKINGS.USER_NUM
-      		and BOOKINGS.ROOM_NUM=ROOMS.ROOM_NUM order by BOOKING_NUM DESC
+      from USERS, ROOMS, (select * from BOOKINGS where BOOKING_NUM=#{bookingNum}) BOOKINGS
+      where USERS.USER_NUM=BOOKINGS.USER_NUM and BOOKINGS.ROOM_NUM=ROOMS.ROOM_NUM
    </select>
    
    <select id="getNoneUserBookings" resultMap="bookingMap" parameterType="int">
@@ -76,9 +77,9 @@
 
    <insert id="addBooking" parameterType="booking">
 	  insert into BOOKINGS(BOOKING_NUM, USER_NUM, ROOM_NUM, CHECK_IN_,
-	  						CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID)
+	  						CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, POINT)
       values(#{bookingNum}, #{userNum}, #{roomNum}, #{checkIn},
-      			#{checkOut}, #{paytype}, #{payment}, #{adult}, #{kid})
+      			#{checkOut}, #{paytype}, #{payment}, #{adult}, #{kid}, #{bookingPoint})
    </insert>
    
    <insert id="addAccount" parameterType="account">
@@ -110,5 +111,9 @@
 		where BOOKING_NUM=#{bookingNum}
 	</update>
 	
-
+	<select id="countBookingToday" resultType="int">
+		select count(*)
+		from bookings
+   		where CHECK_IN_ like to_char(sysdate, 'YY/MM/DD')
+	</select>
 </mapper>

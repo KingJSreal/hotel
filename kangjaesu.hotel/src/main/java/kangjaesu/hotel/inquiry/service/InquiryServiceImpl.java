@@ -54,4 +54,15 @@ public class InquiryServiceImpl implements InquiryService{
 	public InquiryComment getInquiryAnswer(int inqNum) {
 		return inquiryDao.getInquiryAnswer(inqNum);
 	}
+	
+
+	@Override
+	public int countInquiryToday() {
+		return inquiryDao.countInquiryToday();
+	}
+
+	@Override
+	public int countInquiryTodayNoComent() {
+		return inquiryDao.countInquiryTodayNoComent();
+	}
 }

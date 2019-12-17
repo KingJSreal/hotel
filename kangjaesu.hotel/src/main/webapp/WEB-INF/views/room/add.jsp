@@ -180,7 +180,7 @@ $(function() {
 		var roomImage = [null, null, null];
 		for(var i = 0; i < roomImage.length ; i++){
 			if($("#roomImage" + (i+1))[0].files[0] != null)
-				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
+				roomImage[i] = "room/" + $("#roomImage" + (i+1))[0].files[0].name;
 		}
 		$("input[name=roomImage]").each(function(idx, img){
 			if(roomImage[idx] != null){
@@ -255,7 +255,7 @@ $(function() {
 						<h3>&nbsp;객실 등록</h3>
 					</div>
 					<br><br>
-					<form id="addForm" name="addForm" id="add" method="post" class="form-inline" enctype="multipart/form-data">
+					<form id="addForm" name="addForm" id="add" method="post" class="form-inline" enctype="multiport/form-data">
 						<div class="container inputGroup">
 							<div class="input-group col-md-3">
 								<img width="300" height="200" class="previewImg"> <label

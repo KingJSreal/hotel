@@ -69,9 +69,10 @@ $(function() {
 		bookingNum = $(this).attr('id').substr(1);
 		confirm("예약을 취소 하시겠습니까?", "warning");
 	});
-	$("#backmypage_book").click(function(){
-		location.href="/hotel/";
-	})
+
+	$("#backmypage_book").click(function() {
+		window.history.back();
+	});
 	
 	var confirm = function(msg, type) {
 	   swal(msg, {
@@ -186,7 +187,7 @@ $(function() {
 							<!-- 포인트,요금 -->
 							<div class="panel panel-default">
 								<div class="panel-footer">
-									<span class="pointpanel">사용 포인트: <label>${point}</label></span>
+									<span class="pointpanel">사용 포인트: <label>${myList.bookingPoint}</label></span>
 								</div>
 								<div class="panel-footer">
 									<span class="pointpanel">요금 합계: <label>${myList.payment}</label></span>
@@ -203,8 +204,8 @@ $(function() {
 						<div class="buttongroup">
 							<button type="button" class="btn btn-warning pull-right cancel"
 								id="c${myList.bookingNum}">예약취소</button>
-					<!-- 		<button type="button" class="btn btn-default pull-right"
-								id="backmypage_book">목록으로</button> -->
+							<button type="button" class="btn btn-default pull-right"
+								id="backmypage_book">목록으로</button>
 						</div>
 					</div>
 					<hr>

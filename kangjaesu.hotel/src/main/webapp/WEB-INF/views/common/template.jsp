@@ -27,6 +27,33 @@
 		<!-- 예약정보 검색 -->
 		<div id="contents">
 			<section>
+				<div class="container center-block">
+				<div class="location">
+					<p>
+						<a>홈 > </a>
+						<a>호텔소개 > </a>
+						<a>OverView</a>
+					</p>
+				</div>
+				<div class="headTit">
+					<h3>&nbsp;서울호텔 소개</h3>
+				</div>
+				<div class="container">
+					<div class="aside-section">
+						<div><a href="01.html" class="aside_logo">Seoul Hotel</a></div>
+						<hr style="background-color:white; height:1px">
+						<div><a href="01.html" class="aside_a">개요</a></div><br>
+						<div><a href="02.html" class="aside_a">오시는 길</a></div><br>
+					</div>
+					<div class="main-section">
+						<div>
+							<div class="container">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			</section>
 		</div>
 		<jsp:include page="../common/footer.jsp" />

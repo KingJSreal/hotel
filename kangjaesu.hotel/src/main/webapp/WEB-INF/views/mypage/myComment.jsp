@@ -68,8 +68,7 @@ var loadMyComment = function(userNum) {
 				$('#commnetList').append(commnetList.join(''));		
 
 				$(".getReview").click(function () {
-					console.log("!!")
-					   location.href = "/hotel/comment/commentView?revNum=" + $(this).attr('id');
+					location.href = "/hotel/comment/commentView?revNum=" + $(this).attr('id');
 				});
 			}else{
 				$('#commnetList').append(

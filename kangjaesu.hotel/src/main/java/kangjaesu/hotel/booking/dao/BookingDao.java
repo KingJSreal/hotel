@@ -22,4 +22,6 @@ public interface BookingDao {
 	int addNoneUser(NoneUser nuser);
 	int addCard(Card card);
 	int addAccount(Account account);
+
+	int countBookingToday();
 }

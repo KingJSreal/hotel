@@ -123,7 +123,9 @@
 				<div class="container" style="margin-top:20px">
 					<c:forEach items="${listPro.promotionDetails}" var="prod">
 						<div class="board_pro" style="margin-top:20px">
-							<div class="image_pro"><a href="#" class="thumbnail"></a></div>
+							<div class="image_pro">
+								<img class="thumbnail" src="<c:url value="/img/${prod.prodPic}"/>"></img>
+							</div>
 							<div class="content_pro">
 								<p style="font-style:Sans-Serif; font-size:20px; font-weight:bold;">
 									${prod.prodTitle}</p><br>

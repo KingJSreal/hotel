@@ -97,7 +97,10 @@ $(function() {
 							<td>${list.bookingNum}</td>
 							<td>${list.roomType}</td>
 							<td>${list.checkIn} ~ ${list.checkOut}</td>
-							<td>${list.userName}</td>
+							<td><c:choose>
+									<c:when test="${list.userNum == 0}">(비회원) ${list.nuserKname}</c:when>
+									<c:otherwise>${list.userName}</c:otherwise>
+							</c:choose></td>
 							<td><button type="button" class="btn btn-success infoButton" id="${list.bookingNum}">예약정보</button></td>
 						</tr>
 						</c:forEach>

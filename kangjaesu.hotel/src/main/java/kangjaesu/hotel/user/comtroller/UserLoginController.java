@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import kangjaesu.hotel.booking.domain.NoneUser;
 import kangjaesu.hotel.user.domain.User;
 import kangjaesu.hotel.user.service.LoginService;
 
@@ -30,6 +31,13 @@ public class UserLoginController {
 	@RequestMapping("/searchIdNPw")
 	public String userSearchIdPw() {
 		return "user/searchIdNPw";
+	}
+
+	@RequestMapping("user/Noneuser")
+	@ResponseBody
+	@Transactional
+	public Boolean Noneuser(NoneUser noneUser, HttpSession session) {
+		return loginService.noneUserValidate(noneUser);
 	}
 	
 	@RequestMapping("user/login")

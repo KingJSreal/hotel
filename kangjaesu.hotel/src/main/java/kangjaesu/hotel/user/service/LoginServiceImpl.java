@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kangjaesu.hotel.booking.domain.NoneUser;
 import kangjaesu.hotel.user.dao.UserDao;
 import kangjaesu.hotel.user.domain.User;
 
@@ -28,4 +29,10 @@ public class LoginServiceImpl implements LoginService{
 	public User findPw(User user) {
 		return userDao.findPw(user);
 	}
+
+	@Override
+	public boolean noneUserValidate(NoneUser noneUser) {
+		return userDao.noneUserValidate(noneUser)>0;
+	}
+
 }

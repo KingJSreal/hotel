@@ -58,9 +58,13 @@ public class RoomServiceImpl implements RoomService{
 		String roomOption="";
 		int roomNum = room.getRoomNum();
 		List<Option> list = getRoom(roomNum).getOptions();
-	//	String[] option = {"조식", "스파", "야외수영장", "엑스트라베드"};
-		for(int i=0; i<list.size(); i++)
-			roomOption = roomOption + list.get(i).getOptNo() + " ";
+		String[] option = {"조식", "스파", "야외수영장", "엑스트라베드"};
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).getOptNo() == 0) continue;
+			else
+				roomOption = roomOption + option[list.get(i).getOptNo() - 1] + " ";
+			}
+		
 		return roomOption;
 	}
 

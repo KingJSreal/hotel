@@ -14,4 +14,6 @@ public interface UserService {
 	boolean join(User user);
 	boolean cerrectUser(User user);
 	boolean secede(User user);
+	
+	int countUserToday();
 }

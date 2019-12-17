@@ -28,6 +28,27 @@
 		<collection property="myPoints" resultMap="pointMap" />
 	</resultMap>
 
+
+	<resultMap type="noneUser" id="noneUsersMap">
+		<id property="nuserNum" column="NUSER_NUM" />
+		<result property="nuserEmail" column="NUSER_EMAIL" />
+		<result property="nuserKname" column="NUSER_KORNAME" />
+		<result property="nuserLastName" column="NUSER_LASTNAME" />
+		<result property="nuserFirstName" column="NUSER_FIRSTNAME" />
+		<result property="nuserBirth" column="NUSER_BIRTH" />
+		<result property="nuserPhone" column="NUSER_PHONE" />
+		<result property="bookingNum" column="BOOKING_NUM" />
+	</resultMap>
+
+	<select id="noneUserValidate" parameterType="noneuser" resultType="int">
+		select count(*)
+		from none_users
+		where
+			BOOKING_NUM=#{bookingNum}
+			and NUSER_FIRSTNAME=#{nuserFirstName}
+			and NUSER_LASTNAME=#{nuserLastName}
+	</select>
+	
 	<select id="loginUser" parameterType="user" resultMap="userMap">
 		select *
 		from users
@@ -131,4 +152,10 @@
 		delete from users 
 		where user_Num=#{userNum}
 	</delete> 
+	
+	<select id="countUserToday" resultType="int">
+		select count(*)
+		from users
+   		where user_reg_date like to_char(sysdate, 'YY/MM/DD')
+	</select>
 </mapper>

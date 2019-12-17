@@ -169,19 +169,19 @@ colgroup col.col {
 									<td><label id="option">
 									<c:forEach var="list" items="${optionList}" varStatus="status">
 										<c:choose>
-									        <c:when test="${list.optNo == 0}">
+									        <c:when test="${list.optNo == 1}">
 									        	조식&nbsp;
 									        </c:when>
-									        <c:when test="${list.optNo == 1}">
+									        <c:when test="${list.optNo == 2}">
 									        	스파&nbsp;
 									        </c:when>
-									        <c:when test="${list.optNo == 2}">
+									        <c:when test="${list.optNo == 3}">
 									      		야외수영장&nbsp;
 									        </c:when>
-									        <c:when test="${list.optNo == 2}">
+									        <c:when test="${list.optNo == 4}">
 									      		엑스트라베드&nbsp;
 									        </c:when>
-									        <c:otherwise></c:otherwise>
+									        <c:otherwise>없음</c:otherwise>
 									    </c:choose>
 									</c:forEach>
 									</label></td>
@@ -193,7 +193,7 @@ colgroup col.col {
 						<!-- 포인트,요금 -->
 						<div class="panel panel-default">
 							<div class="panel-footer">
-								<span class="pointpanel">사용 포인트: <label id="point">${point}</label></span>
+								<span class="pointpanel">사용 포인트: <label id="point">${booking.bookingPoint}</label></span>
 							</div>
 							<div class="panel-footer">
 								<span class="pointpanel">요금 합계: <label id="charge">${booking.payment}</label>

@@ -65,17 +65,17 @@ var loadMyBooking = function(userNum) {
 				$('#bookingList').append(bookingList.join(''));		
 
 				$(".getBooking").click(function () {
-				   location.href = "/hotel/booking/bookingInformation?bookingNum=" + $(this).attr('id');
+				   location.href = "/hotel/booking/myBooking?bookingNum=" + $(this).attr('id');
 				});
 			}else{
 				$('#bookingList').append(
-					'<tr><td colspan="6"><b>예약 내역이 없습니다.</b></td></tr>'	);
+					'<tr><td colspan="7"><b>예약 내역이 없습니다.</b></td></tr>'	);
 			}
 		},
 		error:function(a, b, errMsg){
 			$('#bookingList').empty();
 			$('#bookingList').append(
-				'<tr><td colspan="6"><b>예약 내역을 불러오지 못했습니다.</b></td></tr>'	);
+				'<tr><td colspan="7"><b>예약 내역을 불러오지 못했습니다.</b></td></tr>'	);
 		}
 	});
 }
@@ -103,7 +103,7 @@ $(document).ready(loadMyBooking("${sessionScope.user.userNum}"));
 					</div>
 					<jsp:include page="aside.jsp" />
 					<div class="main-section">
-						<h4 style="text-align: left; width: 90%; float: left">|포인트 사용 내역</h4>
+						<h4 style="text-align: left; width: 90%; float: left">|예약 내역</h4>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
