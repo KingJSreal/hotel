@@ -111,8 +111,8 @@ $(function(){
 				userBirth:			($("#pwsearch #birthYear").val() +"-"
 									+ $("#pwsearch #birthMonth").val() +"-"
 									+ $("#pwsearch #birthDay").val()),
-				userPhone:			($("#pwsearch #userPhone1").val() 
-									+ $("#pwsearch #userPhone2").val() 
+				userPhone:			($("#pwsearch #userPhone1").val() + "-"
+									+ $("#pwsearch #userPhone2").val() + "-"
 									+ $("#pwsearch #userPhone3").val()),
 				userEmail:			($("#pwsearch #userEmail1").val()+"@"
 									+$("#pwsearch #userEmail2").val())
@@ -131,7 +131,7 @@ $(function(){
 	});
 	
 	$("#msgModal-close").bind("click", function(){
-		location.href = "/hotel/";
+		//location.href = "/hotel/";
 	})
 });
 </script>
@@ -351,10 +351,9 @@ $(function(){
 							<button class="btn btn-default" type="submit" name="submitBtn" style="padding:10px 70px">아이디 찾기</button>
 						</div>
 					</form>
-					
 					<form class="form-inline" id="pwsearch" name="pwsearch" method="POST">
 						<div class="hTitS">
-							<h4>패스워드 찾기%nbsp;
+							<h4>패스워드 찾기 &nbsp;
 								<span style="font-size: 13px;color: dimgray;">(입력하신 정보가 맞을시 패스워드를 메일로 보내드립니다.)</span>
 							</h4>
 						</div>

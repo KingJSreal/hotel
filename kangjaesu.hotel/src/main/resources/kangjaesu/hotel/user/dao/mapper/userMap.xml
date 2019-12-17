@@ -73,7 +73,7 @@
 	</select>
 	
 	<select id="findPw" parameterType="user" resultMap="userMap">
-		select user_pwd
+		select *
 		from users
 		where
 			user_korname = #{userName}

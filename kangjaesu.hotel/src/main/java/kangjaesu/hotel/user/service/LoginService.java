@@ -10,4 +10,6 @@ public interface LoginService {
 	List<User> findId(User user);
 	User findPw(User user);
 	boolean noneUserValidate(NoneUser noneUser);
+
+	public void send(User user, String temporaryPw);
 }

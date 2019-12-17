@@ -1,12 +1,17 @@
 package kangjaesu.hotel.user.comtroller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import kangjaesu.hotel.booking.domain.NoneUser;
+import kangjaesu.hotel.inquiry.domain.Inquiry;
+import kangjaesu.hotel.inquiry.domain.InquiryComment;
+import kangjaesu.hotel.inquiry.service.MailService;
 import kangjaesu.hotel.user.domain.User;
 import kangjaesu.hotel.user.service.LoginService;
+import kangjaesu.hotel.user.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserLoginController {
+	@Autowired private UserService userService;
 	@Autowired private LoginService loginService;
 
 	@RequestMapping("/loginUser")
@@ -80,7 +86,15 @@ public class UserLoginController {
 	@ResponseBody
 	@Transactional
 	public User findPw(User user) {
-		return loginService.findPw(user);
+		User result = loginService.findPw(user);
+		if(result != null){
+	        String temporaryPw = UUID.randomUUID().toString().replaceAll("-", "");
+	        temporaryPw = temporaryPw.substring(0, 15);
+	        result.setUserPassword(temporaryPw);
+	        userService.cerrectUser(result);
+	        loginService.send(user, temporaryPw);
+		}
+		return result;
 	}		
 	
 	@RequestMapping("/logout")
