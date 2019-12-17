@@ -8,12 +8,30 @@
 <title>쌍용호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script type="text/javascript">
-	//$("#3 input[name=promotionImage]")
-	
-	
-	
 	var cnt = 0;
-	var inputss = 0;
+
+	function add_image_onchange(){
+		$("#field input[name=promotionImage]").each(
+			function(idx, imgInput){
+				$(imgInput).attr("id", idx);
+				$(imgInput).change(function(){
+					if ($(this)[0].files && $(this)[0].files[0]) {
+						var reader = new FileReader();
+						reader.addEventListener("load", function() {
+							$($(imgInput).parent().children()[0]).attr('src', reader.result);
+						}, false);
+						reader.readAsDataURL($(imgInput)[0].files[0]);
+					}
+				})
+			});
+
+		$("#field label[name=imglabel]").each(
+			function(idx, label){
+				$(label).attr("for", idx);
+			});
+	}
+	
+	
 	function add_promotion() {
 		var div = document.createElement('div');
 		cnt = Number($("#cnt").val());
@@ -21,17 +39,11 @@
 		$("#cnt").val(cnt);
 		console.log($("#cnt").val());
 		div.innerHTML = document.getElementById('pre_set').innerHTML;
-		div.id = cnt;
 		document.getElementById('field').appendChild(div);
 		
-		$($(div).children()[0]).children().bind("onChange", function(){
-			imgView(this);
-		})
+		add_image_onchange();
 	}
 	
-	
-	
-
 	function del_promotion(obj) {
 		document.getElementById('field').removeChild(obj.parentNode);
 	}
@@ -50,9 +62,6 @@
 	}
 	
 	
-	
-	
-	onchange="imgView(this)" 
 	//이미지 등록취소
 	$("#imgCancel").bind("click", function(){
 		$("#imgUpLoad").val('');
@@ -272,13 +281,13 @@ section {
 							<div class="img_section">
 								<img class="promotionImg" style="height: 230px; width: 100%">
 								<label class="btn btn-default btn-lg btn-block" for="imgUpLoad"
-									style="width: 50%; margin-top: 2px; font-size: 13px; float: left">이미지
+									style="width: 50%; margin-top: 2px; font-size: 13px; float: left" name="imglabel">이미지
 									업로드</label>
 								<button class="btn btn-default btn-lg btn-block" id="imgCancel"
 									value="등록 취소"
 									style="width: 50%; font-size: 13px; margin-top: 2px;">등록취소</button>
 								<input type="file" id="imgUpLoad" value="imgUpLoad" name="promotionImage"
-									class="promotionImage" style="display: none;">
+									class="promotionImage">
 							</div>
 							<div class="content_section">
 								<table class="table table-bordered">
