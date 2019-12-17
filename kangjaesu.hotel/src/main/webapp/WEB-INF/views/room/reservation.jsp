@@ -270,9 +270,6 @@ $(function() {
 			  		
 				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];	
 				$(".previewImg").each(function(idx, img){
-					console.log(idx);
-					console.log(img);
-					console.log(roomImages[idx]);
 					if(roomImages[idx] != null)
 						$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
 					})
@@ -412,8 +409,8 @@ $(function() {
 							<div class="thumb-isotope">
 								<table class="table table-hover">
 									<tr id="a${list.roomNum }">
-										<td class="confirmModalButton"><img width="300"
-											height="200"></td>
+										<td class="confirmModalButton">
+											<img width="300" height="200" src="<c:url value="/img/${list.roomImage1}"/>"></td>
 
 										<td class="confirmModalButton" style="vertical-align: middle;">
 											<p>

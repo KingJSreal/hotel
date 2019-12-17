@@ -4,11 +4,6 @@
 <!DOCTYPE html>
 <html>
 <style>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
-	
 /*네비*/
 .navi {
 	text-align: center;

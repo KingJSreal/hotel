@@ -284,46 +284,19 @@ $(function(){
 				     	</div>
 				  	</div>
 				  	<div class="row">
-				     	<div class="col-sm-3 col-md-3">
-				        	<div class="thumbnail">
-			           			<a href="#" class="thumbnail" style="height: 200px;"> </a>
-				       			<div class="caption">
-				          			<h3>서울호텔</h3>
-				          			<h4>halloween Party</h4>
-				          			<p>2019.02.01~2019.02.15</p>
-				       			</div>
-				 			</div>
-				 		</div>
-				 		<div class="col-sm-3 col-md-3">
-				    		<div class="thumbnail">
-					       		<a href="#" class="thumbnail" style="height: 200px;"> </a>
-					       		<div class="caption">
-					          		<h3>서울호텔</h3>
-					          		<h4>halloween Party</h4>
-					          		<p>2019.02.01~2019.02.15</p>
-				       			</div>
-				    		</div>
-				 		</div>
-					 	<div class="col-sm-3 col-md-3">
-							<div class="thumbnail">
-						    	<a href="#" class="thumbnail" style="height: 200px;"> </a>
-						       	<div class="caption">
-						        	<h3>서울호텔</h3>
-						          	<h4>halloween Party</h4>
-						          	<p>2019.02.01~2019.02.15</p>
-						       	</div>
-						    </div>
-				 		</div>
-						<div class="col-sm-3 col-md-3">
-							<div class="thumbnail">
-						    	<a href="#" class="thumbnail" style="height: 200px;"> </a>
-				          		<div class="caption">
-						        	<h3>서울호텔</h3>
-					            	<h4>halloween Party</h4>
-					            	<p>2019.02.01~2019.02.15</p>
-					            </div>
-				    		</div>
-				    	</div>
+				  	
+						<c:forEach items="${listPros}" var="pro">
+					     	<div class="col-sm-3 col-md-3">
+					        	<div class="thumbnail">
+				           			<img class="thumbnail" style="height: 200px" src="<c:url value="/img/${pro.promotionDetails[0].prodPic}"/>"></img>
+					       			<div class="caption">
+					          			<h3>서울호텔</h3>
+					          			<h4>${pro.proTitle}</h4>
+					          			<p>${pro.proStartDate} ~ ${pro.proEndDate}</p>
+					       			</div>
+					 			</div>
+					 		</div>
+						</c:forEach>
 					</div>
 				</div>
 				<!-- 끝 -->

@@ -9,22 +9,14 @@
 <jsp:include page="common/import.jsp"></jsp:include>
 <style>
 	.today_status{
-		width:40%;
-		float:left;
-		height:250px;
 		margin-left:8%;
+		width:84%;
+		height:250px;
 	}
 	.today_status th{
 		text-align: center;
 	}
-	.nonprocess_status{
-		width:40%;
-		height:250px;
-		margin-left:52%;
-	}
-	.nonprocess_status th{
-		text-align: center;
-	}
+	
 	.question{
 		margin-left:8%;
 		width:84%;
@@ -44,6 +36,9 @@
 	}
 	/*메인 섹션 끝*/
 </style>
+<script>
+	
+</script>
 </head>
 <body>
 	<div>
@@ -67,60 +62,19 @@
 											<tr>
 												<th scope="row">예약 수</th>
 												<td>
-													<p>00 건</p>
+													<p id="bookingNum">00 건</p>
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">문의사항 수</th>
+												<th scope="row">문의사항/미처리문의</th>
 												<td>
-													<p>00 건</p>
+													<p id="inquiryNum">00 건 / 00 건</p>
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">회원가입 수</th>
+												<th scope="row">회원가입</th>
 												<td>
-													<p>00 명</p>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">회원탈퇴 수</th>
-												<td>
-													<p>00 명</p>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="nonprocess_status">
-								<h4 style="text-align:left">미처리 현황</h4>
-									<table class="table table-bordered">
-										<colgroup>
-											<col width="50%" class="col1">
-											<col width="50%" class="col2">
-										</colgroup>
-										<tbody>
-											<tr>
-												<th scope="row">예약 수</th>
-												<td>
-													<p>00 건</p>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">문의사항 수</th>
-												<td>
-													<p>00 건</p>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">회원가입 수</th>
-												<td>
-													<p>00 명</p>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">회원탈퇴 수</th>
-												<td>
-													<p>00 명</p>
+													<p id="joinUserNum">00 명</p>
 												</td>
 											</tr>
 										</tbody>
@@ -130,34 +84,16 @@
 							<div class="container">
 								<div class="question">
 									<h4 style="text-align:left; width:90%; float:left">| 문의사항</h4>
-									<a id="more" href="#">more <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+									<a id="more" href="/hotel/inquiry/inquiryForm">more <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 									<table class="table table-bordered">
-										<tbody>
+										<thead>
 											<tr>
 												<th scope="row" width="65%">제목</th>
-												<th scope="row" width="15%">유저명</th>
+												<th scope="row" width="15%">이름</th>
 												<th scope="row" width="20%">날짜</th>
 											</tr>
-											<tr>
-												<td>10월 10일 기존 체크인 시간보다 1시간 더 일찍 체크인 하고싶습니다.</td>
-												<td>user01</td>
-												<td>2019-10-10 09:00</td>							
-											</tr>
-											<tr>
-												<td>10월 10일 기존 체크인 시간보다 1시간 더 일찍 체크인 하고싶습니다.</td>
-												<td>user01</td>
-												<td>2019-10-10 09:00</td>							
-											</tr>
-											<tr>
-												<td>10월 10일 기존 체크인 시간보다 1시간 더 일찍 체크인 하고싶습니다.</td>
-												<td>user01</td>
-												<td>2019-10-10 09:00</td>							
-											</tr>
-											<tr>
-												<td>10월 10일 기존 체크인 시간보다 1시간 더 일찍 체크인 하고싶습니다.</td>
-												<td>user01</td>
-												<td>2019-10-10 09:00</td>							
-											</tr>
+										</thead>
+										<tbody id="inquiryList">
 											<tr>
 												<td>10월 10일 기존 체크인 시간보다 1시간 더 일찍 체크인 하고싶습니다.</td>
 												<td>user01</td>
