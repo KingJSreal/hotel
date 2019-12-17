@@ -15,5 +15,6 @@
 		 <package name="kangjaesu.hotel.account.domain" />
 		 <package name="kangjaesu.hotel.card.domain" />
 		 <package name="kangjaesu.hotel.noneUser.domain" />
+		 <package name="kangjaesu.hotel.intro.domain" />
 	</typeAliases>
 </configuration>
