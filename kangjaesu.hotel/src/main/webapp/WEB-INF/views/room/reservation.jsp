@@ -454,17 +454,17 @@ $(function() {
 
 								<div class="panel panel-default">
 									<div class="container">
-										<form class="form-inline">
+										<form id="form" class="form-inline">
 											<div class="container inputGroup">
 												<div class="input-group col-md-3">
-													<img width="250" height="200" class="previewImg">
+													<img width="250" height="200" class="previewImg3">
 												</div>
 												<div class="input-group col-md-3">
-													<img width="250" height="200" class="previewImg">
+													<img width="250" height="200" class="previewImg3">
 												</div>
 
 												<div class="input-group col-md-3">
-													<img width="250" height="200" class="previewImg">
+													<img width="250" height="200" class="previewImg3">
 												</div>
 											</div>
 										</form>

@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -105,7 +106,7 @@ public class BookingController {
 	//예약조회 페이지
 	@Transactional
 	@RequestMapping("/myBooking")
-	public String myBooking(Model model, HttpSession session, Booking booking) {
+	public String myBooking(Model model, HttpSession session, Booking booking, @RequestParam("bookingNum")int bookingNum) {
 		User user = (User) session.getAttribute("user");
 		int userNum = user.getUserNum();
 		if(userNum == 0){
@@ -113,7 +114,7 @@ public class BookingController {
 			return "booking/noneUserBooking";
 		}
 		else{
-			model.addAttribute("myBookingList", bookingService.getMyBookings(userNum));
+			model.addAttribute("myBookingList", bookingService.getMyBookings(bookingNum));
 			return "booking/myBooking";
 		}
 	}

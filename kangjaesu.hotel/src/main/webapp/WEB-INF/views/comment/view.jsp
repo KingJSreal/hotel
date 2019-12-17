@@ -86,9 +86,7 @@ $(function(){
 				method:"GET",
 				data: {		
 					revNum:revNum
-				/* 	userCall: userCall,
-					userAddressCode:$("#userAddressCode").val(),
-					userAddress: userAddress */
+			
 				},
 				success:function(){
 					

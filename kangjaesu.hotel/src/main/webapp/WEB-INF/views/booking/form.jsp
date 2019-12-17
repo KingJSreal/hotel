@@ -108,12 +108,14 @@ var alert = function(msg, type) {
 }
 
 	$(document).ready(function() {
-		$("#kname").val("${user.userName}");
-		$("#firstName").val("${user.userEngFirstName}");
-		$("#lastName").val("${user.userEngLastName}");
-		$("#birth").val();
-		$("#email").val("${user.userEmail}");
-		$("#phoneNum").val("${user.userPhone}");
+		if(${user.userNum} != 0){
+			$("#kname").val("${user.userName}");
+			$("#firstName").val("${user.userEngFirstName}");
+			$("#lastName").val("${user.userEngLastName}");
+			$("#birth").val();
+			$("#email").val("${user.userEmail}");
+			$("#phoneNum").val("${user.userPhone}");
+		}
 	});
 
 	$(document).ready(
@@ -676,19 +678,19 @@ var alert = function(msg, type) {
 													<td><label id="option">
 													<c:forEach var="list" items="${optionList}" varStatus="status">
 														<c:choose>
-													        <c:when test="${list.optNo == 0}">
+													        <c:when test="${list.optNo == 1}">
 													        	조식&nbsp;
 													        </c:when>
-													        <c:when test="${list.optNo == 1}">
+													        <c:when test="${list.optNo == 2}">
 													        	스파&nbsp;
 													        </c:when>
-													        <c:when test="${list.optNo == 2}">
+													        <c:when test="${list.optNo == 3}">
 													      		야외수영장&nbsp;
 													        </c:when>
-													        <c:when test="${list.optNo == 2}">
+													        <c:when test="${list.optNo == 4}">
 													      		엑스트라베드&nbsp;
 													        </c:when>
-													        <c:otherwise></c:otherwise>
+													        <c:otherwise>없음</c:otherwise>
 													    </c:choose>
 													</c:forEach>
 													</label></td>
