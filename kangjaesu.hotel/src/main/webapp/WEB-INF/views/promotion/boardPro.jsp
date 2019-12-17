@@ -170,7 +170,9 @@
 						<td>
 							<c:forEach items="${listPros}" var="pro">
 								<div class="board_pro">
-									<div class="image_pro"><a href="#" class="thumbnail"></a></div>
+									<div class="image_pro">
+										<img class="thumbnail" src="<c:url value="/img/${pro.promotionDetails[0].prodPic}"/>"></img>
+									</div>
 									<div class="content_pro">
 										<a class="more" id="${pro.proNum}" href="#" onClick="detailView(${pro.proNum})">
 											more <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

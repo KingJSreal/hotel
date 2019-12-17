@@ -69,13 +69,13 @@ var loadMyBooking = function(userNum) {
 				});
 			}else{
 				$('#bookingList').append(
-					'<tr><td colspan="6"><b>예약 내역이 없습니다.</b></td></tr>'	);
+					'<tr><td colspan="7"><b>예약 내역이 없습니다.</b></td></tr>'	);
 			}
 		},
 		error:function(a, b, errMsg){
 			$('#bookingList').empty();
 			$('#bookingList').append(
-				'<tr><td colspan="6"><b>예약 내역을 불러오지 못했습니다.</b></td></tr>'	);
+				'<tr><td colspan="7"><b>예약 내역을 불러오지 못했습니다.</b></td></tr>'	);
 		}
 	});
 }

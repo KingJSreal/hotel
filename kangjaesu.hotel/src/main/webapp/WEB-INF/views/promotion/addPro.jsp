@@ -91,11 +91,11 @@
 						"#field input[name=notice]:eq(" + (i - 1) + ")").val());
 					prodContent.push($(
 						"#field textarea[name=prodContent]:eq(" + (i - 1) + ")").val());
-					prodPic.push("/promotion/" + $(
-							"#field input[name=prodPic]:eq(" + (i - 1) + ")").val());
+					prodPic.push("promotion/" + $(
+						"#field input[name=promotionImage]:eq(" + (i - 1) + ")")[0].files[0].name);
 				}
 				
-				$("input[class=promotionImage]").each(function(idx, img){
+				$("#field input[class=promotionImage]").each(function(idx, img){
 					var formData = new FormData();
 					formData.append("file", img.files[0]);
 					$.ajax({
@@ -107,7 +107,7 @@
 						success:function(result){
 						},
 						error:function(a, b, errMsg){
-							alert(errMsg);
+							alert("이미지" + errMsg);
 							return;
 						}
 					});
@@ -133,7 +133,7 @@
 					traditional : true,
 					success : function() {
 						alert("등록에 성공하셨습니다.");
-						//location.href = "/hotel/promotion/boardProAdmin";
+						location.href = "/hotel/promotion/boardProAdmin";
 					},
 					error : function(a, b, errMsg) {
 						alert("등록에 실패하셨습니다.");
@@ -287,7 +287,7 @@ section {
 									value="등록 취소"
 									style="width: 50%; font-size: 13px; margin-top: 2px;">등록취소</button>
 								<input type="file" id="imgUpLoad" value="imgUpLoad" name="promotionImage"
-									class="promotionImage">
+									class="promotionImage" style="display: none">
 							</div>
 							<div class="content_section">
 								<table class="table table-bordered">

@@ -78,6 +78,7 @@ public class CommentController {
 		String dir = request.getServletContext().getRealPath(uploadDir);
 		System.out.println("dir: " + dir);
 		String fileName = file.getOriginalFilename();
+		System.out.println("fileName: " + fileName);
 		try{
 			save(dir + "/" + fileName, file);
 		} catch (IOException e){

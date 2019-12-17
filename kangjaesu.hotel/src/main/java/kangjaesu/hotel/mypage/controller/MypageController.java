@@ -1,6 +1,7 @@
 package kangjaesu.hotel.mypage.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,7 +36,19 @@ public class MypageController {
 	@Autowired private PageService pageService;
 	
 	@RequestMapping("/myPage")
-	public String myPage(){
+	public String myPage(Model model, HttpSession session){
+		User user = (User) session.getAttribute("user");
+		int userNum = user.getUserNum();
+		
+		List<Inquiry> inqList = myInqService.getInquirys(userNum);
+		if(inqList.size() < 10)
+			inqList.subList(0, inqList.size());
+		else
+			inqList.subList(0, 10);
+		
+		model.addAttribute("inqCount", myInqService.getCount(userNum));
+		model.addAttribute("inqList", inqList);
+		
 		return "mypage/myPage";
 	}
 	@RequestMapping("/myPoint")

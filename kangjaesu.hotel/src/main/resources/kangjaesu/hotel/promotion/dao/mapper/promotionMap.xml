@@ -30,26 +30,23 @@
 		select a.pro_num, min(b.prod_num), b.prod_pic, a.pro_title, a.pro_content, 
 			a.pro_start_date, a.pro_end_date
 		from promotions a, pro_details b
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		where 1 = 1
+				AND a.pro_num = b.pro_num
 			<if test="schStartDate != null and schEndDate != null
 				and schStartDate != '' and schEndDate != '' ">
-				AND a.pro_num = b.pro_num
 				AND NOT((#{schStartDate} <![CDATA[ < ]]> a.pro_start_date and #{schEndDate} <![CDATA[ < ]]> a.pro_start_date)
 					OR(a.pro_end_date <![CDATA[ < ]]> #{schStartDate} and a.pro_end_date <![CDATA[ < ]]> #{schEndDate}))
 			</if>
 			<if test="keyword != null and keyword != '' ">
-				AND a.pro_num = b.pro_num
 				AND a.pro_title like ('%'||#{keyword}||'%')
 			</if>
 			<if test="schStartDate != null and schEndDate != null
 				and schStartDate != '' and schEndDate != '' 
 				and keyword != null and keyword != '' ">
-				AND a.pro_num = b.pro_num
 				AND (a.pro_title like ('%'||#{keyword}||'%')
 					AND NOT((#{schStartDate} <![CDATA[ < ]]> a.pro_start_date and #{schEndDate} <![CDATA[ < ]]> a.pro_start_date) 
 						OR (a.pro_end_date <![CDATA[ < ]]> #{schStartDate} and a.pro_end_date <![CDATA[ < ]]> #{schEndDate})))
 			</if>
-		</trim>
 		group by a.pro_num, b.prod_pic, a.pro_title, a.pro_content, 
 			a.pro_start_date, a.pro_end_date
 		order by a.pro_num desc
