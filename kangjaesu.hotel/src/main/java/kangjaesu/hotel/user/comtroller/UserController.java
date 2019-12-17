@@ -106,5 +106,12 @@ public class UserController {
 	public boolean secede(User user) {
 		return userService.secede(user);
 	}
+	
+	@RequestMapping("/todayJoinUser")
+	@ResponseBody
+	@Transactional
+	public int todayJoinUser() {
+		return userService.countUserToday();
+	}
 }
 

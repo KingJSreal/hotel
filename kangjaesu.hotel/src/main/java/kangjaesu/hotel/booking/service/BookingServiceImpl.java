@@ -2,6 +2,7 @@ package kangjaesu.hotel.booking.service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -101,8 +102,11 @@ public class BookingServiceImpl implements BookingService{
 		int roomNum = booking.getRoomNum();
 		List<Option> list = roomService.getRoom(roomNum).getOptions();
 		String[] option = {"조식", "스파", "야외수영장", "엑스트라베드"};
-		for(int i=0; i<list.size(); i++)
-			roomOption = roomOption + option[list.get(i).getOptNo()] + " ";
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).getOptNo() == 0) continue;
+			else
+				roomOption = roomOption + option[list.get(i).getOptNo() - 1] + " ";
+			}
 		return roomOption;
 	}
 
@@ -115,4 +119,11 @@ public class BookingServiceImpl implements BookingService{
 	public List<Booking> getNoneUserBookings(int bookingNum) {
 		return bookingDao.getNoneUserBookings(bookingNum);
 	}
+	
+
+	@Override
+	public int countBookingToday() {
+		return bookingDao.countBookingToday();
+	}
+
 }

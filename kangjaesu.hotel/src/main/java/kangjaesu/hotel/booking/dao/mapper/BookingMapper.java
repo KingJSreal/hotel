@@ -22,4 +22,7 @@ public interface BookingMapper {
 	int addNoneUser(NoneUser nuser);
 	int addCard(Card card);
 	int addAccount(Account account);
+
+	int countBookingToday();
+	
 }

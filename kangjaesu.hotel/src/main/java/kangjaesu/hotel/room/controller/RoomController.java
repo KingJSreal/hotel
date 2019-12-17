@@ -120,10 +120,11 @@ public class RoomController {
 		
 		 List<Option> options = new ArrayList<Option>();
 		 for(int i = 0; i< optNo.size(); i++){
-		 Option option = new Option();
-		 option.setOptNo(Integer.parseInt(optNo.get(i)));
-		
-		 options.add(option);}
+			 Option option = new Option();
+			 option.setOptNo(Integer.parseInt(optNo.get(i)));
+			
+			 options.add(option);
+		 }
 	
 		return roomService.join(room,  options);
 	}

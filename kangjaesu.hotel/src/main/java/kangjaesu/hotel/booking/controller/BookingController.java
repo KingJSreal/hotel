@@ -166,4 +166,11 @@ public class BookingController {
 		bookingService.delBooking(bookingNum);
 		return "del";
 	}
+	
+	@RequestMapping("/todayBookingUser")
+	@ResponseBody
+	@Transactional
+	public int todayJoinUser() {
+		return bookingService.countBookingToday();
+	}
 }

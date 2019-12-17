@@ -113,5 +113,9 @@
 		where BOOKING_NUM=#{bookingNum}
 	</update>
 	
-
+	<select id="countBookingToday" resultType="int">
+		select count(*)
+		from bookings
+   		where CHECK_IN_ like to_char(sysdate, 'YY/MM/DD')
+	</select>
 </mapper>

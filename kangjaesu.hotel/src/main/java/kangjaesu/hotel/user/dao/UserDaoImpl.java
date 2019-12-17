@@ -67,4 +67,9 @@ public class UserDaoImpl implements UserDao{
 		return mapper.delUser(user);
 	}
 
+	@Override
+	public int countUserToday() {
+		return mapper.countUserToday();
+	}
+
 }

@@ -129,7 +129,7 @@ th {
 </head>
 
 <body>
-	<div class="container">
+	<div>
 		<jsp:include page="../common/header.jsp" />
 		<jsp:include page="../common/gnb.jsp" />
 		<!-- 프로모션 등록 -->

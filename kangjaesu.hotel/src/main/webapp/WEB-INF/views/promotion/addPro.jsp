@@ -217,7 +217,7 @@ section {
 
 <body>
 	<form class="form-inline" id="addProForm" method="post">
-		<div class="container">
+		<div>
 			<jsp:include page="../common/header.jsp" />
 			<jsp:include page="../common/gnb.jsp" />
 			<!-- 프로모션 등록 -->

@@ -20,7 +20,6 @@
 	.question{
 		margin-left:8%;
 		width:84%;
-		height:250px
 	}
 	.question th{
 		text-align:center;
@@ -36,10 +35,86 @@
 	}
 	/*메인 섹션 끝*/
 </style>
-<script>
-	
-</script>
 </head>
+<c:if test="${(sessionScope.user.userGrade == '2' && sessionScope.page == 'admin')}">
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+				url:"/hotel/booking/todayBookingUser",
+				method:"POST",
+				success:function(result){
+						$("#bookingNum").text(result + " 명");
+					},
+					error:function(a, b, errMsg){
+						alert("유저 데이터 불러오기에 실패했습니다.");
+					}
+				});
+			
+			$.ajax({
+				url:"/hotel/inquiry/todayInquiry",
+				method:"POST",
+				success:function(result){
+						$("#inquiryNum").text(result + " 건 / ");
+					},
+					error:function(a, b, errMsg){
+						alert("유저 데이터 불러오기에 실패했습니다.");
+					}
+				});
+			
+			$.ajax({
+				url:"/hotel/inquiry/todayInquiryNoComent",
+				method:"POST",
+				success:function(result){
+						$("#inquiryNum").text($("#inquiryNum").text() + result + " 건");
+					},
+					error:function(a, b, errMsg){
+						alert("유저 데이터 불러오기에 실패했습니다.");
+					}
+				});
+		
+			$.ajax({
+				url:"/hotel/user/todayJoinUser",
+				method:"POST",
+				success:function(result){
+						$("#joinUserNum").text(result + " 명");
+					},
+					error:function(a, b, errMsg){
+						alert("유저 데이터 불러오기에 실패했습니다.");
+					}
+				});
+			$.ajax({
+				url:"/hotel/inquiry/inquiryMainList",
+				method:"POST",
+				success:function(result){
+					$('#inquiryList').empty();
+					if(result.length > 0 ){
+						var inquiryList = [];
+						$(result).each(function(idx, inquiry){
+							inquiryList.push(
+									'<tr>' +
+									'<td>' + inquiry.inqTitle+'</td>' +
+									'<td>' + inquiry.inqWriter+'</td>' +
+									'<td>' + inquiry.inqDate+'</td>' +
+									'</tr>'				
+							);
+						});
+						
+						$('#inquiryList').append(inquiryList.join(''));
+						
+					}else{
+						$('#inquiryList').append(
+							'<tr><td colspan="3"><b>문의가 없습니다..</b></td></tr>'	);
+					}
+				},
+				error:function(a, b, errMsg){
+					$('#inquiryList').empty();
+					$('#inquiryList').append(
+						'<tr><td colspan="3"><b>문의를 불러오지 못했습니다.</b></td></tr>'	);
+				}
+			});
+		});
+	</script>
+</c:if>
 <body>
 	<div>
 		<jsp:include page="common/header.jsp" />
@@ -62,19 +137,19 @@
 											<tr>
 												<th scope="row">예약 수</th>
 												<td>
-													<p id="bookingNum">00 건</p>
+													<p id="bookingNum"></p>
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">문의사항/미처리문의</th>
+												<th scope="row">문의사항 / 미처리문의</th>
 												<td>
-													<p id="inquiryNum">00 건 / 00 건</p>
+													<p id="inquiryNum"></p>
 												</td>
 											</tr>
 											<tr>
 												<th scope="row">회원가입</th>
 												<td>
-													<p id="joinUserNum">00 명</p>
+													<p id="joinUserNum"></p>
 												</td>
 											</tr>
 										</tbody>
