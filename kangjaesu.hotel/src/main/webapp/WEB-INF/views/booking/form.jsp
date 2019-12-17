@@ -108,7 +108,8 @@ var alert = function(msg, type) {
 }
 
 	$(document).ready(function() {
-		if(${user.userNum} != 0){
+		var userNum = ${user.userNum};
+		if(userNum != 0){
 			$("#kname").val("${user.userName}");
 			$("#firstName").val("${user.userEngFirstName}");
 			$("#lastName").val("${user.userEngLastName}");
@@ -690,7 +691,7 @@ var alert = function(msg, type) {
 													        <c:when test="${list.optNo == 4}">
 													      		엑스트라베드&nbsp;
 													        </c:when>
-													        <c:otherwise>없음</c:otherwise>
+													        <c:otherwise></c:otherwise>
 													    </c:choose>
 													</c:forEach>
 													</label></td>

@@ -159,7 +159,7 @@
 							<div class="container">
 								<div class="question">
 									<h4 style="text-align:left; width:90%; float:left">| 문의사항</h4>
-									<a id="more" href="/hotel/inquiry/inquiryForm">more <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+									<a id="more" href="/hotel/inquiry/inquiryManage">more <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 									<table class="table table-bordered">
 										<thead>
 											<tr>

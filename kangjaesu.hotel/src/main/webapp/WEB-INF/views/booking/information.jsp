@@ -203,12 +203,11 @@ var confirm = function(msg, type) {
 					<!-- 예약정보 패널 끝-->
 					<div class="buttongroup">
 					<button type="button" class="btn btn-default pull-right"
-							id="cancel">예약취소</button>
-							<button type="button" class="btn btn-default pull-right"
-							id="mod">예약수정</button>
-						<button type="button" class="btn btn-default pull-right"
 							id="back">목록으로</button>
-						
+					<button type="button" class="btn btn-default pull-right"
+							id="mod">예약수정</button>
+					<button type="button" class="btn btn-default pull-right"
+							id="cancel">예약취소</button>
 						
 					</div>
 				</div>

@@ -23,7 +23,7 @@
 	margin: 0 auto;
 }
 
-.pointpanel, .payment {
+.pointpanel, .paytypepanel {
 	margin-left: 70%;
 }
 
@@ -71,20 +71,86 @@ var confirm = function(msg, type) {
 	    		  return;
 	      });
 	}
-
-	$(function() {
-		$("#adult").val("${booking.adult}");
-		$("#kid").val("${booking.kid}");
-		//취소버튼 클릭시 호출
-		$("#cancel").click(function() {
-			confirm("수정을 취소 하시겠습니까?", "warning");
+var alert = function(msg, type) {
+	swal({
+		  title: "",
+		  text: msg,
+		  icon: type,
+		  button: "확인",
+		}).then((value) => {
+			return;
 		});
-		
-		//수정버튼 클릭시 호출
-		$("#submit").click(function() {
-			location.href = "bookingInformation";
-		});
+}
+$(function() {
+	$("#adult").val("${booking.adult}");
+	$("#kid").val("${booking.kid}");
+	//취소버튼 클릭시 호출
+	$("#cancel").click(function() {
+		confirm("수정을 취소 하시겠습니까?", "warning");
 	});
+	
+	//수정버튼 클릭시 호출
+	$("#submit").click(function() {
+		var i = new Date($("#checkIn").text());
+		var o = new Date ($("#checkOut").text());
+		$("#bookingcheckIn").val($("#checkIn").val());
+		$("#bookingcheckOut").val($("#checkOut").val());
+		$("#bookingAdult").val($("#adult").val());
+		$("#bookingKid").val($("#kid").val());
+		$("#bookingPayment").val($("#payment").text());
+		$("#bookingNumber").val($("#bookingNum").text());
+		
+		document.form.submit();
+	});
+	
+	//체크인
+	$("#checkIn").change(function(){
+	    if(days() < 0){
+	    	alert("체크인 날짜를 다시 설정해 주세요.", "warning");
+	    	$("#checkIn").val("${booking.checkIn}");
+	    	$("#days").text("${days}");
+	    }
+	    else {
+		   $("#days").text(parseInt(days()));
+		}
+	});
+	
+	//체크 아웃
+	$("#checkOut").change(function(){
+	    if(days() < 0){
+	    	alert("체크아웃 날짜를 다시 설정해 주세요.", "warning");
+	    	$("#checkOut").val("${booking.checkOut}");
+	    	$("#days").text("${days}");
+	    }
+	    else {
+		   $("#days").text(parseInt(days()));
+		   
+			charge();
+		}
+	});
+
+	function days(){
+		var sdd = $("#checkIn").val();
+	    var edd = $("#checkOut").val();
+	    var ar1 = sdd.split('-');
+	    var ar2 = edd.split('-');
+	    var da1 = new Date(ar1[0], ar1[1], ar1[2]);
+	    var da2 = new Date(ar2[0], ar2[1], ar2[2]);
+	    var dif = da2 - da1;
+	    var cDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+	    
+	    return dif/cDay;
+	}
+	
+	function charge(){
+		var beforeD = '<c:out value="${days}"/>';
+		var afterD = $("#days").text() * 1;
+		var a = beforeD * 1 + afterD
+		alert(a);
+		
+	    return beforeD + afterD;
+	}
+});
 </script>
 </head>
 <body>
@@ -130,8 +196,8 @@ var confirm = function(msg, type) {
 									<td>체크인</td>
 									<td>
 										<div class="form-group">
-											<div class="input-group date" id="checkIn">
-					                           <input type="text" class="form-control" id="indateForm"
+											<div class="input-group date">
+					                           <input type="date" class="form-control" id="checkIn"
 					                           			onfocus="this.blur();" value="${booking.checkIn}"/>
 					                           <span class="input-group-addon">
 					                           <i class="glyphicon glyphicon-calendar"></i></span>
@@ -141,8 +207,8 @@ var confirm = function(msg, type) {
 									<td>체크아웃</td>
 									<td>
 										<div class="form-group">
-											<div class="input-group date" id="checkOut">
-					                           <input type="text" class="form-control" id="outdateForm"
+											<div class="input-group date">
+					                           <input type="date" class="form-control" id="checkOut"
 					                           			onfocus="this.blur();" value="${booking.checkOut}"/>
 					                           <span class="input-group-addon">
 					                           <i class="glyphicon glyphicon-calendar"></i></span>
@@ -152,7 +218,7 @@ var confirm = function(msg, type) {
 								</tr>
 								<tr>
 									<td>숙박일수</td>
-									<td><label id="days"></label>${days}박</td>
+									<td><label id="days">${days}</label>박</td>
 									<td>투숙인원</td>
 									<td>
 										<div class="form-group form-inline">
@@ -186,19 +252,19 @@ var confirm = function(msg, type) {
 						<!-- 포인트,요금 -->
 						<div class="panel panel-default">
 							<div class="panel-footer">
-								<span class="pointpanel">사용 포인트: ${point}<label id="point"></label></span>
+								<span class="pointpanel">사용 포인트: <label id="point">${booking.bookingPoint}</label></span>
 							</div>
 							<div class="panel-footer">
-								<span class="pointpanel">요금 합계: ${booking.payment}<label id="charge"></label>
+								<span class="pointpanel">요금 합계: <label id="payment">${booking.payment}</label>
 								&nbsp;/&nbsp;
-						요금 변동: <label>0</label></span>
+						요금 변동: <label id="changeCharge">0</label></span>
 							</div>
 						</div>
 						<!-- 포인트,요금 끝-->
 
 						<!-- 결제수단 -->
 						<div class="panel-footer">
-							<span class="payment">결제 수단: ${booking.paytype}<label id="payType"></label></span>
+							<span class="paytypepanel">결제 수단: <label id="payType">${booking.paytype}</label></span>
 						</div>
 
 					</div>
@@ -210,42 +276,14 @@ var confirm = function(msg, type) {
 				</div>
 			</section>
 		</div>
-		<script>
-$(function(){
-   var checkInDate;
-   var checkOutDate;
-   $('#checkIn').daterangepicker({
-       autoUpdateInput: false,
-       "locale": {
-    	   "singleDatePicker": true,
-          "format": "YYYY/MM/DD",
-           "applyLabel": "확인",
-           "cancelLabel": "취소",
-           "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-           "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월",
-                        "7월", "8월", "9월", "10월", "11월", "12월"],
-           "firstDay": 1,
-           "toLabel": "To"
-       },    
-       "minDate": Today(),   //오늘 날짜
-      
-   },function(start) {
-      checkInDate = start.format('YYYY-MM-DD');
-   });
-   
-   $('#checkIn').on('apply.daterangepicker', function(ev, picker) {
-      var arr1 = checkInDate.split('-');
-      checkIn = new Date(arr1[0], arr1[1], arr1[2]);
-      alert('체크인: ' + checkInDate, "info");
-      $('#indateForm').val(picker.startDate.format('YYYY-MM-DD'));
-   });
-
-   $('#checkIn').on('cancel.daterangepicker', function(ev, picker) {
-      $('#indateForm').val('');
-   });
-     
-});
-</script>
+		<form name="form" method="post" action="changeBooking">
+			<input id="bookingcheckIn" name="checkIn" type="hidden" value="">
+			<input id="bookingcheckOut" name="checkOut" type="hidden" value="">
+			<input id="bookingAdult" name="adult" type="hidden" value="">
+			<input id="bookingKid" name="kid" type="hidden" value="">
+			<input id="bookingPayment" name="payment" type="hidden" value="">
+			<input id="bookingNumber" name="bookingNum" type="hidden" value="">
+		</form>
 		<jsp:include page="../common/footer.jsp" />
 	</div>
 </body>

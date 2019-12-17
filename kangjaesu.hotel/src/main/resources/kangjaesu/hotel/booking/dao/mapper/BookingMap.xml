@@ -67,7 +67,7 @@
    </select>
    
    <select id="getNoneUserBookings" resultMap="bookingMap" parameterType="int">
-   	  select NONE_USERS.BOOKING_NUM, NUSER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_,
+   	  select NONE_USERS.BOOKING_NUM, NUSER_NUM, BOOKINGS.ROOM_NUM, CHECK_IN_, 
    	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, NUSER_KORNAME, ROOM_TYPE
       from NONE_USERS, BOOKINGS, ROOMS
       where NONE_USERS.BOOKING_NUM=#{bookingNum}
@@ -107,7 +107,7 @@
 
 	<update id="changeBooking" parameterType="booking">
 		update BOOKINGS
-		set (CHECK_IN_=#{checkIn}, CHECK_OUT=#{checkOut}, ADULT=#{adult}, KID=#{kid})
+		set CHECK_IN_=#{checkIn}, CHECK_OUT=#{checkOut}, ADULT=#{adult}, KID=#{kid}
 		where BOOKING_NUM=#{bookingNum}
 	</update>
 	

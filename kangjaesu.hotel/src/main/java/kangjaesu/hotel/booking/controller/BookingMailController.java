@@ -15,7 +15,6 @@ import kangjaesu.hotel.room.service.RoomService;
 public class BookingMailController {
 @Autowired private BookingMailService mailService;
 @Autowired private BookingService bookingService;
-@Autowired private RoomService roomService;
 	
 	@ResponseBody
 	@RequestMapping("/bookingMail")

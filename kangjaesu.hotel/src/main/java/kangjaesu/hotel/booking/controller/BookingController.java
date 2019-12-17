@@ -14,6 +14,7 @@ import kangjaesu.hotel.user.domain.User;
 import kangjaesu.hotel.user.service.UserService;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -106,9 +107,11 @@ public class BookingController {
 	//예약조회 페이지
 	@Transactional
 	@RequestMapping("/myBooking")
-	public String myBooking(Model model, HttpSession session, Booking booking, @RequestParam("bookingNum")int bookingNum) {
+	public String myBooking(Model model, HttpSession session, @RequestParam("bookingNum")int bookingNum) {
 		User user = (User) session.getAttribute("user");
 		int userNum = user.getUserNum();
+		Booking booking = bookingService.getBooking(bookingNum);
+		model.addAttribute("optionList", roomService.getRoom(booking.getRoomNum()).getOptions());
 		if(userNum == 0){
 			model.addAttribute("nUserBooking", bookingService.getNoneUserBookings(booking.getBookingNum()));
 			return "booking/noneUserBooking";
@@ -166,6 +169,27 @@ public class BookingController {
 	public String delBooking(Model model, int bookingNum) {
 		bookingService.delBooking(bookingNum);
 		return "del";
+	}
+	
+	//예약정보 수정페이지 -> 예약수정
+	@Transactional
+	@RequestMapping("/changeBooking")
+	public String changeBooking(Model model, Booking booking) {
+	//	String checkInDate = new SimpleDateFormat("yy/MM/dd").format(checkIn);
+	//	String checkOutDate = new SimpleDateFormat("yy/MM/dd").format(checkOut);
+	//	Date checkInDate = (Date) new SimpleDateFormat("yy/MM/dd").parse(checkIn);
+	//	Date checkOutDate = (Date) new SimpleDateFormat("yy/MM/dd").parse(checkOut);
+
+	//	java.sql.Date checkInDate = java.sql.Date.valueOf(checkInDay);
+	//	java.sql.Date checkOutDate = java.sql.Date.valueOf(checkOutDay);
+	//	booking.setCheckIn(checkInDate);
+	//	booking.setCheckOut(checkOutDate);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println(booking);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		
+		bookingService.changeBooking(booking.getBookingNum());
+		return "booking/myBooking";
 	}
 	
 	@RequestMapping("/todayBookingUser")

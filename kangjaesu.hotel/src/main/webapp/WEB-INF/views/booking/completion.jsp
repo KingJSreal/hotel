@@ -71,7 +71,7 @@ colgroup col.info {
 }
 
 colgroup col.col {
-	width: 250px;
+	width: 300px;
 }
 
 .confirm {
@@ -90,7 +90,13 @@ colgroup col.col {
 /* 버튼 끝 */
 </style>
 <script>
-	
+$(function() {
+	//예약조회버튼 클릭시 호출
+	$("#myBooking").click(function() {
+		location.href = "myBooking?bookingNum=" + $('#bookingNum').text();
+	});
+});
+
 </script>
 </head>
 <body>
@@ -181,7 +187,7 @@ colgroup col.col {
 									        <c:when test="${list.optNo == 4}">
 									      		엑스트라베드&nbsp;
 									        </c:when>
-									        <c:otherwise>없음</c:otherwise>
+									        <c:otherwise></c:otherwise>
 									    </c:choose>
 									</c:forEach>
 									</label></td>
@@ -205,7 +211,7 @@ colgroup col.col {
 					<!-- 예약정보 패널 끝-->
 
 					<div class="buttongroup">
-						<a class="btn btn-default btn-lg" href="myBooking" role="button">예약조회</a>
+						<button type="button" class="btn btn-default btn-lg" id="myBooking">예약조회</button>
 					</div>
 				</div>
 			</section>

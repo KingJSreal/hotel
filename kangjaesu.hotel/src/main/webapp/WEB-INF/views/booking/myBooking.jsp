@@ -32,7 +32,7 @@ colgroup col.info {
 	height: 500px;
 }
 colgroup col.col {
-	width: 250px;
+	width: 300px;
 }
 .confirm {
 	width: 90%;
@@ -71,7 +71,7 @@ $(function() {
 	});
 
 	$("#backmypage_book").click(function() {
-		window.history.back();
+		location.href = "/hotel/mypage/myBooking"
 	});
 	
 	var confirm = function(msg, type) {
@@ -178,7 +178,23 @@ $(function() {
 										<td>객실</td>
 										<td><label>${myList.roomType}</label></td>
 										<td>옵션</td>
-										<td><label>${optionList}</label></td>
+										<td><label><c:forEach var="list" items="${optionList}" varStatus="status">
+										<c:choose>
+									        <c:when test="${list.optNo == 1}">
+									        	조식&nbsp;
+									        </c:when>
+									        <c:when test="${list.optNo == 2}">
+									        	스파&nbsp;
+									        </c:when>
+									        <c:when test="${list.optNo == 3}">
+									      		야외수영장&nbsp;
+									        </c:when>
+									        <c:when test="${list.optNo == 4}">
+									      		엑스트라베드&nbsp;
+									        </c:when>
+									        <c:otherwise></c:otherwise>
+									    </c:choose>
+									</c:forEach></label></td>
 									</tr>
 								</table>
 							</div>
