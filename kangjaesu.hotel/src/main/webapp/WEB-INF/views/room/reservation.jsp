@@ -419,7 +419,7 @@ $(function() {
 											
 
 											<p>
-												- <span class="txt1">${list.option }</span>
+												- <span class="txt1">조식</span>
 											</p>
 											<p>
 												- <span class="txt1">야외수영장</span>
