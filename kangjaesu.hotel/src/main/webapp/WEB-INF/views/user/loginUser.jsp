@@ -124,8 +124,8 @@ var confirm = function(msg, type) {
 				method:"GET",
 				data: {
 					bookingNum:$("#num").val(),
-					nuserLastName:$("#fname").val(),
-					nuserFirstName:$("#lname").val()
+					nuserFirstName:$("#fname").val(),
+					nuserLastName:$("#lname").val()
 				},
 				success:function(result){
 					if(result == true) 

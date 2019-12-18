@@ -132,8 +132,7 @@
 					},
 					traditional : true,
 					success:function(result) {
-						//window.location.href = "/hotel/promotion/boardProAdmin";
-						alert("등록에 성공하셨습니다.");
+						window.location.href = "/hotel/promotion/boardProAdmin";
 					},
 					error : function(a, b, errMsg) {
 						alert("등록에 실패하셨습니다.");

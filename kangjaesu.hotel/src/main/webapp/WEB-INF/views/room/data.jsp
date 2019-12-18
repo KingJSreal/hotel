@@ -179,7 +179,7 @@ $(document).ready(function() {
 	
 	$('input[type="checkbox"][name="guests"]').click(function(){
 		if($(this).prop('checked')
-		&& $('input[type="checkbox"][name="guests"]:checked').size()>1) {
+		&& $('input[type="checkbox"][name="count"]:checked').size()>1) {
 			$(this).prop('checked', false);
 			alert('두개이상 선택할수없습니다','warning');
 		}

@@ -49,7 +49,7 @@ var loadUserList = function() {
 							'<td>' + user.userNum+'</td>' +
 							'<td>' + user.userEmail+'</td>' +
 							'<td>' + user.userName+'</td>' +
-							'<td>' + user.userEngFirstName + " " + user.userEngFirstName + '</td>' +
+							'<td>' + user.userEngFirstName + " " + user.userEngLastName + '</td>' +
 							'<td>' + user.userBirth + '</td>'	+
 							'<td><button type="button" class="btn btn-default"' +
 								'id="' + user.userNum + '" value="' + user.userNum + '">보기</button></td>'	+

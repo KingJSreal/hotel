@@ -8,3 +8,4 @@
 ③ 보유 이용 기간 | 예약일 후 1년
 
 ※위 사항에 대한 동의를 거부할 수 있으나, 이에 대한 동의가 없을 경우 예약 서비스 제공과 관련된 제반 절차 진행이 불가능 할 수 있음을 알려드립니다.
+>>>>>>> branch 'master' of https://github.com/KingJSreal/hotel.git
