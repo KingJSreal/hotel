@@ -14,7 +14,6 @@ public interface BookingService {
 	int addBooking(Booking booking);
 	List<Booking> BookingList();
 	List<Booking> getMyBookings(int userNum);
-	List<Booking> searchBookings(Booking booking);
 	List<Booking> getNoneUserBookings(int bookingNum);
 	List<User> getNames(int userNum);
 	int delBooking(int bookingNum);
