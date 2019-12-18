@@ -179,6 +179,23 @@ public class BookingController {
 		return "redirect:/booking/bookingManage";
 	}
 	
+	//예약정보 페이지 -> 검색
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/searchBooking")
+	public String searchBooking(Model model, Booking booking, String select, String text) {
+		if(select.equals("예약번호")){
+			booking.setBookingNum(Integer.parseInt(text));
+			booking.setUserName(".");
+		}
+		else if(select.equals("예약인")){
+			booking.setUserName("text");
+			booking.setBookingNum(0);
+		}
+		bookingService.searchBookings(booking);
+		return "search";
+	}
+	
 	@RequestMapping("/todayBookingUser")
 	@ResponseBody
 	@Transactional

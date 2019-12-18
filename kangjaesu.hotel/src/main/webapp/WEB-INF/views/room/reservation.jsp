@@ -137,10 +137,6 @@ $(document).ready(function() {
    var maxprice;
    var selectbox;
    var checkList;
-   var $optionSet = $('#isotope-options'), 
-        $optionSets = $('#isotope-filters'), 
-        $optionLinks = $optionSets.find('a'); 
-   
 
    // 필터링
 	var $container = $('#isotope-items').isotope({

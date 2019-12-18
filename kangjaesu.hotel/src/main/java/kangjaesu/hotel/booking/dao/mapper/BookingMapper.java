@@ -13,6 +13,7 @@ public interface BookingMapper {
 	Booking getBooking(int bookingNum);
 	int addBooking(Booking booking);
 	List<Booking> getBookings();
+	List<Booking> searchBookings(Booking booking);
 	List<Booking> getMyBookings(int userNum);
 	List<Booking> getNoneUserBookings(int bookingNum);
 	List<User> getNames(int userNum);

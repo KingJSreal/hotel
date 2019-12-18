@@ -126,4 +126,9 @@ public class BookingServiceImpl implements BookingService{
 		return bookingDao.countBookingToday();
 	}
 
+	@Override
+	public List<Booking> searchBookings(Booking booking) {
+		return bookingDao.searchBookings(booking);
+	}
+
 }
