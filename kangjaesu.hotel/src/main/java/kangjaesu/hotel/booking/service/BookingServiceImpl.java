@@ -126,5 +126,4 @@ public class BookingServiceImpl implements BookingService{
 	public int countBookingToday() {
 		return bookingDao.countBookingToday();
 	}
-
 }

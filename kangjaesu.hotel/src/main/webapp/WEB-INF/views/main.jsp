@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>쌍용호텔</title>
 <jsp:include page="common/import.jsp"></jsp:include>
+<script src="<c:url value="/js/common.js"/>"></script>
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <style>
 	div .searchBar {
 		margin-top: 20px;
@@ -130,9 +138,24 @@ input[type="checkbox"]:checked+label:BEFORE {
 .inputpice {
 	letter-spacing: 1px;
 }
+.searchBtn{
+	margin-left: 20px;
+	padding: 10px 20px 10px 20px;
+}
 </style>
 </head>
 <script>
+var alert = function(msg, type) {
+	swal({
+		  title: "",
+		  text: msg,
+		  icon: type,
+		  button: "확인",
+		}).then((value) => {
+			return;
+		});
+}
+
 function confirmModalButton(roomNumber){
 	$("input:checkbox[name=rom]").prop("checked",false);
 	$("input:checkbox[name=count]").prop("checked",false);
@@ -221,9 +244,58 @@ $(function(){
 				);
 		}
 	});
-
-	
 })
+
+function Today(){
+    var dt = new Date();
+    var year = dt.getFullYear();
+    var month = dt.getMonth() + 1;
+    var day = dt.getDate();
+ 
+    if(month < 10) month = "0" + month;
+    if(day < 10) day = "0" + day;
+ 
+    return year + "/" + month + "/" + day;
+}
+$(function(){
+   var checkInDate;
+   var checkOutDate;
+   $('#date').daterangepicker({
+       autoUpdateInput: false,
+       "locale": {
+          "format": "YYYY/MM/DD",
+          "separator": " ~ ",
+           "applyLabel": "확인",
+           "cancelLabel": "취소",
+           "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+           "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월",
+                        "7월", "8월", "9월", "10월", "11월", "12월"],
+           "firstDay": 1,
+           "toLabel": "To"
+       },    
+       "minDate": Today(),   //오늘 날짜
+      
+   },function(start, end) {
+      checkInDate = start.format('YYYY-MM-DD');
+      checkOutDate = end.format('YYYY-MM-DD');
+   });
+   
+   $('#date').on('apply.daterangepicker', function(ev, picker) {
+      var arr1 = checkInDate.split('-');
+      var arr2 = checkInDate.split('-');
+      checkIn = new Date(arr1[0], arr1[1], arr1[2]);
+      checkOut = new Date(arr2[0], arr2[1], arr2[2]);
+      alert('체크인: ' + checkInDate + '\n' + '체크아웃: ' + checkOutDate, "info");
+      $('#dateForm').val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
+      $('#bookingcheckIn').val(picker.startDate.format('YYYY-MM-DD'));
+      $('#bookingcheckOut').val(picker.endDate.format('YYYY-MM-DD'));
+   });
+
+   $('#date').on('cancel.daterangepicker', function(ev, picker) {
+      $('#dateForm').val('');
+   });
+     
+});
 </script>
 <body>
 	<div>
@@ -235,38 +307,31 @@ $(function(){
 				<div class="container center-block text-center">
 					<div class="panel panel-default">
 						<form class="form-inline searchBar">
-							<div class="form-group">
-				            	<p class="form-control-static">예약정보를 선택하세요</p>
-				            	<p class="form-control-static">&nbsp; | &nbsp; 체크인</p>
-				            <div class="input-group date">
-				               	<input type="date" class="form-control" placeholder="체크인"
-				                  value="체크인">
-			                	<span class="input-group-addon">
-				                	<i class="glyphicon glyphicon-calendar"></i>
-			                	</span>
-				            </div>
-				            <p class="form-control-static">&nbsp; | &nbsp; 체크아웃</p>
-				            <div class="input-group date">
-				            	<input type="date" class="form-control" placeholder="체크아웃">
-				            	<span class="input-group-addon">
-				            		<i class="glyphicon glyphicon-calendar"></i>
-			            		</span>
-				            </div>
-				            <p class="form-control-static">&nbsp; | &nbsp; 성인</p>
-				            <select class="form-control">
-				            	<option>1</option>
-				               	<option>2</option>
-				             	  <option>3</option>
-				            </select>
-				            <p class="form-control-static">&nbsp; | &nbsp; 유아</p>
-				            <select class="form-control">
-				               	<option>0</option>
-				               	<option>1</option>
-				              	<option>2</option>
-				              	<option>3</option>
-				            </select>
-				         </div>
-				         <button type="submit" class="btn btn-default">검색</button>
+							<div class="container text-center form-group">
+								<p class="form-control-static">예약정보를 선택하세요</p>
+								<p class="form-control-static">&nbsp; | &nbsp;체크인/체크아웃</p>
+								<div class="input-group date" id="date">
+									<input type="text" class="form-control" id="dateForm"
+										onfocus="this.blur();" /> <span class="input-group-addon">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</span>
+								</div>
+								<p class="form-control-static">&nbsp; | &nbsp; 성인</p>
+								<select class="form-control" id="adult">
+									<option>선택</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select>
+								<p class="form-control-static">&nbsp; | &nbsp; 유아</p>
+								<select class="form-control" id="kid">
+									<option>0</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select>
+								<button type="submit" class="btn btn-default searchBtn">검색</button>
+							</div>
 				      </form>
 				   	</div>
 				</div>
