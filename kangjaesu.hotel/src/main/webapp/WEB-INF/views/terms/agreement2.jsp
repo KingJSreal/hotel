@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
-<body>
 전자금융거래 기본약관
 
 제1조 (목적) 
@@ -143,5 +137,3 @@
 
 부칙 (2010년 4월 12일)
 이 약관은 2012년 7월 31일부터 적용합니다.
-</body>
-</html>
