@@ -47,6 +47,14 @@ public class RoomController {
 	@Value("${room_uploadDir}") private String uploadDir;
 	@Autowired private RoomService roomService;
 	
+
+   @Transactional
+   @ResponseBody
+   @RequestMapping("/roomList")
+   public List<Room> roomList() {
+      return roomService.getRooms();
+   }
+	
 	@Transactional
 	@RequestMapping("/roomManager")
 	public String roomManager(Model model) {
