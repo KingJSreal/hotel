@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>서울호텔:마이페이지</title>
 <meta charset="UTF-8">
 <style>
 .modalbtngroup {

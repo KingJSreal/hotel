@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>서울호텔</title>
 <meta charset="UTF-8">
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script src="<c:url value="/js/common.js"/>"></script>  
@@ -594,8 +595,12 @@ var alert = function(msg, type) {
 							<table class="table form">
 								<tbody>
 									<tr>
-										<td><textarea class="form-control" id="agreement1"
-												rows="8" cols="60"></textarea></td>
+										<td>
+											<textarea class="form-control" id="agreement1"
+												rows="8" cols="60">
+												<jsp:include page="../terms/agreement1.jsp"></jsp:include>
+											</textarea>
+										</td>
 									</tr>
 									<tr>
 										<td><input type="radio" name="agree1" value="y" /> <label>동의함</label>
@@ -608,8 +613,12 @@ var alert = function(msg, type) {
 							<table class="table form">
 								<tbody>
 									<tr>
-										<td><textarea class="form-control" id="agreement2"
-												rows="8" cols="60"></textarea></td>
+										<td>
+											<textarea class="form-control" id="agreement2"
+												rows="8" cols="60">
+												<jsp:include page="../terms/agreement2.jsp"></jsp:include>
+											</textarea>
+										</td>
 									</tr>
 									<tr>
 										<td><input type="radio" name="agree2" value="y" /> <label>동의함</label>

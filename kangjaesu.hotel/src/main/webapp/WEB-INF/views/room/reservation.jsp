@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쌍용호텔</title>
+<title>서울호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script src="<c:url value="/js/common.js"/>"></script>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>

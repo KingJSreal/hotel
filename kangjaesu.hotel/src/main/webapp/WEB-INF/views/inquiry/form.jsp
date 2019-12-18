@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>서울호텔</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../common/import.jsp"></jsp:include>
 

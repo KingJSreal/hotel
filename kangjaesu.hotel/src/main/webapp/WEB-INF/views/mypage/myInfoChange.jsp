@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쌍용호텔:마이페이지</title>
+<title>서울호텔:마이페이지</title>
 <script src='<c:url value="/js/validationUser.js"/>'></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <jsp:include page="../common/import.jsp"></jsp:include>
