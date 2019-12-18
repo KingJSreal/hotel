@@ -198,12 +198,12 @@ var confirm = function(msg, type) {
 		      
 		   });
 
-		var roomImage = [null, null, null];
+		/* var roomImage = [null, null, null];
 		for(var i = 0; i < roomImage.length ; i++){
 			if($("#roomImage" + (i+1))[0].files[0] != null)
 				roomImage[i] = "/room/" + $("#roomImage" + (i+1))[0].files[0].name;
 		}
-		
+		 */
 	   $("#updateForm").bind("submit", function(e){		
 			e.preventDefault();
 
@@ -222,9 +222,9 @@ var confirm = function(msg, type) {
 						//optNo:$("input[name=option]:checked").serialize(),
 						
 						roomPrice:$("#roomPrice").val(),
-						roomImage1: roomImage[0],
+					/* 	roomImage1: roomImage[0],
 						roomImage2: roomImage[1],
-						roomImage3:	roomImage[2] 
+						roomImage3:	roomImage[2]  */
 					
 								
 								

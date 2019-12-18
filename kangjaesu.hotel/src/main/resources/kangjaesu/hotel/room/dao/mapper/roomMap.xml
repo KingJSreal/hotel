@@ -24,16 +24,9 @@
 	</resultMap>
 	<select id="getRooms" resultMap="roomMap">
 		select *
-		from rooms
-	<!-- 	<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="searchType=='title' and keyword != null and keyword != '' ">
-				AND TITLE like CONCAT('%', #{keyword)
-			</if>
-					<if test="searchType=='content' and keyword != null and keyword != '' ">
-
-
-		</trim> -->
-		order by room_num desc
+		from rooms left outer join roomoptions
+		on rooms.room_num = roomoptions.room_num
+		order by rooms.room_num desc
 	</select>
 	<select id="getRoom" parameterType="int"  resultMap="roomMap" resultType="room"  >
 	<!-- 	select *

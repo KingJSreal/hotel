@@ -46,14 +46,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class RoomController {
 	@Value("${room_uploadDir}") private String uploadDir;
 	@Autowired private RoomService roomService;
-
-	/* 재수 추가. 메인에서 쓸꺼*/
-	@Transactional
-	@ResponseBody
-	@RequestMapping("/roomList")
-	public List<Room> roomList() {
-		return roomService.getRooms();
-	}
 	
 	@Transactional
 	@RequestMapping("/roomManager")
@@ -64,8 +56,8 @@ public class RoomController {
 	@Transactional
 	@RequestMapping("/roomReservation")
 	public String roomReservation(Model model) {
-	  model.addAttribute("roomList", roomService.getRooms()); 
-	  return "room/reservation";
+	  model.addAttribute("roomList", roomService.getRooms());   
+		return "room/reservation";
 	}
 	
 /*	@Transactional
@@ -120,11 +112,10 @@ public class RoomController {
 		
 		 List<Option> options = new ArrayList<Option>();
 		 for(int i = 0; i< optNo.size(); i++){
-			 Option option = new Option();
-			 option.setOptNo(Integer.parseInt(optNo.get(i)));
-			
-			 options.add(option);
-		 }
+		 Option option = new Option();
+		 option.setOptNo(Integer.parseInt(optNo.get(i)));
+		
+		 options.add(option);}
 	
 		return roomService.join(room,  options);
 	}

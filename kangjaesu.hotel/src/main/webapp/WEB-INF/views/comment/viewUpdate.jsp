@@ -304,7 +304,7 @@ var confirm = function(msg, type) {
 			<div class="container center-block">
 			<div class="location">
 				<p>
-					<a><span class="glyphicon glyphicon-home">&nbsp;></span></a> <a>후기등록</a>
+					<a><span class="glyphicon glyphicon-home">&nbsp;></span></a> <a>후기수정</a>
 				</p>
 			</div>
 			<div class="headTit">
