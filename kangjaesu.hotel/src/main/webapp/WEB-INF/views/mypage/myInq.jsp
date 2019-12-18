@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>서울호텔:마이페이지</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
 /* 본문 컨테이너 */

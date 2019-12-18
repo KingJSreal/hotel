@@ -81,5 +81,4 @@ public class BookingDaoImpl implements BookingDao{
 	public int countBookingToday() {
 		return mapper.countBookingToday();
 	}
-
 }

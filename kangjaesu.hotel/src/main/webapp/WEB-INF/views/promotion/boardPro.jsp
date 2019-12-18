@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쌍용호텔</title>
+<title>서울호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 
 <script>
@@ -129,7 +129,7 @@
 				<div class="container center-block">
 					<div class="location">
 						<p>
-							<a>홈 > </a>
+							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
 							<a>프로모션</a>
 						</p>
 					</div>

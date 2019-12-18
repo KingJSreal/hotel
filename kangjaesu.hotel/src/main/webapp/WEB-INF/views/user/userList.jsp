@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쌍용호텔:관리자 페이지 - 회원관리</title>
+<title>서울호텔:관리자 페이지 - 회원관리</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <style>
 userbtns {

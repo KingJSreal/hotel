@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쌍용호텔</title>
+<title>서울호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script type="text/javascript">
 	var cnt = 0;
@@ -117,27 +117,27 @@
 					url : "addPromotion",
 					method : "GET",
 					data : {
-					proTitle : $("#proTitle").val(),
-					proContent : $("#proContent").val(),
-					proStartDate : $("#proStartDate").val(),
-					proEndDate : $("#proEndDate").val(),
-					proDetail : $("#proDetail").val(),
-					
-					prodTitle : prodTitle,
-					location : location,
-					prodPic : prodPic,
-					serviceHour : serviceHour,
-					notice : notice,
-					prodContent : prodContent
+						proTitle : $("#proTitle").val(),
+						proContent : $("#proContent").val(),
+						proStartDate : $("#proStartDate").val(),
+						proEndDate : $("#proEndDate").val(),
+						proDetail : $("#proDetail").val(),
+						
+						prodTitle : prodTitle,
+						location : location,
+						prodPic : prodPic,
+						serviceHour : serviceHour,
+						notice : notice,
+						prodContent : prodContent
 					},
 					traditional : true,
-					success : function() {
+					success:function(result) {
+						//window.location.href = "/hotel/promotion/boardProAdmin";
 						alert("등록에 성공하셨습니다.");
-						location.href = "/hotel/promotion/boardProAdmin";
 					},
 					error : function(a, b, errMsg) {
 						alert("등록에 실패하셨습니다.");
-						location.href = "#";
+						window.location.href = "/hotel/promotion/boardProAdmin";
 					}
 				})
 			});
@@ -225,7 +225,8 @@ section {
 				<div class="container center-block">
 					<div class="location">
 						<p>
-							<a>홈 > </a> <a>프로모션 등록</a>
+							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
+							<a>프로모션 등록</a>
 						</p>
 					</div>
 					<div class="headTit">

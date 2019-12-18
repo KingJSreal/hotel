@@ -66,6 +66,7 @@ public class PromotionController {
 		boolean isStored = true;
 		String dir = request.getServletContext().getRealPath(uploadDir);
 		System.out.println("dir: " + dir);
+		String dir2 = request.getServletContext().getRealPath(uploadDir);
 		String fileName = file.getOriginalFilename();
 		try{
 			save(dir + "/" + fileName, file);

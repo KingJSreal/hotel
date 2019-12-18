@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쌍용호텔</title>
+<title>서울호텔</title>
 <jsp:include page="../common/import.jsp"></jsp:include>
 <script src="<c:url value="/js/common.js"/>"></script>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
@@ -137,10 +137,6 @@ $(document).ready(function() {
    var maxprice;
    var selectbox;
    var checkList;
-   var $optionSet = $('#isotope-options'), 
-        $optionSets = $('#isotope-filters'), 
-        $optionLinks = $optionSets.find('a'); 
-   
 
    // 필터링
 	var $container = $('#isotope-items').isotope({
@@ -244,6 +240,7 @@ $(function() {
 	$("#adult").val("선택");
 	$("#kid").val("0");
 	
+	
 	$(".confirmModalButton").click(function() {
 		var roomNumber = $(this).parents().attr('id').substr(1);
 		$("input:checkbox[name=rom]").prop("checked",false);
@@ -259,7 +256,6 @@ $(function() {
 			success : function(room) {
 				var options = room.option;
 				var optionList = options.split(" ");
-			//	alert(optionList);
 	 			$("input:checkbox[name=option]").each(function(index){
 					for(var i=0;i<optionList.length;i++){
 					    if($(this).siblings().text() == optionList[i]){
