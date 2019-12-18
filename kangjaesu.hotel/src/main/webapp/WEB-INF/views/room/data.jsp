@@ -169,6 +169,21 @@ $(document).ready(function() {
 		if(roomImages[idx] != "")
 			$(this).attr("src", "<c:url value='/img/" + roomImages[idx] + "'/>");
 		});		
+	$('input[type="checkbox"][name="roomType"]').click(function(){
+		if($(this).prop('checked')
+		&& $('input[type="checkbox"][name="roomType"]:checked').size()>1) {
+			$(this).prop('checked', false);
+			alert('두개이상 선택할수없습니다','warning');
+		}
+	});
+	
+	$('input[type="checkbox"][name="guests"]').click(function(){
+		if($(this).prop('checked')
+		&& $('input[type="checkbox"][name="guests"]:checked').size()>1) {
+			$(this).prop('checked', false);
+			alert('두개이상 선택할수없습니다','warning');
+		}
+	});
 });
 var confirm = function(msg, type) {
 	   swal(msg, {
@@ -331,22 +346,22 @@ var confirm = function(msg, type) {
 										<td>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option1" name="option" value="1" disabled> <label
+													id="option1" name="option" value="1" > <label
 													class="custom-control-label" for="option1">조식</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option2" name="option" value="2" disabled> <label
+													id="option2" name="option" value="2" > <label
 													class="custom-control-label" for="option2">스파</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option3" name="option" value="3" disabled> <label
+													id="option3" name="option" value="3" > <label
 													class="custom-control-label" for="option3">야외수영장</label>
 											</div>
 											<div class="custom-control custom-checkbox col-md-2">
 												<input type="checkbox" class="custom-control-input"
-													id="option4" name="option" value="4"  disabled> <label
+													id="option4" name="option" value="4"  > <label
 													class="custom-control-label" for="option4">엑스트라베드</label>
 											</div>
 										</td>
