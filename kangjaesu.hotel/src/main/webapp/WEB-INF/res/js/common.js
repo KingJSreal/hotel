@@ -46,7 +46,8 @@ function paging(page){
 		}
 	}
 	pageList.push(nextPage);
-	
+
+	$("#pages").empty();
 	$("#pages").append(pageList.join(''));
 }
 
