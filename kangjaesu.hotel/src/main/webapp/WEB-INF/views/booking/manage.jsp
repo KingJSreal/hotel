@@ -25,6 +25,10 @@
 th {
 	text-align: center;
 }
+
+.isotope-items, .table{
+	 clear: both;
+}
 </style>
 <script>
 var alert = function(msg, type) {
@@ -140,9 +144,8 @@ $(function() {
 						</div>
 					</div>
 					
-				<div>
 						<table class="table table-hover table-bordered table-condensed">
-						<tbody class="isotope-items">
+						
 							<tr class="success">
 								<th>예약번호</th>
 								<th>객실</th>
@@ -150,8 +153,8 @@ $(function() {
 								<th>예약인</th>
 								<th class="th06"></th>
 							</tr>
-							
 							<c:forEach var="list" items="${bookingList}">
+							
 							<tr>
 								<td ><label class="txt1">${list.bookingNum}</label></td>
 								<td>${list.roomType}</td>
@@ -162,10 +165,9 @@ $(function() {
 								</c:choose></td>
 								<td><button type="button" class="btn btn-success infoButton" id="${list.bookingNum}">예약정보</button></td>
 							</tr>
+							
 							</c:forEach>
-							</tbody>
 						</table>
-					</div>
 					<!-- paging -->
 					<div class="paging" style="text-align: center">
 						<ul class="pagination">

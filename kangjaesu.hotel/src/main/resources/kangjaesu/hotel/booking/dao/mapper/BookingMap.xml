@@ -43,7 +43,7 @@
       <result property="nuserPhone" column="NUSER_PHONE" />
       <result property="bookingNum" column="BOOKING_NUM" />
    </resultMap>
-
+   
    <select id="getBookings" resultMap="bookingMap">
 		select b.BOOKING_NUM, b.USER_NUM, b.ROOM_NUM, CHECK_IN_,
 				CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE, NUSER_KORNAME

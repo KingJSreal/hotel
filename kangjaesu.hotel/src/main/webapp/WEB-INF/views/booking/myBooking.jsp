@@ -92,7 +92,7 @@ $(function() {
 								icon: "success",
 								buttons: "확인",
 							}).then((willDelete) => {
-								return location.href = "myBooking";
+								return location.href = "/hotel/mypage/myBooking";
 							});
 						},error:function(a, b, errMsg){
 							alert("취소오류" + errMsg);

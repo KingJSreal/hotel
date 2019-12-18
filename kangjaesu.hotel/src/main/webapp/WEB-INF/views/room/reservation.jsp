@@ -263,9 +263,9 @@ $(function() {
 						}
 					}
 	  			});  
-			  		
+	 			
 				var roomImages = [room.roomImage1, room.roomImage2, room.roomImage3];	
-				$(".previewImg").each(function(idx, img){
+				$(".previewImg3").each(function(idx, img){
 					if(roomImages[idx] != null)
 						$(this).attr("src", "<c:url value='/img/" + roomImages [idx] + "'/>");
 					})
