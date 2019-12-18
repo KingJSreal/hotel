@@ -52,7 +52,6 @@ var loadMyPoint = function(userNum) {
 							'<td>' + point.pointContent 		+ '</td>' +
 							'<td>' + point.pointDate			+ '</td>' +
 							'<td>' + point.pointChange + '</td>' +
-							'<td>' + "" 					+ '</td>' +
 							'</tr>'				
 					);
 					num++;
@@ -62,13 +61,13 @@ var loadMyPoint = function(userNum) {
 				$('#pointList').append(pointList.join(''));				
 			}else{
 				$('#pointList').append(
-					'<tr><td colspan="6"><b>포인트 사용 내역이 없습니다.</b></td></tr>'	);
+					'<tr><td colspan="4"><b>포인트 사용 내역이 없습니다.</b></td></tr>'	);
 			}
 		},
 		error:function(a, b, errMsg){
 			$('#pointList').empty();
 			$('#pointList').append(
-				'<tr><td colspan="6"><b>포인트 사용 내역을 불러오지 못했습니다.</b></td></tr>'	);
+				'<tr><td colspan="4"><b>포인트 사용 내역을 불러오지 못했습니다.</b></td></tr>'	);
 		}
 	});
 }
@@ -103,10 +102,9 @@ $(document).ready(loadMyPoint("${sessionScope.user.userNum}"));
 							<thead>
 								<tr>
 									<th scope="row" width="10%">번호</th>
-									<th scope="row" width="45%">포인트 내역</th>
-									<th scope="row" width="15%">날짜</th>
-									<th scope="row" width="15%">적립 및 사용</th>
-									<th scope="row" width="15%">남은 포인트</th>
+									<th scope="row" width="50%">포인트 내역</th>
+									<th scope="row" width="20%">날짜</th>
+									<th scope="row" width="20%">적립 및 사용</th>
 								</tr>
 							</thead>
 							<tbody id="pointList">
