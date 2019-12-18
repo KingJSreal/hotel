@@ -49,6 +49,22 @@ th {
 /* 테이블 끝 */
 </style>
 <script>
+$(document).ready(function(){
+	var ddd = $("#count option:selected").val();
+	//$("#keyword").on("keyup", function() {
+	$("#btnSearch").on("click", function() {
+	var ddd = $("#count option:selected").val();	
+	var value = $("#keyword").val().toLowerCase();	
+	$("#roomTable tbody tr").filter(function() {
+		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	
+	});
+	/* $("#roomTable tbody tr").filter(function() {
+		$(this).toggle($(this).text().toLowerCase().indexOf(ddd) > -1)
+	
+	}); */
+	});
+});
 
 var alert = function(msg, type) {
 	swal({
@@ -169,10 +185,10 @@ var confirm = function(msg, type) {
 									<div class="form-group">
 										<p class="form-control-static">최대인원</p>
 										<select class="form-control">
-											<option>4</option>
-											<option>3</option>
-											<option>2</option>
-											<option>1</option>
+											<option value="4">4</option>
+											<option value="3">3</option>
+											<option value="2">2</option>
+											<option value="1">1</option>
 										</select>
 										<p class="form-control-static">등록일자</p>
 										<div class="input-group date">
