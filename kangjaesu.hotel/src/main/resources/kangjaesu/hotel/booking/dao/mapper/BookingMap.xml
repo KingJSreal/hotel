@@ -122,6 +122,6 @@
 	<select id="countBookingToday" resultType="int">
 		select count(*)
 		from bookings
-   		where CHECK_IN_ like to_char(sysdate, 'YY/MM/DD')
+   		where  SUBSTR(to_char(BOOKING_NUM), 0, 6) like to_char(sysdate, 'YYMMDD')
 	</select>
 </mapper>

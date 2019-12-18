@@ -211,9 +211,6 @@ $(function(){
 				$(".confirmModalButton").click(function () {
 					confirmModalButton($(this).attr("id"));
 				});
-			}else{
-				$('#roomList').append(
-					'<tr><td colspan="6"><b>포인트 사용 내역이 없습니다.</b></td></tr>'	);
 			}
 		},
 		error:function(a, b, errMsg){

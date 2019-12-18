@@ -270,14 +270,5 @@ var confirm = function(msg, type) {
 		</div>
 		<jsp:include page="../common/footer.jsp" />
 	</div>
-	<div class="container">
-		<jsp:include page="../common/header.jsp" />
-		<jsp:include page="../common/gnb.jsp" />
-		<!-- 로그인 폼 -->
-		<section>
-			
-		</section>
-	</div>
-	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

@@ -72,11 +72,12 @@ public class BookingServiceImpl implements BookingService{
 		return bookingDao.addAccount(account);
 	}
 	
-	//예약번호 생성 -> 체크인날짜+객실번호+랜덤2자리수
+	//예약번호 생성 -> 예약날짜+객실번호+랜덤2자리수
 	public int bookingNum(Booking booking) {
+
+		java.util.Date now = new java.util.Date();
 		Random rand = new Random();
-		Date date = booking.getCheckIn();
-		String bookingNum = new SimpleDateFormat("yyMMdd").format(date);
+		String bookingNum = new SimpleDateFormat("yyMMdd").format(now);
 		bookingNum = bookingNum + booking.getRoomNum() + (rand.nextInt(89) + 10);
 		
 		return Integer.parseInt(bookingNum);

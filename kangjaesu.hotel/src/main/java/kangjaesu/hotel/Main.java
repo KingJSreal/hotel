@@ -52,8 +52,31 @@ public class Main{
 	}
 	
 	@RequestMapping("/switchMain")
-	public String switchMain(HttpSession session){
+	public String switchMain(HttpSession session, Model model,
+			@RequestParam(required=false) String keyword,
+			@RequestParam(required=false) Date schStartDate,
+			@RequestParam(required=false) Date schEndDate){
+
+
+		User user = new User();
+		user.setUserNum(0);
+		if(session.getAttribute("user") == null)
+			session.setAttribute("user", user);
 		
+		Search search = new Search();
+		search.setKeyword(keyword);
+		search.setSchStartDate(schStartDate);
+		search.setSchEndDate(schEndDate);
+
+		List<Promotion> listPros = promotionService.listPros(search);
+
+		if(listPros.size() < 10)
+			listPros.subList(0, listPros.size());
+		else
+			listPros.subList(0, 10);
+		
+		model.addAttribute("listPros", listPros);
+	
 		session.setAttribute("page", "main");
 		return "main";
 	}
