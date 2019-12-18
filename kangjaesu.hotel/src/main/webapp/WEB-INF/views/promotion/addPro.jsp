@@ -225,7 +225,8 @@ section {
 				<div class="container center-block">
 					<div class="location">
 						<p>
-							<a>홈 > </a> <a>프로모션 등록</a>
+							<a><span class="glyphicon glyphicon-home">&nbsp;></span></a>
+							<a>프로모션 등록</a>
 						</p>
 					</div>
 					<div class="headTit">
