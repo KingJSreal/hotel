@@ -91,39 +91,48 @@ $(function() {
 	
 	//수정버튼 클릭시 호출
 	$("#submit").click(function() {
-		var i = new Date($("#checkIn").text());
-		var o = new Date ($("#checkOut").text());
-		$("#bookingcheckIn").val($("#checkIn").val());
-		$("#bookingcheckOut").val($("#checkOut").val());
-		$("#bookingAdult").val($("#adult").val());
-		$("#bookingKid").val($("#kid").val());
-		$("#bookingPayment").val($("#payment").text());
-		$("#bookingNumber").val($("#bookingNum").text());
+		var checkIn = $("#checkIn").val();
+		var checkOut = $("#checkOut").val();
+		var adult = $("#adult").val();
+		var kid = $("#kid").val();
+		var payment = $("#payment").text();
+		var bookingNum = $("#bookingNum").text();
+		$("#bookingcheckIn").val(checkIn);
+		$("#bookingcheckOut").val(checkOut);
+		$("#bookingAdult").val(adult);
+		$("#bookingKid").val(kid);
+		$("#bookingPayment").val(payment);
+		$("#bookingNumber").val(bookingNum);
 		
-		document.form.submit();
-	});
-	
-	//체크인
-	$("#checkIn").change(function(){
-	    if(days() < 0){
-	    	alert("체크인 날짜를 다시 설정해 주세요.", "warning");
+		if($("#days").text() == ""){
+	    	alert("날짜를 다시 설정해 주세요.", "warning");
 	    	$("#checkIn").val("${booking.checkIn}");
+	    	$("#checkOut").val("${booking.checkOut}");
 	    	$("#days").text("${days}");
 	    }
 	    else {
 		   $("#days").text(parseInt(days()));
+		   document.form.submit();
 		}
+		
+	});
+	
+	//체크인
+	$("#checkIn").change(function(){
+		$("#checkOut").val("");
+		$("#days").text("");
+	    
 	});
 	
 	//체크 아웃
 	$("#checkOut").change(function(){
 	    if(days() < 0){
 	    	alert("체크아웃 날짜를 다시 설정해 주세요.", "warning");
-	    	$("#checkOut").val("${booking.checkOut}");
-	    	$("#days").text("${days}");
+	    	$("#checkOut").val("");
+	    	$("#days").text("");
 	    }
 	    else {
-		   $("#days").text(parseInt(days()));
+			$("#days").text(parseInt(days()));
 		   
 			charge();
 		}
@@ -144,8 +153,8 @@ $(function() {
 	
 	function charge(){
 		var beforeD = '<c:out value="${days}"/>';
-		var afterD = $("#days").text() * 1;
-		var a = beforeD * 1 + afterD
+		var afterD = $("#days").text();
+		var a = beforeD*1 + afterD*1
 		alert(a);
 		
 	    return beforeD + afterD;
@@ -277,7 +286,7 @@ $(function() {
 			</section>
 		</div>
 		<form name="form" method="post" action="changeBooking">
-			<input id="bookingcheckIn" name="checkIn" type="hidden" value="">
+ 			<input id="bookingcheckIn" name="checkIn" type="hidden" value="">
 			<input id="bookingcheckOut" name="checkOut" type="hidden" value="">
 			<input id="bookingAdult" name="adult" type="hidden" value="">
 			<input id="bookingKid" name="kid" type="hidden" value="">
