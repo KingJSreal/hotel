@@ -111,8 +111,8 @@ $(function(){
 				userBirth:			($("#pwsearch #birthYear").val() +"-"
 									+ $("#pwsearch #birthMonth").val() +"-"
 									+ $("#pwsearch #birthDay").val()),
-				userPhone:			($("#pwsearch #userPhone1").val() 
-									+ $("#pwsearch #userPhone2").val() 
+				userPhone:			($("#pwsearch #userPhone1").val() +"-" 
+									+ $("#pwsearch #userPhone2").val() +"-" 
 									+ $("#pwsearch #userPhone3").val()),
 				userEmail:			($("#pwsearch #userEmail1").val()+"@"
 									+$("#pwsearch #userEmail2").val())
