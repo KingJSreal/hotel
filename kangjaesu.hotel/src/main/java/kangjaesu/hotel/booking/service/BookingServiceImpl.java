@@ -39,8 +39,8 @@ public class BookingServiceImpl implements BookingService{
 	}
 
 	@Override
-	public int changeBooking(int bookingNum) {
-		return bookingDao.changeBooking(bookingNum);
+	public int changeBooking(Booking booking) {
+		return bookingDao.changeBooking(booking);
 	}
 	@Override
 	public int addBooking(Booking booking) {

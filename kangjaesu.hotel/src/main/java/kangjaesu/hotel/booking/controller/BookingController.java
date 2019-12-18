@@ -175,21 +175,8 @@ public class BookingController {
 	@Transactional
 	@RequestMapping("/changeBooking")
 	public String changeBooking(Model model, Booking booking) {
-	//	String checkInDate = new SimpleDateFormat("yy/MM/dd").format(checkIn);
-	//	String checkOutDate = new SimpleDateFormat("yy/MM/dd").format(checkOut);
-	//	Date checkInDate = (Date) new SimpleDateFormat("yy/MM/dd").parse(checkIn);
-	//	Date checkOutDate = (Date) new SimpleDateFormat("yy/MM/dd").parse(checkOut);
-
-	//	java.sql.Date checkInDate = java.sql.Date.valueOf(checkInDay);
-	//	java.sql.Date checkOutDate = java.sql.Date.valueOf(checkOutDay);
-	//	booking.setCheckIn(checkInDate);
-	//	booking.setCheckOut(checkOutDate);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println(booking);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		
-		bookingService.changeBooking(booking.getBookingNum());
-		return "booking/myBooking";
+		bookingService.changeBooking(booking);
+		return "redirect:/booking/bookingManage";
 	}
 	
 	@RequestMapping("/todayBookingUser")

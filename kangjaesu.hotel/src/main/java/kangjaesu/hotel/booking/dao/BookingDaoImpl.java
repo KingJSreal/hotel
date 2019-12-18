@@ -28,8 +28,8 @@ public class BookingDaoImpl implements BookingDao{
 	}
 
 	@Override
-	public int changeBooking(int bookingNum) {
-		return mapper.changeBooking(bookingNum);
+	public int changeBooking(Booking booking) {
+		return mapper.changeBooking(booking);
 	}
 	
 	@Override
