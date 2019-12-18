@@ -43,14 +43,13 @@
       <result property="nuserPhone" column="NUSER_PHONE" />
       <result property="bookingNum" column="BOOKING_NUM" />
    </resultMap>
-   
+
    <select id="getBookings" resultMap="bookingMap">
-   	  select b.BOOKING_NUM, b.USER_NUM, b.ROOM_NUM, CHECK_IN_,
-   	  			   CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE,  NUSER_KORNAME
-      from USERS u, BOOKINGS b, ROOMS r, NONE_USERS n
-      where (u.USER_NUM=b.USER_NUM and b.ROOM_NUM=r.ROOM_NUM and b.BOOKING_NUM=n.BOOKING_NUM) or
-           (u.USER_NUM=b.USER_NUM and b.ROOM_NUM=r.ROOM_NUM )
-          order by BOOKING_NUM DESC
+		select b.BOOKING_NUM, b.USER_NUM, b.ROOM_NUM, CHECK_IN_,
+				CHECK_OUT, PAYTYPE, PAYMENT, ADULT, KID, USER_KORNAME, ROOM_TYPE, NUSER_KORNAME
+		from ((BOOKINGS b left JOIN USERS u ON u.USER_NUM=b.USER_NUM) 
+				left JOIN rooms r on b.ROOM_NUM=r.ROOM_NUM) 
+					left JOIN NONE_USERS n on b.BOOKING_NUM=n.BOOKING_NUM
    </select>
    
    <select id="getBooking" resultMap="bookingMap" parameterType="int">
@@ -99,7 +98,6 @@
    	  			 TO_DATE(#{nuserBirth}, 'YYMMDD'), #{nuserPhone}, #{bookingNum})
    </insert>
    
-
    <delete id="delBooking" parameterType="int">
       delete from BOOKINGS
       where BOOKING_NUM=#{bookingNum}
