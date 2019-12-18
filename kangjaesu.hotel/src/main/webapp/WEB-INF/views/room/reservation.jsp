@@ -240,6 +240,7 @@ $(function() {
 	$("#adult").val("선택");
 	$("#kid").val("0");
 	
+	
 	$(".confirmModalButton").click(function() {
 		var roomNumber = $(this).parents().attr('id').substr(1);
 		$("input:checkbox[name=rom]").prop("checked",false);
@@ -255,7 +256,6 @@ $(function() {
 			success : function(room) {
 				var options = room.option;
 				var optionList = options.split(" ");
-			//	alert(optionList);
 	 			$("input:checkbox[name=option]").each(function(index){
 					for(var i=0;i<optionList.length;i++){
 					    if($(this).siblings().text() == optionList[i]){
@@ -415,7 +415,7 @@ $(function() {
 											
 
 											<p>
-												- <span class="txt1">${list.option }</span>
+												- <span class="txt1">조식</span>
 											</p>
 											<p>
 												- <span class="txt1">야외수영장</span>
