@@ -412,13 +412,24 @@ $(function() {
 											<p>
 												- <span class="txt0">${list.roomType }</span>
 											</p>
-											
-
 											<p>
-												- <span class="txt1">조식</span>
-											</p>
-											<p>
-												- <span class="txt1">야외수영장</span>
+												<c:forEach var="options" items="${list.options}">
+													<c:choose>
+												        <c:when test="${options.optNo == 1}">
+												        	<p>- <span class="txt1">조식</span></p>
+												        </c:when>
+												        <c:when test="${options.optNo == 2}">
+												        	<p>- <span class="txt1">스파</span></p>
+												        </c:when>
+												        <c:when test="${options.optNo == 3}">
+												      		<p>- <span class="txt1">야외수영장</span></p>
+												        </c:when>
+												        <c:when test="${options.optNo == 4}">
+												      		<p>- <span class="txt1">엑스트라베드</span></p>
+												        </c:when>
+												        <c:otherwise></c:otherwise>
+												        </c:choose>
+												</c:forEach>
 											</p>
 										</td>
 										<td class="confirmModalButton" style="vertical-align: middle;">
