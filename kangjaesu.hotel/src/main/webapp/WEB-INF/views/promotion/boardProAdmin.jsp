@@ -45,7 +45,15 @@
 			url:'delPro',
 			data: {proNum:proNum},
 			success:function(){
-				alert('삭제가 완료되었습니다.', 'success');
+				
+			   swal('삭제가 완료되었습니다.', {
+				        buttons: ["취소", "확인"],
+				      }).then((value) => {
+				    	  if(value)
+				    		  location.reload();
+				    	  else
+				    		  return;
+				      });
 			},
 			error:function(){
 				alert('삭제 실패', 'error');
@@ -68,10 +76,10 @@
 			location.href = url;
 		}
 		else if(sdate != '' && edate == ''){
-			alert('마지막날 입력하그래이');
+			alert('마지막날을 입력하세요.');
 		}
 		else if(sdate == '' && edate != ''){
-			alert('첫날 입력하그래이');
+			alert('첫날을 입력하세요.');
 		}else{ 
 			url = url + "?keyword=" + $('#keyword').val() + "&schStartDate=" + sdate
 					+ "&schEndDate=" + edate;

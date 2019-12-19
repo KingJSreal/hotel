@@ -41,10 +41,10 @@ public class Main{
 
 		List<Promotion> listPros = promotionService.listPros(search);
 
-		if(listPros.size() < 10)
-			listPros.subList(0, listPros.size());
+		if(listPros.size() < 8)
+			listPros = listPros.subList(0, listPros.size());
 		else
-			listPros.subList(0, 10);
+			listPros = listPros.subList(0, 8);
 		
 		model.addAttribute("listPros", listPros);
 	
@@ -70,10 +70,10 @@ public class Main{
 
 		List<Promotion> listPros = promotionService.listPros(search);
 
-		if(listPros.size() < 10)
-			listPros.subList(0, listPros.size());
+		if(listPros.size() < 8)
+			listPros = listPros.subList(0, listPros.size());
 		else
-			listPros.subList(0, 10);
+			listPros = listPros.subList(0, 8);
 		
 		model.addAttribute("listPros", listPros);
 	
