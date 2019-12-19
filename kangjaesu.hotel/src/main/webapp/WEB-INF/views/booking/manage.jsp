@@ -15,21 +15,17 @@
 }
 
 /* 테이블*/
-.table {
+.table, th{
 	text-align: center;
 }
 
-.th06 {
-	width: 100px;
+.th1, .th2, .th4 {
+	width: 200px;
+}
+.th5{
+	width: 150px;
 }
 
-th {
-	text-align: center;
-}
-
-.isotope-items, .table{
-	 clear: both;
-}
 </style>
 <script>
 var alert = function(msg, type) {
@@ -42,59 +38,29 @@ var alert = function(msg, type) {
 }
 
 $(document).ready(function() {
-	var search;
-	var selector;
-	var check;
-	var selectbox;
+	var select = "예약번호";
+	var td = ".td1";
 	
-	// 필터링
-	var $container = $('.isotope-items').isotope({
-	  layoutMode: 'fitRows',
-	  filter: function() {
-	    var $this = $(this); 
-	    var searchResult = search ? $this.find('.txt1').text().match( search ) : true;
-	   
-	    return searchResult;
-	  }
+	//셀렉트박스 클릭시 호출
+	$("#selectBox").change(function() {
+		select = $("#selectBox option:selected").val();
+		$("#search").val("");
 	});
-
-	//검색
-	var $quicksearch = $('#quicksearch').keyup( debounce( function() {
-		search = new RegExp( $quicksearch.val(), 'gi' );
-		$container.isotope();
-	}) );
-
-	/*
-	 	//검색
-	var $quicksearch = $('#quicksearch').keyup( debounce( function() {
-		search1 = new RegExp( $quicksearch.val(), 'gi' );
-		
-		if(option == "num")
-			search1 = new RegExp( $quicksearch.val(), 'gi' );
+	
+	//검색시 호출
+	$("#search").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		if(select == "예약번호")
+			$(this).val($(this).val().replace(/[^0-9]/gi, '')); 
 		else
-			search2 = new RegExp( $quicksearch.val(), 'gi' );
-		$container.isotope(); 
-	}));
-*/
-	
-
-	// 검색시간조절
-	   function debounce( fn, threshold ) {
-	      var timeout;
-	      threshold = threshold || 300;
-	      return function debounced() {
-	         clearTimeout( timeout );
-	          var args = arguments;
-	          var _this = this;
-	          function delayed() {
-	            fn.apply( _this, args );
-	          }
-	          timeout = setTimeout( delayed, threshold );
-	      };
-	   }
+			$(this).val($(this).val().replace(/[^가-힣ㄱ-ㅎa-z]/gi, '')); 
+			
+		$("table tbody .tr1").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
 });
-	
-	
+
 $(function() {		
 	//예약정보 버튼 클릭시 호출
 	$(".infoButton").click(function() {
@@ -138,36 +104,36 @@ $(function() {
 											<option>예약번호</option>
 											<option>예약인</option>
 									</select>
-									</span> <input type="text" class="form-control" id="quicksearch">
-									<button class="btn btn-default" type="button" id="searchBtn">검색</button>
+									</span> <input type="text" class="form-control" id="search">
 								</div>
 							</div>
 						</div>
 					</div>
 					
-						<table class="table table-hover table-bordered table-condensed">
+						<table class="table table-hover table-bordered table-condensed" id="table">
 						
 							<tr class="success">
-								<th>예약번호</th>
-								<th>객실</th>
-								<th>숙박일</th>
-								<th>예약인</th>
-								<th class="th06"></th>
+								<th class="th1">예약번호</th>
+								<th class="th2">객실</th>
+								<th class="th3">숙박일</th>
+								<th class="th4">예약인</th>
+								<th class="th5"></th>
 							</tr>
+							<tbody>
 							<c:forEach var="list" items="${bookingList}">
 							
-							<tr>
-								<td ><label class="txt1">${list.bookingNum}</label></td>
-								<td>${list.roomType}</td>
-								<td>${list.checkIn} ~ ${list.checkOut}</td>
-								<td class="txt2"><c:choose>
-										<c:when test="${list.userNum == 0}">(비회원) ${list.nuserKname}</c:when>
-										<c:otherwise>${list.userName}</c:otherwise>
-								</c:choose></td>
-								<td><button type="button" class="btn btn-success infoButton" id="${list.bookingNum}">예약정보</button></td>
-							</tr>
-							
-							</c:forEach>
+								<tr class="tr1">
+									<td class="td1">${list.bookingNum}</td>
+									<td class="td2">${list.roomType}</td>
+									<td class="td3">${list.checkIn} ~ ${list.checkOut}</td>
+									<td class="td4"><c:choose>
+											<c:when test="${list.userNum == 0}">(비회원) ${list.nuserKname}</c:when>
+											<c:otherwise>${list.userName}</c:otherwise>
+									</c:choose></td>
+									<td class="td5"><button type="button" class="btn btn-success infoButton" id="${list.bookingNum}">예약정보</button></td>
+								</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					<!-- paging -->
 					<div class="paging" style="text-align: center">
